@@ -16,13 +16,11 @@ dimensions:
   completion_tokens: {}
   cached_hit_tokens: {}
   cache_write_tokens: {}
+  event_date: {}
 
   event_id:
     format: ID
     primary_key: true
-
-  event_date:
-    timeframes: [ date, week, month, quarter, year ]
 
   name:
     label: Event Name

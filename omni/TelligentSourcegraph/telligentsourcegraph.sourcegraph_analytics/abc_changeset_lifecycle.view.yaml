@@ -162,35 +162,29 @@ dimensions:
     label: Created
     description: First successful publish or draft. The default reporting date -
       'created' is the union of published and drafted.
-    timeframes: [ date, week, month, quarter, year ]
     convert_tz: false
 
   first_published_at:
     label: Published
-    timeframes: [ date, week, month, quarter, year ]
     convert_tz: false
 
   first_drafted_at:
     label: Drafted
-    timeframes: [ date, week, month, quarter, year ]
     convert_tz: false
 
   first_merged_at:
     label: Merged
     description: First merge. Filter this to count merges that happened in a window.
-    timeframes: [ date, week, month, quarter, year ]
     convert_tz: false
 
   first_closed_at:
     label: Closed
-    timeframes: [ date, week, month, quarter, year ]
     convert_tz: false
 
   first_activity_at:
     label: First Activity
     description: Earliest batches event for this changeset. Table partition key -
       filter this for the cheapest scans.
-    timeframes: [ date, week, month, quarter, year ]
     convert_tz: false
 
 measures:

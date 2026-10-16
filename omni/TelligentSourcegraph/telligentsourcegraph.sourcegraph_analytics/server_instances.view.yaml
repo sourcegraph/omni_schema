@@ -78,11 +78,9 @@ dimensions:
 
   first_ping:
     sql: first_ping
-    timeframes: [ raw, hour, date, week, month, quarter, year ]
 
   latest_ping:
     sql: latest_ping
-    timeframes: [ raw, hour, date, week, month, quarter, year ]
 
   latest_builtin_signup_allowed:
     sql: latest_builtin_signup_allowed

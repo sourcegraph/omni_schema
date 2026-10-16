@@ -14,7 +14,6 @@ dimensions:
     sql: CAST(month AS TIMESTAMP)
     label: Month
     description: Calendar week
-    timeframes: [ month ]
 
 measures:
   sum_average_daus:

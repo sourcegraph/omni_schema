@@ -8,14 +8,12 @@ dimensions:
   feature: {}
   identifier: {}
   agent_scope: {}
+  event_date: {}
 
   root_interaction_id:
     label: Question ID
     format: ID
     description: Unique identifier for each question/interaction
-
-  event_date:
-    timeframes: [ date, week, month, quarter, year ]
 
   name:
     label: Event Name

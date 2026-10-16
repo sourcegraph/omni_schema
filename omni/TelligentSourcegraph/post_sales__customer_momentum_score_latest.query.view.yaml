@@ -40,11 +40,9 @@ dimensions:
 
   # ── Dates ──────────────────────────────────────────────────────
   run_date:
-    timeframes: [ raw, date, week, month, quarter, year ]
     convert_tz: false
 
   ds_activated_date:
-    timeframes: [ raw, date, week, month, quarter, year ]
     convert_tz: false
 
   # ── Momentum score & band ──────────────────────────────────────

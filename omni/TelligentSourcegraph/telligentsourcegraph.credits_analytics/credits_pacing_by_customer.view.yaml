@@ -61,16 +61,13 @@ dimensions:
   # ── Dates ──────────────────────────────────────────────────────
   earliest_bucket_start:
     label: Buckets Start
-    timeframes: [ raw, date, week, month, quarter, year ]
     convert_tz: false
 
   latest_bucket_expiry:
     label: Buckets End
-    timeframes: [ raw, date, week, month, quarter, year ]
     convert_tz: false
 
   projected_exhaustion_date:
-    timeframes: [ raw, date, week, month, quarter, year ]
     convert_tz: false
 
   # ── Pace band ──────────────────────────────────────────────────

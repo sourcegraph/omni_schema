@@ -33,56 +33,43 @@ dimensions:
 
   # ── Email funnel dates ─────────────────────────────────────────
   first_delivered_date:
-    timeframes: [ raw, date, week, month, quarter ]
     convert_tz: false
 
   first_opened_date:
-    timeframes: [ raw, date, week, month, quarter ]
     convert_tz: false
 
   first_clicked_date:
-    timeframes: [ raw, date, week, month, quarter ]
     convert_tz: false
 
   # ── Product activation dates ───────────────────────────────────
   first_billing_event_date:
-    timeframes: [ raw, date, week, month ]
     convert_tz: false
 
   first_ui_search_date:
-    timeframes: [ raw, date, week, month ]
     convert_tz: false
 
   first_code_nav_date:
-    timeframes: [ raw, date, week, month ]
     convert_tz: false
 
   first_ds_query_date:
-    timeframes: [ raw, date, week, month ]
     convert_tz: false
 
   first_mcp_date:
-    timeframes: [ raw, date, week, month ]
     convert_tz: false
 
   first_ds_history_date:
-    timeframes: [ raw, date, week, month ]
     convert_tz: false
 
   first_ds_architecture_date:
-    timeframes: [ raw, date, week, month ]
     convert_tz: false
 
   first_ds_security_date:
-    timeframes: [ raw, date, week, month ]
     convert_tz: false
 
   first_code_finder_date:
-    timeframes: [ raw, date, week, month ]
     convert_tz: false
 
   first_abc_date:
-    timeframes: [ raw, date, week, month ]
     convert_tz: false
 
   # ── Raw event counts (hidden, feed measures) ───────────────────

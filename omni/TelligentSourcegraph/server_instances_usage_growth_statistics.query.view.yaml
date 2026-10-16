@@ -21,12 +21,10 @@ dimensions:
     group_label: Server IDs
 
   month:
-    timeframes: [ month, quarter, year ]
     convert_tz: false
 
   timestamp:
     hidden: true
-    timeframes: [ date, week, month, quarter, year ]
 
   # Raw numeric columns: not exposed as dimensions in LookML, so hidden here.
   # They exist only to feed the measures below.

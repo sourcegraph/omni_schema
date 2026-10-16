@@ -1,3 +1,25 @@
+fiscal_month_offset: -1
+
+default_timeframes: [ raw, date, week, month, quarter, year, fiscal_quarter, fiscal_year ]
+
+included_schemas:
+  [
+    telligentsourcegraph.cody_gateway,
+    telligentsourcegraph.credits,
+    telligentsourcegraph.credits_analytics,
+    telligentsourcegraph.deepsearch,
+    telligentsourcegraph.enterprise_portal,
+    telligentsourcegraph.looker_precomputed,
+    telligentsourcegraph.lookup,
+    telligentsourcegraph.post_sales,
+    telligentsourcegraph.sfdc_current,
+    telligentsourcegraph.sourcegraph_analytics,
+    telligentsourcegraph.telemetry,
+    telligentsourcegraph.telemetry_staging,
+    telligentsourcegraph.telemtry_analytics,
+    telligentsourcegraph.pings_data_model_transformed,
+    telligentsourcegraph.gsheets
+  ]
 # ignored_schemas:
 #   [
 #     telligentsourcegraph.stripe,
@@ -32,21 +54,3 @@
 #     telligentsourcegraph.telemetry_validation,
 #     telligentsourcegraph.testing
 #   ]
-included_schemas:
-  [
-    telligentsourcegraph.cody_gateway,
-    telligentsourcegraph.credits,
-    telligentsourcegraph.credits_analytics,
-    telligentsourcegraph.deepsearch,
-    telligentsourcegraph.enterprise_portal,
-    telligentsourcegraph.looker_precomputed,
-    telligentsourcegraph.lookup,
-    telligentsourcegraph.post_sales,
-    telligentsourcegraph.sfdc_current,
-    telligentsourcegraph.sourcegraph_analytics,
-    telligentsourcegraph.telemetry,
-    telligentsourcegraph.telemetry_staging,
-    telligentsourcegraph.telemtry_analytics,
-    telligentsourcegraph.pings_data_model_transformed,
-    telligentsourcegraph.gsheets
-  ]

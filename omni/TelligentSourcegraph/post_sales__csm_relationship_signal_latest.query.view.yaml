@@ -16,7 +16,6 @@ dimensions:
     primary_key: true
 
   run_date:
-    timeframes: [ raw, date, week, month, quarter, year ]
     convert_tz: false
 
   csm_relationship_signal_color:

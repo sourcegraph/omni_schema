@@ -24,6 +24,12 @@ dimensions:
   thread_type: {}
   escalated: {}
   product_area: {}
+  # ===========================================================================
+  # DATES
+  # ===========================================================================
+
+  created_at: {}
+  updated_at: {}
 
   # ===========================================================================
   # PRIMARY KEY
@@ -75,19 +81,8 @@ dimensions:
   assignee_name:
     label: Assignee
 
-  # ===========================================================================
-  # DATES
-  # ===========================================================================
-
-  created_at:
-    timeframes: [ raw, date, week, month, quarter, year ]
-
-  updated_at:
-    timeframes: [ raw, date, week, month, quarter, year ]
-
   status_changed_at:
     label: Resolved
-    timeframes: [ raw, date, week, month, quarter, year ]
 
   day_of_week:
     sql: EXTRACT(DAYOFWEEK FROM DATE(SAFE_CAST(${created_at[raw]} AS TIMESTAMP)))
