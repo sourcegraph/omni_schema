@@ -1,0 +1,31 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__technical_health_score_v2_april1_2026
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: technical_health_score_v2_april1_2026
+
+dimensions:
+  customer_name: {}
+  customer_tenure: {}
+  month: {}
+  avg_daily_active_users: {}
+  monthly_active_users: {}
+  purchased_seats: {}
+  account_arr: {}
+  version: {}
+  versions_behind: {}
+  mau_over_seats: {}
+  adoption_score: {}
+  usage_score: {}
+  version_score: {}
+  technical_health_score: {}
+  telemetry_status: {}
+
+  account_id:
+    format: ID
+
+  daus_to_maus:
+    sql: DAUs_to_MAUs
+
+measures:
+  count:
+    aggregate_type: count

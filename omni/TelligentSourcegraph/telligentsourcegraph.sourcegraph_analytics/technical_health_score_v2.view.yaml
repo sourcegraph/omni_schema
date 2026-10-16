@@ -1,0 +1,122 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__technical_health_score_v2
+hidden: true
+
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: technical_health_score_v2
+
+dimensions:
+  customer_tenure: {}
+  month: {}
+  purchased_seats: {}
+  account_arr: {}
+  version: {}
+  telemetry_status: {}
+
+  customer_name:
+    label: Account Name
+
+  account_id:
+    format: ID
+
+measures:
+  # --- Score input ---
+  avg_daily_active_users:
+    sql: avg_daily_active_users
+    group_label: Score input
+    aggregate_type: average
+
+  monthly_active_users:
+    sql: monthly_active_users
+    label: Average MAUs
+    group_label: Score input
+    drill_fields: [ customer_name, monthly_active_users, purchased_seats ]
+    aggregate_type: average
+
+  versions_behind:
+    sql: versions_behind
+    group_label: Score input
+    aggregate_type: average
+
+  mau_over_seats:
+    sql: mau_over_seats
+    label: Average MAU/Seats
+    group_label: Score input
+    format: percent_0
+    drill_fields: [ customer_name, monthly_active_users, purchased_seats, mau_over_seats ]
+    aggregate_type: average
+
+  # --- Scores ---
+  adoption_score:
+    sql: adoption_score
+    group_label: Scores
+    aggregate_type: average
+
+  usage_score:
+    sql: usage_score
+    group_label: Scores
+    aggregate_type: average
+
+  version_score:
+    sql: version_score
+    group_label: Scores
+    aggregate_type: average
+
+  technical_health_score:
+    sql: technical_health_score
+    group_label: Scores
+    aggregate_type: average
+
+  daus_to_maus:
+    sql: DAUs_to_MAUs
+    label: Average DAU/MAU
+    group_label: Score input
+    aggregate_type: average
+
+  count:
+    aggregate_type: count
+
+  median_mau_over_seats:
+    sql: mau_over_seats
+    label: Median MAU/Seats
+    group_label: Score input
+    format: percent_0
+    drill_fields:
+      [
+        customer_name,
+        monthly_active_users,
+        purchased_seats,
+        median_mau_over_seats
+      ]
+    aggregate_type: median
+
+  sum_purchased_seats:
+    sql: purchased_seats
+    label: Sum purchased seats
+    group_label: Score input
+    aggregate_type: sum
+
+  average_purchased_seats:
+    sql: purchased_seats
+    label: Average purchased seats
+    group_label: Score input
+    aggregate_type: average
+
+  # --- Other ---
+  account_arr_sum:
+    sql: account_arr
+    aggregate_type: sum
+
+  average_arpu:
+    sql: |
+      CASE
+        WHEN ${purchased_seats} = 0 THEN 0
+        ELSE ${account_arr} / ${purchased_seats}
+      END
+    label: average_ARPU
+    format: usdcurrency_0
+    aggregate_type: average
+
+  count_distinct_accounts:
+    sql: ${customer_name}
+    aggregate_type: count_distinct

@@ -1,0 +1,22 @@
+# Reference this view as telligentsourcegraph_pings_data_model_transformed__code_intel_users_weekly
+catalog: telligentsourcegraph
+schema: pings_data_model_transformed
+table_name: code_intel_users_weekly
+
+dimensions:
+  timestamp: {}
+  installer_email: {}
+  week: {}
+  waus: {}
+  xrepo_waus: {}
+  search_waus: {}
+  precise_waus: {}
+  precise_xrepo_waus: {}
+  search_xrepo_waus: {}
+
+  remote_site_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

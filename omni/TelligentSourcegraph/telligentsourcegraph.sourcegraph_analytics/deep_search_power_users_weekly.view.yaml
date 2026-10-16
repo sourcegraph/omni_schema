@@ -1,0 +1,19 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__deep_search_power_users_weekly
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: deep_search_power_users_weekly
+
+dimensions:
+  week_start: {}
+  days_used: {}
+
+  external_url:
+    sql: externalUrl
+
+  unique_user_id:
+    sql: uniqueUserId
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

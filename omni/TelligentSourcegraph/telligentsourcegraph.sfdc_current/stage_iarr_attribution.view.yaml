@@ -1,0 +1,19 @@
+# Reference this view as telligentsourcegraph_sfdc_current__stage_iarr_attribution
+catalog: telligentsourcegraph
+schema: sfdc_current
+table_name: stage_iarr_attribution
+
+dimensions:
+  stage: {}
+  segment: {}
+  type: {}
+  synthetic_size: {}
+  win_prob: {}
+  expected_iarr_per_opp: {}
+  stage1_speculative: {}
+  win_low_confidence: {}
+  anchor_low_confidence: {}
+
+measures:
+  count:
+    aggregate_type: count

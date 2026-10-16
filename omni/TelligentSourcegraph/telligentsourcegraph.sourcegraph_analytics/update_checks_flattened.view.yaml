@@ -1,0 +1,58 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__update_checks_flattened
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: update_checks_flattened
+
+dimensions:
+  timestamp: {}
+  remote_site_version: {}
+  installer_email: {}
+  remote_ip: {}
+  auth_providers: {}
+  deploy_type: {}
+  unique_users_today: {}
+  has_code_intelligence: {}
+  has_update: {}
+  total_user_accounts: {}
+  site_activity: {}
+  builtin_signup_allowed: {}
+  has_external_url: {}
+  has_repos: {}
+  ever_searched: {}
+  ever_find_refs: {}
+  ext_services: {}
+  automation_usage: {}
+  code_intel_usage: {}
+  search_usage: {}
+  license_key: {}
+  growth_statistics: {}
+  saved_searches: {}
+  repositories: {}
+  homepage_panels: {}
+  dependency_versions: {}
+  search_onboarding: {}
+  new_code_intel_usage: {}
+  retention_statistics: {}
+  extension_usage: {}
+  code_insights_usage: {}
+  batch_changes_usage: {}
+  code_monitoring_usage: {}
+  code_host_versions: {}
+  code_insights_critical_telemetry: {}
+  cta_usage: {}
+  ide_extensions_usage: {}
+  notebooks_usage: {}
+  migrated_extensions_usage: {}
+  access_request_enabled: {}
+  own_usage: {}
+  repository_size_histogram: {}
+  os: {}
+  total_repos: {}
+  active_today: {}
+
+  total_orgs:
+    sql: TotalOrgs
+
+measures:
+  count:
+    aggregate_type: count

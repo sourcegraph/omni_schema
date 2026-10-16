@@ -1,0 +1,9 @@
+base_view: telligentsourcegraph_cody_gateway__events_transformed
+
+joins:
+  telligentsourcegraph_enterprise_portal__subscriptions:
+    telligentsourcegraph_sfdc_current__dim_account_details:
+      telligentsourcegraph_sourcegraph_analytics__server_instances: {}
+    telligentsourcegraph_sfdc_current__looker_dim_account_details: {}
+  telligentsourcegraph_cody_gateway__model_costs: {}
+  telligentsourcegraph_telemetry_staging__cloud_users: {}

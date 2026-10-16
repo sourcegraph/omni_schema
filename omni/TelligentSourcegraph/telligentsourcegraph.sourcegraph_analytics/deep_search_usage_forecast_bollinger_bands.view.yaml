@@ -1,0 +1,26 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__deep_search_usage_forecast_bollinger_bands
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: deep_search_usage_forecast_bollinger_bands
+
+dimensions:
+  current_month: {}
+  current_month_usage: {}
+  min_usage_3m: {}
+  mean_growth_3m: {}
+  std_growth_3m: {}
+  months_ahead: {}
+  forecast_month: {}
+  forecast: {}
+  forecast_upper_1s: {}
+  forecast_lower_1s: {}
+  forecast_upper_2s: {}
+  forecast_lower_2s: {}
+  data_quality_flag: {}
+
+  customer_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

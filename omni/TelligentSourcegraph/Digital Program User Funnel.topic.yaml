@@ -1,0 +1,5 @@
+base_view: telligentsourcegraph_post_sales__digital_program_user_funnel
+
+joins:
+  telligentsourcegraph_sfdc_current__looker_dim_account_details:
+    telligentsourcegraph_sourcegraph_analytics__server_instances: {}

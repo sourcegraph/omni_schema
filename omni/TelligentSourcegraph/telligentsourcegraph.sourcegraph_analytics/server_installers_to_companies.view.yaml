@@ -1,0 +1,15 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__server_installers_to_companies
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: server_installers_to_companies
+
+dimensions:
+  company_name: {}
+  company_type: {}
+
+  unique_server_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

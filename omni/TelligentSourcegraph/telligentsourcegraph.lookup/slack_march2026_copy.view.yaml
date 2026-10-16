@@ -1,0 +1,28 @@
+# Reference this view as telligentsourcegraph_lookup__slack_march2026_copy
+catalog: telligentsourcegraph
+schema: lookup
+table_name: slack_march2026_copy
+
+dimensions:
+  username: {}
+  email: {}
+  status: {}
+  userid: {}
+  fullname: {}
+  displayname: {}
+
+  billing_active:
+    sql: "`billing-active`"
+
+  has_2fa:
+    sql: "`has-2fa`"
+
+  has_sso:
+    sql: "`has-sso`"
+
+  expiration_timestamp:
+    sql: "`expiration-timestamp`"
+
+measures:
+  count:
+    aggregate_type: count

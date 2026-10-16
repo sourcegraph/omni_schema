@@ -1,0 +1,13 @@
+base_view: telligentsourcegraph_enterprise_portal__credit_buckets
+label: Credit Buckets
+
+joins:
+  telligentsourcegraph_enterprise_portal__subscriptions:
+    telligentsourcegraph_sfdc_current__looker_dim_account_details:
+      telligentsourcegraph_credits_analytics__credits_pacing_by_customer: {}
+      telligentsourcegraph_sourcegraph_analytics__server_instances:
+        telligentsourcegraph_sourcegraph_analytics__licenses: {}
+      telligentsourcegraph_sourcegraph_analytics__gong_summary_by_customer: {}
+    telligentsourcegraph_sfdc_current__dim_account_details:
+      telligentsourcegraph_gsheets__customer_telemetry_status_updated: {}
+      telligentsourcegraph_sfdc_current__purchased_seat_monthly: {}

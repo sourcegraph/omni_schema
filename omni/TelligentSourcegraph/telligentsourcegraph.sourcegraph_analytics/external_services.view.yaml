@@ -1,0 +1,44 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__external_services
+description: Dotcom PG table replication
+
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: external_services
+
+dimensions:
+  kind: {}
+  display_name: {}
+  config: {}
+  created_at: {}
+  updated_at: {}
+  deleted_at: {}
+  last_sync_at: {}
+  next_sync_at: {}
+  unrestricted: {}
+  cloud_default: {}
+  has_webhooks: {}
+  token_expires_at: {}
+  suspended: {}
+
+  id:
+    format: ID
+    primary_key: true
+
+  encryption_key_id:
+    format: ID
+
+  code_host_id:
+    format: ID
+
+  creator_id:
+    format: ID
+
+  last_updater_id:
+    format: ID
+
+  tenant_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

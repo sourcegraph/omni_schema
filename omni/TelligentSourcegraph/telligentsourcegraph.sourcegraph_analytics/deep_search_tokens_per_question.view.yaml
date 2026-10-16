@@ -1,0 +1,196 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__deep_search_tokens_per_question
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: deep_search_tokens_per_question
+
+dimensions:
+  source: {}
+  feature: {}
+  identifier: {}
+  agent_scope: {}
+
+  root_interaction_id:
+    label: Question ID
+    format: ID
+    description: Unique identifier for each question/interaction
+
+  event_date:
+    timeframes: [ date, week, month, quarter, year ]
+
+  name:
+    label: Event Name
+
+  unique_user_id:
+    sql: uniqueUserId
+    format: ID
+
+  instance_user_id:
+    sql: instanceUserId
+    format: ID
+
+  display_name:
+    sql: displayName
+
+  external_url:
+    sql: externalUrl
+
+  salesforce_account_id:
+    sql: salesforceAccountId
+    format: ID
+
+  models_used:
+    sql: ARRAY_TO_STRING(models_used, ', ')
+    description: List of models used for this question
+
+  providers_used:
+    sql: ARRAY_TO_STRING(providers_used, ', ')
+    description: List of providers used for this question
+
+  # ---------- Token counts (per question) ----------
+  event_count:
+    description: Number of LLM calls for this question
+    hidden: true
+
+  total_prompt_tokens:
+    group_label: Token Counts (per Question)
+    hidden: true
+
+  total_completion_tokens:
+    group_label: Token Counts (per Question)
+    hidden: true
+
+  total_cached_hit_tokens:
+    group_label: Token Counts (per Question)
+    hidden: true
+
+  total_cache_write_tokens:
+    group_label: Token Counts (per Question)
+    hidden: true
+
+  total_tokens:
+    sql: ${total_prompt_tokens} + ${total_completion_tokens} +
+      ${total_cached_hit_tokens} + ${total_cache_write_tokens}
+    group_label: Token Counts (per Question)
+    hidden: true
+
+  # ---------- Costs (per question) ----------
+  prompt_cost:
+    hidden: true
+
+  completion_cost:
+    hidden: true
+
+  cached_hit_cost:
+    hidden: true
+
+  cache_write_cost:
+    hidden: true
+
+  total_cost:
+    sql: ${prompt_cost} + ${completion_cost} + ${cached_hit_cost} +
+      ${cache_write_cost}
+    label: Total Cost (per Question)
+    hidden: true
+
+measures:
+  # ---------- Question counts ----------
+  count_questions:
+    label: Number of Questions
+    aggregate_type: count
+
+  total_events:
+    sql: ${event_count}
+    label: Total LLM Calls
+    aggregate_type: sum
+
+  avg_events_per_question:
+    sql: ${event_count}
+    label: Avg LLM Calls per Question
+    aggregate_type: average
+
+  # ---------- Tokens ----------
+  sum_prompt_tokens:
+    sql: ${total_prompt_tokens}
+    label: Total Prompt (Input) Tokens
+    group_label: Token Counts
+    aggregate_type: sum
+
+  sum_completion_tokens:
+    sql: ${total_completion_tokens}
+    label: Total Completion (Output) Tokens
+    group_label: Token Counts
+    aggregate_type: sum
+
+  sum_cached_hit_tokens:
+    sql: ${total_cached_hit_tokens}
+    label: Total Cache Read Tokens
+    group_label: Token Counts
+    aggregate_type: sum
+
+  sum_cache_write_tokens:
+    sql: ${total_cache_write_tokens}
+    label: Total Cache Write Tokens
+    group_label: Token Counts
+    aggregate_type: sum
+
+  sum_all_tokens:
+    sql: ${total_tokens}
+    label: Total Tokens (All Types)
+    group_label: Token Counts
+    aggregate_type: sum
+
+  avg_tokens_per_question:
+    sql: ${total_tokens}
+    label: Avg Tokens per Question
+    group_label: Token Counts
+    aggregate_type: average
+
+  # ---------- Costs ----------
+  sum_prompt_cost:
+    sql: ${prompt_cost}
+    label: Cost Prompt (Input) Tokens
+    group_label: Costs
+    aggregate_type: sum
+
+  sum_completion_cost:
+    sql: ${completion_cost}
+    label: Cost Completion (Output) Tokens
+    group_label: Costs
+    aggregate_type: sum
+
+  sum_cached_hit_cost:
+    sql: ${cached_hit_cost}
+    label: Cost Cache Read Tokens
+    group_label: Costs
+    aggregate_type: sum
+
+  sum_cache_write_cost:
+    sql: ${cache_write_cost}
+    label: Cost Cache Write Tokens
+    group_label: Costs
+    aggregate_type: sum
+
+  sum_total_cost:
+    sql: ${total_cost}
+    label: Total Cost
+    group_label: Costs
+    format: USDCURRENCY_1
+    aggregate_type: sum
+
+  avg_cost_per_question:
+    sql: ${total_cost}
+    label: Avg Cost per Question
+    group_label: Costs
+    aggregate_type: average
+
+  unique_users:
+    sql: ${unique_user_id}
+    label: Unique Users
+    aggregate_type: count_distinct
+
+  unique_instances:
+    sql: ${identifier}
+    label: Unique Instances
+    aggregate_type: count_distinct
+
+default_drill_fields: [ root_interaction_id, event_date, display_name, total_tokens, total_cost ]

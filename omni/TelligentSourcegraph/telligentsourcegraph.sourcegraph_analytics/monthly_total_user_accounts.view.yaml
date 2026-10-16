@@ -1,0 +1,15 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__monthly_total_user_accounts
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: monthly_total_user_accounts
+
+dimensions:
+  month: {}
+  total_user_accounts: {}
+
+  unique_server_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

@@ -1,0 +1,15 @@
+# Reference this view as telligentsourcegraph_cody_gateway__model_costs_2024_11
+catalog: telligentsourcegraph
+schema: cody_gateway
+table_name: model_costs_2024_11
+
+dimensions:
+  model: {}
+  prompt_cost_per_million_tokens: {}
+  completion_cost_per_million_token: {}
+  prompt_cache_hit_cost_per_million_tokens: {}
+  prompt_cache_write_cost_per_million_tokens: {}
+
+measures:
+  count:
+    aggregate_type: count

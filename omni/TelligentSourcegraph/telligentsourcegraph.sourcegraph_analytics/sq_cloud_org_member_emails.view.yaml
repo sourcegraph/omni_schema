@@ -1,0 +1,26 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__sq_cloud_org_member_emails
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: sq_cloud_org_member_emails
+
+dimensions:
+  created_at: {}
+  updated_at: {}
+  email: {}
+
+  id:
+    format: ID
+    primary_key: true
+
+  org_id:
+    format: ID
+
+  user_id:
+    format: ID
+
+  tenant_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

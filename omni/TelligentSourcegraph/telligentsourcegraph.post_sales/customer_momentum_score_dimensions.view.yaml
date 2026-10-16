@@ -1,0 +1,108 @@
+# Reference this view as telligentsourcegraph_post_sales__customer_momentum_score_dimensions
+catalog: telligentsourcegraph
+schema: post_sales
+table_name: customer_momentum_score_dimensions
+
+dimensions:
+  run_date: {}
+  account_name: {}
+  segmentation: {}
+  iacv: {}
+  account_owner: {}
+  account_manager: {}
+  ds_activated_date: {}
+  mau_p0: {}
+  mau_p1: {}
+  mau_p2: {}
+  mau_p3: {}
+  mau_pct_p0p1: {}
+  mau_pct_p1p2: {}
+  mau_pct_p2p3: {}
+  seat_consumption_p0: {}
+  seat_consumption_p1: {}
+  seat_consumption_p2: {}
+  seat_consumption_p3: {}
+  purchased_seats: {}
+  seat_consumption_pp_p0p1: {}
+  seat_consumption_pp_p1p2: {}
+  seat_consumption_pp_p2p3: {}
+  power_pct_p0: {}
+  power_pct_p1: {}
+  power_pct_p2: {}
+  power_pct_p3: {}
+  power_pct_pp_p0p1: {}
+  power_pct_pp_p1p2: {}
+  power_pct_pp_p2p3: {}
+  ds_users_p0: {}
+  ds_users_p1: {}
+  ds_users_p2: {}
+  ds_users_p3: {}
+  ds_queries_p0: {}
+  ds_queries_p1: {}
+  ds_queries_p2: {}
+  ds_queries_p3: {}
+  ds_users_pct_p0p1: {}
+  ds_users_pct_p1p2: {}
+  ds_users_pct_p2p3: {}
+  ds_queries_pct_p0p1: {}
+  ds_queries_pct_p1p2: {}
+  ds_queries_pct_p2p3: {}
+  ds_consumed_p0: {}
+  ds_consumed_p1: {}
+  ds_consumed_p2: {}
+  ds_consumed_p3: {}
+  ds_consumed_pct_p0p1: {}
+  ds_consumed_pct_p1p2: {}
+  ds_consumed_pct_p2p3: {}
+  ds_categories_p0: {}
+  ds_categories_p1: {}
+  ds_categories_p2: {}
+  ds_categories_p3: {}
+  ds_categories_delta_p0p1: {}
+  ds_categories_delta_p1p2: {}
+  ds_categories_delta_p2p3: {}
+  mcp_users_p0: {}
+  mcp_users_p1: {}
+  mcp_users_p2: {}
+  mcp_users_p3: {}
+  mcp_users_pct_p0p1: {}
+  mcp_users_pct_p1p2: {}
+  mcp_users_pct_p2p3: {}
+  ui_search_users_p0: {}
+  ui_search_users_p1: {}
+  ui_search_users_p2: {}
+  ui_search_users_p3: {}
+  ui_search_queries_p0: {}
+  ui_search_queries_p1: {}
+  ui_search_queries_p2: {}
+  ui_search_queries_p3: {}
+  ui_search_users_pct_p0p1: {}
+  ui_search_users_pct_p1p2: {}
+  ui_search_users_pct_p2p3: {}
+  ui_search_queries_pct_p0p1: {}
+  ui_search_queries_pct_p1p2: {}
+  ui_search_queries_pct_p2p3: {}
+  features_p0: {}
+  features_p1: {}
+  features_p2: {}
+  features_p3: {}
+  features_delta_p0p1: {}
+  features_delta_p1p2: {}
+  features_delta_p2p3: {}
+  repo_size_gb_p0: {}
+  repo_size_gb_p1: {}
+  repo_size_gb_p2: {}
+  repo_size_gb_p3: {}
+  repo_size_pct_p0p1: {}
+  repo_size_pct_p1p2: {}
+  repo_size_pct_p2p3: {}
+
+  account_id:
+    format: ID
+
+  sfdc_unique_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

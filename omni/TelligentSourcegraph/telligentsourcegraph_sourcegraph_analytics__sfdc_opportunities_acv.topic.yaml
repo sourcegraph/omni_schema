@@ -1,0 +1,6 @@
+base_view: telligentsourcegraph_sourcegraph_analytics__sfdc_opportunities_acv
+label: SFDC Opportunities ACV
+
+joins:
+  telligentsourcegraph_sfdc_current__looker_dim_account_details:
+    telligentsourcegraph_sourcegraph_analytics__server_instances: {}

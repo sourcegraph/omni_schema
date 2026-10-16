@@ -1,0 +1,165 @@
+# Reference this view as telligentsourcegraph_credits__consumption_events
+description: Enriched credit consumption events with bucket assignment, credit
+  type classification, and effective pricing. Buckets are assigned using
+  priority-based FIFO on the current bucket snapshot, then documented manual
+  overrides, then a Portal rebalance that moves whole events between buckets of
+  a balanced subscription so bucket roll-ups match Enterprise Portal
+  credits_consumed. See assignment_method.
+
+catalog: telligentsourcegraph
+schema: credits
+table_name: consumption_events
+
+dimensions:
+  consumption_id:
+    format: ID
+    description: UUIDv7 unique identifier for this consumption event
+    primary_key: true
+
+  subscription_id:
+    format: ID
+    description: Enterprise portal subscription that consumed credits
+
+  sku:
+    description: "The SKU consumed: 0 = Unspecified, 1 = Deep Search, 2 = Smart
+      Hover Summary, 3 = MCP Code Finder, 4 = Batch Changes Coding Agent LLM
+      Usage, 5 = Batch Change Agent Messages, 6 = Diff Tour"
+
+  sku_name:
+    sql: |-
+      CASE ${sku}
+        WHEN 0 THEN 'Unspecified'
+        WHEN 1 THEN 'Deep Search'
+        WHEN 2 THEN 'Smart Hover Summary'
+        WHEN 3 THEN 'MCP Code Finder'
+        WHEN 4 THEN 'Batch Changes Coding Agent LLM Usage'
+        WHEN 5 THEN 'Batch Change Agent Messages'
+        WHEN 6 THEN 'Diff Tour'
+        WHEN 7 THEN 'Agentic Batch Changes - Tier 1 (1-100)' 
+        WHEN 8 THEN 'Agentic Batch Changes - Tier 2 (101-300)'
+        ELSE CAST(${sku} AS STRING)
+      END
+    label: SKU Name
+    ##  7 = ABC merged credits; 4&5 = agent messages https://data.sgdev.org/conversations/a3a8ff316ceae840c2a0cecad7a9e9f5
+    description: The SKU consumed, mapped from the numeric sku value
+
+  count:
+    description: Number of SKU units consumed
+
+  credits:
+    description: Number of credits consumed (can be fractional)
+
+  created_at:
+    description: When the consumption was triggered in-instance
+
+  received_at:
+    description: When the event was received by the pipeline
+
+  was_inside_debit_window:
+    description: Whether consumption occurred inside the debit window
+
+  user_id:
+    format: ID
+    description: In-instance user ID (if attributable)
+
+  bucket_id:
+    format: ID
+    description: The credit bucket this consumption was assigned to
+
+  bucket_display_name:
+    description: Display name of the assigned credit bucket
+
+  credit_type:
+    description: "Classification: free, paid, overage_capped, overage_uncapped"
+
+  dealhub_subscription_id:
+    format: ID
+    description: Salesforce DealHub subscription ID (if paid credits)
+
+  price_per_credit:
+    description: Effective price per credit based on credit type and DealHub pricing
+
+  dollar_cost:
+    description: Commercial value of credits consumed (credits * effective customer
+      price_per_credit). This is not LLM/provider spend, Gateway inference cost,
+      or infrastructure COGS.
+
+  customer_name:
+    description: Customer display name from enterprise portal
+
+  instance_domain:
+    description: Customer instance domain
+
+  salesforce_subscription_id:
+    format: ID
+    description: Salesforce subscription ID (not DealHub)
+
+  salesforce_account_id:
+    format: ID
+    description: Salesforce account ID
+
+  license_key:
+    description: License key (SignedKey) for v2t telemetry joining
+
+  unique_key:
+    sql: CONCAT(CAST(${telligentsourcegraph_credits__consumption_events.user_id} AS
+      STRING), '-',
+      ${telligentsourcegraph_credits__consumption_events.instance_domain})
+    label: Unique User
+    format: ""
+
+  assignment_method:
+    description: "How bucket_id was chosen: allocator (current-snapshot FIFO),
+      manual_override (pinned window), or portal_rebalance (moved so bucket
+      totals match Enterprise Portal credits_consumed)"
+
+measures:
+  row_count:
+    aggregate_type: count
+
+  credits_consumed:
+    sql: ${credits}
+    label: Credits Consumed
+    format: "#,##0"
+    description: Total credits consumed
+    aggregate_type: sum
+
+  single_day_credit_annual_run_rate:
+    sql: ${credits_consumed} * 365
+    label: Credit Annual Run Rate (Single Day)
+    format: "#,##0"
+    description: Credits consumed × 365. Only meaningful when filtered to a single day.
+
+  dollars_consumed:
+    sql: ${dollar_cost}
+    label: Dollars Consumed
+    format: USDCURRENCY_0
+    description: Total dollar cost of credits consumed
+    aggregate_type: sum
+
+  distinct_users:
+    sql: ${unique_key}
+    aggregate_type: count_distinct
+
+  single_day_annual_run_rate:
+    sql: ${dollars_consumed} * 365
+    label: Annual Run Rate (Single Day)
+    format: USDCURRENCY_0
+    description: Dollars consumed × 365. Only meaningful when filtered to a single day.
+
+  percent_consumed:
+    sql: SAFE_DIVIDE(${credits_consumed},
+      ${telligentsourcegraph_enterprise_portal__credit_buckets.credits_allocated})
+    label: Percent of Allocation Consumed
+    format: PERCENT_1
+    description: Credits consumed as a share of credits allocated to the bucket
+
+  credits_per_user:
+    sql: CASE WHEN
+      ${telligentsourcegraph_credits__consumption_events.distinct_users} = 0
+      THEN NULL ELSE
+      COALESCE(${telligentsourcegraph_credits__consumption_events.credits_consumed},
+      0) / ${telligentsourcegraph_credits__consumption_events.distinct_users}
+      END
+    label: Credits per User
+    format: NUMBER_0

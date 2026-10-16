@@ -1,0 +1,278 @@
+# Reference this view as telligentsourcegraph_sfdc_current__sfdc_lead
+catalog: telligentsourcegraph
+schema: sfdc_current
+table_name: sfdc_lead
+
+dimensions:
+  name: {}
+  title: {}
+  email: {}
+  created_date: {}
+  valid_from: {}
+  is_converted: {}
+  converted_date: {}
+  account: {}
+  assigned_ae_c: {}
+  sdr_name_c: {}
+  first_touchpoint_c: {}
+  first_touchpoint_date_c: {}
+  hs_most_recent_touchpoint_c: {}
+  hs_most_recent_marketing_touchpoint_date_c: {}
+  lead_assignment_path_c: {}
+  lead_lifecycle_stage_c: {}
+  lead_source: {}
+  lead_sub_status_c: {}
+  mql_date_c: {}
+  pql_date_c: {}
+  nps_score_c: {}
+  product_grade_c: {}
+  pql_first_product_usage_date_private_c: {}
+  pql_first_product_usage_date_cloud_c: {}
+  pql_last_product_usage_date_cloud_c: {}
+  pql_last_product_usage_date_cloud_c_1: {}
+  pql_search_completed_private_install_c: {}
+  pql_search_completed_cloud_c: {}
+  pql_code_host_added_private_install_c: {}
+  mobile_phone: {}
+  phone: {}
+  campaign_source_c: {}
+  first_responded_campaign_c: {}
+  first_responded_campaign_type_c: {}
+  most_recent_campaign_responded_name_c: {}
+  most_recent_campaign_responded_type_c: {}
+  recent_event_campaign_name_c: {}
+  person_source_c: {}
+  person_source_category_c: {}
+  person_source_detail_c: {}
+  original_person_source_c: {}
+  original_person_source_details_c: {}
+  original_person_source_category_c: {}
+  status: {}
+  pql_days_active_private_install_c: {}
+  pql_days_active_cloud_c: {}
+  pql_search_completed_private_install_c_1: {}
+  pql_search_completed_cloud_c_1: {}
+  pql_code_host_added_private_install_c_1: {}
+  pql_code_host_added_cloud_c: {}
+  pql_repo_added_private_install_c: {}
+  pql_last_product_usage_date_private_c: {}
+  x_18_digit_id_c: {}
+  lead_assigned_ae_c: {}
+  last_activity_newer_than_mql_date_c: {}
+  cbit_linked_in_c: {}
+  outbound_account_rr_c: {}
+  fit_grade_c: {}
+  account_is_target_account_c: {}
+  last_activity_newer_than_pql_c: {}
+  champify_io_champify_engaged_c: {}
+  champify_io_past_account_owner_c: {}
+  time_to_touch_c: {}
+  lead_email_domain_c: {}
+  cbit_facebook_c: {}
+  pql_shows_recent_usage_c: {}
+  lead_owner_account_sdr_mismatch_c: {}
+  champify_io_clean_website_c: {}
+  affectlayer_affect_layer_notes_c: {}
+  lead_true_c: {}
+  cbit_twitter_c: {}
+  account_employee_count_c: {}
+  sales_territory_assignment_c: {}
+  targeted_title_keyword_c: {}
+  first_page_seen_c: {}
+  last_page_seen_c: {}
+  f0_: {}
+  f1_: {}
+  f2_: {}
+  f3_: {}
+  f4_: {}
+  f5_: {}
+  f6_: {}
+  f7_: {}
+  f8_: {}
+  f9_: {}
+  f10_: {}
+  f11_: {}
+  valid_from_1: {}
+  account_data_source_c: {}
+  account_name_legal_c: {}
+  account_source: {}
+  account_tier_c: {}
+  ae_name_c: {}
+  annual_revenue: {}
+  billing_city: {}
+  billing_country: {}
+  billing_postal_code: {}
+  billing_state: {}
+  billing_street: {}
+  bundle_size_c: {}
+  clearbit_industry_c: {}
+  clearbit_industry_group_c: {}
+  clearbit_tags_c: {}
+  company_domain_name_c: {}
+  created_date_1: {}
+  created_from_lead_c: {}
+  customer_engagement_c: {}
+  customer_engineer_c: {}
+  geo_c: {}
+  github_issue_id_c: {}
+  is_deleted: {}
+  last_activity_date: {}
+  last_ae_activity_c: {}
+  last_funding_amount_c: {}
+  last_funding_date_c: {}
+  most_recent_closed_won_opportunity_c: {}
+  name_1: {}
+  number_of_employees: {}
+  number_of_engineers_c: {}
+  region_c: {}
+  revenue_c: {}
+  sdr_account_rr_outbound_c: {}
+  sdr_name_c_1: {}
+  sic_desc: {}
+  strategic_account_c: {}
+  sub_region_c: {}
+  target_account_c: {}
+  tech_keyword_c: {}
+  tech_list_includes_github_c: {}
+  technologies_c: {}
+  top_5_investors_c: {}
+  triblio_account_score_last_30_days_c: {}
+  triblio_account_score_last_7_days_c: {}
+  triblio_first_activity_date_c: {}
+  triblio_is_mqa_c: {}
+  triblio_most_revent_activity_date_c: {}
+  triblio_mqa_date_c: {}
+  triblio_smart_score_c: {}
+  type: {}
+  unique_account_id_c: {}
+  website: {}
+  cf_sw_engineer_count_c: {}
+  cf_experience_with_code_search_score_c: {}
+  cf_tooling_score_c: {}
+  fy_23_americas_segmentation_c: {}
+  cf_sw_engineer_growth_rate_c: {}
+  cf_total_close_factor_score_c: {}
+  cf_dev_experience_score_c: {}
+  cf_sw_engineer_growth_rate_score_c: {}
+  tech_list_includes_gitlab_c: {}
+  strat_100_c: {}
+  last_sdr_activity_on_contact_lead_c: {}
+  ae_activity_count_last_90_days_c: {}
+  sdr_activity_count_last_90_days_c: {}
+  team_activity_count_last_90_days_c: {}
+  triblio_known_visitors_last_7_days_c: {}
+  triblio_known_visitors_last_30_days_c: {}
+  triblio_known_visitors_last_90_days_c: {}
+  triblio_unknown_visitors_last_7_days_c: {}
+  triblio_unknown_visitors_last_30_days_c: {}
+  triblio_unknown_visitors_last_90_days_c: {}
+  activity_evaluation_last_performed_c: {}
+  unique_account_id_c_1: {}
+  employee_range_c: {}
+  seats_in_use_c: {}
+  strategic_hierarchy_c: {}
+  champify_io_clean_website_c_1: {}
+  segmentation_c: {}
+  partner_flag_c: {}
+  current_owner_name_c: {}
+  sales_territory_assignment_c_1: {}
+  clean_website_c: {}
+  today_minus_1_c: {}
+  x_18_digit_id_c_1: {}
+  ns_account_id_c: {}
+  qbr_on_track_c: {}
+  affectlayer_affect_layer_notes_c_1: {}
+  ae_owned_c: {}
+  server_instance_overview_c: {}
+  has_account_plan_c: {}
+  cf_close_factor_tier_c: {}
+  cbit_clearbit_domain_c: {}
+  ce_manager_c: {}
+  account_id_1: {}
+  valid_from_2: {}
+  city: {}
+  company_name: {}
+  country: {}
+  created_date_2: {}
+  default_group_notification_frequency: {}
+  department: {}
+  division: {}
+  email_1: {}
+  employee_number: {}
+  first_name: {}
+  is_active: {}
+  last_90_days_no_show_c: {}
+  last_90_days_sao_conversion_c: {}
+  last_inbound_rr_assignment_c: {}
+  last_login_date: {}
+  last_modified_date: {}
+  last_name: {}
+  last_outbound_sdr_account_assignment_c: {}
+  last_referenced_date: {}
+  last_viewed_date: {}
+  name_2: {}
+  sdr_c: {}
+  sender_email: {}
+  sender_name: {}
+  start_date_c: {}
+  state: {}
+  stay_in_touch_note: {}
+  stay_in_touch_signature: {}
+  stay_in_touch_subject: {}
+  street: {}
+  time_zone_sid_key: {}
+  title_1: {}
+  user_type: {}
+  username: {}
+  sub_region_assignment_c: {}
+  sdr_monthly_meeting_goal_c: {}
+  sdr_pg_qtd_goal_c: {}
+  sdr_quarterly_sao_goal_c: {}
+  sub_region_formula_c: {}
+  ae_ramping_start_date_c: {}
+  region_c_1: {}
+  user_is_ae_c: {}
+  date_uploaded: {}
+
+  lead_id:
+    format: ID
+
+  account_id:
+    format: ID
+
+  owner_id:
+    format: ID
+
+  parent_id:
+    format: ID
+
+  user_id:
+    format: ID
+
+  contact_id:
+    format: ID
+
+  created_by_id:
+    format: ID
+
+  individual_id:
+    format: ID
+
+  last_modified_by_id:
+    format: ID
+
+  manager_id:
+    format: ID
+
+  profile_id:
+    format: ID
+
+  user_role_id:
+    format: ID
+
+  __index_level_0__:
+    hidden: true
+
+measures:
+  count:
+    aggregate_type: count

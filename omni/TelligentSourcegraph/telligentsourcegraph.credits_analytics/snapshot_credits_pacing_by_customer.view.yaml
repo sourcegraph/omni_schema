@@ -1,0 +1,37 @@
+# Reference this view as telligentsourcegraph_credits_analytics__snapshot_credits_pacing_by_customer
+catalog: telligentsourcegraph
+schema: credits_analytics
+table_name: snapshot_credits_pacing_by_customer
+
+dimensions:
+  run_date: {}
+  account_name: {}
+  subscription_name: {}
+  pace_band: {}
+  pace_ratio_pct: {}
+  consumption_pct: {}
+  credit_shortfall: {}
+  credits_allocated: {}
+  credits_consumed: {}
+  daily_burn_rate: {}
+  allocation_daily_rate: {}
+  monthly_burn_rate: {}
+  allocation_monthly_rate: {}
+  projected_end_consumption_pct: {}
+  time_left_pct: {}
+  projected_exhaustion_date: {}
+  active_buckets: {}
+  active_subscriptions: {}
+  instance_domains: {}
+  earliest_bucket_start: {}
+  latest_bucket_expiry: {}
+
+  subscription_id:
+    format: ID
+
+  account_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

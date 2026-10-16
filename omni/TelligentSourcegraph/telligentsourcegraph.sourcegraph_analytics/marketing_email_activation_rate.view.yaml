@@ -1,0 +1,19 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__marketing_email_activation_rate
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: marketing_email_activation_rate
+
+dimensions:
+  email_name: {}
+  number_contacts_open: {}
+  percent_activated_from_open: {}
+
+  email_id:
+    format: ID
+
+  number_contacts_open_and_dau:
+    sql: number_contacts_open_and_DAU
+
+measures:
+  count:
+    aggregate_type: count

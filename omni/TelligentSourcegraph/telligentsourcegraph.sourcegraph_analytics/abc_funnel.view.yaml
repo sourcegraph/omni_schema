@@ -1,0 +1,181 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__abc_funnel
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: abc_funnel
+
+dimensions:
+  agent_key: {}
+  owner_key: {}
+  external_url: {}
+  customer_key: {}
+  customer_name: {}
+  is_internal_instance: {}
+  agent_started_at: {}
+  owner_agent_number: {}
+  is_returning_user: {}
+  step_order: {}
+  step: {}
+  reached_at: {}
+  hours_from_start: {}
+  minutes_from_start: {}
+
+  agent_id:
+    format: ID
+
+  owner_user_id:
+    format: ID
+
+  user_type:
+    sql: case when ${is_returning_user} = false THEN "First Job" ELSE "Returning
+      User" END
+
+measures:
+  # ---- Totals --------------------------------------------------------------
+  agents:
+    sql: ${agent_key}
+    label: Agents
+    aggregate_type: count_distinct
+
+  users:
+    sql: ${owner_key}
+    label: Users
+    aggregate_type: count_distinct
+
+  customers:
+    sql: ${customer_key}
+    label: Customers
+    aggregate_type: count_distinct
+
+  # ---- Agents reaching each step -------------------------------------------
+  agents_prompted:
+    sql: ${agent_key}
+    label: 1. Prompted
+    aggregate_type: count_distinct
+    filters:
+      step_order:
+        is: 1
+
+  agents_workspaces_resolved:
+    sql: ${agent_key}
+    label: 2. Workspaces resolved
+    aggregate_type: count_distinct
+    filters:
+      step_order:
+        is: 2
+
+  agents_workspaces_run:
+    sql: ${agent_key}
+    label: 3. Workspaces run
+    aggregate_type: count_distinct
+    filters:
+      step_order:
+        is: 3
+
+  agents_changeset_published:
+    sql: ${agent_key}
+    label: 4. Changeset published
+    aggregate_type: count_distinct
+    filters:
+      step_order:
+        is: 4
+
+  agents_changeset_merged:
+    sql: ${agent_key}
+    label: 5. Changeset merged
+    aggregate_type: count_distinct
+    filters:
+      step_order:
+        is: 5
+
+  # ---- Users reaching each step -------------------------------------------
+  users_prompted:
+    sql: ${owner_key}
+    label: 1. Prompted Users
+    aggregate_type: count_distinct
+    filters:
+      step_order:
+        is: 1
+
+  users_workspaces_resolved:
+    sql: ${owner_key}
+    label: 2. Workspaces resolved Users
+    aggregate_type: count_distinct
+    filters:
+      step_order:
+        is: 2
+
+  users_workspaces_run:
+    sql: ${owner_key}
+    label: 3. Workspaces run Users
+    aggregate_type: count_distinct
+    filters:
+      step_order:
+        is: 3
+
+  users_changeset_published:
+    sql: ${owner_key}
+    label: 4. Changeset published Users
+    aggregate_type: count_distinct
+    filters:
+      step_order:
+        is: 4
+
+  users_changeset_merged:
+    sql: ${owner_key}
+    label: 5. Changeset merged Users
+    aggregate_type: count_distinct
+    filters:
+      step_order:
+        is: 5
+
+  # ---- Step-to-step conversion ---------------------------------------------
+  conv_prompted_to_resolved:
+    sql: ${agents_workspaces_resolved} / NULLIF(${agents_prompted}, 0)
+    label: "Conv: 1. Prompted → 2. Resolved"
+    format: PERCENT_1
+
+  conv_resolved_to_run:
+    sql: ${agents_workspaces_run} / NULLIF(${agents_workspaces_resolved}, 0)
+    label: "Conv: 2. Resolved → 3. Run"
+    format: PERCENT_1
+
+  conv_run_to_published:
+    sql: ${agents_changeset_published} / NULLIF(${agents_workspaces_run}, 0)
+    label: "Conv: 3. Run → 4. Changeset published"
+    format: PERCENT_1
+
+  conv_published_to_merged:
+    sql: ${agents_changeset_merged} / NULLIF(${agents_changeset_published}, 0)
+    label: "Conv: 4. Published → 5. Merged"
+    format: PERCENT_1
+
+  # ---- End-to-end ------------------------------------------------------------
+  conv_prompted_to_merged:
+    sql: ${agents_changeset_merged} / NULLIF(${agents_prompted}, 0)
+    label: "Conv: 1. Prompted → 5. Merged (overall)"
+    format: PERCENT_1
+
+  returning_users:
+    sql: ${owner_key}
+    aggregate_type: count_distinct
+    filters:
+      is_returning_user:
+        is: true
+
+  returning_user_rate:
+    sql: ${returning_users} / NULLIF(${users}, 0)
+    format: PERCENT_1
+
+  median_hours_to_merged:
+    sql: ${hours_from_start}
+    aggregate_type: median
+    filters:
+      step_order:
+        is: 5
+
+  median_minutes_to_merged:
+    sql: ${minutes_from_start}
+    aggregate_type: median
+    filters:
+      step_order:
+        is: 5

@@ -1,0 +1,8 @@
+base_view: telligentsourcegraph_pings_data_model_transformed__server_instance_usage_max_user_accounts_monthly
+label: Max User Accounts Monthly
+
+joins:
+  telligentsourcegraph_sourcegraph_analytics__server_instances:
+    telligentsourcegraph_sfdc_current__dim_account_details: {}
+    telligentsourcegraph_sfdc_current__looker_dim_account_details: {}
+    telligentsourcegraph_sourcegraph_analytics__technical_health_score_v2: {}

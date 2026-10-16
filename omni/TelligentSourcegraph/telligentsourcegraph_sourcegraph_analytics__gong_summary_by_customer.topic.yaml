@@ -1,0 +1,7 @@
+base_view: telligentsourcegraph_sourcegraph_analytics__gong_summary_by_customer
+label: Gong Summary By Customer
+
+joins:
+  telligentsourcegraph_sfdc_current__looker_dim_account_details:
+    telligentsourcegraph_sourcegraph_analytics__server_instances: {}
+    post_sales__customer_health_score_latest: {}

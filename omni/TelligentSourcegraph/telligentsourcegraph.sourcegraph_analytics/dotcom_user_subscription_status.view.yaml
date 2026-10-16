@@ -1,0 +1,21 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__dotcom_user_subscription_status
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: dotcom_user_subscription_status
+
+dimensions:
+  cody_pro_subscription_status: {}
+  cancel_at_period_end: {}
+
+  dotcom_user_id:
+    format: ID
+
+  stripe_customer_id:
+    format: ID
+
+  ssc_external_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

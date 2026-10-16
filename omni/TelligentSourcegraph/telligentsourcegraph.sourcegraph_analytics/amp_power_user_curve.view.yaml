@@ -1,0 +1,18 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__amp_power_user_curve
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: amp_power_user_curve
+
+dimensions:
+  team_name: {}
+  days_used: {}
+
+  user_id:
+    format: ID
+
+  team_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

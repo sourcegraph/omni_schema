@@ -1,0 +1,14 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__brew_install_analytics
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: brew_install_analytics
+
+dimensions:
+  formula_name: {}
+  installs: {}
+  start_date: {}
+  end_date: {}
+
+measures:
+  count:
+    aggregate_type: count

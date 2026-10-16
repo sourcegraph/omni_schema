@@ -1,0 +1,46 @@
+# Reference this view as telligentsourcegraph_credits_analytics__credit_consumption_threshold_alerts
+catalog: telligentsourcegraph
+schema: credits_analytics
+table_name: credit_consumption_threshold_alerts
+
+dimensions:
+  pk: {}
+  account_name: {}
+  instance_domain: {}
+  bucket_display_names: {}
+  bucket_ids: {}
+  buckets_in_group: {}
+  bucket_start_at: {}
+  bucket_expires_at: {}
+  bucket_days_to_expiry: {}
+  credits_consumed: {}
+  credits_allocated: {}
+  consumption_pct: {}
+  consumption_pct_formatted: {}
+  threshold_crossed: {}
+  alert_created_at: {}
+  ep_url: {}
+  dealhub_subscription_ids: {}
+  deal_hub_urls: {}
+  csm_slack_username: {}
+  ae_slack_username: {}
+  single_rep: {}
+  bucket_length_days: {}
+  bucket_time_remaining_pct: {}
+  subscription_name: {}
+
+  account_id:
+    format: ID
+
+  subscription_id:
+    format: ID
+
+  csm_slack_id:
+    format: ID
+
+  ae_slack_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

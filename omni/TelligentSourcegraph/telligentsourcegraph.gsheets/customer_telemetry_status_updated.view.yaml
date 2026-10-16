@@ -1,0 +1,17 @@
+# Reference this view as telligentsourcegraph_gsheets__customer_telemetry_status_updated
+label: Telemetry Status
+
+catalog: telligentsourcegraph
+schema: gsheets
+table_name: customer_telemetry_status_updated
+
+dimensions:
+  telemetry_status: {}
+
+  unique_server_id:
+    label: Account Name
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

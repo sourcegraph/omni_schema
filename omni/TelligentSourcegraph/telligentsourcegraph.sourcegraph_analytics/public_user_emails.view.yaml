@@ -1,0 +1,16 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__public_user_emails
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: public_user_emails
+
+dimensions:
+  email: {}
+  created_at: {}
+  is_primary: {}
+
+  user_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

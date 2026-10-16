@@ -1,0 +1,19 @@
+# Reference this view as telligentsourcegraph_pings_data_model_transformed__batch_executor_min_count_monthly
+# !suppress(duplicate_field_names_in_view)
+catalog: telligentsourcegraph
+schema: pings_data_model_transformed
+table_name: batch_executor_min_count_monthly
+
+dimensions:
+  timestamp: {}
+  installer_email: {}
+  month: {}
+  minutes: {}
+  count: {}
+
+  remote_site_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

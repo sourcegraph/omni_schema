@@ -1,0 +1,132 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__wip_part2b__server_instance_automated_v2
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: wip_part2b__server_instance_automated_v2
+
+dimensions:
+  company_name: {}
+  company_type: {}
+  latest_version: {}
+  latest_version_truncated: {}
+  latest_installer_email: {}
+  latest_deploy_type: {}
+  latest_auth_providers: {}
+  latest_ext_services: {}
+  first_ping: {}
+  latest_ping: {}
+  latest_total_user_accounts: {}
+  recent_max_total_user_accounts: {}
+  latest_builtin_signup_allowed: {}
+  latest_has_external_url: {}
+  latest_has_repos: {}
+  latest_ever_searched: {}
+  latest_ever_find_refs: {}
+  max_total_user_accounts: {}
+  max_unique_users_today: {}
+  license_key: {}
+  latest_has_cody_enabled: {}
+  postgres_version: {}
+  redis_cache_version: {}
+  redis_store_version: {}
+  pings_count: {}
+  deployment_method: {}
+
+  unique_server_id:
+    format: ID
+
+  sfdc_unique_id:
+    format: ID
+
+  remote_site_id:
+    format: ID
+
+  latest_hover_lsif_eventscount:
+    sql: latest_hover_LSIF_EventsCount
+
+  latest_hover_lsp_eventscount:
+    sql: latest_hover_LSP_EventsCount
+
+  latest_hover_search_eventscount:
+    sql: latest_hover_Search_EventsCount
+
+  latest_definitions_lsif_eventscount:
+    sql: latest_Definitions_LSIF_EventsCount
+
+  latest_definitions_lsp_eventscount:
+    sql: latest_Definitions_LSP_EventsCount
+
+  latest_definitions_search_eventscount:
+    sql: latest_Definitions_Search_EventsCount
+
+  latest_references_lsif_eventscount:
+    sql: latest_References_LSIF_EventsCount
+
+  latest_references_lsp_eventscount:
+    sql: latest_References_LSP_EventsCount
+
+  latest_references_search_eventscount:
+    sql: latest_References_Search_EventsCount
+
+  automation_usage_campaignscount:
+    sql: automation_usage_CampaignsCount
+
+  daily_structural_eventlatencies_p99:
+    sql: Daily_Structural_EventLatencies_P99
+
+  daily_file_eventlatencies_p99:
+    sql: Daily_File_EventLatencies_P99
+
+  daily_repo_eventlatencies_p99:
+    sql: Daily_Repo_EventLatencies_P99
+
+  daily_diff_eventlatencies_p99:
+    sql: Daily_Diff_EventLatencies_P99
+
+  daily_commit_eventlatencies_p99:
+    sql: Daily_Commit_EventLatencies_P99
+
+  daily_symbol_eventlatencies_p99:
+    sql: Daily_Symbol_EventLatencies_P99
+
+  daily_literal_eventlatencies_p99:
+    sql: Daily_Literal_EventLatencies_P99
+
+  daily_regexp_eventlatencies_p99:
+    sql: Daily_Regexp_EventLatencies_P99
+
+  git_dir_bytes:
+    sql: GitDirBytes
+
+  new_lines_count:
+    sql: NewLinesCount
+
+  default_branch_new_lines_count:
+    sql: DefaultBranchNewLinesCount
+
+  other_branches_new_lines_count:
+    sql: OtherBranchesNewLinesCount
+
+  codyproviders_completions_chatmodel:
+    sql: CodyProviders_Completions_ChatModel
+
+  codyproviders_completions_completionmodel:
+    sql: CodyProviders_Completions_CompletionModel
+
+  codyproviders_completions_fastchatmodel:
+    sql: CodyProviders_Completions_FastChatModel
+
+  codyproviders_completions_provider:
+    sql: CodyProviders_Completions_Provider
+
+  codyproviders_embeddings_model:
+    sql: CodyProviders_Embeddings_Model
+
+  codyproviders_embeddings_provider:
+    sql: CodyProviders_Embeddings_Provider
+
+  server_endpoint:
+    sql: serverEndpoint
+
+measures:
+  count:
+    aggregate_type: count

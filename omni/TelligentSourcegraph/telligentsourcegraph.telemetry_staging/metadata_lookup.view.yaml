@@ -1,0 +1,20 @@
+# Reference this view as telligentsourcegraph_telemetry_staging__metadata_lookup
+catalog: telligentsourcegraph
+schema: telemetry_staging
+table_name: metadata_lookup
+
+dimensions:
+  feature: {}
+
+  key:
+    description: metadata key to lookup
+
+  value:
+    description: "numerical value "
+
+  lookup_value:
+    description: string lookup value
+
+measures:
+  count:
+    aggregate_type: count

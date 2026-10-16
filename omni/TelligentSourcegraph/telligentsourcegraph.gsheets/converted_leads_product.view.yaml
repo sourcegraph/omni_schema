@@ -1,0 +1,39 @@
+# Reference this view as telligentsourcegraph_gsheets__converted_leads_product
+catalog: telligentsourcegraph
+schema: gsheets
+table_name: converted_leads_product
+
+dimensions:
+  email:
+    sql: Email
+
+  first_name:
+    sql: First_Name
+
+  last_name:
+    sql: Last_Name
+
+  title:
+    sql: Title
+
+  targeted_title_keyword:
+    sql: Targeted_Title_Keyword
+
+  company_account:
+    sql: Company_Account
+
+  lead_owner:
+    sql: Lead_Owner
+
+  first_touchpoint:
+    sql: First_Touchpoint
+
+  last_modified:
+    sql: Last_Modified
+
+  pql_date:
+    sql: PQL_Date
+
+measures:
+  count:
+    aggregate_type: count

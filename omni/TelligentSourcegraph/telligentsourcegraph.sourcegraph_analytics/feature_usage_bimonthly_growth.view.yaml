@@ -1,0 +1,150 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__feature_usage_bimonthly_growth
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: feature_usage_bimonthly_growth
+
+dimensions:
+  account_name: {}
+  fy_25_segmentation: {}
+
+  period_start:
+    convert_tz: false
+
+  period_end:
+    convert_tz: false
+
+  external_url:
+    sql: externalUrl
+
+  # --- % Change ---
+  deep_search_pct_change:
+    format: percent_0
+    group_label: "% Change"
+
+  billing_pct_change:
+    format: percent_0
+    group_label: "% Change"
+
+  search_pct_change:
+    format: percent_0
+    group_label: "% Change"
+
+  ui_search_pct_change:
+    format: percent_0
+    group_label: "% Change"
+
+  mcp_pct_change:
+    format: percent_0
+    group_label: "% Change"
+
+  code_intel_pct_change:
+    format: percent_0
+    group_label: "% Change"
+
+  code_monitor_pct_change:
+    format: percent_0
+    group_label: "% Change"
+
+  code_insights_pct_change:
+    format: percent_0
+    group_label: "% Change"
+
+  batch_changes_pct_change:
+    format: percent_0
+    group_label: "% Change"
+
+  # --- Spike Detection ---
+  max_spike:
+    sql: |
+      GREATEST(
+        ABS(COALESCE(${deep_search_pct_change}, 0)),
+        ABS(COALESCE(${billing_pct_change}, 0)),
+        ABS(COALESCE(${search_pct_change}, 0)),
+        ABS(COALESCE(${ui_search_pct_change}, 0)),
+        ABS(COALESCE(${mcp_pct_change}, 0)),
+        ABS(COALESCE(${code_intel_pct_change}, 0)),
+        ABS(COALESCE(${code_monitor_pct_change}, 0)),
+        ABS(COALESCE(${code_insights_pct_change}, 0)),
+        ABS(COALESCE(${batch_changes_pct_change}, 0))
+      )
+    label: Max Spike (Absolute value)
+    format: percent_0
+    group_label: Spike Detection
+
+  max_spike_source:
+    sql: |
+      CASE
+        WHEN ${max_spike} = ABS(COALESCE(${deep_search_pct_change}, 0)) THEN 'Deep Search'
+        WHEN ${max_spike} = ABS(COALESCE(${billing_pct_change}, 0)) THEN 'Billing Events'
+        WHEN ${max_spike} = ABS(COALESCE(${search_pct_change}, 0)) THEN 'Code Search'
+        WHEN ${max_spike} = ABS(COALESCE(${ui_search_pct_change}, 0)) THEN 'UI Searches'
+        WHEN ${max_spike} = ABS(COALESCE(${mcp_pct_change}, 0)) THEN 'MCP Tool Calls'
+        WHEN ${max_spike} = ABS(COALESCE(${code_intel_pct_change}, 0)) THEN 'Code Intel'
+        WHEN ${max_spike} = ABS(COALESCE(${code_monitor_pct_change}, 0)) THEN 'Code Monitor'
+        WHEN ${max_spike} = ABS(COALESCE(${code_insights_pct_change}, 0)) THEN 'Code Insights'
+        WHEN ${max_spike} = ABS(COALESCE(${batch_changes_pct_change}, 0)) THEN 'Batch Changes'
+        ELSE 'Unknown'
+      END
+    group_label: Spike Detection
+
+  spike_flag:
+    sql: |
+      CASE
+        WHEN ${max_spike} >= 1 THEN 'Major (>= 100%)'
+        WHEN ${max_spike} >= 0.5 THEN 'Notable (>= 50%)'
+        ELSE 'Normal'
+      END
+    group_label: Spike Detection
+
+  is_notable_spike:
+    sql: ${max_spike} >= 0.5
+    group_label: Spike Detection
+
+measures:
+  # --- Avg % Change ---
+  avg_deep_search_pct_change:
+    sql: ${deep_search_pct_change}
+    group_label: Avg % Change
+    format: percent_0
+    aggregate_type: average
+
+  avg_billing_pct_change:
+    sql: ${billing_pct_change}
+    group_label: Avg % Change
+    format: percent_0
+    aggregate_type: average
+
+  avg_search_pct_change:
+    sql: ${search_pct_change}
+    group_label: Avg % Change
+    format: percent_0
+    aggregate_type: average
+
+  avg_ui_search_pct_change:
+    sql: ${ui_search_pct_change}
+    group_label: Avg % Change
+    format: percent_0
+    aggregate_type: average
+
+  avg_mcp_pct_change:
+    sql: ${mcp_pct_change}
+    group_label: Avg % Change
+    format: percent_0
+    aggregate_type: average
+
+  avg_code_intel_pct_change:
+    sql: ${code_intel_pct_change}
+    group_label: Avg % Change
+    format: percent_0
+    aggregate_type: average
+
+  avg_code_monitor_pct_change:
+    sql: ${code_monitor_pct_change}
+    group_label: Avg % Change
+    format: percent_0
+    aggregate_type: average
+
+  avg_code_insights_pct_change:
+    sql: ${code_insights_pct_change}
+    group_label: Avg % Change
+    aggregate_type: average

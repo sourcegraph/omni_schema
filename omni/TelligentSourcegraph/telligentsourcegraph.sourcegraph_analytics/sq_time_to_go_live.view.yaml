@@ -1,0 +1,23 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__sq_time_to_go_live
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: sq_time_to_go_live
+
+dimensions:
+  installer_email: {}
+  company: {}
+  first_ping: {}
+  configure_date: {}
+  calibrate_date: {}
+  golive_date: {}
+  days_to_configure: {}
+  days_to_calibrate: {}
+  days_to_go_live: {}
+
+  id:
+    format: ID
+    primary_key: true
+
+measures:
+  count:
+    aggregate_type: count

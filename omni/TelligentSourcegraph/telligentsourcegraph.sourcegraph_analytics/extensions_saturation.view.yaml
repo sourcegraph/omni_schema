@@ -1,0 +1,23 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__extensions_saturation
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: extensions_saturation
+
+dimensions:
+  timestamp: {}
+
+  unique_server_id:
+    format: ID
+
+  week_start:
+    sql: WeekStart
+
+  average_non_default_extensions:
+    sql: AverageNonDefaultExtensions
+
+  non_default_extension_users:
+    sql: NonDefaultExtensionUsers
+
+measures:
+  count:
+    aggregate_type: count

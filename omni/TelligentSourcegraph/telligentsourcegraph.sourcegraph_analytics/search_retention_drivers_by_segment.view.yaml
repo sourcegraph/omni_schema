@@ -1,0 +1,43 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__search_retention_drivers_by_segment
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: search_retention_drivers_by_segment
+
+dimensions:
+  signup_ts: {}
+  signup_date: {}
+  used_ui_search: {}
+  used_any_search: {}
+  used_deep_search: {}
+  used_code_intel: {}
+  used_code_intel_references: {}
+  used_code_intel_definitions: {}
+  used_code_intel_implementations: {}
+  used_code_intel_supers: {}
+  used_code_copy: {}
+  used_copy_link: {}
+  used_batch_changes: {}
+  used_code_insights: {}
+  used_filters: {}
+  used_cody: {}
+  used_mcp_tool_call: {}
+  retained_week_1: {}
+  retained_week_4: {}
+  retained_week_8: {}
+  retained_week_12: {}
+  fy_25_segmentation_c: {}
+  industry: {}
+  latest_ext_services: {}
+  hosting_type: {}
+  latest_deploy_type: {}
+
+  unique_user_id:
+    sql: uniqueUserId
+    format: ID
+
+  external_url:
+    sql: externalUrl
+
+measures:
+  count:
+    aggregate_type: count

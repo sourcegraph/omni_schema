@@ -1,0 +1,32 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__ext_service_kind_code_host_version
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: ext_service_kind_code_host_version
+
+dimensions:
+  installer_email: {}
+  remote_site_version: {}
+  ext_services: {}
+  code_host_versions: {}
+  timestamp: {}
+  us_row: {}
+
+  remote_site_id:
+    format: ID
+
+  unique_server_id:
+    format: ID
+
+  code_host_versions_external_service_kind:
+    sql: external_service_kind
+    nested_on_field: code_host_versions
+    parent_field: code_host_versions
+
+  code_host_versions_version:
+    sql: version
+    nested_on_field: code_host_versions
+    parent_field: code_host_versions
+
+measures:
+  count:
+    aggregate_type: count

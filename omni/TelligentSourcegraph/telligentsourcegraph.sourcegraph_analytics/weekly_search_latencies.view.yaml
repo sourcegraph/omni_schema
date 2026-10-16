@@ -1,0 +1,86 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__weekly_search_latencies
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: weekly_search_latencies
+
+dimensions:
+  start_date: {}
+
+  unique_server_id:
+    format: ID
+
+  weekly_structural_eventlatencies_p99:
+    sql: Weekly_Structural_EventLatencies_P99
+
+  weekly_file_eventlatencies_p99:
+    sql: Weekly_File_EventLatencies_P99
+
+  weekly_repo_eventlatencies_p99:
+    sql: Weekly_Repo_EventLatencies_P99
+
+  weekly_diff_eventlatencies_p99:
+    sql: Weekly_Diff_EventLatencies_P99
+
+  weekly_commit_eventlatencies_p99:
+    sql: Weekly_Commit_EventLatencies_P99
+
+  weekly_symbol_eventlatencies_p99:
+    sql: Weekly_Symbol_EventLatencies_P99
+
+  weekly_literal_eventlatencies_p99:
+    sql: Weekly_Literal_EventLatencies_P99
+
+  weekly_regexp_eventlatencies_p99:
+    sql: Weekly_Regexp_EventLatencies_P99
+
+  weekly_structural_eventlatencies_p90:
+    sql: Weekly_Structural_EventLatencies_P90
+
+  weekly_file_eventlatencies_p90:
+    sql: Weekly_File_EventLatencies_P90
+
+  weekly_repo_eventlatencies_p90:
+    sql: Weekly_Repo_EventLatencies_P90
+
+  weekly_diff_eventlatencies_p90:
+    sql: Weekly_Diff_EventLatencies_P90
+
+  weekly_commit_eventlatencies_p90:
+    sql: Weekly_Commit_EventLatencies_P90
+
+  weekly_symbol_eventlatencies_p90:
+    sql: Weekly_Symbol_EventLatencies_P90
+
+  weekly_literal_eventlatencies_p90:
+    sql: Weekly_Literal_EventLatencies_P90
+
+  weekly_regexp_eventlatencies_p90:
+    sql: Weekly_Regexp_EventLatencies_P90
+
+  weekly_structural_eventlatencies_p50:
+    sql: Weekly_Structural_EventLatencies_P50
+
+  weekly_file_eventlatencies_p50:
+    sql: Weekly_File_EventLatencies_P50
+
+  weekly_repo_eventlatencies_p50:
+    sql: Weekly_Repo_EventLatencies_P50
+
+  weekly_diff_eventlatencies_p50:
+    sql: Weekly_Diff_EventLatencies_P50
+
+  weekly_commit_eventlatencies_p50:
+    sql: Weekly_Commit_EventLatencies_P50
+
+  weekly_symbol_eventlatencies_p50:
+    sql: Weekly_Symbol_EventLatencies_P50
+
+  weekly_literal_eventlatencies_p50:
+    sql: Weekly_Literal_EventLatencies_P50
+
+  weekly_regexp_eventlatencies_p50:
+    sql: Weekly_Regexp_EventLatencies_P50
+
+measures:
+  count:
+    aggregate_type: count

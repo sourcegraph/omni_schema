@@ -1,0 +1,27 @@
+# Reference this view as telligentsourcegraph_sfdc_current__stage_conversion_rates
+catalog: telligentsourcegraph
+schema: sfdc_current
+table_name: stage_conversion_rates
+
+dimensions:
+  boundary_n: {}
+  boundary: {}
+  segment: {}
+  type: {}
+  slice_level: {}
+  baseline_rate: {}
+  baseline_num: {}
+  baseline_den: {}
+  rolling_rate: {}
+  rolling_num: {}
+  rolling_den: {}
+  delta_vs_baseline: {}
+  low_confidence_baseline: {}
+  low_confidence_rolling: {}
+  highlight: {}
+  baseline_regression_rate: {}
+  rolling_regression_rate: {}
+
+measures:
+  count:
+    aggregate_type: count

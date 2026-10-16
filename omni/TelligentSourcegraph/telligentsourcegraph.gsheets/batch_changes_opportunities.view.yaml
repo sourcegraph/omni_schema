@@ -1,0 +1,20 @@
+# Reference this view as telligentsourcegraph_gsheets__batch_changes_opportunities
+catalog: telligentsourcegraph
+schema: gsheets
+table_name: batch_changes_opportunities
+
+dimensions:
+  opportunity_owner: {}
+  opportunity_name: {}
+  type: {}
+  amount: {}
+  stage: {}
+  probability: {}
+  owner_role: {}
+  created_date: {}
+  account_name: {}
+  products_included: {}
+
+measures:
+  count:
+    aggregate_type: count

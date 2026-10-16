@@ -1,0 +1,47 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__agentic_batch_changes_milestones
+description: Append-only customer milestones for changesets created and merged
+  through Agentic Batch Changes.
+
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: agentic_batch_changes_milestones
+
+dimensions:
+  milestone_id:
+    format: ID
+    description: Stable identifier derived from customer, event type, and milestone count.
+
+  customer_key:
+    description: Salesforce account ID when available; otherwise the normalized
+      external URL.
+
+  customer_name:
+    description: Salesforce customer name when available; otherwise the external URL.
+
+  triggering_external_url:
+    description: Instance that emitted the changeset event that reached the milestone.
+
+  event_type:
+    description: "Milestone category: changeset_published (created as published or
+      draft) or changeset_merged."
+
+  milestone_count:
+    description: "Changeset milestone reached: 1 published, or 10 or 100 merged."
+
+  current_changeset_count:
+    description: Customer's cumulative count for this event type when the milestone
+      was detected.
+
+  triggering_changeset_id:
+    format: ID
+    description: Instance-local changeset ID that reached the milestone.
+
+  milestone_reached_at:
+    description: Timestamp of the changeset event that reached the milestone.
+
+  detected_at:
+    description: Timestamp when this row was first inserted by the hourly pipeline.
+
+measures:
+  count:
+    aggregate_type: count

@@ -1,0 +1,21 @@
+# Reference this view as telligentsourcegraph_pings_data_model_transformed__site_activitiy_active_users_monthly
+catalog: telligentsourcegraph
+schema: pings_data_model_transformed
+table_name: site_activitiy_active_users_monthly
+
+dimensions:
+  timestamp: {}
+  installer_email: {}
+  start_time: {}
+  month: {}
+  user_count: {}
+  anonymous_user_count: {}
+  registered_user_count: {}
+  integration_user_count: {}
+
+  remote_site_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

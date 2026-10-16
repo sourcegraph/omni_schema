@@ -1,0 +1,18 @@
+# Reference this view as telligentsourcegraph_pings_data_model_transformed__batch_users_monthly
+catalog: telligentsourcegraph
+schema: pings_data_model_transformed
+table_name: batch_users_monthly
+
+dimensions:
+  timestamp: {}
+  installer_email: {}
+  month: {}
+  contributors: {}
+  users: {}
+
+  remote_site_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

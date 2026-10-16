@@ -1,0 +1,358 @@
+# Reference this view as telligentsourcegraph_post_sales__digital_program_user_funnel
+catalog: telligentsourcegraph
+schema: post_sales
+table_name: digital_program_user_funnel
+
+dimensions:
+  # ── User / account ─────────────────────────────────────────────
+  account_name: {}
+  email: {}
+  external_url: {}
+  engagement_category: {}
+  program_name: {}
+  # ── Email funnel flags ─────────────────────────────────────────
+  was_delivered: {}
+  was_opened: {}
+  was_clicked: {}
+  first_abc_message_date: {}
+
+  # ── Primary key ────────────────────────────────────────────────
+  pk:
+    sql: CONCAT(unique_user_id, '-', program_name)
+    hidden: true
+    primary_key: true
+
+  unique_user_id:
+    format: ID
+
+  user_id:
+    format: ID
+
+  contact_id:
+    format: ID
+
+  # ── Email funnel dates ─────────────────────────────────────────
+  first_delivered_date:
+    timeframes: [ raw, date, week, month, quarter ]
+    convert_tz: false
+
+  first_opened_date:
+    timeframes: [ raw, date, week, month, quarter ]
+    convert_tz: false
+
+  first_clicked_date:
+    timeframes: [ raw, date, week, month, quarter ]
+    convert_tz: false
+
+  # ── Product activation dates ───────────────────────────────────
+  first_billing_event_date:
+    timeframes: [ raw, date, week, month ]
+    convert_tz: false
+
+  first_ui_search_date:
+    timeframes: [ raw, date, week, month ]
+    convert_tz: false
+
+  first_code_nav_date:
+    timeframes: [ raw, date, week, month ]
+    convert_tz: false
+
+  first_ds_query_date:
+    timeframes: [ raw, date, week, month ]
+    convert_tz: false
+
+  first_mcp_date:
+    timeframes: [ raw, date, week, month ]
+    convert_tz: false
+
+  first_ds_history_date:
+    timeframes: [ raw, date, week, month ]
+    convert_tz: false
+
+  first_ds_architecture_date:
+    timeframes: [ raw, date, week, month ]
+    convert_tz: false
+
+  first_ds_security_date:
+    timeframes: [ raw, date, week, month ]
+    convert_tz: false
+
+  first_code_finder_date:
+    timeframes: [ raw, date, week, month ]
+    convert_tz: false
+
+  first_abc_date:
+    timeframes: [ raw, date, week, month ]
+    convert_tz: false
+
+  # ── Raw event counts (hidden, feed measures) ───────────────────
+  billing_events:
+    hidden: true
+
+  ui_searches:
+    hidden: true
+
+  code_nav:
+    hidden: true
+
+  ds_queries:
+    hidden: true
+
+  mcp_call:
+    hidden: true
+
+  count_code_finder_actions:
+    hidden: true
+
+  # ── Program-specific success mapping ───────────────────────────
+  program_success_date:
+    sql: |-
+      CASE
+        WHEN program_name = 'Search Onboarding'
+          THEN COALESCE(
+            LEAST(DATE(first_ui_search_date), DATE(first_code_nav_date)),
+            DATE(first_ui_search_date),
+            DATE(first_code_nav_date)
+          )
+        WHEN program_name = 'Deep Search Use Case Expansion'
+          THEN (
+            SELECT MIN(success_date)
+            FROM UNNEST([
+              DATE(first_ds_architecture_date),
+              DATE(first_ds_history_date),
+              DATE(first_ds_security_date)
+            ]) AS success_date
+          )
+        WHEN program_name LIKE '%Deep Search%'
+          THEN DATE(first_ds_query_date)
+        WHEN program_name = 'Sourcegraph MCP Adoption'
+          THEN DATE(first_mcp_date)
+        WHEN program_name = 'Agentic Batch Changes'
+          THEN DATE(first_abc_message_date)
+        WHEN program_name LIKE '%Code Finder%'
+          THEN CASE
+                 WHEN DATE(first_code_finder_date) >= DATE(first_delivered_date)
+                 THEN DATE(first_code_finder_date)
+                 ELSE NULL
+               END
+        ELSE DATE(first_billing_event_date)
+      END
+    label: Program Success Date
+    description: First date of the program-specific success action
+
+  program_success_count:
+    sql: |-
+      CASE
+        WHEN program_name = 'Search Onboarding'        THEN ui_searches + code_nav
+        WHEN program_name LIKE '%Deep Search%'          THEN ds_queries
+        WHEN program_name = 'Sourcegraph MCP Adoption'  THEN mcp_call
+        ELSE billing_events
+      END
+    hidden: true
+
+  activated:
+    sql: ${program_success_date} IS NOT NULL
+    label: Activated
+    description: Did the user complete the program-specific success action after
+      email delivery?
+
+  days_to_activation:
+    sql: DATE_DIFF(${program_success_date}, DATE(first_delivered_date), DAY)
+    label: Days to Activation
+    description: Days between first email delivery and first program-specific success action
+
+  # ── Engagement segmentation ────────────────────────────────────
+  email_engagement_segment:
+    sql: CASE WHEN was_opened = 1 THEN 'Opened' ELSE 'Not Opened' END
+    label: Email Engagement Segment
+    description: Whether the user opened the email
+
+  activated_post_engagement:
+    sql: |-
+      CASE
+        WHEN was_opened = 1
+          THEN ${program_success_date} >= DATE(first_opened_date)
+        ELSE ${program_success_date} >= DATE(first_delivered_date)
+      END
+    label: Activated Post-Engagement
+    description: Activated after email open (if opened) or after delivery (if not opened)
+
+measures:
+  count:
+    aggregate_type: count
+
+  # ── Email funnel ───────────────────────────────────────────────
+  total_users:
+    sql: ${unique_user_id}
+    label: Total Users
+    drill_fields: [ email, account_name ]
+    aggregate_type: count_distinct
+
+  total_account:
+    sql: ${account_name}
+    label: Total Accounts
+    drill_fields: [ account_name ]
+    aggregate_type: count_distinct
+
+  users_delivered:
+    sql: CASE WHEN was_delivered = 1 THEN ${unique_user_id} END
+    label: Users Delivered
+    drill_fields: [ email, account_name ]
+    aggregate_type: count_distinct
+
+  users_opened:
+    sql: CASE WHEN was_opened = 1 THEN ${unique_user_id} END
+    label: Users Opened
+    drill_fields: [ email, account_name ]
+    aggregate_type: count_distinct
+
+  users_clicked:
+    sql: CASE WHEN was_clicked = 1 THEN ${unique_user_id} END
+    label: Users Clicked
+    drill_fields: [ email, account_name ]
+    aggregate_type: count_distinct
+
+  open_rate:
+    sql: SAFE_DIVIDE(${users_opened}, ${users_delivered})
+    label: "% Opened"
+    format: percent_1
+
+  click_rate:
+    sql: SAFE_DIVIDE(${users_clicked}, ${users_delivered})
+    label: "% Clicked"
+    format: percent_1
+
+  # ── Product activation ─────────────────────────────────────────
+  users_activated:
+    sql: CASE WHEN ${activated} THEN ${unique_user_id} END
+    label: Users Activated
+    description: Users who completed the program-specific success action
+    drill_fields: [ email, account_name, first_delivered_date ]
+    aggregate_type: count_distinct
+
+  accounts_activated:
+    sql: CASE WHEN ${activated} THEN ${account_name} END
+    label: Accounts Activated
+    description: Accounts with at least one user who completed the success action
+    drill_fields: [ account_name ]
+    aggregate_type: count_distinct
+
+  pct_accounts_activated:
+    sql: SAFE_DIVIDE(${accounts_activated}, ${total_account})
+    label: "% Accounts Activated"
+    format: percent_1
+
+  activation_rate:
+    sql: SAFE_DIVIDE(${users_activated}, ${users_delivered})
+    label: "% Activated"
+    format: percent_1
+    description: Program-specific activation rate (success action after delivery)
+
+  total_success_actions:
+    sql: ${program_success_count}
+    label: Total Success Actions
+    description: Total count of program-specific success actions
+    aggregate_type: sum
+
+  avg_days_to_activation:
+    sql: ${days_to_activation}
+    label: Avg Days to Activation
+    format: number_1
+    description: Average days from delivery to first success action
+    aggregate_type: average
+
+  # ── Segmented activation ───────────────────────────────────────
+  users_activated_post_engagement:
+    sql: CASE WHEN ${activated_post_engagement} THEN ${unique_user_id} END
+    label: Users Activated (Post-Engagement)
+    aggregate_type: count_distinct
+
+  activation_rate_post_engagement:
+    sql: SAFE_DIVIDE(${users_activated_post_engagement}, ${users_delivered})
+    label: "% Activated (Post-Engagement)"
+    format: percent_1
+
+  users_activated_post_open:
+    sql: |-
+      CASE
+        WHEN was_opened = 1
+             AND ${program_success_date} >= DATE(first_opened_date)
+        THEN ${unique_user_id}
+      END
+    label: Users Activated (Post Open)
+    description: Opened the email AND activated after opening
+    aggregate_type: count_distinct
+
+  users_activated_opened:
+    sql: |-
+      CASE
+        WHEN was_opened = 1
+             AND ${program_success_date} >= DATE(first_delivered_date)
+        THEN ${unique_user_id}
+      END
+    label: Users Activated (Opened)
+    description: Opened the email AND activated after delivery
+    aggregate_type: count_distinct
+
+  users_activated_not_opened:
+    sql: |-
+      CASE
+        WHEN was_opened = 0
+             AND ${program_success_date} >= DATE(first_delivered_date)
+        THEN ${unique_user_id}
+      END
+    label: Users Activated (Not Opened)
+    description: Did NOT open the email but activated after delivery
+    aggregate_type: count_distinct
+
+  users_not_opened:
+    sql: CASE WHEN was_opened = 0 AND was_delivered = 1 THEN ${unique_user_id} END
+    label: Users Not Opened
+    description: Users who were delivered but did not open
+    aggregate_type: count_distinct
+
+  activation_rate_post_opened:
+    sql: SAFE_DIVIDE(${users_activated_post_open}, ${users_opened})
+    label: "% Activated (Post Opened)"
+    format: percent_1
+
+  activation_rate_opened:
+    sql: SAFE_DIVIDE(${users_activated_opened}, ${users_opened})
+    label: "% Activated (Opened)"
+    format: percent_1
+
+  activation_rate_not_opened:
+    sql: SAFE_DIVIDE(${users_activated_not_opened}, ${users_not_opened})
+    label: "% Activated (Not Opened)"
+    format: percent_1
+
+  # ── Raw event counts ───────────────────────────────────────────
+  total_billing_events:
+    sql: ${billing_events}
+    group_label: Raw Event Counts
+    aggregate_type: sum
+
+  total_ui_searches:
+    sql: ${ui_searches}
+    group_label: Raw Event Counts
+    aggregate_type: sum
+
+  total_code_nav:
+    sql: ${code_nav}
+    group_label: Raw Event Counts
+    aggregate_type: sum
+
+  total_ds_queries:
+    sql: ${ds_queries}
+    group_label: Raw Event Counts
+    aggregate_type: sum
+
+  total_mcp_calls:
+    sql: ${mcp_call}
+    group_label: Raw Event Counts
+    aggregate_type: sum
+
+  total_code_finder_actions:
+    sql: ${count_code_finder_actions}
+    group_label: Raw Event Counts
+    aggregate_type: sum

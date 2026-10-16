@@ -1,0 +1,29 @@
+# Reference this view as telligentsourcegraph_telemetry_staging__v2_backfill_user_mapping
+catalog: telligentsourcegraph
+schema: telemetry_staging
+table_name: v2_backfill_user_mapping
+
+dimensions:
+  last_event_timestamp: {}
+
+  anonymous_user_id:
+    sql: anonymousUserId
+    format: ID
+
+  mapped_userid:
+    sql: mapped_userId
+
+  sams_external_id:
+    sql: samsExternalId
+    format: ID
+
+  instance_id:
+    sql: instanceId
+    format: ID
+
+  managed_service:
+    sql: managedService
+
+measures:
+  count:
+    aggregate_type: count

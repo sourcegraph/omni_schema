@@ -1,0 +1,33 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__workspaces_daily_report
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: workspaces_daily_report
+
+dimensions:
+  day: {}
+  num_workspace_created: {}
+  num_workspace_churned: {}
+  net_new_seats: {}
+  expansion_new_seats: {}
+  total_new_seats_purchased: {}
+  cumulative_total_purchased_seats: {}
+  cumulative_net_new_seats: {}
+  cumulative_expansion_seats: {}
+  cumulative_num_seats_renewed: {}
+  daily_renewed_seats: {}
+  cumulative_consumed_seats: {}
+  cumulative_num_users_activated: {}
+  daily_activated_seats: {}
+  cumulative_num_seats_churned: {}
+  daily_churned_seats: {}
+  seats_added_net_churn: {}
+
+  current_mrr:
+    sql: current_MRR
+
+  current_arr:
+    sql: current_ARR
+
+measures:
+  count:
+    aggregate_type: count

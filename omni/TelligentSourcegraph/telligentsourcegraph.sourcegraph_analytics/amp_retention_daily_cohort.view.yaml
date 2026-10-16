@@ -1,0 +1,40 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__amp_retention_daily_cohort
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: amp_retention_daily_cohort
+
+dimensions:
+  cohort_date: {}
+  cohort_size: {}
+  day_0_active: {}
+  day_0_retention: {}
+  day_1_active: {}
+  day_1_retention: {}
+  day_2_active: {}
+  day_2_retention: {}
+  day_3_active: {}
+  day_3_retention: {}
+  day_4_active: {}
+  day_4_retention: {}
+  day_5_active: {}
+  day_5_retention: {}
+  day_6_active: {}
+  day_6_retention: {}
+  day_7_active: {}
+  day_7_retention: {}
+  day_14_active: {}
+  day_14_retention: {}
+  day_28_active: {}
+  day_28_retention: {}
+  week_1_active: {}
+  week_1_retention: {}
+  week_2_active: {}
+  week_2_retention: {}
+  week_3_active: {}
+  week_3_retention: {}
+  week_4_active: {}
+  week_4_retention: {}
+
+measures:
+  count:
+    aggregate_type: count

@@ -1,0 +1,55 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__weekly_code_intel_combined
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: weekly_code_intel_combined
+
+dimensions:
+  last_weekly_ping: {}
+  waus: {}
+
+  unique_server_id:
+    format: ID
+
+  flattened:
+    parent_field: flattened
+
+  flattened_action:
+    sql: flattened.action
+    parent_field: flattened
+
+  flattened_cross_repository:
+    sql: flattened.cross_repository
+    parent_field: flattened
+
+  flattened_language_id:
+    sql: flattened.language_id
+    format: ID
+    parent_field: flattened
+
+  flattened_source:
+    sql: flattened.source
+    parent_field: flattened
+
+  flattened_total_actions:
+    sql: flattened.total_actions
+    parent_field: flattened
+
+  flattened_waus:
+    sql: flattened.waus
+    parent_field: flattened
+
+  precise_userscount:
+    sql: Precise_UsersCount
+
+  precise_eventscount:
+    sql: Precise_EventsCount
+
+  search_userscount:
+    sql: Search_UsersCount
+
+  search_eventscount:
+    sql: Search_EventsCount
+
+measures:
+  count:
+    aggregate_type: count

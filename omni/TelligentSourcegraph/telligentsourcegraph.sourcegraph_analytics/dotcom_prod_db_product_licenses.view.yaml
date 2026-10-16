@@ -1,0 +1,36 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__dotcom_prod_db_product_licenses
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: dotcom_prod_db_product_licenses
+
+dimensions:
+  license_key: {}
+  created_at: {}
+  license_version: {}
+  license_tags: {}
+  license_user_count: {}
+  license_expires_at: {}
+  access_token_enabled: {}
+  license_check_token: {}
+  revoked_at: {}
+  revoke_reason: {}
+
+  id:
+    format: ID
+    primary_key: true
+
+  product_subscription_id:
+    format: ID
+
+  site_id:
+    format: ID
+
+  salesforce_sub_id:
+    format: ID
+
+  salesforce_opp_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

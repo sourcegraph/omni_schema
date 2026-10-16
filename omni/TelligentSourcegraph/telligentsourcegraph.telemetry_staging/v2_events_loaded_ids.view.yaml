@@ -1,0 +1,15 @@
+# Reference this view as telligentsourcegraph_telemetry_staging__v2_events_loaded_ids
+catalog: telligentsourcegraph
+schema: telemetry_staging
+table_name: v2_events_loaded_ids
+
+dimensions:
+  first_publish_time: {}
+
+  id:
+    format: ID
+    primary_key: true
+
+measures:
+  count:
+    aggregate_type: count

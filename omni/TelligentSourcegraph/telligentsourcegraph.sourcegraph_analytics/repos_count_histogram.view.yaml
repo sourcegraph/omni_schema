@@ -1,0 +1,20 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__repos_count_histogram
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: repos_count_histogram
+
+dimensions:
+  external_url: {}
+  size_range: {}
+  size_range_count: {}
+  repo_count: {}
+
+  server_endpoint:
+    sql: serverEndpoint
+
+measures:
+  count:
+    aggregate_type: count
+
+  coun_repos_sum:
+    sql: sum(${repo_count})

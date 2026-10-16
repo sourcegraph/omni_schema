@@ -1,0 +1,30 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__deep_search_topic_categorization
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: deep_search_topic_categorization
+
+dimensions:
+  timestamp: {}
+  topic: {}
+
+  id:
+    format: ID
+    primary_key: true
+
+  event_name:
+    sql: eventName
+
+  unique_user_id:
+    sql: uniqueUserId
+    format: ID
+
+  external_url:
+    sql: externalUrl
+
+  instance_id:
+    sql: instanceId
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

@@ -1,0 +1,14 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__days_between_upgrades
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: Days_Between_Upgrades
+
+dimensions:
+  average_days: {}
+
+  unique_server_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

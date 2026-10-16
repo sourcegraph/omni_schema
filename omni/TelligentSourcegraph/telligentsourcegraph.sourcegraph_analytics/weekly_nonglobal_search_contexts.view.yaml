@@ -1,0 +1,20 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__weekly_nonglobal_search_contexts
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: weekly_nonglobal_search_contexts
+
+dimensions:
+  week_start: {}
+
+  unique_server_id:
+    format: ID
+
+  user_count:
+    sql: UserCount
+
+  events_count:
+    sql: EventsCount
+
+measures:
+  count:
+    aggregate_type: count

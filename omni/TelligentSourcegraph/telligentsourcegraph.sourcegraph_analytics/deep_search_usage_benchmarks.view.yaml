@@ -1,0 +1,15 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__deep_search_usage_benchmarks
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: deep_search_usage_benchmarks
+
+dimensions:
+  external_url: {}
+  month: {}
+  queries_per_active_user: {}
+  total_queries: {}
+  active_users: {}
+
+measures:
+  count:
+    aggregate_type: count

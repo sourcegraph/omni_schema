@@ -1,0 +1,14 @@
+base_view: telligentsourcegraph_sourcegraph_analytics__upgrade_list
+label: Version Upgrade List
+
+joins:
+  telligentsourcegraph_sourcegraph_analytics__server_instances:
+    telligentsourcegraph_sfdc_current__dim_account_details:
+      telligentsourcegraph_credits_analytics__credits_pacing_by_customer: {}
+      telligentsourcegraph_gsheets__customer_telemetry_status_updated: {}
+      telligentsourcegraph_sfdc_current__purchased_seat_monthly: {}
+    telligentsourcegraph_sfdc_current__looker_dim_account_details:
+      post_sales__customer_health_score_latest:
+        post_sales__customer_momentum_score_latest: {}
+        post_sales__csm_relationship_signal_latest: {}
+      telligentsourcegraph_post_sales__digital_program_user_funnel: {}

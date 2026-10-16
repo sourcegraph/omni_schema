@@ -1,0 +1,20 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__marketing_email_contact_list
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: marketing_email_contact_list
+
+dimensions:
+  email_name: {}
+  email_action_status: {}
+  email_action_date: {}
+  contact_email: {}
+
+  email_id:
+    format: ID
+
+  contact_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

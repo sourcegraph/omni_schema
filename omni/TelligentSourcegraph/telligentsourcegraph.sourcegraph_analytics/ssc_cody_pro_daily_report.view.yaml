@@ -1,0 +1,35 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__ssc_cody_pro_daily_report
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: ssc_cody_pro_daily_report
+
+dimensions:
+  date: {}
+  daily_subscribers: {}
+  new_subscribers: {}
+  retained_subscribers: {}
+  churned_subscribers: {}
+  beta_sub: {}
+  reactivated_from_churn: {}
+  active_subscribers: {}
+  daily_revenue: {}
+  daily_revenue_added: {}
+  daily_revenue_retained: {}
+  zap_active_subscribers: {}
+  zap_daily_revenue: {}
+
+  mrr:
+    sql: MRR
+
+  arr:
+    sql: ARR
+
+  zap_mrr:
+    sql: zap_MRR
+
+  zap_arr:
+    sql: zap_ARR
+
+measures:
+  count:
+    aggregate_type: count

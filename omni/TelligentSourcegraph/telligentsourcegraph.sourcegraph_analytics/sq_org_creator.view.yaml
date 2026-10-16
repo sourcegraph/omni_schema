@@ -1,0 +1,18 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__sq_org_creator
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: sq_org_creator
+
+dimensions:
+  created: {}
+  contact_email: {}
+
+  org_id:
+    format: ID
+
+  contact_user_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

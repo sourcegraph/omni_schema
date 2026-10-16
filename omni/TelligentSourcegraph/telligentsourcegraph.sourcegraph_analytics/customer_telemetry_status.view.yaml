@@ -1,0 +1,14 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__customer_telemetry_status
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: customer_telemetry_status
+
+dimensions:
+  telemetry_status: {}
+
+  unique_server_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

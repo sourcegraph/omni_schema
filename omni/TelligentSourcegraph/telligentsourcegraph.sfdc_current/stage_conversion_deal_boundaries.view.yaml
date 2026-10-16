@@ -1,0 +1,24 @@
+# Reference this view as telligentsourcegraph_sfdc_current__stage_conversion_deal_boundaries
+catalog: telligentsourcegraph
+schema: sfdc_current
+table_name: stage_conversion_deal_boundaries
+
+dimensions:
+  segment: {}
+  opportunity_type: {}
+  terminal_state: {}
+  qualified_flag: {}
+  entry_stage: {}
+  boundary_n: {}
+  boundary: {}
+  entered_stage_n_ts: {}
+  is_multi_visit_n: {}
+  regressed: {}
+  converted: {}
+
+  opportunity_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

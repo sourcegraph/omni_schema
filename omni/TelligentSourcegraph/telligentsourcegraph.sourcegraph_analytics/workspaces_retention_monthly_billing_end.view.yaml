@@ -1,0 +1,24 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__workspaces_retention_monthly_billing_end
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: workspaces_retention_monthly_billing_end
+
+dimensions:
+  cohort_month: {}
+  total_workspaces: {}
+  month_1_retention: {}
+  month_1_workspaces: {}
+  month_2_retention: {}
+  month_2_workspaces: {}
+  month_3_retention: {}
+  month_3_workspaces: {}
+  month_4_retention: {}
+  month_4_workspaces: {}
+  month_5_retention: {}
+  month_5_workspaces: {}
+  month_6_retention: {}
+  month_6_workspaces: {}
+
+measures:
+  count:
+    aggregate_type: count

@@ -1,0 +1,47 @@
+# Reference this view as telligentsourcegraph_gsheets__revenue_by_product
+catalog: telligentsourcegraph
+schema: gsheets
+table_name: revenue_by_product
+
+dimensions:
+  opportunity_owner:
+    sql: Opportunity_Owner
+
+  account_name:
+    sql: Account_Name
+
+  opportunity_name:
+    sql: Opportunity_Name
+
+  fiscal_period:
+    sql: Fiscal_Period
+
+  iarr:
+    sql: IARR
+
+  amount:
+    sql: Amount
+
+  probability____:
+    sql: Probability____
+
+  close_date:
+    sql: Close_Date
+    description: "%m/%d/%E4Y"
+
+  created_date:
+    sql: Created_Date
+    description: "%m/%d/%E4Y"
+
+  lead_source:
+    sql: Lead_Source
+
+  type:
+    sql: Type
+
+  products_included:
+    sql: Products_Included
+
+measures:
+  count:
+    aggregate_type: count

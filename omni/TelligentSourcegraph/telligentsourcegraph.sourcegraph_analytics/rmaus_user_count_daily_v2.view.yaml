@@ -1,0 +1,29 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__rmaus_user_count_daily_v2
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: rmaus_user_count_daily_v2
+
+dimensions:
+  analysis_date:
+    label: Date
+
+  rolling_30d_unique_users:
+    hidden: true
+
+  daily_active_users:
+    hidden: true
+
+  external_url:
+    sql: externalUrl
+
+measures:
+  count:
+    aggregate_type: count
+
+  rolling_30d_users:
+    sql: rolling_30d_unique_users
+    aggregate_type: sum
+
+  daily_users:
+    sql: daily_active_users
+    aggregate_type: sum

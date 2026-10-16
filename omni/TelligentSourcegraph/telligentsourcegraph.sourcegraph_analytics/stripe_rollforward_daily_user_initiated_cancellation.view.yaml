@@ -1,0 +1,13 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__stripe_rollforward_daily_user_initiated_cancellation
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: stripe_rollforward_daily_user_initiated_cancellation
+
+dimensions:
+  date: {}
+  new_customers: {}
+  canceled_customers: {}
+
+measures:
+  count:
+    aggregate_type: count

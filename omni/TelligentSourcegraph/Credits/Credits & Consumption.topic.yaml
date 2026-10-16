@@ -1,0 +1,45 @@
+base_view: telligentsourcegraph_credits__consumption_events
+base_view_label: Consumption Events
+label: Credits & Consumption
+group_label: Credits
+description: "Credit allocation vs. burn, with product telemetry joined in to
+  explain what activity is driving consumption. Built on three sources:
+  credit_buckets (entitlement), consumption_events (burn), and v2_events (the
+  why)."
+
+joins:
+  telligentsourcegraph_enterprise_portal__credit_buckets: {}
+  telligentsourcegraph_enterprise_portal__subscriptions:
+    telligentsourcegraph_sfdc_current__looker_dim_account_details:
+      telligentsourcegraph_credits_analytics__credits_pacing_by_customer: {}
+
+views:
+  telligentsourcegraph_credits__consumption_events:
+    label: Consumption
+    display_order: 1
+
+  telligentsourcegraph_enterprise_portal__credit_buckets:
+    label: Credit Buckets
+    display_order: 2
+
+  telligentsourcegraph_credits_analytics__credits_pacing_by_customer:
+    display_order: 4
+
+  telligentsourcegraph_sfdc_current__looker_dim_account_details:
+    display_order: 3
+
+ai_context: |-
+  Three layers, each answering a different question:
+
+  - Credit Buckets (Allocation) = what the customer is ENTITLED to. credits_total is the entitlement, credits_consumed is the portal's running counter, expires_at / rollover_expires_at govern lifecycle. This is BUCKET-grain, not event-grain.
+  - Consumption (Burn) = the base view. One row per consumption event. `credits` = credits burned, `dollar_cost` = dollar impact, `count` = SKU units.
+  - Product Activity (Why) = telemetry. Join in feature, action, event_name, client_name to explain WHAT drove a consumption spike, not just that one occurred.
+
+  Guidance:
+  - Prefer created_at (when consumption happened in-instance) over received_at (pipeline arrival) for trends.
+  - For "are they over their allocation", compare credit_buckets.credits_total against summed consumption credits. Do NOT sum credits_total across consumption events — it is bucket-grain and will inflate.
+  - credit_type classifies burn as free, paid, overage_capped, or overage_uncapped. The overage types signal billing risk.
+  - sku is numeric; 1 = Deep Search; 0 = Unspecified; 2 = Smart Hover Summary; 3 = MCP Code Finder; 4 = Batch Changes Coding Agent LLM Usage; = Batch Change Agent Messages; 6 = Diff Tour
+  - The telemetry join is many-to-many on license key + in-instance user id, so it fans out consumption rows. Credit and dollar sums are fanout-protected, but event counts alongside telemetry should be treated as directional. For exact burn totals, query without the telemetry join.
+  - usermetadata_issourcegraphteammate and usermetadata_serviceaccount on telemetry are useful for excluding internal and service traffic.
+  - was_inside_debit_window flags whether consumption landed in the expected debit window; unexpected values can indicate data quality issues.

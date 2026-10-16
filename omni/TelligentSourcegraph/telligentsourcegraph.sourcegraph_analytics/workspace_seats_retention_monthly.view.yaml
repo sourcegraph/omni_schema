@@ -1,0 +1,24 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__workspace_seats_retention_monthly
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: workspace_seats_retention_monthly
+
+dimensions:
+  cohort_month: {}
+  total_seats: {}
+  month_1_retention: {}
+  month_1_seats: {}
+  month_2_retention: {}
+  month_2_seats: {}
+  month_3_retention: {}
+  month_3_seats: {}
+  month_4_retention: {}
+  month_4_seats: {}
+  month_5_retention: {}
+  month_5_seats: {}
+  month_6_retention: {}
+  month_6_seats: {}
+
+measures:
+  count:
+    aggregate_type: count

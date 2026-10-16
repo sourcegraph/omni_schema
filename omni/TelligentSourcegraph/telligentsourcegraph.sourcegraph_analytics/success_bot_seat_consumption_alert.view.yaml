@@ -1,0 +1,48 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__success_bot_seat_consumption_alert
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: success_bot_seat_consumption_alert
+
+dimensions:
+  account_name: {}
+  month: {}
+  pricing_metric: {}
+  end_of_contract_date: {}
+  hard_cap: {}
+  cody_seats: {}
+  search_seats: {}
+  total_seats: {}
+  max_total_user_accounts: {}
+  mau: {}
+  seat_consumption_latest: {}
+  expansion_ppu: {}
+  expansion_size: {}
+  observed_users: {}
+  overage_users: {}
+  overage_packs: {}
+  billable_overage_users: {}
+  potential_expansion_iacv: {}
+  seat_consumption_formatted: {}
+  csm_slack_username: {}
+
+  pk:
+    sql: PK
+
+  account_id:
+    format: ID
+
+  sfdc_unique_id:
+    format: ID
+
+  opp_id:
+    format: ID
+
+  cip_seats:
+    sql: CIP_seats
+
+  csm_slack_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

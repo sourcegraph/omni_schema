@@ -1,0 +1,44 @@
+# Reference this view as telligentsourcegraph_sfdc_current__sfdc_subscription
+catalog: telligentsourcegraph
+schema: sfdc_current
+table_name: sfdc_subscription
+
+dimensions:
+  created_date: {}
+  current_contract_start_date: {}
+  expansion_size: {}
+  is_deleted: {}
+  last_modified_date: {}
+  sourcegraph_subscription_name: {}
+  num: {}
+  subscription_name: {}
+  valid_from: {}
+  arr_discrepancy_review: {}
+  arr_discrepancy_explanation_: {}
+  churn_effective_date: {}
+  expansion_ppu: {}
+  subscription_arr: {}
+  max_seat_amount: {}
+  current_end_date: {}
+  product_subscription_license_user_count_c: {}
+  subscription_c: {}
+  date_uploaded: {}
+
+  sourcegraph_subscription_id:
+    format: ID
+
+  account_id:
+    format: ID
+
+  created_by_id:
+    format: ID
+
+  last_modified_by_id:
+    format: ID
+
+  product_subscription_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

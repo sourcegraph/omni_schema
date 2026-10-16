@@ -1,0 +1,22 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__sq_sfdc_license_key
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: sq_sfdc_license_key
+
+dimensions:
+  license_key: {}
+  license_create_date: {}
+  license_expire_date: {}
+  license_type: {}
+  license_tags: {}
+  license_seats: {}
+
+  unique_server_id:
+    format: ID
+
+  sfdc_instance_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

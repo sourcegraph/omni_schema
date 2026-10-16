@@ -1,0 +1,17 @@
+# Reference this view as telligentsourcegraph_pings_data_model_transformed__intel_users_weekly
+catalog: telligentsourcegraph
+schema: pings_data_model_transformed
+table_name: intel_users_weekly
+
+dimensions:
+  timestamp: {}
+  installer_email: {}
+  week: {}
+  waus: {}
+
+  remote_site_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

@@ -1,0 +1,21 @@
+# Reference this view as telligentsourcegraph_lookup__s2users
+catalog: telligentsourcegraph
+schema: lookup
+table_name: s2users
+
+dimensions:
+  username: {}
+
+  external_url:
+    sql: externalUrl
+
+  user_id:
+    sql: userId
+    format: ID
+
+  primary_email:
+    sql: primaryEmail
+
+measures:
+  count:
+    aggregate_type: count

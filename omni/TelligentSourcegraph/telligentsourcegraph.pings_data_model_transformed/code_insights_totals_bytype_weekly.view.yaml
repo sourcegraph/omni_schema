@@ -1,0 +1,19 @@
+# Reference this view as telligentsourcegraph_pings_data_model_transformed__code_insights_totals_bytype_weekly
+catalog: telligentsourcegraph
+schema: pings_data_model_transformed
+table_name: code_insights_totals_bytype_weekly
+
+dimensions:
+  timestamp: {}
+  week: {}
+  installer_email: {}
+  week_monday: {}
+  view_type: {}
+  total_count: {}
+
+  remote_site_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

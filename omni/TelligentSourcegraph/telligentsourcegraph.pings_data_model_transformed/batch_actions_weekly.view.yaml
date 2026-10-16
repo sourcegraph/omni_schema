@@ -1,0 +1,28 @@
+# Reference this view as telligentsourcegraph_pings_data_model_transformed__batch_actions_weekly
+catalog: telligentsourcegraph
+schema: pings_data_model_transformed
+table_name: batch_actions_weekly
+
+dimensions:
+  timestamp: {}
+  installer_email: {}
+  ping_type: {}
+  batch_changes_open: {}
+  batch_changes_closed: {}
+  changesets_imported: {}
+  changesets_published: {}
+  changesets_unpublished: {}
+  changesets_published_open: {}
+  changesets_published_draft: {}
+  changesets_published_closed: {}
+  changesets_published_merged: {}
+
+  remote_site_id:
+    format: ID
+
+  week:
+    sql: Week
+
+measures:
+  count:
+    aggregate_type: count

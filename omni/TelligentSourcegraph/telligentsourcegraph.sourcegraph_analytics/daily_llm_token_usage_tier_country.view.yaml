@@ -1,0 +1,209 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__daily_llm_token_usage_tier_country
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: daily_llm_token_usage_tier_country
+
+dimensions:
+  created_at: {}
+  identifier: {}
+  display_name: {}
+  email: {}
+  llm_model: {}
+  prompt_cost_per_million_tokens: {}
+  completion_cost_per_million_tokens: {}
+  prompt_cache_write_cost_per_million_tokens: {}
+  prompt_cache_hit_cost_per_million_tokens: {}
+
+  primary_key:
+    sql: CONCAT(${identifier}, '_', CAST(${created_at[date]} AS STRING))
+    description: Unique identifier combining user ID and created timestamp
+    hidden: true
+    primary_key: true
+
+  feature_raw:
+    sql: feature
+    hidden: true
+
+  feature:
+    sql: |
+      CASE
+        WHEN ${feature_raw} = 'code_completions' THEN 'Completion'
+        WHEN ${feature_raw} = 'chat_completions' THEN 'Chat'
+        ELSE ${feature_raw}
+      END
+    label: Feature
+
+  salesforce_account_id:
+    format: ID
+
+  # Raw token columns — hidden, used only by the measures below
+  prompt_tokens:
+    hidden: true
+
+  completion_tokens:
+    hidden: true
+
+  prompt_cache_write_tokens:
+    hidden: true
+
+  prompt_cache_hit_tokens:
+    hidden: true
+
+  total_tokens_without_cache:
+    hidden: true
+
+  total_tokens_with_cache:
+    hidden: true
+
+  # Raw cost columns — hidden
+  prompt_costs:
+    hidden: true
+
+  completion_costs:
+    hidden: true
+
+  prompt_cache_write_cost:
+    hidden: true
+
+  prompt_cache_hit_cost:
+    hidden: true
+
+  total_cost_without_cache:
+    hidden: true
+
+  total_cost_with_cache:
+    hidden: true
+
+  # INT64-cast versions of the cost columns (LookML's *_dim dimensions)
+  total_cost_with_cache_int:
+    sql: CAST(${total_cost_with_cache} AS INT64)
+    hidden: true
+
+  total_cost_without_cache_int:
+    sql: CAST(${total_cost_without_cache} AS INT64)
+    hidden: true
+
+  completion_costs_int:
+    sql: CAST(${completion_costs} AS INT64)
+    hidden: true
+
+  prompt_costs_int:
+    sql: CAST(${prompt_costs} AS INT64)
+    hidden: true
+
+  prompt_cache_write_cost_int:
+    sql: CAST(${prompt_cache_write_cost} AS INT64)
+    hidden: true
+
+  prompt_cache_hit_cost_int:
+    sql: CAST(${prompt_cache_hit_cost} AS INT64)
+    hidden: true
+
+measures:
+  count:
+    drill_fields: [ display_name ]
+    aggregate_type: count
+
+  distinct_identifier:
+    sql: ${identifier}
+    aggregate_type: count_distinct
+
+  prompt_token_sum:
+    sql: ${prompt_tokens} + ${prompt_cache_hit_tokens} +
+      ${prompt_cache_write_tokens}
+    label: Total Input Tokens (Prompt)
+    format: "#,##0"
+    aggregate_type: sum
+
+  regular_prompt_token_sum:
+    sql: ${prompt_tokens}
+    label: Regular Input Tokens (Prompt)
+    format: "#,##0"
+    aggregate_type: sum
+
+  cache_hit_prompt_token_sum:
+    sql: ${prompt_cache_hit_tokens}
+    label: Cache Hit Input Tokens (Prompt)
+    format: "#,##0"
+    aggregate_type: sum
+
+  cache_write_prompt_token_sum:
+    sql: ${prompt_cache_write_tokens}
+    label: Cache Write Input Tokens (Prompt)
+    format: "#,##0"
+    aggregate_type: sum
+
+  completion_token_sum:
+    sql: ${completion_tokens}
+    label: Total Output Tokens (Completion)
+    format: "#,##0"
+    aggregate_type: sum
+
+  total_token_sum:
+    sql: ${total_tokens_with_cache}
+    format: BIGNUMBER_1
+    aggregate_type: sum
+
+  total_token_without_cache_sum:
+    sql: ${total_tokens_without_cache}
+    format: "#,##0"
+    aggregate_type: sum
+
+  total_costs:
+    sql: ${total_cost_with_cache_int}
+    format: $#,##0
+    aggregate_type: sum
+
+  total_costs_witout_cache:
+    sql: ${total_cost_without_cache_int}
+    format: $#,##0
+    aggregate_type: sum
+
+  prompt_costs_measure:
+    sql: ${prompt_costs_int} + ${prompt_cache_write_cost_int} +
+      ${prompt_cache_hit_cost_int}
+    label: Total Input Costs (Prompt)
+    format: $#,##0
+    aggregate_type: sum
+
+  completion_costs_measure:
+    sql: ${completion_costs_int}
+    label: Total Output Costs (Completion)
+    format: $#,##0
+    aggregate_type: sum
+
+  # Hidden: incorrect values on aggregate, correct when broken down by
+  # model, feature, day. TR: March 2, 2026
+  calculated_prompt_costs:
+    sql: |
+      ROUND(
+        (${regular_prompt_token_sum} / 1000000.0) * MAX(CAST(${prompt_cost_per_million_tokens} AS FLOAT64)),
+        0
+      ) +
+      ROUND(
+        (${cache_hit_prompt_token_sum} / 1000000.0) * MAX(CAST(${prompt_cache_hit_cost_per_million_tokens} AS FLOAT64)),
+        0
+      ) +
+      ROUND(
+        (${cache_write_prompt_token_sum} / 1000000.0) * MAX(CAST(${prompt_cache_write_cost_per_million_tokens} AS FLOAT64)),
+        0
+      )
+    label: Calculated Input Costs (Prompt)
+    format: $#,##0
+    hidden: true
+
+  calculated_completion_costs:
+    sql: |
+      ROUND(
+        (${completion_token_sum} / 1000000.0) * MAX(CAST(${completion_cost_per_million_tokens} AS FLOAT64)),
+        0
+      )
+    label: Calculated Output Costs (Completion)
+    format: $#,##0
+    hidden: true
+
+  calculated_total_costs:
+    sql: ${calculated_prompt_costs} + ${calculated_completion_costs}
+    label: Calculated Total Costs
+    format: $#,##0
+    hidden: true

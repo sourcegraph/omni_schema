@@ -1,0 +1,21 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__user_emails
+description: Dotcom PG table replication
+
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: user_emails
+
+dimensions:
+  email: {}
+  verification_code: {}
+  verified_at: {}
+  last_verification_sent_at: {}
+  is_primary: {}
+  created_at: {}
+
+  user_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

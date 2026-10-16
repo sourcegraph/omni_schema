@@ -1,0 +1,34 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__deep_search_emerging_users
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: deep_search_emerging_users
+
+dimensions:
+  current_period_searches: {}
+  previous_period_searches: {}
+  prior_period_searches: {}
+  absolute_growth: {}
+  growth_rate: {}
+  days_active_current_period: {}
+  days_active_previous_period: {}
+  first_activity_date: {}
+  is_new_user: {}
+  is_reactivated_user: {}
+  is_emerging_user: {}
+  is_declining_user: {}
+  user_segment: {}
+
+  unique_user_id:
+    sql: uniqueUserId
+    format: ID
+
+  user_id:
+    sql: userId
+    format: ID
+
+  external_url:
+    sql: externalUrl
+
+measures:
+  count:
+    aggregate_type: count

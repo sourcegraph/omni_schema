@@ -1,0 +1,26 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__self_serve_daily_report_by_product
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: self_serve_daily_report_by_product
+
+dimensions:
+  day: {}
+  self_serve_product: {}
+  num_workspace_created: {}
+  num_workspace_churned: {}
+  paid_seats_added: {}
+  churned_seats: {}
+  reactivated_from_churn: {}
+  net_paid_seats_added: {}
+  retained_seats: {}
+  all_paying_seats: {}
+
+  current_mrr:
+    sql: current_MRR
+
+  current_arr:
+    sql: current_ARR
+
+measures:
+  count:
+    aggregate_type: count

@@ -1,0 +1,29 @@
+# Reference this view as telligentsourcegraph_pings_data_model_transformed__retention_statistics_weekly
+catalog: telligentsourcegraph
+schema: pings_data_model_transformed
+table_name: retention_statistics_weekly
+
+dimensions:
+  timestamp: {}
+  installer_email: {}
+  week_start: {}
+  cohort_size: {}
+  week0: {}
+  week1: {}
+  week2: {}
+  week3: {}
+  week4: {}
+  week5: {}
+  week6: {}
+  week7: {}
+  week8: {}
+  week9: {}
+  week10: {}
+  week11: {}
+
+  remote_site_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

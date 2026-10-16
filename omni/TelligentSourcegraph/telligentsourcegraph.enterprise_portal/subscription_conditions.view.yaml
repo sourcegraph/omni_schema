@@ -1,0 +1,31 @@
+# Reference this view as telligentsourcegraph_enterprise_portal__subscription_conditions
+catalog: telligentsourcegraph
+schema: enterprise_portal
+table_name: subscription_conditions
+
+dimensions:
+  status: {}
+  message: {}
+  transition_time: {}
+
+  subscription_id:
+    format: ID
+
+  datastream_metadata:
+    parent_field: datastream_metadata
+
+  datastream_metadata_is_deleted:
+    sql: datastream_metadata.is_deleted
+    parent_field: datastream_metadata
+
+  datastream_metadata_source_timestamp:
+    sql: datastream_metadata.source_timestamp
+    parent_field: datastream_metadata
+
+  datastream_metadata_uuid:
+    sql: datastream_metadata.`uuid`
+    parent_field: datastream_metadata
+
+measures:
+  count:
+    aggregate_type: count

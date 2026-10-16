@@ -1,0 +1,24 @@
+# Reference this view as telligentsourcegraph_sfdc_current__stage_conversion_rates_funnel
+catalog: telligentsourcegraph
+schema: sfdc_current
+table_name: stage_conversion_rates_funnel
+
+dimensions:
+  boundary_n: {}
+  boundary: {}
+  segment: {}
+  type: {}
+  slice_level: {}
+  period_type: {}
+  period_label: {}
+  period_start: {}
+  den: {}
+  num: {}
+  rate: {}
+  regression_rate: {}
+  low_confidence: {}
+  is_current_period: {}
+
+measures:
+  count:
+    aggregate_type: count

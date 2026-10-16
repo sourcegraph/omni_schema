@@ -1,0 +1,18 @@
+# Reference this view as telligentsourcegraph_sfdc_current__search_purchased_seat_by_customer
+catalog: telligentsourcegraph
+schema: sfdc_current
+table_name: search_purchased_seat_by_customer
+
+dimensions:
+  account_name: {}
+  product_group: {}
+  current_month_date: {}
+  total_seats: {}
+  total_arr: {}
+
+  sourcegraph_subscription_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

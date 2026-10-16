@@ -1,0 +1,34 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__account_assignment_expansion_score
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: account_assignment_expansion_score
+
+dimensions:
+  run_date: {}
+  account_name: {}
+  segmentation: {}
+  iacv: {}
+  sentiment: {}
+  growth_3m: {}
+  search_dau_over_wau: {}
+  avg_3m_mau_seat: {}
+  mcp_tool_calls: {}
+  ds_queries: {}
+  implied_dev_penetration: {}
+  growth_3m_score: {}
+  dau_wau_score: {}
+  mau_seat_score: {}
+  sentiment_score: {}
+  dev_penetration: {}
+  feature_usage_score: {}
+  weighted_score: {}
+
+  account_id:
+    format: ID
+
+  sfdc_unique_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

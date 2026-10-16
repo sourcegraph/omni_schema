@@ -1,0 +1,13 @@
+# Reference this view as telligentsourcegraph_telemetry_staging__pipeline_run_locks
+catalog: telligentsourcegraph
+schema: telemetry_staging
+table_name: pipeline_run_locks
+
+dimensions:
+  pipeline: {}
+  locked_by: {}
+  lock_expires_at: {}
+
+measures:
+  count:
+    aggregate_type: count

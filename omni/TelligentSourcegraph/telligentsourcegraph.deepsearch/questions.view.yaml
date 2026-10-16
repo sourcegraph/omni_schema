@@ -1,0 +1,24 @@
+# Reference this view as telligentsourcegraph_deepsearch__questions
+catalog: telligentsourcegraph
+schema: deepsearch
+table_name: questions
+
+dimensions:
+  created_at: {}
+  updated_at: {}
+  status: {}
+  data: {}
+
+  id:
+    format: ID
+    primary_key: true
+
+  conversation_id:
+    format: ID
+
+  tenant_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

@@ -1,0 +1,86 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__monthly_search_latencies
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: monthly_search_latencies
+
+dimensions:
+  start_date: {}
+
+  unique_server_id:
+    format: ID
+
+  monthly_structural_eventlatencies_p99:
+    sql: Monthly_Structural_EventLatencies_P99
+
+  monthly_file_eventlatencies_p99:
+    sql: Monthly_File_EventLatencies_P99
+
+  monthly_repo_eventlatencies_p99:
+    sql: Monthly_Repo_EventLatencies_P99
+
+  monthly_diff_eventlatencies_p99:
+    sql: Monthly_Diff_EventLatencies_P99
+
+  monthly_commit_eventlatencies_p99:
+    sql: Monthly_Commit_EventLatencies_P99
+
+  monthly_symbol_eventlatencies_p99:
+    sql: Monthly_Symbol_EventLatencies_P99
+
+  monthly_literal_eventlatencies_p99:
+    sql: Monthly_Literal_EventLatencies_P99
+
+  monthly_regexp_eventlatencies_p99:
+    sql: Monthly_Regexp_EventLatencies_P99
+
+  monthly_structural_eventlatencies_p90:
+    sql: Monthly_Structural_EventLatencies_P90
+
+  monthly_file_eventlatencies_p90:
+    sql: Monthly_File_EventLatencies_P90
+
+  monthly_repo_eventlatencies_p90:
+    sql: Monthly_Repo_EventLatencies_P90
+
+  monthly_diff_eventlatencies_p90:
+    sql: Monthly_Diff_EventLatencies_P90
+
+  monthly_commit_eventlatencies_p90:
+    sql: Monthly_Commit_EventLatencies_P90
+
+  monthly_symbol_eventlatencies_p90:
+    sql: Monthly_Symbol_EventLatencies_P90
+
+  monthly_literal_eventlatencies_p90:
+    sql: Monthly_Literal_EventLatencies_P90
+
+  monthly_regexp_eventlatencies_p90:
+    sql: Monthly_Regexp_EventLatencies_P90
+
+  monthly_structural_eventlatencies_p50:
+    sql: Monthly_Structural_EventLatencies_P50
+
+  monthly_file_eventlatencies_p50:
+    sql: Monthly_File_EventLatencies_P50
+
+  monthly_repo_eventlatencies_p50:
+    sql: Monthly_Repo_EventLatencies_P50
+
+  monthly_diff_eventlatencies_p50:
+    sql: Monthly_Diff_EventLatencies_P50
+
+  monthly_commit_eventlatencies_p50:
+    sql: Monthly_Commit_EventLatencies_P50
+
+  monthly_symbol_eventlatencies_p50:
+    sql: Monthly_Symbol_EventLatencies_P50
+
+  monthly_literal_eventlatencies_p50:
+    sql: Monthly_Literal_EventLatencies_P50
+
+  monthly_regexp_eventlatencies_p50:
+    sql: Monthly_Regexp_EventLatencies_P50
+
+measures:
+  count:
+    aggregate_type: count

@@ -1,0 +1,68 @@
+# Reference this view as telligentsourcegraph_sfdc_current__customer_dim_account_details
+label: Customer (new) Dim Account Details
+
+catalog: telligentsourcegraph
+schema: sfdc_current
+table_name: customer_dim_account_details
+
+dimensions:
+  name: {}
+  user_level_event_usage_data_analytics_c: {}
+  customer_type: {}
+  active_product_classification: {}
+  type_of_agreement: {}
+  account_executive: {}
+  customer_engineer: {}
+  technical_advisor: {}
+  implementation_engineer: {}
+  account_owner: {}
+  customer_success_manager: {}
+  tier: {}
+  annual_revenue: {}
+  bundle_size: {}
+  industry: {}
+  is_strategic_account: {}
+  geo: {}
+  region: {}
+  country: {}
+  number_of_employees: {}
+  number_of_engineers: {}
+  technical_advisor_support_level_c: {}
+  ta_segmentation_c: {}
+  fy_25_segmentation_c: {}
+  eng_count: {}
+  amp_csm_queue: {}
+  csm_relationship_signal_overview: {}
+  csm_relationship_signal_color: {}
+  ai_terms: {}
+  analytics_pii_terms: {}
+  close_date: {}
+  contract_start: {}
+  contract_end: {}
+  contract_term: {}
+  products_purchased: {}
+  hard_cap: {}
+  use_cases: {}
+  poc_start_date: {}
+  poc_end_date: {}
+  deal_desk_approved: {}
+  year_one_solution_engineer: {}
+
+  account_id:
+    format: ID
+
+  sfdc_unique_id:
+    format: ID
+
+  parent_account_id:
+    format: ID
+
+  source:
+    sql: SOURCE
+
+  opportunity_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

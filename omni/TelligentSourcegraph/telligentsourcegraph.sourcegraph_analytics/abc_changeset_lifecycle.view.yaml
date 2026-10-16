@@ -1,0 +1,632 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__abc_changeset_lifecycle
+#
+# HOW TO PICK A DATE FILTER - this fact table has one row and several dates:
+#   * "how many were merged in the last 30 days"  -> filter Merged
+#   * "how many were created in the last 30 days" -> filter Created
+#   * cohort conversion (created in period, ever merged) -> filter Created
+#     and use Merge Rate
+# Filtering Created and reading Changesets Merged gives the cohort's eventual
+# merges, NOT merges that happened in the window. Both are valid; they are
+# different questions.
+#
+# All time dimensions use convert_tz: false so every timeframe is UTC, matching
+# the Dataform table and the Redash dashboard.
+description: One row per (external_url, changeset_id) with agentic-vs-classic
+  attribution and first-occurrence lifecycle timestamps. Single source of truth
+  for changeset created/published/drafted/merged/closed reporting; replaces
+  per-query attribution in Looker and Redash.
+
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: abc_changeset_lifecycle
+
+dimensions:
+  # ------------------------------------------------------------ identifiers
+
+  changeset_key:
+    description: external_url|changeset_id. changeset_id alone is instance-local and
+      collides across instances.
+    hidden: true
+    primary_key: true
+
+  changeset_id:
+    label: Changeset ID
+    format: ID
+    description: Instance-local changeset ID. Not unique across instances - count
+      Changesets, not this.
+
+  batch_change_id:
+    label: Batch Change ID
+    format: ID
+    description: Owning batch change. Instance-local; an agentic batch change is
+      preferred when a changeset is attached to several.
+
+  batch_change_count:
+    hidden: true
+
+  is_shared_changeset:
+    sql: ${telligentsourcegraph_sourcegraph_analytics__abc_changeset_lifecycle.batch_change_count}
+      > 1
+    label: Shared Across Batch Changes
+    description: Changeset was seen attached to more than one batch change.
+
+  # ------------------------------------------------------------ attribution
+
+  is_agentic:
+    label: Is Agentic (ABC)
+    description: Changeset belongs to an Agentic Batch Changes batch change, per
+      batchChangeAgent telemetry on the same instance.
+
+  attribution:
+    sql: |
+      CASE
+        WHEN ${telligentsourcegraph_sourcegraph_analytics__abc_changeset_lifecycle.is_agentic} THEN 'Agentic (ABC)'
+        WHEN ${telligentsourcegraph_sourcegraph_analytics__abc_changeset_lifecycle.batch_change_count} > 0 THEN 'Classic'
+        ELSE 'Unattributed'
+      END
+    label: Attribution
+    description: Agentic, Classic, or Unattributed (no batches event ever carried a
+      batchChangeID for this changeset). Classic + Agentic + Unattributed =
+      total.
+
+  is_internal_instance:
+    label: Is Internal Instance
+    description: Sourcegraph dogfood/demo instance (S2, demo, clouddev-qa, cse-k8s).
+      Excluded by default in the topic.
+
+  # --------------------------------------------------------------- customer
+
+  customer_name:
+    label: Customer
+    description: Salesforce account name, falling back to the external URL when the
+      instance is unmapped.
+    drill_fields:
+      [
+        external_url,
+        batch_change_id,
+        changeset_id,
+        attribution,
+        lifecycle_status
+      ]
+
+  customer_key:
+    hidden: true
+
+  sfdc_unique_id:
+    format: ID
+    description: Join key for dim_account_details. Resolved upstream from the
+      deduplicated server_instances lookup.
+    hidden: true
+
+  is_mapped_to_salesforce:
+    sql: ${telligentsourcegraph_sourcegraph_analytics__abc_changeset_lifecycle.sfdc_unique_id}
+      IS NOT NULL
+    label: Mapped To Salesforce
+    description: Instance resolved to a Salesforce account. Unmapped instances still
+      appear, keyed by URL.
+
+  external_url:
+    label: Instance URL
+
+  # -------------------------------------------------------------- lifecycle
+
+  lifecycle_status:
+    sql: |
+      CASE
+        WHEN ${telligentsourcegraph_sourcegraph_analytics__abc_changeset_lifecycle.is_merged} THEN 'Merged'
+        WHEN ${telligentsourcegraph_sourcegraph_analytics__abc_changeset_lifecycle.is_closed} THEN 'Closed'
+        WHEN ${telligentsourcegraph_sourcegraph_analytics__abc_changeset_lifecycle.is_created} THEN 'Open'
+        ELSE 'Not Created'
+      END
+    label: Lifecycle Status
+    description: "Terminal state of the changeset: Merged, Closed, Open, or Not
+      Created (touched by the reconciler but never published or drafted)."
+
+  is_created:
+    hidden: true
+
+  is_published:
+    hidden: true
+
+  is_drafted:
+    hidden: true
+
+  is_merged:
+    hidden: true
+
+  is_closed:
+    hidden: true
+
+  is_open:
+    hidden: true
+
+  merge_type:
+    label: Merge Type
+    description: "Where the merge happened: sourcegraph (via Sourcegraph) or
+      code_host. NULL when never merged."
+
+  days_to_merge:
+    sql: |
+      TIMESTAMP_DIFF(
+        ${telligentsourcegraph_sourcegraph_analytics__abc_changeset_lifecycle.first_merged_at},
+        ${telligentsourcegraph_sourcegraph_analytics__abc_changeset_lifecycle.first_created_at},
+        HOUR
+      ) / 24.0
+    label: Days To Merge
+    format: number_1
+    description: Days between creation and first merge. NULL when never merged.
+
+  # ------------------------------------------------------------- timeframes
+
+  first_created_at:
+    label: Created
+    description: First successful publish or draft. The default reporting date -
+      'created' is the union of published and drafted.
+    timeframes: [ date, week, month, quarter, year ]
+    convert_tz: false
+
+  first_published_at:
+    label: Published
+    timeframes: [ date, week, month, quarter, year ]
+    convert_tz: false
+
+  first_drafted_at:
+    label: Drafted
+    timeframes: [ date, week, month, quarter, year ]
+    convert_tz: false
+
+  first_merged_at:
+    label: Merged
+    description: First merge. Filter this to count merges that happened in a window.
+    timeframes: [ date, week, month, quarter, year ]
+    convert_tz: false
+
+  first_closed_at:
+    label: Closed
+    timeframes: [ date, week, month, quarter, year ]
+    convert_tz: false
+
+  first_activity_at:
+    label: First Activity
+    description: Earliest batches event for this changeset. Table partition key -
+      filter this for the cheapest scans.
+    timeframes: [ date, week, month, quarter, year ]
+    convert_tz: false
+
+measures:
+  count:
+    aggregate_type: count
+
+  # ------------------------------------------- measures: all batch changes
+  # Split these by Attribution or Is Agentic. The ABC-scoped copies further
+  # down exist so a dashboard tile cannot silently lose its scope when someone
+  # edits the filters.
+
+  changesets_created:
+    sql: ${telligentsourcegraph_sourcegraph_analytics__abc_changeset_lifecycle.changeset_key}
+    label: Changesets Created
+    description: Distinct changesets successfully published or drafted. Use this as
+      the funnel denominator.
+    drill_fields:
+      [
+        customer_name,
+        external_url,
+        batch_change_id,
+        changeset_id,
+        attribution,
+        lifecycle_status,
+        merge_type,
+        "first_created_at[date]",
+        "first_merged_at[date]",
+        days_to_merge
+      ]
+    aggregate_type: count_distinct
+    filters:
+      is_created:
+        is: true
+
+  changesets_published:
+    sql: ${telligentsourcegraph_sourcegraph_analytics__abc_changeset_lifecycle.changeset_key}
+    label: Changesets Published
+    description: currentOp 4. Not exclusive with Drafted - a draft later published
+      counts in both, so published + drafted can exceed created.
+    drill_fields:
+      [
+        customer_name,
+        external_url,
+        batch_change_id,
+        changeset_id,
+        attribution,
+        lifecycle_status,
+        merge_type,
+        "first_created_at[date]",
+        "first_merged_at[date]",
+        days_to_merge
+      ]
+    aggregate_type: count_distinct
+    filters:
+      is_published:
+        is: true
+
+  changesets_drafted:
+    sql: ${telligentsourcegraph_sourcegraph_analytics__abc_changeset_lifecycle.changeset_key}
+    label: Changesets Drafted
+    description: currentOp 5. See Changesets Published on overlap.
+    drill_fields:
+      [
+        customer_name,
+        external_url,
+        batch_change_id,
+        changeset_id,
+        attribution,
+        lifecycle_status,
+        merge_type,
+        "first_created_at[date]",
+        "first_merged_at[date]",
+        days_to_merge
+      ]
+    aggregate_type: count_distinct
+    filters:
+      is_drafted:
+        is: true
+
+  changesets_merged:
+    sql: ${telligentsourcegraph_sourcegraph_analytics__abc_changeset_lifecycle.changeset_key}
+    label: Changesets Merged
+    description: Deduplicated to first merge per changeset, because changesetMerged
+      is at-least-once telemetry.
+    drill_fields:
+      [
+        customer_name,
+        external_url,
+        batch_change_id,
+        changeset_id,
+        attribution,
+        lifecycle_status,
+        merge_type,
+        "first_created_at[date]",
+        "first_merged_at[date]",
+        days_to_merge
+      ]
+    aggregate_type: count_distinct
+    filters:
+      is_merged:
+        is: true
+
+  changesets_closed:
+    sql: ${telligentsourcegraph_sourcegraph_analytics__abc_changeset_lifecycle.changeset_key}
+    label: Changesets Closed
+    description: currentOp 9.
+    drill_fields:
+      [
+        customer_name,
+        external_url,
+        batch_change_id,
+        changeset_id,
+        attribution,
+        lifecycle_status,
+        merge_type,
+        "first_created_at[date]",
+        "first_merged_at[date]",
+        days_to_merge
+      ]
+    aggregate_type: count_distinct
+    filters:
+      is_closed:
+        is: true
+
+  changesets_open:
+    sql: ${telligentsourcegraph_sourcegraph_analytics__abc_changeset_lifecycle.changeset_key}
+    label: Changesets Still Open
+    description: Created, neither merged nor closed. A real predicate - never
+      created minus merged minus closed, which goes negative across window
+      boundaries.
+    drill_fields:
+      [
+        customer_name,
+        external_url,
+        batch_change_id,
+        changeset_id,
+        attribution,
+        lifecycle_status,
+        merge_type,
+        "first_created_at[date]",
+        "first_merged_at[date]",
+        days_to_merge
+      ]
+    aggregate_type: count_distinct
+    filters:
+      is_open:
+        is: true
+
+  merged_via_sourcegraph:
+    sql: ${telligentsourcegraph_sourcegraph_analytics__abc_changeset_lifecycle.changeset_key}
+    label: Merged Via Sourcegraph
+    group_label: Merge Channel
+    aggregate_type: count_distinct
+    filters:
+      merge_type:
+        is: sourcegraph
+
+  merged_on_code_host:
+    sql: ${telligentsourcegraph_sourcegraph_analytics__abc_changeset_lifecycle.changeset_key}
+    label: Merged On Code Host
+    group_label: Merge Channel
+    aggregate_type: count_distinct
+    filters:
+      merge_type:
+        is: code_host
+
+  pct_merged_via_sourcegraph:
+    sql: |
+      SAFE_DIVIDE(
+        ${telligentsourcegraph_sourcegraph_analytics__abc_changeset_lifecycle.merged_via_sourcegraph},
+        ${telligentsourcegraph_sourcegraph_analytics__abc_changeset_lifecycle.changesets_merged}
+      )
+    label: "% Merged Via Sourcegraph"
+    group_label: Merge Channel
+    format: percent_1
+    description: Share of merged changesets merged through Sourcegraph
+      (externalMerge = 0). Denominator is Changesets Merged, not Created.
+
+  pct_merged_code_host:
+    sql: |
+      SAFE_DIVIDE(
+        ${telligentsourcegraph_sourcegraph_analytics__abc_changeset_lifecycle.merged_on_code_host},
+        ${telligentsourcegraph_sourcegraph_analytics__abc_changeset_lifecycle.changesets_merged}
+      )
+    label: "% Merged On Code Host"
+    group_label: Merge Channel
+    format: percent_1
+    description: Share of merged changesets merged on the code host (externalMerge =
+      1). Denominator is Changesets Merged, not Created.
+
+  merge_rate:
+    sql: |
+      SAFE_DIVIDE(
+        ${telligentsourcegraph_sourcegraph_analytics__abc_changeset_lifecycle.changesets_merged},
+        ${telligentsourcegraph_sourcegraph_analytics__abc_changeset_lifecycle.changesets_created}
+      )
+    label: Merge Rate
+    format: percent_1
+    description: Merged / Created. Filter by Created for a cohort conversion rate.
+
+  close_rate:
+    sql: |
+      SAFE_DIVIDE(
+        ${telligentsourcegraph_sourcegraph_analytics__abc_changeset_lifecycle.changesets_closed},
+        ${telligentsourcegraph_sourcegraph_analytics__abc_changeset_lifecycle.changesets_created}
+      )
+    label: Close Rate
+    format: percent_1
+    description: Closed / Created.
+
+  batch_changes:
+    sql: |
+      CONCAT(
+        ${telligentsourcegraph_sourcegraph_analytics__abc_changeset_lifecycle.external_url},
+        '|',
+        CAST(${telligentsourcegraph_sourcegraph_analytics__abc_changeset_lifecycle.batch_change_id} AS STRING)
+      )
+    label: Batch Changes
+    description: Distinct batch changes, scoped per instance so instance-local IDs
+      cannot collide.
+    aggregate_type: count_distinct
+
+  batch_changes_with_merges:
+    sql: |
+      CONCAT(
+        ${telligentsourcegraph_sourcegraph_analytics__abc_changeset_lifecycle.external_url},
+        '|',
+        CAST(${telligentsourcegraph_sourcegraph_analytics__abc_changeset_lifecycle.batch_change_id} AS STRING)
+      )
+    label: Batch Changes With Merges
+    aggregate_type: count_distinct
+    filters:
+      is_merged:
+        is: true
+
+  customers:
+    sql: ${telligentsourcegraph_sourcegraph_analytics__abc_changeset_lifecycle.customer_key}
+    label: Customers
+    description: Distinct customers (Salesforce account, or instance URL when unmapped).
+    aggregate_type: count_distinct
+
+  instances:
+    sql: ${telligentsourcegraph_sourcegraph_analytics__abc_changeset_lifecycle.external_url}
+    label: Instances
+    aggregate_type: count_distinct
+
+  avg_days_to_merge:
+    sql: ${telligentsourcegraph_sourcegraph_analytics__abc_changeset_lifecycle.days_to_merge}
+    label: Avg Days To Merge
+    group_label: Time To Merge
+    format: number_1
+    aggregate_type: average
+
+  median_days_to_merge:
+    sql: ${telligentsourcegraph_sourcegraph_analytics__abc_changeset_lifecycle.days_to_merge}
+    label: Median Days To Merge
+    group_label: Time To Merge
+    format: number_1
+    aggregate_type: median
+
+  # ---------------------------------------- measures: Agentic Batch Changes
+  # Scope is baked into the measure, so these are safe on shared dashboards.
+
+  abc_changesets_created:
+    sql: ${telligentsourcegraph_sourcegraph_analytics__abc_changeset_lifecycle.changeset_key}
+    label: Changesets Created
+    group_label: Agentic Batch Changes
+    drill_fields:
+      [
+        customer_name,
+        external_url,
+        batch_change_id,
+        changeset_id,
+        attribution,
+        lifecycle_status,
+        merge_type,
+        "first_created_at[date]",
+        "first_merged_at[date]",
+        days_to_merge
+      ]
+    aggregate_type: count_distinct
+    filters:
+      is_created:
+        is: true
+      is_agentic:
+        is: true
+
+  abc_changesets_published:
+    sql: ${telligentsourcegraph_sourcegraph_analytics__abc_changeset_lifecycle.changeset_key}
+    label: Changesets Published
+    group_label: Agentic Batch Changes
+    drill_fields:
+      [
+        customer_name,
+        external_url,
+        batch_change_id,
+        changeset_id,
+        attribution,
+        lifecycle_status,
+        merge_type,
+        "first_created_at[date]",
+        "first_merged_at[date]",
+        days_to_merge
+      ]
+    aggregate_type: count_distinct
+    filters:
+      is_published:
+        is: true
+      is_agentic:
+        is: true
+
+  abc_changesets_drafted:
+    sql: ${telligentsourcegraph_sourcegraph_analytics__abc_changeset_lifecycle.changeset_key}
+    label: Changesets Drafted
+    group_label: Agentic Batch Changes
+    drill_fields:
+      [
+        customer_name,
+        external_url,
+        batch_change_id,
+        changeset_id,
+        attribution,
+        lifecycle_status,
+        merge_type,
+        "first_created_at[date]",
+        "first_merged_at[date]",
+        days_to_merge
+      ]
+    aggregate_type: count_distinct
+    filters:
+      is_drafted:
+        is: true
+      is_agentic:
+        is: true
+
+  abc_changesets_merged:
+    sql: ${telligentsourcegraph_sourcegraph_analytics__abc_changeset_lifecycle.changeset_key}
+    label: Changesets Merged
+    group_label: Agentic Batch Changes
+    drill_fields:
+      [
+        customer_name,
+        external_url,
+        batch_change_id,
+        changeset_id,
+        attribution,
+        lifecycle_status,
+        merge_type,
+        "first_created_at[date]",
+        "first_merged_at[date]",
+        days_to_merge
+      ]
+    aggregate_type: count_distinct
+    filters:
+      is_merged:
+        is: true
+      is_agentic:
+        is: true
+
+  abc_changesets_closed:
+    sql: ${telligentsourcegraph_sourcegraph_analytics__abc_changeset_lifecycle.changeset_key}
+    label: Changesets Closed
+    group_label: Agentic Batch Changes
+    drill_fields:
+      [
+        customer_name,
+        external_url,
+        batch_change_id,
+        changeset_id,
+        attribution,
+        lifecycle_status,
+        merge_type,
+        "first_created_at[date]",
+        "first_merged_at[date]",
+        days_to_merge
+      ]
+    aggregate_type: count_distinct
+    filters:
+      is_closed:
+        is: true
+      is_agentic:
+        is: true
+
+  abc_changesets_open:
+    sql: ${telligentsourcegraph_sourcegraph_analytics__abc_changeset_lifecycle.changeset_key}
+    label: Changesets Still Open
+    group_label: Agentic Batch Changes
+    drill_fields:
+      [
+        customer_name,
+        external_url,
+        batch_change_id,
+        changeset_id,
+        attribution,
+        lifecycle_status,
+        merge_type,
+        "first_created_at[date]",
+        "first_merged_at[date]",
+        days_to_merge
+      ]
+    aggregate_type: count_distinct
+    filters:
+      is_open:
+        is: true
+      is_agentic:
+        is: true
+
+  abc_merge_rate:
+    sql: |
+      SAFE_DIVIDE(
+        ${telligentsourcegraph_sourcegraph_analytics__abc_changeset_lifecycle.abc_changesets_merged},
+        ${telligentsourcegraph_sourcegraph_analytics__abc_changeset_lifecycle.abc_changesets_created}
+      )
+    label: Merge Rate
+    group_label: Agentic Batch Changes
+    format: percent_1
+
+  abc_batch_changes:
+    sql: |
+      CONCAT(
+        ${telligentsourcegraph_sourcegraph_analytics__abc_changeset_lifecycle.external_url},
+        '|',
+        CAST(${telligentsourcegraph_sourcegraph_analytics__abc_changeset_lifecycle.batch_change_id} AS STRING)
+      )
+    label: Batch Changes
+    group_label: Agentic Batch Changes
+    aggregate_type: count_distinct
+    filters:
+      is_agentic:
+        is: true
+
+  abc_customers:
+    sql: ${telligentsourcegraph_sourcegraph_analytics__abc_changeset_lifecycle.customer_key}
+    label: Customers
+    group_label: Agentic Batch Changes
+    aggregate_type: count_distinct
+    filters:
+      is_agentic:
+        is: true

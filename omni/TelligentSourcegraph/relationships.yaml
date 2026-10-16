@@ -1,0 +1,679 @@
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__abc_funnel
+  join_to_view: telligentsourcegraph_sfdc_current__looker_dim_account_details
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__abc_funnel.customer_name}
+    = ${telligentsourcegraph_sfdc_current__looker_dim_account_details.name}
+  relationship_type: many_to_one
+  reversible: false
+
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__feature_usage_bimonthly_growth
+  join_to_view: telligentsourcegraph_sourcegraph_analytics__server_instances
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__feature_usage_bimonthly_growth.external_url}
+    =
+    ${telligentsourcegraph_sourcegraph_analytics__server_instances.serverendpoint}
+  relationship_type: many_to_one
+  reversible: false
+
+- join_from_view: server_instances_usage_growth_statistics
+  join_to_view: telligentsourcegraph_sourcegraph_analytics__server_instances
+  join_type: always_left
+  on_sql: ${server_instances_usage_growth_statistics.remote_site_id} =
+    ${telligentsourcegraph_sourcegraph_analytics__server_instances.remote_site_id}
+  relationship_type: many_to_many
+
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__abc_changeset_lifecycle
+  join_to_view: telligentsourcegraph_sourcegraph_analytics__server_instances
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__abc_changeset_lifecycle.external_url}
+    =
+    ${telligentsourcegraph_sourcegraph_analytics__server_instances.serverendpoint}
+  relationship_type: many_to_many
+
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__technical_health_score_v2
+  join_to_view: telligentsourcegraph_sourcegraph_analytics__server_instances
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__technical_health_score_v2.customer_name}
+    =
+    ${telligentsourcegraph_sourcegraph_analytics__server_instances.unique_server_id}
+  relationship_type: one_to_one
+
+- join_from_view: telligentsourcegraph_looker_precomputed__dau_mau_metrics
+  join_to_view: telligentsourcegraph_sourcegraph_analytics__server_instances
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_looker_precomputed__dau_mau_metrics.external_url}
+    =
+    ${telligentsourcegraph_sourcegraph_analytics__server_instances.serverendpoint}
+  relationship_type: many_to_one
+  reversible: false
+
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__rmaus_user_count_daily_v2
+  join_to_view: telligentsourcegraph_sourcegraph_analytics__server_instances
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__rmaus_user_count_daily_v2.external_url}
+    =
+    ${telligentsourcegraph_sourcegraph_analytics__server_instances.serverendpoint}
+  relationship_type: many_to_one
+  reversible: false
+
+- join_from_view: telligentsourcegraph_pings_data_model_transformed__server_instance_usage_max_user_accounts_monthly
+  join_to_view: telligentsourcegraph_sourcegraph_analytics__server_instances
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_pings_data_model_transformed__server_instance_usage_max_user_accounts_monthly.remote_site_id}
+    =
+    ${telligentsourcegraph_sourcegraph_analytics__server_instances.remote_site_id}
+  relationship_type: many_to_one
+  reversible: false
+
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__gong_summary_by_customer
+  join_to_view: telligentsourcegraph_sfdc_current__dim_account_details
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__gong_summary_by_customer.account_name}
+    = ${telligentsourcegraph_sfdc_current__dim_account_details.name}
+  relationship_type: one_to_one
+
+- join_from_view: telligentsourcegraph_pings_data_model_transformed__server_instance_usage_repositories_monthly
+  join_to_view: lines_of_code_in_millions_
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_pings_data_model_transformed__server_instance_usage_repositories_monthly.month[month]}
+    = ${lines_of_code_in_millions_.month_month}
+  relationship_type: many_to_one
+
+- join_from_view: telligentsourcegraph_pings_data_model_transformed__server_instance_usage_repositories_monthly
+  join_to_view: telligentsourcegraph_sourcegraph_analytics__server_instances
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_pings_data_model_transformed__server_instance_usage_repositories_monthly.remote_site_id}
+    =
+    ${telligentsourcegraph_sourcegraph_analytics__server_instances.remote_site_id}
+  relationship_type: many_to_one
+  reversible: false
+
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__upgrade_list
+  join_to_view: telligentsourcegraph_sourcegraph_analytics__server_instances
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__upgrade_list.unique_server_id}
+    =
+    ${telligentsourcegraph_sourcegraph_analytics__server_instances.unique_server_id}
+  relationship_type: many_to_one
+  reversible: false
+
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__csm_main_tracker
+  join_to_view: telligentsourcegraph_sfdc_current__looker_dim_account_details
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__csm_main_tracker.account_name}
+    = ${telligentsourcegraph_sfdc_current__looker_dim_account_details.name}
+  relationship_type: one_to_one
+
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__daily_llm_token_usage_tier_country
+  join_to_view: telligentsourcegraph_sfdc_current__looker_dim_account_details
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__daily_llm_token_usage_tier_country.salesforce_account_id}
+    =
+    ${telligentsourcegraph_sfdc_current__looker_dim_account_details.sfdc_unique_id}
+  relationship_type: one_to_one
+
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__daus_to_maus
+  join_to_view: telligentsourcegraph_sourcegraph_analytics__server_instances
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__daus_to_maus.external_url}
+    =
+    ${telligentsourcegraph_sourcegraph_analytics__server_instances.serverendpoint}
+  relationship_type: many_to_one
+  reversible: false
+
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__deep_search_gateway_tokens
+  join_to_view: telligentsourcegraph_sourcegraph_analytics__server_instances
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__deep_search_gateway_tokens.external_url}
+    =
+    ${telligentsourcegraph_sourcegraph_analytics__server_instances.serverendpoint}
+  relationship_type: many_to_one
+  reversible: false
+
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__deep_search_tokens_per_question
+  join_to_view: telligentsourcegraph_sourcegraph_analytics__server_instances
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__deep_search_tokens_per_question.external_url}
+    =
+    ${telligentsourcegraph_sourcegraph_analytics__server_instances.serverendpoint}
+  relationship_type: many_to_one
+  reversible: false
+
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__sfdc_opportunities_acv
+  join_to_view: telligentsourcegraph_sfdc_current__looker_dim_account_details
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__sfdc_opportunities_acv.account_name}
+    = ${telligentsourcegraph_sfdc_current__looker_dim_account_details.name}
+  relationship_type: many_to_one
+  reversible: false
+
+# V2 Events -> Server Instance details
+- join_from_view: telligentsourcegraph_telemetry__v2_events
+  join_to_view: telligentsourcegraph_sourcegraph_analytics__server_instances
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_telemetry__v2_events.external_url} =
+    ${telligentsourcegraph_sourcegraph_analytics__server_instances.server_endpoint}
+  relationship_type: many_to_one
+
+#Server Instance -> Dim account details
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__server_instances
+  join_to_view: telligentsourcegraph_sfdc_current__dim_account_details
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__server_instances.sfdc_unique_id}
+    = ${telligentsourcegraph_sfdc_current__dim_account_details.sfdc_unique_id}
+    AND
+    ${telligentsourcegraph_sourcegraph_analytics__server_instances.instance_type}
+    = 'Primary' AND
+    ${telligentsourcegraph_sourcegraph_analytics__server_instances.sfdc_name}
+    NOT LIKE '%(Historical)%'
+  relationship_type: many_to_one
+  reversible: true
+
+# Server Instance details -> Customer Dim account details
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__server_instances
+  join_to_view: telligentsourcegraph_sfdc_current__looker_dim_account_details
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__server_instances.sfdc_unique_id}
+    =
+    ${telligentsourcegraph_sfdc_current__looker_dim_account_details.sfdc_unique_id}
+    AND
+    ${telligentsourcegraph_sourcegraph_analytics__server_instances.instance_type}
+    = 'Primary' AND
+    ${telligentsourcegraph_sourcegraph_analytics__server_instances.sfdc_name}
+    NOT LIKE '%(Historical)%'
+  relationship_type: many_to_one
+  reversible: true
+
+# Gong <> Dim Account Details
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__gong_summary_by_customer
+  join_to_view: telligentsourcegraph_sfdc_current__looker_dim_account_details
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__gong_summary_by_customer.account_name}
+    = ${telligentsourcegraph_sfdc_current__looker_dim_account_details.name}
+  relationship_type: one_to_one
+
+#Lines of Code - server_instance_usage_repositories_monthly
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__repos_count_histogram
+  join_to_view: telligentsourcegraph_sourcegraph_analytics__server_instances
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__repos_count_histogram.server_endpoint}
+    =
+    ${telligentsourcegraph_sourcegraph_analytics__server_instances.server_endpoint}
+  relationship_type: many_to_one
+  reversible: false
+
+# Credits & Consumption: burn events roll up to the credit bucket they were debited from
+- join_from_view: telligentsourcegraph_credits__consumption_events
+  join_to_view: telligentsourcegraph_enterprise_portal__credit_buckets
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_credits__consumption_events.bucket_id} =
+    ${telligentsourcegraph_enterprise_portal__credit_buckets.id} AND
+    ${telligentsourcegraph_credits__consumption_events.subscription_id} =
+    ${telligentsourcegraph_enterprise_portal__credit_buckets.subscription_id}
+  relationship_type: many_to_one
+
+# Consumption Events <> Subscriptions: 
+- join_from_view: telligentsourcegraph_credits__consumption_events
+  join_to_view: telligentsourcegraph_enterprise_portal__subscriptions
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_credits__consumption_events.subscription_id} =
+    ${telligentsourcegraph_enterprise_portal__subscriptions.id}
+  relationship_type: many_to_one
+
+# Subscriptions <> Dim Account:
+- join_from_view: telligentsourcegraph_enterprise_portal__subscriptions
+  join_to_view: telligentsourcegraph_sfdc_current__dim_account_details
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_enterprise_portal__subscriptions.salesforce_account_id}
+    = ${telligentsourcegraph_sfdc_current__dim_account_details.sfdc_unique_id}
+  relationship_type: many_to_one
+
+# Subscriptions <> Dim Account: 
+- join_from_view: telligentsourcegraph_enterprise_portal__subscriptions
+  join_to_view: telligentsourcegraph_sfdc_current__looker_dim_account_details
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_enterprise_portal__subscriptions.salesforce_account_id}
+    =
+    ${telligentsourcegraph_sfdc_current__looker_dim_account_details.sfdc_unique_id}
+  relationship_type: many_to_one
+
+# Customer Dim Account <> Credits Pacing: 
+- join_from_view: telligentsourcegraph_sfdc_current__looker_dim_account_details
+  join_to_view: telligentsourcegraph_credits_analytics__credits_pacing_by_customer
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sfdc_current__looker_dim_account_details.account_id}
+    =
+    ${telligentsourcegraph_credits_analytics__credits_pacing_by_customer.account_id}
+  relationship_type: one_to_one
+
+# Dim Account <> Credits Pacing: 
+- join_from_view: telligentsourcegraph_sfdc_current__dim_account_details
+  join_to_view: telligentsourcegraph_credits_analytics__credits_pacing_by_customer
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sfdc_current__dim_account_details.account_id} =
+    ${telligentsourcegraph_credits_analytics__credits_pacing_by_customer.account_id}
+  relationship_type: one_to_one
+
+# Consumption Events <> V2 Events
+- join_from_view: telligentsourcegraph_credits__consumption_events
+  join_to_view: telligentsourcegraph_telemetry__v2_events
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_credits__consumption_events.license_key} =
+    ${telligentsourcegraph_telemetry__v2_events.metadata_identifier_licensedinstance_licensekey}
+    AND ${telligentsourcegraph_credits__consumption_events.user_id} =
+    ${telligentsourcegraph_telemetry__v2_events.user_id}
+  relationship_type: many_to_many
+
+# V2 Events <> Cloud users 
+- join_from_view: telligentsourcegraph_telemetry__v2_events
+  join_to_view: telligentsourcegraph_telemetry_staging__cloud_users
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_telemetry__v2_events.external_url} =
+    ${telligentsourcegraph_telemetry_staging__cloud_users.external_url} AND
+    CAST(${telligentsourcegraph_telemetry__v2_events.user_id} AS STRING) =
+    ${telligentsourcegraph_telemetry_staging__cloud_users.user_id}
+  relationship_type: many_to_one
+
+# Dim Account <> Telemetry Status
+- join_from_view: telligentsourcegraph_sfdc_current__dim_account_details
+  join_to_view: telligentsourcegraph_gsheets__customer_telemetry_status_updated
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sfdc_current__dim_account_details.name} =
+    ${telligentsourcegraph_gsheets__customer_telemetry_status_updated.unique_server_id}
+  relationship_type: one_to_one
+
+# Dim Account <> Purchased Seats Monthly
+- join_from_view: telligentsourcegraph_sfdc_current__dim_account_details
+  join_to_view: telligentsourcegraph_sfdc_current__purchased_seat_monthly
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sfdc_current__dim_account_details.name} =
+    ${telligentsourcegraph_sfdc_current__purchased_seat_monthly.account_name}
+  relationship_type: one_to_many
+
+# Looker Dim Account <> Purchased Seats Monthly
+- join_from_view: telligentsourcegraph_sfdc_current__looker_dim_account_details
+  join_to_view: telligentsourcegraph_sfdc_current__purchased_seat_monthly
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sfdc_current__looker_dim_account_details.name} =
+    ${telligentsourcegraph_sfdc_current__purchased_seat_monthly.account_name}
+  relationship_type: one_to_many
+
+# Customer Health Score <> Customer Dim Account
+- join_from_view: post_sales__customer_health_score_latest
+  join_to_view: telligentsourcegraph_sfdc_current__looker_dim_account_details
+  join_type: always_left
+  on_sql: ${post_sales__customer_health_score_latest.sfdc_unique_id} =
+    ${telligentsourcegraph_sfdc_current__looker_dim_account_details.sfdc_unique_id}
+  relationship_type: one_to_one
+
+# Customer Health Score <> Momentum Health
+- join_from_view: post_sales__customer_health_score_latest
+  join_to_view: post_sales__customer_momentum_score_latest
+  join_type: always_left
+  on_sql: ${post_sales__customer_health_score_latest.account_name} =
+    ${post_sales__customer_momentum_score_latest.account_name}
+  relationship_type: one_to_one
+
+# Customer Health Score <> CSM Relationship Signal
+- join_from_view: post_sales__customer_health_score_latest
+  join_to_view: post_sales__csm_relationship_signal_latest
+  join_type: always_left
+  on_sql: ${post_sales__customer_health_score_latest.account_name} =
+    ${post_sales__csm_relationship_signal_latest.account_name}
+  relationship_type: one_to_one
+
+# DP User Funnel <> Customer Dim Account
+- join_from_view: telligentsourcegraph_post_sales__digital_program_user_funnel
+  join_to_view: telligentsourcegraph_sfdc_current__looker_dim_account_details
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_post_sales__digital_program_user_funnel.account_name}
+    = ${telligentsourcegraph_sfdc_current__looker_dim_account_details.name}
+  relationship_type: one_to_one
+
+# Seat Monthly <> Customer Dim Accounts
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__seat_consumption_monthly
+  join_to_view: telligentsourcegraph_sfdc_current__looker_dim_account_details
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__seat_consumption_monthly.account_name}
+    = ${telligentsourcegraph_sfdc_current__looker_dim_account_details.name}
+  relationship_type: many_to_one
+  reversible: false
+
+# Gateway Events <> Subscriptions
+- join_from_view: telligentsourcegraph_cody_gateway__events_transformed
+  join_to_view: telligentsourcegraph_enterprise_portal__subscriptions
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_cody_gateway__events_transformed.requester_identifier}
+    = ${telligentsourcegraph_enterprise_portal__subscriptions.id}
+  relationship_type: many_to_one
+
+# Gateway Events <> Model Costs
+- join_from_view: telligentsourcegraph_cody_gateway__events_transformed
+  join_to_view: telligentsourcegraph_cody_gateway__model_costs
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_cody_gateway__events_transformed.model} =
+    ${telligentsourcegraph_cody_gateway__model_costs.model}
+  relationship_type: many_to_many
+
+# Gateway Events <> Cloud Users
+- join_from_view: telligentsourcegraph_cody_gateway__events_transformed
+  join_to_view: telligentsourcegraph_telemetry_staging__cloud_users
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_cody_gateway__events_transformed.external_url} =
+    ${telligentsourcegraph_telemetry_staging__cloud_users.external_url} AND
+    CAST(${telligentsourcegraph_cody_gateway__events_transformed.instance_user_id}
+    AS STRING) = ${telligentsourcegraph_telemetry_staging__cloud_users.user_id}
+  relationship_type: many_to_one
+
+# Plain <> Dim Account
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__plain_tickets_transformed
+  join_to_view: telligentsourcegraph_sfdc_current__looker_dim_account_details
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__plain_tickets_transformed.account_name}
+    = ${telligentsourcegraph_sfdc_current__looker_dim_account_details.name}
+  relationship_type: many_to_one
+
+##other:
+
+
+- join_from_view: telligentsourcegraph_enterprise_portal__credit_bucket_conditions
+  join_to_view: telligentsourcegraph_enterprise_portal__credit_buckets
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_enterprise_portal__credit_bucket_conditions.credit_bucket_id}
+    = ${telligentsourcegraph_enterprise_portal__credit_buckets.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: telligentsourcegraph_enterprise_portal__credit_buckets
+  join_to_view: telligentsourcegraph_enterprise_portal__subscriptions
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_enterprise_portal__credit_buckets.subscription_id}
+    = ${telligentsourcegraph_enterprise_portal__subscriptions.id}
+  relationship_type: assumed_many_to_one
+  reversible: false
+
+- join_from_view: telligentsourcegraph_enterprise_portal__enterprise_portal_deepsearch_quota
+  join_to_view: telligentsourcegraph_enterprise_portal__subscriptions
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_enterprise_portal__enterprise_portal_deepsearch_quota.subscription_id}
+    = ${telligentsourcegraph_enterprise_portal__subscriptions.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: telligentsourcegraph_enterprise_portal__subscription_conditions
+  join_to_view: telligentsourcegraph_enterprise_portal__subscriptions
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_enterprise_portal__subscription_conditions.subscription_id}
+    = ${telligentsourcegraph_enterprise_portal__subscriptions.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: telligentsourcegraph_enterprise_portal__subscription_licenses
+  join_to_view: telligentsourcegraph_enterprise_portal__subscriptions
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_enterprise_portal__subscription_licenses.subscription_id}
+    = ${telligentsourcegraph_enterprise_portal__subscriptions.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__cloud_hubspot_sync_product
+  join_to_view: telligentsourcegraph_sourcegraph_analytics__users
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__cloud_hubspot_sync_product.user_id}
+    = ${telligentsourcegraph_sourcegraph_analytics__users.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__cloud_repos_master_table
+  join_to_view: telligentsourcegraph_sourcegraph_analytics__users
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__cloud_repos_master_table.user_id}
+    = ${telligentsourcegraph_sourcegraph_analytics__users.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__daily_user_engagement_score_search_platform
+  join_to_view: telligentsourcegraph_sourcegraph_analytics__users
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__daily_user_engagement_score_search_platform.user_id}
+    = ${telligentsourcegraph_sourcegraph_analytics__users.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__days_active_by_email
+  join_to_view: telligentsourcegraph_sourcegraph_analytics__licenses
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__days_active_by_email.license_key}
+    = ${telligentsourcegraph_sourcegraph_analytics__licenses.license_id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__deep_search_emerging_users
+  join_to_view: telligentsourcegraph_sourcegraph_analytics__users
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__deep_search_emerging_users.user_id}
+    = ${telligentsourcegraph_sourcegraph_analytics__users.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__deepsearch_user_level_weekly_retention
+  join_to_view: telligentsourcegraph_sourcegraph_analytics__users
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__deepsearch_user_level_weekly_retention.user_id}
+    = ${telligentsourcegraph_sourcegraph_analytics__users.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__dotcom_prod_db_product_licenses
+  join_to_view: telligentsourcegraph_sourcegraph_analytics__licenses
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__dotcom_prod_db_product_licenses.license_key}
+    = ${telligentsourcegraph_sourcegraph_analytics__licenses.license_id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__licenses_sfdc_sync
+  join_to_view: telligentsourcegraph_sourcegraph_analytics__licenses
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__licenses_sfdc_sync.license_id}
+    = ${telligentsourcegraph_sourcegraph_analytics__licenses.license_id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__oct17_part1
+  join_to_view: telligentsourcegraph_sourcegraph_analytics__licenses
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__oct17_part1.license_key} =
+    ${telligentsourcegraph_sourcegraph_analytics__licenses.license_id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__org_invitations
+  join_to_view: telligentsourcegraph_sourcegraph_analytics__orgs
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__org_invitations.org_id} =
+    ${telligentsourcegraph_sourcegraph_analytics__orgs.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__org_members
+  join_to_view: telligentsourcegraph_sourcegraph_analytics__orgs
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__org_members.org_id} =
+    ${telligentsourcegraph_sourcegraph_analytics__orgs.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__org_members
+  join_to_view: telligentsourcegraph_sourcegraph_analytics__users
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__org_members.user_id} =
+    ${telligentsourcegraph_sourcegraph_analytics__users.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__org_stats
+  join_to_view: telligentsourcegraph_sourcegraph_analytics__orgs
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__org_stats.org_id} =
+    ${telligentsourcegraph_sourcegraph_analytics__orgs.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__product_feedback_form_survey_happiness
+  join_to_view: telligentsourcegraph_sourcegraph_analytics__users
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__product_feedback_form_survey_happiness.user_id}
+    = ${telligentsourcegraph_sourcegraph_analytics__users.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__public_user_emails
+  join_to_view: telligentsourcegraph_sourcegraph_analytics__users
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__public_user_emails.user_id}
+    = ${telligentsourcegraph_sourcegraph_analytics__users.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__server_instances
+  join_to_view: telligentsourcegraph_sourcegraph_analytics__licenses
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__server_instances.license_key}
+    = ${telligentsourcegraph_sourcegraph_analytics__licenses.license_id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__server_instances_combined
+  join_to_view: telligentsourcegraph_sourcegraph_analytics__licenses
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__server_instances_combined.license_key}
+    = ${telligentsourcegraph_sourcegraph_analytics__licenses.license_id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__server_instances_combined_copy_oct212024
+  join_to_view: telligentsourcegraph_sourcegraph_analytics__licenses
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__server_instances_combined_copy_oct212024.license_key}
+    = ${telligentsourcegraph_sourcegraph_analytics__licenses.license_id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__server_instances_part1_staging
+  join_to_view: telligentsourcegraph_sourcegraph_analytics__licenses
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__server_instances_part1_staging.license_key}
+    = ${telligentsourcegraph_sourcegraph_analytics__licenses.license_id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__sq_cloud_org_member_emails
+  join_to_view: telligentsourcegraph_sourcegraph_analytics__orgs
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__sq_cloud_org_member_emails.org_id}
+    = ${telligentsourcegraph_sourcegraph_analytics__orgs.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__sq_cloud_org_member_emails
+  join_to_view: telligentsourcegraph_sourcegraph_analytics__users
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__sq_cloud_org_member_emails.user_id}
+    = ${telligentsourcegraph_sourcegraph_analytics__users.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__sq_org_creator
+  join_to_view: telligentsourcegraph_sourcegraph_analytics__orgs
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__sq_org_creator.org_id} =
+    ${telligentsourcegraph_sourcegraph_analytics__orgs.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__sq_sfdc_account_details
+  join_to_view: telligentsourcegraph_sourcegraph_analytics__licenses
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__sq_sfdc_account_details.license_key}
+    = ${telligentsourcegraph_sourcegraph_analytics__licenses.license_id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__sq_sfdc_license_key
+  join_to_view: telligentsourcegraph_sourcegraph_analytics__licenses
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__sq_sfdc_license_key.license_key}
+    = ${telligentsourcegraph_sourcegraph_analytics__licenses.license_id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__subscription_license_key
+  join_to_view: telligentsourcegraph_sourcegraph_analytics__licenses
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__subscription_license_key.license_key}
+    = ${telligentsourcegraph_sourcegraph_analytics__licenses.license_id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__tobi_test
+  join_to_view: telligentsourcegraph_sourcegraph_analytics__users
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__tobi_test.user_id} =
+    ${telligentsourcegraph_sourcegraph_analytics__users.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__update_checks
+  join_to_view: telligentsourcegraph_sourcegraph_analytics__licenses
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__update_checks.license_key}
+    = ${telligentsourcegraph_sourcegraph_analytics__licenses.license_id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__update_checks_flattened
+  join_to_view: telligentsourcegraph_sourcegraph_analytics__licenses
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__update_checks_flattened.license_key}
+    = ${telligentsourcegraph_sourcegraph_analytics__licenses.license_id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__update_checks_test
+  join_to_view: telligentsourcegraph_sourcegraph_analytics__licenses
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__update_checks_test.license_key}
+    = ${telligentsourcegraph_sourcegraph_analytics__licenses.license_id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__user_emails
+  join_to_view: telligentsourcegraph_sourcegraph_analytics__users
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__user_emails.user_id} =
+    ${telligentsourcegraph_sourcegraph_analytics__users.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__user_emails_primary_only
+  join_to_view: telligentsourcegraph_sourcegraph_analytics__users
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__user_emails_primary_only.user_id}
+    = ${telligentsourcegraph_sourcegraph_analytics__users.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__user_external_accounts
+  join_to_view: telligentsourcegraph_sourcegraph_analytics__users
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__user_external_accounts.user_id}
+    = ${telligentsourcegraph_sourcegraph_analytics__users.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__v2_user_dimensions
+  join_to_view: telligentsourcegraph_sourcegraph_analytics__users
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__v2_user_dimensions.user_id}
+    = ${telligentsourcegraph_sourcegraph_analytics__users.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__wip_part1_server_instance_automated_v2
+  join_to_view: telligentsourcegraph_sourcegraph_analytics__licenses
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__wip_part1_server_instance_automated_v2.license_key}
+    = ${telligentsourcegraph_sourcegraph_analytics__licenses.license_id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__wip_part2_server_instance_automated_v2
+  join_to_view: telligentsourcegraph_sourcegraph_analytics__licenses
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__wip_part2_server_instance_automated_v2.license_key}
+    = ${telligentsourcegraph_sourcegraph_analytics__licenses.license_id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__wip_part2b__server_instance_automated_v2
+  join_to_view: telligentsourcegraph_sourcegraph_analytics__licenses
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__wip_part2b__server_instance_automated_v2.license_key}
+    = ${telligentsourcegraph_sourcegraph_analytics__licenses.license_id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: telligentsourcegraph_deepsearch__categorization
+  join_to_view: telligentsourcegraph_deepsearch__conversations
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_deepsearch__categorization.conversation_id} =
+    ${telligentsourcegraph_deepsearch__conversations.id}
+  relationship_type: assumed_many_to_one
+
+- join_from_view: telligentsourcegraph_deepsearch__questions
+  join_to_view: telligentsourcegraph_deepsearch__conversations
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_deepsearch__questions.conversation_id} =
+    ${telligentsourcegraph_deepsearch__conversations.id}
+  relationship_type: assumed_many_to_one

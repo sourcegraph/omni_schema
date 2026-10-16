@@ -1,0 +1,10 @@
+base_view: telligentsourcegraph_sourcegraph_analytics__seat_consumption_monthly
+label: Seat Consumption Monthly
+
+joins:
+  telligentsourcegraph_sfdc_current__looker_dim_account_details:
+    telligentsourcegraph_sfdc_current__purchased_seat_monthly: {}
+    telligentsourcegraph_credits_analytics__credits_pacing_by_customer:
+      telligentsourcegraph_sfdc_current__dim_account_details:
+        telligentsourcegraph_gsheets__customer_telemetry_status_updated: {}
+    telligentsourcegraph_sourcegraph_analytics__server_instances: {}

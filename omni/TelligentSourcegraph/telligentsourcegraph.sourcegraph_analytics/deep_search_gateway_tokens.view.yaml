@@ -1,0 +1,181 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__deep_search_gateway_tokens
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: deep_search_gateway_tokens
+
+dimensions:
+  source: {}
+  feature: {}
+  identifier: {}
+  model: {}
+  provider: {}
+  agent_scope: {}
+  model_summary: {}
+  # ---------- Token counts (row level) ----------
+  prompt_tokens: {}
+  completion_tokens: {}
+  cached_hit_tokens: {}
+  cache_write_tokens: {}
+
+  event_id:
+    format: ID
+    primary_key: true
+
+  event_date:
+    timeframes: [ date, week, month, quarter, year ]
+
+  name:
+    label: Event Name
+
+  unique_user_id:
+    sql: uniqueUserId
+    format: ID
+
+  instance_user_id:
+    sql: instanceUserId
+    format: ID
+
+  display_name:
+    sql: displayName
+
+  external_url:
+    sql: externalUrl
+
+  salesforce_account_id:
+    sql: salesforceAccountId
+    format: ID
+
+  interaction_id:
+    label: Question ID (interaction_id)
+    format: ID
+    description: Represents a single question/interaction
+
+  total_tokens:
+    sql: ${prompt_tokens} + ${completion_tokens} + ${cached_hit_tokens} +
+      ${cache_write_tokens}
+
+  # ---------- Cost rates (per million tokens) ----------
+  # Update these values in one place when pricing changes
+  prompt_cost_rate:
+    sql: COALESCE(prompt_cost_rate, 0)
+    hidden: true
+
+  completion_cost_rate:
+    sql: COALESCE(completion_cost_rate, 0)
+    hidden: true
+
+  cached_hit_cost_rate:
+    sql: COALESCE(cached_hit_cost_rate, 0)
+    hidden: true
+
+  cache_write_cost_rate:
+    sql: COALESCE(cache_write_cost_rate, 0)
+    hidden: true
+
+measures:
+  count:
+    aggregate_type: count
+
+  # ---------- Tokens ----------
+  total_prompt_tokens:
+    sql: ${prompt_tokens}
+    label: Total Prompt (Input) Tokens
+    group_label: Token Counts
+    format: "#,##0"
+    aggregate_type: sum
+
+  total_completion_tokens:
+    sql: ${completion_tokens}
+    label: Total Completion (Output) Tokens
+    group_label: Token Counts
+    format: "#,##0"
+    aggregate_type: sum
+
+  total_cached_hit_tokens:
+    sql: ${cached_hit_tokens}
+    label: Total Cache Read Tokens
+    group_label: Token Counts
+    format: "#,##0"
+    aggregate_type: sum
+
+  total_cache_write_tokens:
+    sql: ${cache_write_tokens}
+    label: Total Cache Write Tokens
+    group_label: Token Counts
+    format: "#,##0"
+    aggregate_type: sum
+
+  total_all_tokens:
+    sql: ${total_tokens}
+    label: Total Tokens (All Types)
+    group_label: Token Counts
+    format: "#,##0"
+    aggregate_type: sum
+
+  # ---------- Costs ----------
+  prompt_cost:
+    sql: ${prompt_tokens} * ${prompt_cost_rate} / 1000000.0
+    label: Cost Prompt (Input) Tokens
+    group_label: Costs
+    format: $#,##0.00
+    aggregate_type: sum
+
+  completion_cost:
+    sql: ${completion_tokens} * ${completion_cost_rate} / 1000000.0
+    label: Cost Completion (Output) Tokens
+    group_label: Costs
+    format: $#,##0.00
+    aggregate_type: sum
+
+  cached_hit_cost:
+    sql: ${cached_hit_tokens} * ${cached_hit_cost_rate} / 1000000.0
+    label: Cost Cache Read Tokens
+    group_label: Costs
+    format: $#,##0.00
+    aggregate_type: sum
+
+  cache_write_cost:
+    sql: ${cache_write_tokens} * ${cache_write_cost_rate} / 1000000.0
+    label: Cost Cache Write Tokens
+    group_label: Costs
+    format: $#,##0.00
+    aggregate_type: sum
+
+  total_cost:
+    sql: |
+      (
+        ${prompt_tokens} * ${prompt_cost_rate} +
+        ${completion_tokens} * ${completion_cost_rate} +
+        ${cached_hit_tokens} * ${cached_hit_cost_rate} +
+        ${cache_write_tokens} * ${cache_write_cost_rate}
+      ) / 1000000.0
+    label: Total Cost (All Types)
+    group_label: Costs
+    format: $#,##0.00
+    aggregate_type: sum
+
+  # ---------- Interaction counts ----------
+  unique_interactions:
+    sql: ${interaction_id}
+    label: Unique Questions
+    format: "#,##0"
+    aggregate_type: count_distinct
+
+  unique_users:
+    sql: ${unique_user_id}
+    label: Unique Users
+    format: "#,##0"
+    aggregate_type: count_distinct
+
+  event_count:
+    sql: ${event_id}
+    label: Event Count
+    aggregate_type: count_distinct
+
+  avg_cost_per_interaction:
+    sql: ${total_cost} / NULLIF(${unique_interactions}, 0)
+    label: Avg Cost per Question
+    group_label: Costs
+    format: $#,##0.00
+
+default_drill_fields: [ event_date, model_summary, external_url, interaction_id ]

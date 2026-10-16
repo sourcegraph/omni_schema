@@ -1,0 +1,28 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__sq_sdfc_opportunities
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: sq_sdfc_opportunities
+
+dimensions:
+  name: {}
+  contract_start: {}
+  contract_end: {}
+  contract_term: {}
+  opportunity_source: {}
+  opportunity_type: {}
+  opportunity_stage: {}
+  products_purchased: {}
+  hard_cap: {}
+  expansion_bundle_size: {}
+  use_cases: {}
+  poc_start_date: {}
+  poc_end_date: {}
+  prod_infra_complete_date: {}
+  deal_desk_approved: {}
+
+  account_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

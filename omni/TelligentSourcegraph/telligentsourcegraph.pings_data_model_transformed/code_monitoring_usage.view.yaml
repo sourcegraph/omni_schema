@@ -1,0 +1,121 @@
+# Reference this view as telligentsourcegraph_pings_data_model_transformed__code_monitoring_usage
+catalog: telligentsourcegraph
+schema: pings_data_model_transformed
+table_name: code_monitoring_usage
+
+dimensions:
+  installer_email: {}
+  timestamp: {}
+  date: {}
+
+  remote_site_id:
+    format: ID
+
+  create_code_monitor_page_views:
+    sql: CreateCodeMonitorPageViews
+
+  create_code_monitor_page_views_with_trigger_query:
+    sql: CreateCodeMonitorPageViewsWithTriggerQuery
+
+  create_code_monitor_page_views_without_trigger_query:
+    sql: CreateCodeMonitorPageViewsWithoutTriggerQuery
+
+  manage_code_monitor_page_views:
+    sql: ManageCodeMonitorPageViews
+
+  code_monitor_email_link_clicks:
+    sql: CodeMonitorEmailLinkClicks
+
+  example_monitor_clicked:
+    sql: ExampleMonitorClicked
+
+  getting_started_page_viewed:
+    sql: GettingStartedPageViewed
+
+  create_form_submitted:
+    sql: CreateFormSubmitted
+
+  manage_form_submitted:
+    sql: ManageFormSubmitted
+
+  manage_delete_submitted:
+    sql: ManageDeleteSubmitted
+
+  logs_page_viewed:
+    sql: LogsPageViewed
+
+  email_actions_triggered:
+    sql: EmailActionsTriggered
+
+  email_actions_errored:
+    sql: EmailActionsErrored
+
+  email_actions_triggered_unique_users:
+    sql: EmailActionsTriggeredUniqueUsers
+
+  email_actions_enabled:
+    sql: EmailActionsEnabled
+
+  email_actions_enabled_unique_users:
+    sql: EmailActionsEnabledUniqueUsers
+
+  slack_actions_triggered:
+    sql: SlackActionsTriggered
+
+  slack_actions_errored:
+    sql: SlackActionsErrored
+
+  slack_actions_triggered_unique_users:
+    sql: SlackActionsTriggeredUniqueUsers
+
+  slack_actions_enabled:
+    sql: SlackActionsEnabled
+
+  slack_actions_enabled_unique_users:
+    sql: SlackActionsEnabledUniqueUsers
+
+  webhook_actions_triggered:
+    sql: WebhookActionsTriggered
+
+  webhook_actions_errored:
+    sql: WebhookActionsErrored
+
+  webhook_actions_triggered_unique_users:
+    sql: WebhookActionsTriggeredUniqueUsers
+
+  webhook_actions_enabled:
+    sql: WebhookActionsEnabled
+
+  webhook_actions_enabled_unique_users:
+    sql: WebhookActionsEnabledUniqueUsers
+
+  monitors_enabled:
+    sql: MonitorsEnabled
+
+  monitors_enabled_unique_users:
+    sql: MonitorsEnabledUniqueUsers
+
+  monitors_enabled_last_run_errored:
+    sql: MonitorsEnabledLastRunErrored
+
+  repos_monitored:
+    sql: ReposMonitored
+
+  trigger_runs:
+    sql: TriggerRuns
+
+  trigger_runs_errored:
+    sql: TriggerRunsErrored
+
+  p50triggerruntimeseconds:
+    sql: P50TriggerRunTimeSeconds
+
+  p90triggerruntimeseconds:
+    sql: P90TriggerRunTimeSeconds
+
+  code_monitor_email_link_clicked:
+    sql: CodeMonitorEmailLinkClicked
+
+measures:
+  count:
+    aggregate_type: count

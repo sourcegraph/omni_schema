@@ -1,0 +1,53 @@
+# Reference this view as telligentsourcegraph_post_sales__customer_health_score_dimensions
+catalog: telligentsourcegraph
+schema: post_sales
+table_name: customer_health_score_dimensions
+
+dimensions:
+  run_date: {}
+  account_name: {}
+  segmentation: {}
+  iacv: {}
+  account_owner: {}
+  account_manager: {}
+  first_contract_start: {}
+  avg_3m_mau_over_seats: {}
+  last_mau: {}
+  purchased_seats: {}
+  features_used_90d: {}
+  features_used_list: {}
+  ds_distinct_categories: {}
+  ds_categories_list: {}
+  ds_is_system_ready: {}
+  ds_activated_date: {}
+  ds_all_time_queries: {}
+  ds_all_time_users: {}
+  has_ai_addendum: {}
+  type_of_agreement: {}
+  current_version: {}
+  versions_behind: {}
+  repos_count_greater_1gb: {}
+  repos_count_all: {}
+  precise_actions_last_90d: {}
+  precise_enabled: {}
+  products_purchased: {}
+  total_users: {}
+  power_highly_active_users: {}
+  pct_power_highly_active: {}
+  inactive_users: {}
+  pct_inactive: {}
+  sga_users_past30d: {}
+  ae_csm_changes_12m: {}
+  num_users: {}
+  num_mcp_users: {}
+  pct_users_mcp: {}
+
+  account_id:
+    format: ID
+
+  sfdc_unique_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

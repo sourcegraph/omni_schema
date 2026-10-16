@@ -1,0 +1,21 @@
+# Reference this view as telligentsourcegraph_pings_data_model_transformed__server_instance_usage_max_user_accounts_monthly
+catalog: telligentsourcegraph
+schema: pings_data_model_transformed
+table_name: server_instance_usage_max_user_accounts_monthly
+
+dimensions:
+  installer_email: {}
+  month: {}
+  max_total_user_accounts: {}
+
+  remote_site_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count
+
+  max_tot_user_accounts:
+    sql: max_total_user_accounts
+    label: Max Total User Accounts
+    aggregate_type: max

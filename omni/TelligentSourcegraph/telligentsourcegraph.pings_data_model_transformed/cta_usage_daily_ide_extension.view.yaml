@@ -1,0 +1,40 @@
+# Reference this view as telligentsourcegraph_pings_data_model_transformed__cta_usage_daily_ide_extension
+catalog: telligentsourcegraph
+schema: pings_data_model_transformed
+table_name: cta_usage_daily_ide_extension
+
+dimensions:
+  timestamp: {}
+  installer_email: {}
+  start_time_date: {}
+
+  remote_site_id:
+    format: ID
+
+  displayedonfilepage_usercount:
+    sql: DisplayedOnFilePage_UserCount
+
+  displayedonsearchpage_usercount:
+    sql: DisplayedOnSearchPage_UserCount
+
+  clickedonsearchpage_usercount:
+    sql: ClickedOnSearchPage_UserCount
+
+  clickedonfilepage_usercount:
+    sql: ClickedOnFilePage_UserCount
+
+  displayedonfilepage_eventcount:
+    sql: DisplayedOnFilePage_EventCount
+
+  displayedonsearchpage_eventcount:
+    sql: DisplayedOnSearchPage_EventCount
+
+  clickedonsearchpage_eventcount:
+    sql: ClickedOnSearchPage_EventCount
+
+  clickedonfilepage_eventcount:
+    sql: ClickedOnFilePage_EventCount
+
+measures:
+  count:
+    aggregate_type: count

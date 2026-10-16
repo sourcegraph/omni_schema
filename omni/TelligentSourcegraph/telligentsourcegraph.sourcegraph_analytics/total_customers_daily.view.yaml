@@ -1,0 +1,12 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__total_customers_daily
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: total_customers_daily
+
+dimensions:
+  dte: {}
+  total_customers: {}
+
+measures:
+  count:
+    aggregate_type: count

@@ -1,0 +1,131 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__ssc_cody_pro_weekly_report
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: ssc_cody_pro_weekly_report
+
+dimensions:
+  week_start: {}
+  week_end: {}
+  weekly_subscribers: {}
+  new_subscribers: {}
+  retained_subscribers: {}
+  churned_subscribers: {}
+  beta_sub: {}
+  reactivated_from_churn: {}
+  active_subscribers: {}
+  net_paid_seats_added: {}
+  weekly_revenue: {}
+  weekly_revenue_added: {}
+  weekly_revenue_retained: {}
+  q2_active_subs: {}
+  q2_new_subscribers: {}
+  q3_active_subs: {}
+  q3_new_subscribers: {}
+  zap_active_subscribers: {}
+  zap_weekly_revenue: {}
+  zap_q1_arr_target_p_attainment: {}
+  zap_q2_active_subs: {}
+  zap_q2_new_subscribers: {}
+  zap_q2_churn: {}
+  zap_q2_new_subs_net_churn: {}
+  zap_q2_net_new_sub_percent_target: {}
+  zap_q2_arr_target_p_attainment: {}
+  zap_q3_active_subs: {}
+  zap_q3_new_subscribers: {}
+  zap_q3_churn: {}
+  zap_q3_new_subs_net_churn: {}
+  zap_q3_net_new_sub_percent_target: {}
+  zap_q3_arr_target_p_attainment: {}
+  zap_q4_active_subs: {}
+  zap_q4_new_subscribers: {}
+  zap_q4_churn: {}
+  zap_q4_new_subs_net_churn: {}
+  zap_q4_net_new_sub_percent_target: {}
+  zap_q4_arr_target_p_attainment: {}
+  zap_q1_2025_active_subs: {}
+  zap_q1_2025_new_subscribers: {}
+  zap_q1_2025_churn: {}
+  zap_q1_2025_reactivated_from_churn: {}
+  zap_q1_2025_new_subs_net_churn: {}
+  bis_zap_q1_2025_new_subs_net_churn: {}
+  zap_q2_2025_active_subs: {}
+  zap_q2_2025_new_subscribers: {}
+  zap_q2_2025_churn: {}
+  zap_q2_2025_reactivated_from_churn: {}
+  zap_q2_2025_new_subs_net_churn: {}
+
+  mrr:
+    sql: MRR
+
+  arr:
+    sql: ARR
+
+  q2_mrr:
+    sql: q2_MRR
+
+  q2_arr:
+    sql: q2_ARR
+
+  q3_mrr:
+    sql: q3_MRR
+
+  q3_arr:
+    sql: q3_ARR
+
+  zap_mrr:
+    sql: zap_MRR
+
+  zap_arr:
+    sql: zap_ARR
+
+  zap_q2_imrr:
+    sql: zap_q2_IMRR
+
+  zap_q2_iarr:
+    sql: zap_q2_IARR
+
+  zap_q2_imrr_percent_target:
+    sql: zap_q2_IMRR_percent_target
+
+  zap_q2_iarr_percent_target:
+    sql: zap_q2_IARR_percent_target
+
+  zap_q3_imrr:
+    sql: zap_q3_IMRR
+
+  zap_q3_iarr:
+    sql: zap_q3_IARR
+
+  zap_q3_imrr_percent_target:
+    sql: zap_q3_IMRR_percent_target
+
+  zap_q3_iarr_percent_target:
+    sql: zap_q3_IARR_percent_target
+
+  zap_q4_imrr:
+    sql: zap_q4_IMRR
+
+  zap_q4_iarr:
+    sql: zap_q4_IARR
+
+  zap_q4_imrr_percent_target:
+    sql: zap_q4_IMRR_percent_target
+
+  zap_q4_iarr_percent_target:
+    sql: zap_q4_IARR_percent_target
+
+  zap_q1_2025_imrr:
+    sql: zap_q1_2025_IMRR
+
+  zap_q1_2025_iarr:
+    sql: zap_q1_2025_IARR
+
+  zap_q2_2025_imrr:
+    sql: zap_q2_2025_IMRR
+
+  zap_q2_2025_iarr:
+    sql: zap_q2_2025_IARR
+
+measures:
+  count:
+    aggregate_type: count

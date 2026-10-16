@@ -1,0 +1,41 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__alerts_customer_mau_drop
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: alerts_customer_mau_drop
+
+dimensions:
+  account_name: {}
+  contract_end: {}
+  pricing_metric: {}
+  total_seats: {}
+  total_acv_formatted: {}
+  csm_slack_username: {}
+  window_1_start: {}
+  mau_window_1: {}
+  window_2_start: {}
+  mau_window_2: {}
+  window_3_start: {}
+  mau_window_3: {}
+  window_1_range: {}
+  window_2_range: {}
+  window_3_range: {}
+  pct_change_w1_to_w2: {}
+  pct_change_w2_to_w3: {}
+  pct_change_w1_to_w3: {}
+  alert_severity: {}
+
+  external_url:
+    sql: externalUrl
+
+  sfdc_unique_id:
+    format: ID
+
+  csm_slack_id:
+    format: ID
+
+  alert_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

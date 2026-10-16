@@ -1,0 +1,13 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__cloud_instance_add_code_host_funnel
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: cloud_instance_add_code_host_funnel
+
+dimensions:
+  initial_admin_email: {}
+  accessed_instance: {}
+  viewed_external_services_pages: {}
+
+measures:
+  count:
+    aggregate_type: count

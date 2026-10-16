@@ -1,0 +1,21 @@
+# Reference this view as telligentsourcegraph_gsheets__arr_tracker_company_kpis
+catalog: telligentsourcegraph
+schema: gsheets
+table_name: arr_tracker_company_kpis
+
+dimensions:
+  total_customers:
+    sql: Total_customers
+
+  total_arr:
+    sql: Total_ARR
+
+  quarterly_acv:
+    sql: Quarterly_ACV
+
+  quarterly_iarr:
+    sql: Quarterly_IARR
+
+measures:
+  count:
+    aggregate_type: count

@@ -1,0 +1,107 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__sfdc_opportunities_acv
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: sfdc_opportunities_ACV
+
+dimensions:
+  account_name: {}
+  close_date: {}
+  qualified_date_c: {}
+  qualified_flag_c: {}
+  stage_name: {}
+  opportunity_source_c: {}
+  original_source_c: {}
+  type: {}
+  account_segmentation: {}
+  qualified_date_quarter: {}
+  qualified_date_quarter_enum: {}
+  qualified_date_week: {}
+  qualified_date_week_enum: {}
+  closed_date_date_quarter: {}
+  closed_date_date_quarter_enum: {}
+  closed_date_date_week: {}
+  closed_date_date_week_enum: {}
+
+  id:
+    label: Opportunity Id
+    format: ID
+    primary_key: true
+
+  account_id:
+    format: ID
+
+  name:
+    label: Opportunity Name
+
+  customer_engineer:
+    label: Solutions Engineer
+
+  selected_solutions_eng:
+    sql: |
+      CASE
+        WHEN ${customer_engineer} IN (
+          'Ajay Sridhar',
+          'Jacqui Dow',
+          'Ben Pepper',
+          'Carson Hopkins',
+          'Taber Miyauchi',
+          'Nic Galluzzo'
+        )
+        THEN ${customer_engineer}
+        ELSE NULL
+      END
+    label: Solutions Engineer (Selected)
+
+  iarr_c:
+    label: IACV
+
+  opp_created_by:
+    label: Opportunity Creator
+
+measures:
+  count:
+    drill_fields: [ id, stage_name, name ]
+    aggregate_type: count
+
+  distinct_opps:
+    sql: ${id}
+    drill_fields: [ id, name, iarr_c, close_date, qualified_date_c, stage_name, type ]
+    aggregate_type: count_distinct
+
+  distinct_accounts:
+    sql: ${account_id}
+    drill_fields:
+      [
+        id,
+        name,
+        account_name,
+        iarr_c,
+        close_date,
+        qualified_date_c,
+        stage_name,
+        type
+      ]
+    aggregate_type: count_distinct
+
+  iacv:
+    sql: ${iarr_c}
+    label: IACV
+    format: USDCURRENCY_2
+    drill_fields: [ id, name, iarr_c, close_date, qualified_date_c, stage_name, type ]
+    aggregate_type: sum
+
+  iacv_in_millions:
+    sql: ${iarr_c} / 1000000
+    label: IACV in $M
+    format: $#,##0.00"M"
+    drill_fields: [ id, name, iarr_c, close_date, qualified_date_c, stage_name, type ]
+    aggregate_type: sum
+
+  iacv_in_thousands:
+    sql: ${iarr_c} / 1000
+    label: IACV in $K
+    format: $#,##0.0"K"
+    drill_fields: [ id, name, iarr_c, close_date, qualified_date_c, stage_name, type ]
+    aggregate_type: sum
+
+default_drill_fields: [ id ]

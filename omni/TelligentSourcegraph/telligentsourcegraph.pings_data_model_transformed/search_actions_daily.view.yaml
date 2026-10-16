@@ -1,0 +1,154 @@
+# Reference this view as telligentsourcegraph_pings_data_model_transformed__search_actions_daily
+catalog: telligentsourcegraph
+schema: pings_data_model_transformed
+table_name: Search_actions_daily
+
+dimensions:
+  timestamp: {}
+  installer_email: {}
+  f0_: {}
+
+  remote_site_id:
+    format: ID
+
+  literal_eventscount:
+    sql: Literal_EventsCount
+
+  committer_eventscount:
+    sql: Committer_EventsCount
+
+  repogroup_eventscount:
+    sql: Repogroup_EventsCount
+
+  operatoror_eventscount:
+    sql: OperatorOr_EventsCount
+
+  before_eventscount:
+    sql: Before_EventsCount
+
+  timeout_eventscount:
+    sql: Timeout_EventsCount
+
+  operatornot_eventscount:
+    sql: OperatorNot_EventsCount
+
+  nonglobalcontext_eventscount:
+    sql: NonGlobalContext_EventsCount
+
+  selectcommitdiffremoved_eventscount:
+    sql: SelectCommitDiffRemoved_EventsCount
+
+  author_eventscount:
+    sql: Author_EventsCount
+
+  structural_eventscount:
+    sql: Structural_EventsCount
+
+  lang_eventscount:
+    sql: Lang_EventsCount
+
+  symbol_eventscount:
+    sql: Symbol_EventsCount
+
+  patterntype_eventscount:
+    sql: PatternType_EventsCount
+
+  index_eventscount:
+    sql: Index_EventsCount
+
+  onlypatterns_eventscount:
+    sql: OnlyPatterns_EventsCount
+
+  case_eventscount:
+    sql: Case_EventsCount
+
+  selectcontent_eventscount:
+    sql: SelectContent_EventsCount
+
+  diff_eventscount:
+    sql: Diff_EventsCount
+
+  fork_eventscount:
+    sql: Fork_EventsCount
+
+  repo_eventscount:
+    sql: Repo_EventsCount
+
+  repohascommitafter_eventscount:
+    sql: Repohascommitafter_EventsCount
+
+  repocontainscontent_eventscount:
+    sql: RepoContainsContent_EventsCount
+
+  repocontainscommitafter_eventscount:
+    sql: RepoContainsCommitAfter_EventsCount
+
+  after_eventscount:
+    sql: After_EventsCount
+
+  repocontains_eventscount:
+    sql: RepoContains_EventsCount
+
+  archived_eventscount:
+    sql: Archived_EventsCount
+
+  repodependencies_eventscount:
+    sql: RepoDependencies_EventsCount
+
+  message_eventscount:
+    sql: Message_EventsCount
+
+  operatorand_eventscount:
+    sql: OperatorAnd_EventsCount
+
+  repohasfile_eventscount:
+    sql: Repohasfile_EventsCount
+
+  selectsymbol_eventscount:
+    sql: SelectSymbol_EventsCount
+
+  onlypatternsthreeormore_eventscount:
+    sql: OnlyPatternsThreeOrMore_EventsCount
+
+  selectrepo_eventscount:
+    sql: SelectRepo_EventsCount
+
+  regexp_eventscount:
+    sql: Regexp_EventsCount
+
+  countall_eventscount:
+    sql: CountAll_EventsCount
+
+  searchmodes_interactive_eventscount:
+    sql: SearchModes_Interactive_EventsCount
+
+  count_eventscount:
+    sql: Count_EventsCount
+
+  file_eventscount:
+    sql: File_EventsCount
+
+  type_eventscount:
+    sql: Type_EventsCount
+
+  content_eventscount:
+    sql: Content_EventsCount
+
+  repocontainsfile_eventscount:
+    sql: RepoContainsFile_EventsCount
+
+  commit_eventscount:
+    sql: Commit_EventsCount
+
+  selectfile_eventscount:
+    sql: SelectFile_EventsCount
+
+  searchmodes_plaintext_eventscount:
+    sql: SearchModes_PlainText_EventsCount
+
+  selectcommitdiffadded_eventscount:
+    sql: SelectCommitDiffAdded_EventsCount
+
+measures:
+  count:
+    aggregate_type: count

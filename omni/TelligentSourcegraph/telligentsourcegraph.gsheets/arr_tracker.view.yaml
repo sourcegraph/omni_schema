@@ -1,0 +1,30 @@
+# Reference this view as telligentsourcegraph_gsheets__arr_tracker
+catalog: telligentsourcegraph
+schema: gsheets
+table_name: arr_tracker
+
+dimensions:
+  sequence: {}
+  contract_start_date: {}
+  fiscal_contract_start_quarter: {}
+  fiscal_contract_start_year: {}
+  contract_start_month: {}
+  customer: {}
+  usage_limits: {}
+  usage_limits_latest: {}
+  iarr: {}
+  cumulative_arr: {}
+  cumulative_mrr: {}
+  cohort: {}
+  cohort_year: {}
+  cohort_month: {}
+  iarr_analysis: {}
+  type: {}
+  first_year: {}
+  invoice_issued: {}
+  invoice_number: {}
+  comment: {}
+
+measures:
+  count:
+    aggregate_type: count

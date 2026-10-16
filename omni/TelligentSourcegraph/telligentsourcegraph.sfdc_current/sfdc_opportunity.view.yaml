@@ -1,0 +1,235 @@
+# Reference this view as telligentsourcegraph_sfdc_current__sfdc_opportunity
+catalog: telligentsourcegraph
+schema: sfdc_current
+table_name: sfdc_opportunity
+
+dimensions:
+  valid_from: {}
+  ae_name_c: {}
+  amount: {}
+  annual_ppu_c: {}
+  automatic_renewals_c: {}
+  bva_complete_date_c: {}
+  bva_completed_by_c: {}
+  bva_start_date_c: {}
+  close_date: {}
+  closed_lost_c: {}
+  closed_lost_reason_c: {}
+  closed_won_reason_c: {}
+  compelling_event_c: {}
+  competition_c: {}
+  contract_term_c: {}
+  created_date: {}
+  customer_engineer_c: {}
+  date_became_a_lead_c: {}
+  date_of_last_stage_change_c: {}
+  deal_id_c: {}
+  end_of_contract_c: {}
+  entered_evaluation_stage_c: {}
+  entered_final_proposal_c: {}
+  entered_interest_stage_c: {}
+  entered_qualification_stage_c: {}
+  first_entered_stage_1_c: {}
+  first_entered_stage_2_c: {}
+  first_entered_stage_3_c: {}
+  first_entered_stage_4_c: {}
+  first_entered_stage_5_c: {}
+  first_entered_stage_6_c: {}
+  first_touchpoint_c_c: {}
+  first_touchpoint_date_c: {}
+  fiscal: {}
+  fiscal_quarter: {}
+  fiscal_year: {}
+  forecast_category: {}
+  hard_cap_users_c: {}
+  has_open_activity: {}
+  has_opportunity_line_item: {}
+  has_overdue_task: {}
+  iarr_c: {}
+  is_closed: {}
+  is_deleted: {}
+  is_won: {}
+  last_activity_date: {}
+  last_entered_stage_1_c: {}
+  last_entered_stage_2_c: {}
+  last_entered_stage_3_c: {}
+  last_entered_stage_4_c: {}
+  last_entered_stage_5_c: {}
+  last_entered_stage_6_c: {}
+  last_modified_date: {}
+  last_stage_change_date: {}
+  lead_source: {}
+  lost_to_competitor_c: {}
+  manager_bva_status_c: {}
+  manager_commercial_terms_status_c: {}
+  manager_infosec_status_c: {}
+  manager_legal_status_c: {}
+  manager_tech_validation_status_c: {}
+  meeting_status_c: {}
+  msa_signed_date_c: {}
+  name: {}
+  next_step_date_c: {}
+  number_of_engineers_c: {}
+  number_of_sales_activities_c: {}
+  number_of_times_contacted_c: {}
+  opportunity_source_c: {}
+  original_source_c: {}
+  poc_end_date_c: {}
+  poc_start_date_c: {}
+  previous_days_in_stage_1_c: {}
+  previous_days_in_stage_2_c: {}
+  previous_days_in_stage_3_c: {}
+  previous_days_in_stage_4_c: {}
+  previous_days_in_stage_5_c: {}
+  previous_days_in_stage_6_c: {}
+  pricing_metric_c: {}
+  probability: {}
+  product_delivery_c: {}
+  products_included_c: {}
+  purchased_seats_c: {}
+  qualified_date_c: {}
+  qualified_flag_c: {}
+  referral_c: {}
+  sales_accepted_date_c: {}
+  sales_accepted_opportunity_c: {}
+  sdr_name_c: {}
+  stage_name: {}
+  start_of_contract_c: {}
+  stretch_iarr_c: {}
+  type: {}
+  usage_limit_lines_of_code_user_c: {}
+  use_cases_c: {}
+  fy_23_use_cases_c: {}
+  technical_win_achieved_c: {}
+  deal_desk_date_time_c: {}
+  deal_desk_approved_c: {}
+  opportunity_number_c: {}
+  primary_use_case_c: {}
+  forecast_pipeline_c: {}
+  tech_stack_includes_github_c: {}
+  opportunity_created_date_c: {}
+  spiff_week_c: {}
+  forecast_commit_c: {}
+  annualized_contract_value_c: {}
+  created_this_week_c: {}
+  forescast_closed_won_c: {}
+  report_six_months_date_c: {}
+  created_last_week_c: {}
+  forecast_fiscal_quarter_c: {}
+  days_in_pipeline_c: {}
+  qualified_last_week_c: {}
+  iarr_recognized_date_c: {}
+  iarr_created_this_week_c: {}
+  order_form_line_of_code_limit_c: {}
+  new_business_meeting_date_c: {}
+  bva_performed_c: {}
+  forecast_fiscal_period_c: {}
+  has_tdd_c: {}
+  qualified_this_week_c: {}
+  finance_opportunity_type_c: {}
+  order_form_auto_renewal_c: {}
+  outreach_sequence_attributed_c: {}
+  highest_stage_reached_c: {}
+  forecast_best_case_c: {}
+  affectlayer_affect_layer_notes_c: {}
+  billing_contact_email_c: {}
+  nbm_spiff_week_c: {}
+  sales_hierarchy_region_c: {}
+  vc_bod_engaged_c: {}
+  days_in_current_stage_c: {}
+  iarr_created_last_week_c: {}
+  order_form_hard_cap_c: {}
+  ce_manager_c: {}
+  days_since_prod_ready_c: {}
+  vc_bod_name_c: {}
+  pipegen_date_c: {}
+  account_id_1: {}
+  valid_from_1: {}
+  city: {}
+  company_name: {}
+  contact_id_1: {}
+  country: {}
+  created_by_id_1: {}
+  created_date_1: {}
+  default_group_notification_frequency: {}
+  department: {}
+  division: {}
+  email: {}
+  employee_number: {}
+  first_name: {}
+  is_active: {}
+  last_90_days_no_show_c: {}
+  last_90_days_sao_conversion_c: {}
+  last_inbound_rr_assignment_c: {}
+  last_login_date: {}
+  last_modified_date_1: {}
+  last_name: {}
+  last_outbound_sdr_account_assignment_c: {}
+  last_referenced_date: {}
+  last_viewed_date: {}
+  name_1: {}
+  sdr_c: {}
+  sender_email: {}
+  sender_name: {}
+  start_date_c: {}
+  state: {}
+  stay_in_touch_note: {}
+  stay_in_touch_signature: {}
+  stay_in_touch_subject: {}
+  street: {}
+  time_zone_sid_key: {}
+  title: {}
+  user_type: {}
+  username: {}
+  sub_region_assignment_c: {}
+  sdr_monthly_meeting_goal_c: {}
+  sdr_pg_qtd_goal_c: {}
+  sdr_quarterly_sao_goal_c: {}
+  sub_region_formula_c: {}
+  ae_ramping_start_date_c: {}
+  region_c: {}
+  user_is_ae_c: {}
+  date_uploaded: {}
+
+  opportunity_id:
+    format: ID
+
+  account_id:
+    format: ID
+
+  campaign_id:
+    format: ID
+
+  contact_id:
+    format: ID
+
+  created_by_id:
+    format: ID
+
+  owner_id:
+    format: ID
+
+  user_id:
+    format: ID
+
+  individual_id:
+    format: ID
+
+  last_modified_by_id:
+    format: ID
+
+  manager_id:
+    format: ID
+
+  profile_id:
+    format: ID
+
+  user_role_id:
+    format: ID
+
+  __index_level_0__:
+    hidden: true
+
+measures:
+  count:
+    aggregate_type: count

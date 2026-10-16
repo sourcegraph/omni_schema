@@ -1,0 +1,66 @@
+# Reference this view as telligentsourcegraph_credits_analytics__credit_pacing_alerts
+catalog: telligentsourcegraph
+schema: credits_analytics
+table_name: credit_pacing_alerts
+
+dimensions:
+  pk: {}
+  account_name: {}
+  subscription_name: {}
+  instance_domains: {}
+  ep_url: {}
+  deal_hub_urls: {}
+  dealhub_subscription_ids: {}
+  progress_band: {}
+  pace_band: {}
+  cell: {}
+  emoji: {}
+  severity: {}
+  severity_rank: {}
+  action: {}
+  pace_ratio_pct: {}
+  consumption_pct: {}
+  consumption_pct_formatted: {}
+  time_elapsed_pct: {}
+  time_left_pct: {}
+  elapsed_days: {}
+  days_left: {}
+  credit_expiry_delta_days: {}
+  credits_consumed: {}
+  credits_allocated: {}
+  credit_shortfall: {}
+  daily_burn_rate: {}
+  allocation_daily_rate: {}
+  projected_end_consumption_pct: {}
+  projected_exhaustion_date: {}
+  earliest_bucket_start: {}
+  latest_bucket_expiry: {}
+  active_buckets: {}
+  csm_slack_username: {}
+  ae_slack_username: {}
+  single_rep: {}
+  alert_created_at: {}
+  headline: {}
+  status_line: {}
+  pacing_line: {}
+  burn_line: {}
+  bucket_line: {}
+  recommendation: {}
+  slack_message: {}
+  last_consumption_pct: {}
+
+  account_id:
+    format: ID
+
+  subscription_id:
+    format: ID
+
+  csm_slack_id:
+    format: ID
+
+  ae_slack_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

@@ -1,0 +1,21 @@
+# Reference this view as telligentsourcegraph_sfdc_current__search_customer_acv_seat_over_time
+catalog: telligentsourcegraph
+schema: sfdc_current
+table_name: search_customer_acv_seat_over_time
+
+dimensions:
+  account_name: {}
+  product_group: {}
+  current_month_date: {}
+  total_seats: {}
+  total_acv: {}
+
+  account_id:
+    format: ID
+
+  sourcegraph_subscription_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

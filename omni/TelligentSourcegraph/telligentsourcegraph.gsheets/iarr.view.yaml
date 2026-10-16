@@ -1,0 +1,35 @@
+# Reference this view as telligentsourcegraph_gsheets__iarr
+catalog: telligentsourcegraph
+schema: gsheets
+table_name: iarr
+
+dimensions:
+  opportunity_owner:
+    sql: Opportunity_Owner
+
+  account_name:
+    sql: Account_Name
+
+  unique_account_id:
+    sql: Unique_Account_ID
+    format: ID
+
+  opportunity_name:
+    sql: Opportunity_Name
+
+  iarr:
+    sql: IARR
+
+  stage:
+    sql: Stage
+
+  close_date:
+    sql: Close_Date
+    description: "%m/%d/%E4Y"
+
+  type:
+    sql: Type
+
+measures:
+  count:
+    aggregate_type: count

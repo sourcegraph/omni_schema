@@ -1,0 +1,42 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__licenses
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: licenses
+
+dimensions:
+  email: {}
+  tags: {}
+  subscription_name: {}
+  username: {}
+
+  product_name:
+    sql: productName
+
+  user_count:
+    sql: userCount
+
+  expires_at:
+    sql: expiresAt
+
+  license_key:
+    sql: licenseKey
+
+  created_at:
+    sql: createdAt
+
+  is_archived:
+    sql: isArchived
+
+  database_id:
+    format: ID
+
+  license_id:
+    format: ID
+    primary_key: true
+
+  subscription_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

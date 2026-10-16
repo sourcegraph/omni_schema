@@ -1,0 +1,163 @@
+# Reference this view as telligentsourcegraph_gsheets__arr_tracker_feb1
+catalog: telligentsourcegraph
+schema: gsheets
+table_name: arr_tracker_feb1
+
+dimensions:
+  sequence:
+    sql: Sequence
+
+  close_date:
+    sql: Close_Date
+
+  iarr_recognized_date:
+    sql: IARR_recognized_date
+
+  iarr_recognition_quarter:
+    sql: IARR_Recognition_quarter
+
+  iarr_recognition_year:
+    sql: IARR_Recognition_year
+
+  iarr_recognition_month:
+    sql: IARR_Recognition_month
+
+  account_name__contract_:
+    sql: Account_Name__Contract_
+
+  account_name:
+    sql: Account_Name
+
+  usage_limits:
+    sql: Usage_limits
+
+  iarr:
+    sql: IARR
+
+  total_iarr_per_contract:
+    sql: Total_IARR_Per_Contract
+
+  cohort:
+    sql: Cohort
+
+  cohort_year:
+    sql: Cohort_Year
+
+  cohort_month:
+    sql: Cohort_month
+
+  type:
+    sql: Type
+
+  start_of_contract:
+    sql: Start_of_Contract
+    description: "%m/%d/%E4Y"
+
+  contract_start_month___year:
+    sql: Contract_Start_Month___Year
+
+  end_of_contract:
+    sql: End_of_Contract
+
+  contract_term_end_quarter:
+    sql: Contract_Term_End_Quarter
+
+  contract_term:
+    sql: Contract_Term
+
+  renewal:
+    sql: Renewal
+
+  opportunity_owner:
+    sql: Opportunity_Owner
+
+  automatic_renewals:
+    sql: Automatic_Renewals
+
+  order_form_hard_cap:
+    sql: Order_Form_Hard_Cap
+
+  purchased_seats:
+    sql: Purchased_Seats
+
+  total_purchased_seats_per_contract:
+    sql: Total_Purchased_Seats_Per_Contract
+
+  products_included:
+    sql: Products_Included
+
+  deployment_method:
+    sql: Deployment_Method
+
+  teams_plan_:
+    sql: Teams_Plan_
+
+  case_study_:
+    sql: Case_Study_
+
+  logo_rights:
+    sql: Logo_Rights
+
+  tier_pricing:
+    sql: Tier_Pricing
+
+  platform_implementation_fee:
+    sql: Platform_Implementation_Fee
+
+  contract_governing_terms:
+    sql: Contract_Governing_Terms
+
+  billing_state_province:
+    sql: Billing_State_Province
+
+  geo:
+    sql: Geo
+
+  owner_role:
+    sql: Owner_Role
+
+  industry:
+    sql: Industry
+
+  clearbit_industry_group:
+    sql: Clearbit_Industry_Group
+
+  contract_measurement_metric:
+    sql: Contract_Measurement_Metric
+
+  employee_range:
+    sql: Employee_Range
+
+  employees:
+    sql: Employees
+
+  opportunity_source:
+    sql: Opportunity_Source
+
+  annual_revenue:
+    sql: Annual_Revenue
+
+  right_to_convert_to_cloud_:
+    sql: Right_to_Convert_to_Cloud_
+
+  deal_desk_approved_:
+    sql: Deal_Desk_Approved_
+
+  external_services:
+    sql: External_Services
+
+  current_sourcegraph_version:
+    sql: Current_Sourcegraph_Version
+
+  employee_band:
+    sql: Employee_Band
+
+  customer_type:
+    sql: Customer_Type
+
+  customer_transaction_rank:
+    sql: Customer_Transaction_Rank
+
+measures:
+  count:
+    aggregate_type: count

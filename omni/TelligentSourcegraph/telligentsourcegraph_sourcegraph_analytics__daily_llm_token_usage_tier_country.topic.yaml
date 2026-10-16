@@ -1,0 +1,6 @@
+base_view: telligentsourcegraph_sourcegraph_analytics__daily_llm_token_usage_tier_country
+label: Daily LLM Token Usage
+
+joins:
+  telligentsourcegraph_sfdc_current__looker_dim_account_details:
+    telligentsourcegraph_sourcegraph_analytics__server_instances: {}

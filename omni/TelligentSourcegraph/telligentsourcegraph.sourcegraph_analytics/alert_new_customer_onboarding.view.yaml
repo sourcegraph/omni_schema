@@ -1,0 +1,69 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__alert_new_customer_onboarding
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: alert_new_customer_onboarding
+
+dimensions:
+  pk: {}
+  account_name: {}
+  became_enterprise_date: {}
+  month_1_start: {}
+  telemetry_status: {}
+  search_acv: {}
+  search_acv_formatted: {}
+  search_seats: {}
+  credit_allocated_format: {}
+  ds_pct_consumed_month_1: {}
+  ds_pct_consumed_month_2: {}
+  ds_pct_consumed_month_3: {}
+  mau_month_1: {}
+  mau_month_2: {}
+  mau_month_3: {}
+  ds_mau_month_1: {}
+  ds_mau_month_2: {}
+  ds_mau_month_3: {}
+  mcp_mau_month_1: {}
+  mcp_mau_month_2: {}
+  mcp_mau_month_3: {}
+  mau_over_seats_month_1: {}
+  mau_over_seats_month_2: {}
+  mau_over_seats_month_3: {}
+  products_purchased: {}
+  active_product_classification: {}
+  features_used_90d: {}
+  features_used_list: {}
+  ds_all_time_queries: {}
+  ai_terms: {}
+  latest_ping: {}
+  latest_version: {}
+  deployment_method: {}
+  csm_slack_username: {}
+  se_slack_username: {}
+  ui_search_mau_month_1: {}
+  ui_search_mau_month_2: {}
+  ui_search_mau_month_3: {}
+  code_nav_mau_month_1: {}
+  code_nav_mau_month_2: {}
+  code_nav_mau_month_3: {}
+  insights_mau_month_1: {}
+  insights_mau_month_2: {}
+  insights_mau_month_3: {}
+  bc_mau_month_1: {}
+  bc_mau_month_2: {}
+  bc_mau_month_3: {}
+
+  account_id:
+    format: ID
+
+  external_url:
+    sql: externalUrl
+
+  csm_slack_id:
+    format: ID
+
+  se_slack_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

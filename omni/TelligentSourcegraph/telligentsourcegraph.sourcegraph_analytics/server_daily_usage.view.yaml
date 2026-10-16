@@ -1,0 +1,18 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__server_daily_usage
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: server_daily_usage
+
+dimensions:
+  start_time: {}
+  user_count: {}
+  registered_user_count: {}
+  anonymous_user_count: {}
+  integration_user_count: {}
+
+  unique_server_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

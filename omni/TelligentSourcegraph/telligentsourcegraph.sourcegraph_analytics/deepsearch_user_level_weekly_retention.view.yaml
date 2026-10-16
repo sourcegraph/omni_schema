@@ -1,0 +1,32 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__deepsearch_user_level_weekly_retention
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: deepsearch_user_level_weekly_retention
+
+dimensions:
+  cohort_week: {}
+  week_0_active: {}
+  week_1_active: {}
+  week_2_active: {}
+  week_3_active: {}
+  week_4_active: {}
+  week_5_active: {}
+  week_6_active: {}
+  week_7_active: {}
+  week_8_active: {}
+  week_12_active: {}
+
+  external_url:
+    sql: externalUrl
+
+  unique_user_id:
+    sql: uniqueUserId
+    format: ID
+
+  user_id:
+    sql: userId
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

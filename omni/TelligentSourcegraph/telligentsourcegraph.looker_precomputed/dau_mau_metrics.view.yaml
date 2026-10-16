@@ -1,0 +1,57 @@
+# Reference this view as telligentsourcegraph_looker_precomputed__dau_mau_metrics
+description: Pre-computed DAU/WAU/MAU ratios by server. This is the most
+  expensive Looker query pattern (~$140/day). Materializing saves ~$135/day.
+
+catalog: telligentsourcegraph
+schema: looker_precomputed
+table_name: dau_mau_metrics
+
+dimensions:
+  activity_date: {}
+  week_start: {}
+  month_start: {}
+  dau_billing: {}
+  wau_billing: {}
+  mau_billing: {}
+  dau_mau_ratio_billing: {}
+  dau_wau_ratio_billing: {}
+
+  external_url:
+    sql: externalUrl
+
+  workspace_id:
+    sql: workspaceId
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count
+
+  # --- DAU ---
+  total_dau_billing:
+    sql: ${dau_billing}
+    format: number_0
+    aggregate_type: average
+
+  # --- WAU ---
+  total_wau_billing:
+    sql: ${wau_billing}
+    format: number_0
+    aggregate_type: average
+
+  # --- MAU ---
+  total_mau_billing:
+    sql: ${mau_billing}
+    format: number_0
+    aggregate_type: average
+
+  # --- Ratios ---
+  avg_dau_mau_ratio_billing:
+    sql: ${dau_mau_ratio_billing}
+    format: percent_1
+    aggregate_type: average
+
+  avg_dau_wau_ratio_billing:
+    sql: ${dau_wau_ratio_billing}
+    format: percent_1
+    aggregate_type: average

@@ -1,0 +1,5 @@
+base_view: telligentsourcegraph_sourcegraph_analytics__plain_tickets_transformed
+
+joins:
+  telligentsourcegraph_sfdc_current__looker_dim_account_details:
+    telligentsourcegraph_sourcegraph_analytics__server_instances: {}

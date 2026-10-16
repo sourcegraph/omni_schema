@@ -1,0 +1,68 @@
+# Reference this view as telligentsourcegraph_gsheets__mod_cloud_user_converted
+catalog: telligentsourcegraph
+schema: gsheets
+table_name: mod_cloud_user_converted
+
+dimensions:
+  email: {}
+  name: {}
+  url: {}
+  source: {}
+  argument: {}
+  version: {}
+  timestamp: {}
+  first_source_url: {}
+  feature_flags: {}
+  cohort_id: {}
+  referrer: {}
+  public_argument: {}
+  last_source_url: {}
+  date_part: {}
+  pql_flg: {}
+  days_flg: {}
+
+  user_id:
+    format: ID
+
+  anonymous_user_id:
+    format: ID
+
+  device_id:
+    format: ID
+
+  insert_id:
+    format: ID
+
+  email_1:
+    sql: Email_1
+
+  first_name:
+    sql: First_Name
+
+  last_name:
+    sql: Last_Name
+
+  title:
+    sql: Title
+
+  targeted_title_keyword:
+    sql: Targeted_Title_Keyword
+
+  company_account:
+    sql: Company_Account
+
+  lead_owner:
+    sql: Lead_Owner
+
+  first_touchpoint:
+    sql: First_Touchpoint
+
+  last_modified:
+    sql: Last_Modified
+
+  pql_date:
+    sql: PQL_Date
+
+measures:
+  count:
+    aggregate_type: count

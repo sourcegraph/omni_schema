@@ -1,0 +1,17 @@
+# Reference this view as telligentsourcegraph_pings_data_model_transformed__rwaus_user_count_daily
+catalog: telligentsourcegraph
+schema: pings_data_model_transformed
+table_name: rwaus_user_count_daily
+
+dimensions:
+  timestamp: {}
+  installer_email: {}
+  day: {}
+  rwaus_user_count_daily: {}
+
+  remote_site_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

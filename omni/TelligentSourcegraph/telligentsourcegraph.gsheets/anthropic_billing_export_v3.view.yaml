@@ -1,0 +1,24 @@
+# Reference this view as telligentsourcegraph_gsheets__anthropic_billing_export_v3
+catalog: telligentsourcegraph
+schema: gsheets
+table_name: anthropic_billing_export_v3
+
+dimensions:
+  model: {}
+  workspace: {}
+  api_key: {}
+  usage_type: {}
+  token_type: {}
+  cost_usd: {}
+  cost_type: {}
+  api_key__comment_: {}
+
+  usage_date_utc:
+    description: "%E4Y-%m-%d"
+
+  _:
+    hidden: true
+
+measures:
+  count:
+    aggregate_type: count

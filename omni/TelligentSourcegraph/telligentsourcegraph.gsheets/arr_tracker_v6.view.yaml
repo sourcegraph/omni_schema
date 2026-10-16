@@ -1,0 +1,182 @@
+# Reference this view as telligentsourcegraph_gsheets__arr_tracker_v6
+catalog: telligentsourcegraph
+schema: gsheets
+table_name: arr_tracker_v6
+
+dimensions:
+  id:
+    sql: ID
+    format: ID
+    primary_key: true
+
+  close_date:
+    sql: Close_Date
+
+  iarr_recognized_date:
+    sql: IARR_recognized_date
+
+  iarr_recognition_quarter:
+    sql: IARR_Recognition_quarter
+
+  iarr_recognition_year:
+    sql: IARR_Recognition_year
+
+  iarr_recognition_month:
+    sql: IARR_Recognition_month
+
+  account_name:
+    sql: Account_Name
+
+  parent_account:
+    sql: Parent_Account
+
+  usage_limits:
+    sql: Usage_limits
+
+  iarr:
+    sql: IARR
+
+  total_arr_per_contract:
+    sql: Total_ARR_Per_Contract
+
+  cohort:
+    sql: Cohort
+
+  cohort_year:
+    sql: Cohort_Year
+
+  cohort_month:
+    sql: Cohort_month
+
+  type:
+    sql: Type
+
+  start_of_contract:
+    sql: Start_of_Contract
+
+  contract_start_month___year:
+    sql: Contract_Start_Month___Year
+
+  end_of_contract:
+    sql: End_of_Contract
+
+  contract_term_end_quarter:
+    sql: Contract_Term_End_Quarter
+
+  contract_term:
+    sql: Contract_Term
+
+  renewal:
+    sql: Renewal
+
+  opportunity_owner:
+    sql: Opportunity_Owner
+
+  order_form_hard_cap:
+    sql: Order_Form_Hard_Cap
+
+  purchased_seats__search_platform_:
+    sql: Purchased_Seats__Search_Platform_
+
+  total_purchased_seats_per_contract__search_platform_:
+    sql: Total_Purchased_Seats_Per_Contract__Search_Platform_
+
+  purchased_seats__cody_:
+    sql: Purchased_Seats__Cody_
+
+  total_purchased_seats_per_contract__cody_:
+    sql: Total_Purchased_Seats_Per_Contract__Cody_
+
+  max_of_search_or_cody_purchased_seats_per_contract:
+    sql: Max_of_Search_or_Cody_Purchased_Seats_Per_Contract
+
+  products_included:
+    sql: Products_Included
+
+  deployment_method:
+    sql: Deployment_Method
+
+  teams_plan_:
+    sql: Teams_Plan_
+
+  platform_fee:
+    sql: Platform_Fee
+
+  billing_state_province:
+    sql: Billing_State_Province
+
+  geo:
+    sql: Geo
+
+  industry:
+    sql: Industry
+
+  clearbit_industry_group:
+    sql: Clearbit_Industry_Group
+
+  contract_measurement_metric__search_:
+    sql: Contract_Measurement_Metric__Search_
+
+  contract_measurement_metric__cody_:
+    sql: Contract_Measurement_Metric__Cody_
+
+  employee_range:
+    sql: Employee_Range
+
+  employees:
+    sql: Employees
+
+  opportunity_source:
+    sql: Opportunity_Source
+
+  annual_revenue:
+    sql: Annual_Revenue
+
+  deal_desk_approved_:
+    sql: Deal_Desk_Approved_
+
+  external_services:
+    sql: External_Services
+
+  current_sourcegraph_version:
+    sql: Current_Sourcegraph_Version
+
+  employee_band:
+    sql: Employee_Band
+
+  fy25_segmentation:
+    sql: FY25_Segmentation
+
+  churn_recognition_date:
+    sql: Churn_Recognition_Date
+
+  churn_recognition_quarter:
+    sql: Churn_Recognition_Quarter
+
+  search_iarr:
+    sql: Search_IARR
+
+  support__recurring_:
+    sql: Support__Recurring_
+
+  platform_fee_:
+    sql: Platform_Fee_
+
+  cody_iarr_:
+    sql: Cody_IARR_
+
+  cip_iarr:
+    sql: CIP_IARR
+
+  total_iarr_check_:
+    sql: Total_IARR_Check_
+
+  total_search_iarr_per_contract_:
+    sql: Total_Search_IARR_per_contract_
+
+  total_cody_iarr_per_contract_:
+    sql: Total_Cody_IARR_per_contract_
+
+measures:
+  count:
+    aggregate_type: count

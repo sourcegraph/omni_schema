@@ -1,0 +1,154 @@
+# Reference this view as telligentsourcegraph_gsheets__arr_tracker_temp
+catalog: telligentsourcegraph
+schema: gsheets
+table_name: arr_tracker_temp
+
+dimensions:
+  close_date:
+    sql: Close_Date
+    description: "%m/%d/%E4Y"
+
+  iarr_recognized_date:
+    sql: IARR_Recognized_Date
+    description: "%m/%d/%E4Y"
+
+  account_name:
+    sql: Account_Name
+
+  iarr:
+    sql: IARR
+
+  type:
+    sql: Type
+
+  start_of_contract:
+    sql: Start_of_Contract
+    description: "%m/%d/%E4Y"
+
+  end_of_contract:
+    sql: End_of_Contract
+    description: "%m/%d/%E4Y"
+
+  contract_term:
+    sql: Contract_Term
+
+  opportunity_owner:
+    sql: Opportunity_Owner
+
+  order_form_hard_cap:
+    sql: Order_Form_Hard_Cap
+
+  purchased_seats:
+    sql: Purchased_Seats
+
+  products_included:
+    sql: Products_Included
+
+  customer_case_study:
+    sql: Customer_Case_Study
+
+  customer_logo:
+    sql: Customer_Logo
+
+  billing_state_province:
+    sql: Billing_State_Province
+
+  industry:
+    sql: Industry
+
+  lead_source:
+    sql: Lead_Source
+
+  opportunity_source:
+    sql: Opportunity_Source
+
+  entered_qualification_date:
+    sql: Entered_Qualification_Date
+    description: "%m/%d/%E4Y"
+
+  first_touchpoint_date:
+    sql: First_Touchpoint_Date
+    description: "%m/%d/%E4Y"
+
+  created_date:
+    sql: Created_Date
+    description: "%m/%d/%E4Y"
+
+  sao_date:
+    sql: SAO_Date
+    description: "%m/%d/%E4Y"
+
+  primary_campaign_source:
+    sql: Primary_Campaign_Source
+
+  price_user_year:
+    sql: Price_User_Year
+
+  region:
+    sql: Region
+
+  employee_range:
+    sql: Employee_Range
+
+  deployment_method:
+    sql: Deployment_Method
+
+  opportunity_id:
+    sql: Opportunity_ID
+    format: ID
+
+  account_id:
+    sql: Account_ID
+    format: ID
+
+  annual_revenue:
+    sql: Annual_Revenue
+
+  days_in_pipeline:
+    sql: Days_in_Pipeline
+
+  payment_schedule:
+    sql: Payment_Schedule
+
+  payment_terms:
+    sql: Payment_Terms
+
+  expansion_price_user_year:
+    sql: Expansion_Price_User_Year
+
+  geo:
+    sql: Geo
+
+  clearbit_industry:
+    sql: Clearbit_Industry
+
+  clearbit_industry_group:
+    sql: Clearbit_Industry_Group
+
+  contract_measurement_metric:
+    sql: Contract_Measurement_Metric
+
+  right_to_convert:
+    sql: Right_to_Convert
+
+  deal_desk_approved:
+    sql: Deal_Desk_Approved
+
+  automatic_renewals:
+    sql: Automatic_Renewals
+
+  account_type:
+    sql: Account_Type
+
+  owner_role:
+    sql: Owner_Role
+
+  employees:
+    sql: Employees
+
+  external_services:
+    sql: External_Services
+
+measures:
+  count:
+    aggregate_type: count

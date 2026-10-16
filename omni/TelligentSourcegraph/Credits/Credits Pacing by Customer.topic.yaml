@@ -1,0 +1,17 @@
+base_view: telligentsourcegraph_credits_analytics__credits_pacing_by_customer
+label: Credits Pacing by Customer
+group_label: Credits
+
+joins:
+  telligentsourcegraph_sfdc_current__looker_dim_account_details:
+    telligentsourcegraph_sourcegraph_analytics__server_instances: {}
+
+views:
+  telligentsourcegraph_credits_analytics__credits_pacing_by_customer:
+    display_order: 1
+
+  telligentsourcegraph_sfdc_current__looker_dim_account_details:
+    display_order: 2
+
+  telligentsourcegraph_sourcegraph_analytics__server_instances:
+    display_order: 3

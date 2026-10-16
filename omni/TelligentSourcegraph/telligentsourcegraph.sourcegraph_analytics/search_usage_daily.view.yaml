@@ -1,0 +1,179 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__search_usage_daily
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: search_usage_daily
+
+dimensions:
+  start_time: {}
+
+  unique_server_id:
+    format: ID
+
+  daily_literal_eventscount:
+    sql: daily_literal_EventsCount
+
+  daily_regexp_eventscount:
+    sql: daily_regexp_EventsCount
+
+  daily_structural_eventscount:
+    sql: daily_structural_EventsCount
+
+  daily_commit_eventscount:
+    sql: daily_commit_EventsCount
+
+  daily_diff_eventscount:
+    sql: daily_diff_EventsCount
+
+  daily_file_eventscount:
+    sql: daily_file_EventsCount
+
+  daily_repo_eventscount:
+    sql: daily_repo_EventsCount
+
+  daily_symbol_eventscount:
+    sql: daily_symbol_EventsCount
+
+  daily_after_eventscount:
+    sql: daily_after_EventsCount
+
+  daily_archived_eventscount:
+    sql: daily_archived_EventsCount
+
+  daily_author_eventscount:
+    sql: daily_author_EventsCount
+
+  daily_before_eventscount:
+    sql: daily_before_EventsCount
+
+  daily_case_eventscount:
+    sql: daily_case_EventsCount
+
+  daily_committer_eventscount:
+    sql: daily_committer_EventsCount
+
+  daily_content_eventscount:
+    sql: daily_content_EventsCount
+
+  daily_count_eventscount:
+    sql: daily_count_EventsCount
+
+  daily_fork_eventscount:
+    sql: daily_fork_EventsCount
+
+  daily_index_eventscount:
+    sql: daily_index_EventsCount
+
+  daily_lang_eventscount:
+    sql: daily_lang_EventsCount
+
+  daily_message_eventscount:
+    sql: daily_message_EventsCount
+
+  daily_patterntype_eventscount:
+    sql: daily_patterntype_EventsCount
+
+  daily_repohascommitafter_eventscount:
+    sql: daily_repohascommitafter_EventsCount
+
+  daily_repohasfile_eventscount:
+    sql: daily_repohasfile_EventsCount
+
+  daily_repogroup_eventscount:
+    sql: daily_repogroup_EventsCount
+
+  daily_timeout_eventscount:
+    sql: daily_timeout_EventsCount
+
+  daily_searchmodes_interactive_eventscount:
+    sql: daily_SearchModes_interactive_EventsCount
+
+  daily_searchmodes_plaintext_eventscount:
+    sql: daily_SearchModes_plaintext_EventsCount
+
+  daily_literal_usercount:
+    sql: daily_literal_UserCount
+
+  daily_regexp_usercount:
+    sql: daily_regexp_UserCount
+
+  daily_structural_usercount:
+    sql: daily_structural_UserCount
+
+  daily_commit_usercount:
+    sql: daily_commit_UserCount
+
+  daily_diff_usercount:
+    sql: daily_diff_UserCount
+
+  daily_file_usercount:
+    sql: daily_file_UserCount
+
+  daily_repo_usercount:
+    sql: daily_repo_UserCount
+
+  daily_symbol_usercount:
+    sql: daily_symbol_UserCount
+
+  daily_after_usercount:
+    sql: daily_after_UserCount
+
+  daily_archived_usercount:
+    sql: daily_archived_UserCount
+
+  daily_author_usercount:
+    sql: daily_author_UserCount
+
+  daily_before_usercount:
+    sql: daily_before_UserCount
+
+  daily_case_usercount:
+    sql: daily_case_UserCount
+
+  daily_committer_usercount:
+    sql: daily_committer_UserCount
+
+  daily_content_usercount:
+    sql: daily_content_UserCount
+
+  daily_count_usercount:
+    sql: daily_count_UserCount
+
+  daily_fork_usercount:
+    sql: daily_fork_UserCount
+
+  daily_index_usercount:
+    sql: daily_index_UserCount
+
+  daily_lang_usercount:
+    sql: daily_lang_UserCount
+
+  daily_message_usercount:
+    sql: daily_message_UserCount
+
+  daily_patterntype_usercount:
+    sql: daily_patterntype_UserCount
+
+  daily_repohascommitafter_usercount:
+    sql: daily_repohascommitafter_UserCount
+
+  daily_repohasfile_usercount:
+    sql: daily_repohasfile_UserCount
+
+  daily_repogroup_usercount:
+    sql: daily_repogroup_UserCount
+
+  daily_timeout_usercount:
+    sql: daily_timeout_UserCount
+
+  daily_searchmodes_interactive_usercount:
+    sql: daily_SearchModes_interactive_UserCount
+
+  daily_searchmodes_plaintext_usercount:
+    sql: daily_SearchModes_plaintext_UserCount
+
+  daily_totalusers:
+    sql: daily_TotalUsers
+
+measures:
+  count:
+    aggregate_type: count

@@ -1,0 +1,84 @@
+# Reference this view as server_instances_usage_growth_statistics
+## Reference this view as telligentsourcegraph_pings_data_model_transformed__server_instance_usage_growth_statistics
+# Converted from LookML view: server_instance_usage_growth_statistics
+# Converted from LookML view: server_instance_usage_growth_statistics
+# Mirrors the LookML derived table that adds a surrogate key
+label: Created Deleted Users
+
+sql: |
+  SELECT generate_uuid() as new_id, *
+  FROM `telligentsourcegraph.pings_data_model_transformed.server_instance_usage_growth_statistics`
+
+dimensions:
+  new_id:
+    hidden: true
+    primary_key: true
+
+  installer_email:
+    group_label: Server IDs
+
+  remote_site_id:
+    group_label: Server IDs
+
+  month:
+    timeframes: [ month, quarter, year ]
+    convert_tz: false
+
+  timestamp:
+    hidden: true
+    timeframes: [ date, week, month, quarter, year ]
+
+  # Raw numeric columns: not exposed as dimensions in LookML, so hidden here.
+  # They exist only to feed the measures below.
+  churned_users:
+    hidden: true
+
+  created_users:
+    hidden: true
+
+  deleted_users:
+    hidden: true
+
+  resurrected_users:
+    hidden: true
+
+  retained_users:
+    hidden: true
+
+  max_total_user_accounts:
+    hidden: true
+
+measures:
+  avg_churned_users:
+    sql: ${churned_users}
+    label: Avg churned users
+    aggregate_type: average
+
+  avg_created_users:
+    sql: ${created_users}
+    label: Avg created users
+    aggregate_type: average
+
+  avg_deleted_users:
+    sql: ${deleted_users}
+    label: Avg deleted users
+    aggregate_type: average
+
+  avg_resurrected_users:
+    sql: ${resurrected_users}
+    label: Avg resurrected users
+    aggregate_type: average
+
+  avg_retained_users:
+    sql: ${retained_users}
+    label: Avg retained users
+    aggregate_type: average
+
+  total_user_accounts:
+    sql: ${max_total_user_accounts}
+    label: Max total user accounts
+    aggregate_type: max
+
+  count:
+    hidden: true
+    aggregate_type: count

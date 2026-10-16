@@ -1,0 +1,30 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__gong_summary_by_customer
+hidden: true
+
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: gong_summary_by_customer
+
+dimensions:
+  account_name: {}
+  customer_type: {}
+  gong_score: {}
+  gong_category: {}
+  gong_score_trend_30d: {}
+  total_calls: {}
+  calls_30d: {}
+  calls_90d: {}
+  calls_180d: {}
+  last_call: {}
+  last_call_owner: {}
+  last_call_participants: {}
+  last_call_topics: {}
+  last_call_brief: {}
+  next_call_scheduled: {}
+  next_call_owner: {}
+  next_call_participants: {}
+  next_call_topics: {}
+
+measures:
+  count:
+    aggregate_type: count

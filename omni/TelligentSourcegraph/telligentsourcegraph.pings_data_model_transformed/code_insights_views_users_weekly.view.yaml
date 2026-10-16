@@ -1,0 +1,25 @@
+# Reference this view as telligentsourcegraph_pings_data_model_transformed__code_insights_views_users_weekly
+catalog: telligentsourcegraph
+schema: pings_data_model_transformed
+table_name: code_insights_views_users_weekly
+
+dimensions:
+  timestamp: {}
+  installer_email: {}
+  ping_type: {}
+  week: {}
+  unique_insight_page_views: {}
+  unique_standalone_insight_page_views: {}
+  unique_get_started_page_views: {}
+  total_insight_page_views: {}
+  total_standalone_insight_page_views: {}
+  total_get_started_page_views: {}
+  insight_creators: {}
+  first_time_insight_creators: {}
+
+  remote_site_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

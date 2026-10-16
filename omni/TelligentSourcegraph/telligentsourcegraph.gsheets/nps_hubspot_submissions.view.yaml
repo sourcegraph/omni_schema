@@ -1,0 +1,24 @@
+# Reference this view as telligentsourcegraph_gsheets__nps_hubspot_submissions
+catalog: telligentsourcegraph
+schema: gsheets
+table_name: nps_hubspot_submissions
+
+dimensions:
+  score: {}
+  user_is_authenticated: {}
+  use_cases: {}
+  reason: {}
+  suggestions: {}
+  email: {}
+  first_name: {}
+  last_name: {}
+
+  date_submitted:
+    description: "%Y-%m-%d %H:%M:%E*S %Z"
+
+  remote_site_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

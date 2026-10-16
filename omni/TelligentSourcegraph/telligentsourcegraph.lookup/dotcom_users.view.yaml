@@ -1,0 +1,17 @@
+# Reference this view as telligentsourcegraph_lookup__dotcom_users
+catalog: telligentsourcegraph
+schema: lookup
+table_name: dotcom_users
+
+dimensions:
+  email: {}
+
+  user_id:
+    format: ID
+
+  anonymous_user_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

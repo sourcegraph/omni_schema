@@ -1,0 +1,189 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__seat_consumption_monthly
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: seat_consumption_monthly
+
+dimensions:
+  # ── Account ────────────────────────────────────────────────────
+  account_name: {}
+  # ── Dates ──────────────────────────────────────────────────────
+  month: {}
+  end_of_contract_date: {}
+  cody_seats: {}
+  search_seats: {}
+  total_seats: {}
+  max_total_user_accounts: {}
+
+  account_id:
+    format: ID
+
+  sfdc_unique_id:
+    format: ID
+
+  opp_id:
+    format: ID
+
+  pk:
+    sql: CONCAT(account_name, '-', FORMAT_DATE('%Y-%m', DATE(month)))
+    label: Account-Month Key
+    description: Composite key of account name and month
+
+  # ── Pricing metric ─────────────────────────────────────────────
+  pricing_metric_raw:
+    sql: pricing_metric
+    hidden: true
+
+  pricing_metric:
+    sql: |-
+      CASE
+        WHEN pricing_metric LIKE '%Monthly Active User%' THEN 'Monthly Active User'
+        WHEN pricing_metric LIKE '%Total User Account%'  THEN 'Total User Account'
+        ELSE pricing_metric
+      END
+
+  # ── Seats ──────────────────────────────────────────────────────
+  cip_seats:
+    sql: CIP_seats
+    label: CIP Seats
+
+  # ── Usage ──────────────────────────────────────────────────────
+  mau:
+    label: MAU
+
+  seat_consumption_latest:
+    format: percent_0
+
+  # ── Expansion ──────────────────────────────────────────────────
+  expansion_ppu:
+    label: Expansion PPU
+    format: usdcurrency_1
+    group_label: Expansion
+
+  expansion_size:
+    group_label: Expansion
+
+  observed_users:
+    group_label: Expansion
+
+  overage_users:
+    group_label: Expansion
+
+  overage_packs:
+    group_label: Expansion
+
+  billable_overage_users:
+    group_label: Expansion
+
+  potential_expansion_iacv:
+    label: Potential Expansion IACV
+    format: usdcurrency_1
+    group_label: Expansion
+
+  hard_cap:
+    group_label: Expansion
+
+measures:
+  count:
+    drill_fields: [ account_name ]
+    aggregate_type: count
+
+  seat_consumption:
+    sql: ${seat_consumption_latest}
+    format: percent_0
+    drill_fields:
+      [
+        pk,
+        pricing_metric,
+        month,
+        seat_consumption_latest,
+        max_total_user_accounts,
+        total_seats,
+        mau,
+        overage_users,
+        overage_packs,
+        expansion_size,
+        expansion_ppu,
+        potential_expansion_iacv,
+        hard_cap
+      ]
+    aggregate_type: max
+
+  avg_seat_consumption:
+    sql: ${seat_consumption_latest}
+    format: percent_0
+    drill_fields:
+      [
+        pk,
+        pricing_metric,
+        month,
+        seat_consumption_latest,
+        max_total_user_accounts,
+        total_seats,
+        mau,
+        overage_users,
+        overage_packs,
+        expansion_size,
+        expansion_ppu,
+        potential_expansion_iacv,
+        hard_cap
+      ]
+    aggregate_type: average
+
+  distinct_account:
+    sql: ${account_name}
+    label: Distinct Accounts
+    drill_fields:
+      [
+        pk,
+        pricing_metric,
+        month,
+        seat_consumption_latest,
+        max_total_user_accounts,
+        total_seats,
+        mau,
+        overage_users,
+        overage_packs,
+        expansion_size,
+        expansion_ppu,
+        potential_expansion_iacv,
+        hard_cap
+      ]
+    aggregate_type: count_distinct
+
+  distinct_account_month:
+    sql: ${pk}
+    label: Distinct Account-Months
+    drill_fields:
+      [
+        pk,
+        pricing_metric,
+        month,
+        seat_consumption_latest,
+        max_total_user_accounts,
+        total_seats,
+        mau,
+        overage_users,
+        overage_packs,
+        expansion_size,
+        expansion_ppu,
+        potential_expansion_iacv,
+        hard_cap
+      ]
+    aggregate_type: count_distinct
+
+  total_seats_max:
+    sql: ${total_seats}
+    label: Total Seats
+    aggregate_type: max
+
+  total_user_accounts_or_mau:
+    sql: |-
+      CASE
+        WHEN ${pricing_metric} = 'Total User Account'
+        THEN ${max_total_user_accounts}
+        ELSE ${mau}
+      END
+    label: Total User Accounts or MAU
+    description: Returns max_total_user_accounts when priced on Total User Account,
+      otherwise MAU
+    aggregate_type: max

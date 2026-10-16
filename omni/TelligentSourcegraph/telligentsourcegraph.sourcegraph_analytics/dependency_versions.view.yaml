@@ -1,0 +1,24 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__dependency_versions
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: dependency_versions
+
+dimensions:
+  external_service_kind: {}
+  external_service_version: {}
+
+  unique_server_id:
+    format: ID
+
+  redis_store_version:
+    sql: redisStoreVersion
+
+  redis_cache_version:
+    sql: redisCacheVersion
+
+  postgres_version:
+    sql: postgresVersion
+
+measures:
+  count:
+    aggregate_type: count

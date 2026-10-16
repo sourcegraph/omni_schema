@@ -1,0 +1,13 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__sfdc_all_enterprise_customer_email_domains
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: sfdc_all_enterprise_customer_email_domains
+
+dimensions:
+  name: {}
+  domain: {}
+  product_included: {}
+
+measures:
+  count:
+    aggregate_type: count

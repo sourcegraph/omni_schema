@@ -1,0 +1,34 @@
+# Reference this view as telligentsourcegraph_telemetry_staging__cody_dau_v2_lookup
+catalog: telligentsourcegraph
+schema: telemetry_staging
+table_name: cody_dau_v2_lookup
+
+dimensions:
+  feature: {}
+  action: {}
+
+  is_cody_product_dau_event:
+    sql: is_cody_product_DAU_event
+
+  is_cody_product_dau_or_installation_event:
+    sql: is_cody_product_DAU_or_installation_event
+
+  is_cody_billing_dau_event:
+    sql: is_cody_billing_DAU_event
+
+  is_core_event:
+    description: A “core” event (whether for Cody or Code Search) represents a
+      user-initiated action that the user likely gets value from
+
+  product:
+    description: The product or SKU that the event can be primarily attributed to.
+      e.g. 'Cody', 'Search', 'Code Insights'.
+
+  is_billing_event:
+    description: |-
+      - Cody: A billable Cody user is one who is signed in to their Enterprise Sourcegraph account and actively interacts with Cody (e.g. they see suggested autocompletions, they run commands or chat with Cody, they start new discussions, clear chat history, or copy text from chats, they change Cody settings, and more).
+      - Code search: A billable active Code Search or Code Intelligence Platform user is one who is signed into and accesses Sourcegraph.
+
+measures:
+  count:
+    aggregate_type: count

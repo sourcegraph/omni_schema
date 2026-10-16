@@ -1,0 +1,499 @@
+# Reference this view as post_sales__customer_momentum_score_latest
+label: Momentum Score (Latest)
+description: Most recent customer_momentum_score row per account, picked by latest run_date.
+
+sql: |-
+  SELECT *
+  FROM `telligentsourcegraph.post_sales.customer_momentum_score`
+  QUALIFY ROW_NUMBER() OVER (
+    PARTITION BY account_id
+    ORDER BY run_date DESC
+  ) = 1
+
+dimensions:
+  # ── Account ────────────────────────────────────────────────────
+  account_name: {}
+  account_manager: {}
+  account_owner: {}
+  segmentation: {}
+  raw_score: {}
+  score_max: {}
+  # ── Score levels ───────────────────────────────────────────────
+  level_mau: {}
+  level_seat_consumption: {}
+  level_power_users: {}
+  level_feature_breadth: {}
+  level_ui_search: {}
+  level_ds_users_queries: {}
+  level_ds_diversity: {}
+  level_ds_consumed: {}
+  level_mcp: {}
+  level_repo_size: {}
+  purchased_seats: {}
+
+  account_id:
+    format: ID
+    primary_key: true
+
+  sfdc_unique_id:
+    format: ID
+
+  # ── Dates ──────────────────────────────────────────────────────
+  run_date:
+    timeframes: [ raw, date, week, month, quarter, year ]
+    convert_tz: false
+
+  ds_activated_date:
+    timeframes: [ raw, date, week, month, quarter, year ]
+    convert_tz: false
+
+  # ── Momentum score & band ──────────────────────────────────────
+  momentum_score:
+    sql: momentum_score / 100
+    format: percent_0
+
+  momentum_band:
+    sql: |-
+      CASE
+        WHEN momentum_band = 'Expansion Signal' THEN '🎯 Expansion Signal'
+        WHEN momentum_band = 'Accelerating'     THEN '🚀 Accelerating'
+        WHEN momentum_band = 'Stable'           THEN '➡️ Stable'
+        WHEN momentum_band = 'Declining'        THEN '⚠️ Declining'
+        WHEN momentum_band = 'At Risk'          THEN '⛔️ At Risk'
+        ELSE momentum_band
+      END
+
+  momentum_band_sort:
+    sql: |-
+      CASE
+        WHEN momentum_band = 'Expansion Signal' THEN 1
+        WHEN momentum_band = 'Accelerating'     THEN 2
+        WHEN momentum_band = 'Stable'           THEN 3
+        WHEN momentum_band = 'Declining'        THEN 4
+        WHEN momentum_band = 'At Risk'          THEN 5
+        ELSE 6
+      END
+    label: Momentum Band (sort)
+    hidden: true
+
+  # ── Band contributions ─────────────────────────────────────────
+  dimensions_positive:
+    label: Momentum Green Dimensions
+
+  dimensions_stable:
+    label: Momentum Yellow Dimensions
+
+  dimensions_negative:
+    label: Momentum Red Dimensions
+
+  # ── Score components (points) ──────────────────────────────────
+  pts_mau:
+    label: Score MAU
+
+  pts_seat_consumption:
+    label: Score Seat Consumption
+
+  pts_power_users:
+    label: Score Power Users
+
+  pts_feature_breadth:
+    label: Score Feature Breadth
+
+  pts_ui_search:
+    label: Score UI Searches
+
+  pts_ds_users_queries:
+    label: Score DS User/Queries
+
+  pts_ds_diversity:
+    label: Score DS Diversity
+
+  pts_ds_consumed:
+    label: Score DS Consumed
+
+  pts_mcp:
+    label: Score MCP
+
+  pts_repo_size:
+    label: Score Repo Size
+
+  # ── Revenue & seats ────────────────────────────────────────────
+  iacv:
+    label: IACV
+    format: usdcurrency_0
+
+  # ── MAU by period ──────────────────────────────────────────────
+  mau_p0:
+    group_label: MAU
+
+  mau_p1:
+    group_label: MAU
+
+  mau_p2:
+    group_label: MAU
+
+  mau_p3:
+    group_label: MAU
+
+  mau_pct_p0p1:
+    format: percent_1
+    group_label: MAU
+
+  mau_pct_p1p2:
+    format: percent_1
+    group_label: MAU
+
+  mau_pct_p2p3:
+    format: percent_1
+    group_label: MAU
+
+  # ── Seat consumption by period ─────────────────────────────────
+  seat_consumption_p0:
+    group_label: Seat Consumption
+
+  seat_consumption_p1:
+    group_label: Seat Consumption
+
+  seat_consumption_p2:
+    group_label: Seat Consumption
+
+  seat_consumption_p3:
+    group_label: Seat Consumption
+
+  seat_consumption_pp_p0p1:
+    format: percent_1
+    group_label: Seat Consumption
+
+  seat_consumption_pp_p1p2:
+    format: percent_1
+    group_label: Seat Consumption
+
+  seat_consumption_pp_p2p3:
+    format: percent_1
+    group_label: Seat Consumption
+
+  # ── Power users by period ──────────────────────────────────────
+  power_pct_p0:
+    format: percent_1
+    group_label: Power Users
+
+  power_pct_p1:
+    format: percent_1
+    group_label: Power Users
+
+  power_pct_p2:
+    format: percent_1
+    group_label: Power Users
+
+  power_pct_p3:
+    format: percent_1
+    group_label: Power Users
+
+  power_pct_pp_p0p1:
+    format: percent_1
+    group_label: Power Users
+
+  power_pct_pp_p1p2:
+    format: percent_1
+    group_label: Power Users
+
+  power_pct_pp_p2p3:
+    format: percent_1
+    group_label: Power Users
+
+  # ── Feature breadth by period ──────────────────────────────────
+  features_p0:
+    group_label: Feature Breadth
+
+  features_p1:
+    group_label: Feature Breadth
+
+  features_p2:
+    group_label: Feature Breadth
+
+  features_p3:
+    group_label: Feature Breadth
+
+  features_delta_p0p1:
+    group_label: Feature Breadth
+
+  features_delta_p1p2:
+    group_label: Feature Breadth
+
+  features_delta_p2p3:
+    group_label: Feature Breadth
+
+  # ── UI search queries by period ────────────────────────────────
+  ui_search_queries_p0:
+    group_label: UI Search
+
+  ui_search_queries_p1:
+    group_label: UI Search
+
+  ui_search_queries_p2:
+    group_label: UI Search
+
+  ui_search_queries_p3:
+    group_label: UI Search
+
+  ui_search_queries_pct_p0p1:
+    format: percent_1
+    group_label: UI Search
+
+  ui_search_queries_pct_p1p2:
+    format: percent_1
+    group_label: UI Search
+
+  ui_search_queries_pct_p2p3:
+    format: percent_1
+    group_label: UI Search
+
+  # ── UI search users by period ──────────────────────────────────
+  ui_search_users_p0:
+    group_label: UI Search
+
+  ui_search_users_p1:
+    group_label: UI Search
+
+  ui_search_users_p2:
+    group_label: UI Search
+
+  ui_search_users_p3:
+    group_label: UI Search
+
+  ui_search_users_pct_p0p1:
+    format: percent_1
+    group_label: UI Search
+
+  ui_search_users_pct_p1p2:
+    format: percent_1
+    group_label: UI Search
+
+  ui_search_users_pct_p2p3:
+    format: percent_1
+    group_label: UI Search
+
+  # ── Deep Search: users by period ───────────────────────────────
+  ds_users_p0:
+    group_label: Deep Search
+
+  ds_users_p1:
+    group_label: Deep Search
+
+  ds_users_p2:
+    group_label: Deep Search
+
+  ds_users_p3:
+    group_label: Deep Search
+
+  ds_users_pct_p0p1:
+    format: percent_1
+    group_label: Deep Search
+
+  ds_users_pct_p1p2:
+    format: percent_1
+    group_label: Deep Search
+
+  ds_users_pct_p2p3:
+    format: percent_1
+    group_label: Deep Search
+
+  # ── Deep Search: queries by period ─────────────────────────────
+  ds_queries_p0:
+    group_label: Deep Search
+
+  ds_queries_p1:
+    group_label: Deep Search
+
+  ds_queries_p2:
+    group_label: Deep Search
+
+  ds_queries_p3:
+    group_label: Deep Search
+
+  ds_queries_pct_p0p1:
+    format: percent_1
+    group_label: Deep Search
+
+  ds_queries_pct_p1p2:
+    format: percent_1
+    group_label: Deep Search
+
+  ds_queries_pct_p2p3:
+    format: percent_1
+    group_label: Deep Search
+
+  # ── Deep Search: credits consumed by period ────────────────────
+  ds_consumed_p0:
+    group_label: Deep Search
+
+  ds_consumed_p1:
+    group_label: Deep Search
+
+  ds_consumed_p2:
+    group_label: Deep Search
+
+  ds_consumed_p3:
+    group_label: Deep Search
+
+  ds_consumed_pct_p0p1:
+    format: percent_1
+    group_label: Deep Search
+
+  ds_consumed_pct_p1p2:
+    format: percent_1
+    group_label: Deep Search
+
+  ds_consumed_pct_p2p3:
+    format: percent_1
+    group_label: Deep Search
+
+  # ── Deep Search: category diversity by period ──────────────────
+  ds_categories_p0:
+    group_label: Deep Search
+
+  ds_categories_p1:
+    group_label: Deep Search
+
+  ds_categories_p2:
+    group_label: Deep Search
+
+  ds_categories_p3:
+    group_label: Deep Search
+
+  ds_categories_delta_p0p1:
+    group_label: Deep Search
+
+  ds_categories_delta_p1p2:
+    group_label: Deep Search
+
+  ds_categories_delta_p2p3:
+    group_label: Deep Search
+
+  # ── MCP by period ──────────────────────────────────────────────
+  mcp_users_p0:
+    group_label: MCP
+
+  mcp_users_p1:
+    group_label: MCP
+
+  mcp_users_p2:
+    group_label: MCP
+
+  mcp_users_p3:
+    group_label: MCP
+
+  mcp_users_pct_p0p1:
+    format: percent_1
+    group_label: MCP
+
+  mcp_users_pct_p1p2:
+    format: percent_1
+    group_label: MCP
+
+  mcp_users_pct_p2p3:
+    format: percent_1
+    group_label: MCP
+
+  # ── Repo size by period ────────────────────────────────────────
+  repo_size_gb_p0:
+    group_label: Repo Size
+
+  repo_size_gb_p1:
+    group_label: Repo Size
+
+  repo_size_gb_p2:
+    group_label: Repo Size
+
+  repo_size_gb_p3:
+    group_label: Repo Size
+
+  repo_size_pct_p0p1:
+    format: percent_1
+    group_label: Repo Size
+
+  repo_size_pct_p1p2:
+    format: percent_1
+    group_label: Repo Size
+
+  repo_size_pct_p2p3:
+    format: percent_1
+    group_label: Repo Size
+
+measures:
+  count:
+    drill_fields: [ account_name ]
+    aggregate_type: count
+
+  avg_momentum_score:
+    sql: ${momentum_score}
+    label: Momentum Score
+    format: percent_0
+    drill_fields:
+      [
+        account_name,
+        sfdc_unique_id,
+        run_date,
+        segmentation,
+        dimensions_positive,
+        dimensions_stable,
+        dimensions_negative
+      ]
+    aggregate_type: average
+
+  total_iacv:
+    sql: ${iacv}
+    label: IACV
+    format: usdcurrency_0
+    drill_fields:
+      [
+        account_name,
+        sfdc_unique_id,
+        run_date,
+        segmentation,
+        dimensions_positive,
+        dimensions_stable,
+        dimensions_negative
+      ]
+    aggregate_type: sum
+
+  distinct_accounts:
+    sql: ${account_name}
+    label: Distinct Accounts
+    drill_fields:
+      [
+        account_name,
+        sfdc_unique_id,
+        run_date,
+        segmentation,
+        dimensions_positive,
+        dimensions_stable,
+        dimensions_negative
+      ]
+    aggregate_type: count_distinct
+
+  # ── Band counts (not in LookML, cheap to add) ──────────────────
+  accounts_expansion_signal:
+    sql: CASE WHEN momentum_band = 'Expansion Signal' THEN 1 END
+    label: Accounts - Expansion Signal
+    aggregate_type: count
+
+  accounts_accelerating:
+    sql: CASE WHEN momentum_band = 'Accelerating' THEN 1 END
+    label: Accounts - Accelerating
+    aggregate_type: count
+
+  accounts_stable:
+    sql: CASE WHEN momentum_band = 'Stable' THEN 1 END
+    label: Accounts - Stable
+    aggregate_type: count
+
+  accounts_declining:
+    sql: CASE WHEN momentum_band = 'Declining' THEN 1 END
+    label: Accounts - Declining
+    aggregate_type: count
+
+  accounts_at_risk:
+    sql: CASE WHEN momentum_band = 'At Risk' THEN 1 END
+    label: Accounts - At Risk
+    aggregate_type: count

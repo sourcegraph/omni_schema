@@ -1,0 +1,25 @@
+# Reference this view as telligentsourcegraph_telemetry__pubsub_ingestion_v2_events
+catalog: telligentsourcegraph
+schema: telemetry
+table_name: pubsub_ingestion_v2_events
+
+dimensions:
+  subscription_name:
+    description: pubsub topic subscription
+
+  message_id:
+    format: ID
+    description: unique id of the message
+
+  publish_time:
+    description: time message was published in our system
+
+  data:
+    description: raw payload
+
+  attributes:
+    description: payload metadata
+
+measures:
+  count:
+    aggregate_type: count

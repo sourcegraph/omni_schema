@@ -1,0 +1,39 @@
+# Reference this view as telligentsourcegraph_telemtry_analytics__deep_search_consumption_alert
+catalog: telligentsourcegraph
+schema: telemtry_analytics
+table_name: deep_search_consumption_alert
+
+dimensions:
+  instance_domain: {}
+  customer_name: {}
+  last_recorded_time: {}
+  total_quota: {}
+  consumed: {}
+  pct_consumed: {}
+  base_quota: {}
+  additional_quota: {}
+  calculated_base_quota: {}
+  seat_count: {}
+  is_unlimited: {}
+  effective_unlimited: {}
+  use_base_quota: {}
+  default_use_base_quota: {}
+  quota_period_start_time: {}
+  reset_time: {}
+  updated_time: {}
+  created_time: {}
+  account_name: {}
+  csm: {}
+  csm_slack_username: {}
+  unique_key: {}
+  last_sync: {}
+
+  subscription_id:
+    format: ID
+
+  csm_slack_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

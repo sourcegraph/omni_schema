@@ -1,0 +1,17 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__update_checks_raw
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: update_checks_raw
+
+dimensions:
+  subscription_name: {}
+  publish_time: {}
+  data: {}
+  attributes: {}
+
+  message_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

@@ -1,0 +1,29 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__users
+description: Dotcom PG table replication
+
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: users
+
+dimensions:
+  display_name: {}
+  username: {}
+  avatar_url: {}
+  created_at: {}
+  updated_at: {}
+  deleted_at: {}
+  invite_quota: {}
+  site_admin: {}
+  page_views: {}
+  search_queries: {}
+
+  id:
+    format: ID
+    primary_key: true
+
+  billing_customer_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

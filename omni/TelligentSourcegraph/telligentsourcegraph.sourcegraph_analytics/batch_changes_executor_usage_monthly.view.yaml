@@ -1,0 +1,17 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__batch_changes_executor_usage_monthly
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: batch_changes_executor_usage_monthly
+
+dimensions:
+  installer_email: {}
+  month: {}
+  executor_count: {}
+  minutes: {}
+
+  unique_server_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

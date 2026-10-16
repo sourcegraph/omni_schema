@@ -1,0 +1,92 @@
+# Reference this view as telligentsourcegraph_post_sales__post_sales_user_level
+catalog: telligentsourcegraph
+schema: post_sales
+table_name: post_sales_user_level
+
+dimensions:
+  salesforce_name: {}
+  customer_type: {}
+  active_product_classification: {}
+  current_fy_segmentation: {}
+  ds_credit_ready: {}
+  credits_allocated: {}
+  latest_version: {}
+  latest_version_normalized: {}
+  post_sales_account: {}
+  username: {}
+  admin: {}
+  engagement_category: {}
+  hubspot_opted_out: {}
+  signup_date: {}
+  platform_first_use_date: {}
+  platform_last_active_date: {}
+  deep_search_first_query_date: {}
+  deep_search_last_query_date: {}
+  total_ds_queries: {}
+  code_intel_first_use_date: {}
+  batch_first_use_date: {}
+  insights_first_use_date: {}
+  copy_permalink_first_use_date: {}
+  ui_search_first_use_date: {}
+  search_feature_first_use_date: {}
+  mcp_first_use_date: {}
+  ds_queries_this_month: {}
+  ds_queries_last_month: {}
+  ds_next_quota_reset_date: {}
+  batch_specs_published_last_two_months: {}
+  first_code_finder_date: {}
+  last_run: {}
+  post_sales_user: {}
+  ds_top_1_category: {}
+  ds_top_2_category: {}
+  ds_top_3_category: {}
+  ds_user_top_1_category: {}
+  ds_user_top_2_category: {}
+  ds_user_top_3_category: {}
+  mcp_no_advanced_tools: {}
+  customer_success_manager: {}
+  hosting_type: {}
+  ai_terms: {}
+  account_industry: {}
+  mcp_tool_calls_past_30d: {}
+
+  salesforce_account_id:
+    format: ID
+
+  external_url:
+    sql: externalUrl
+
+  primary_email:
+    sql: primaryEmail
+
+  sfdc_contact_id:
+    format: ID
+
+  hubspot_contact_id:
+    format: ID
+
+  unique_user_id:
+    format: ID
+
+  user_id:
+    format: ID
+
+  sams_external_id:
+    sql: samsExternalId
+    format: ID
+
+  first_abc_home_view:
+    sql: first_ABC_home_view
+
+  last_abc_home_view:
+    sql: last_ABC_home_view
+
+  first_bc_home_view:
+    sql: first_BC_home_view
+
+  last_bc_home_view:
+    sql: last_BC_home_view
+
+measures:
+  count:
+    aggregate_type: count

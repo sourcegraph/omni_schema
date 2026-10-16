@@ -1,0 +1,88 @@
+# Reference this view as telligentsourcegraph_pings_data_model_transformed__search_latencies_daily
+catalog: telligentsourcegraph
+schema: pings_data_model_transformed
+table_name: search_latencies_daily
+
+dimensions:
+  timestamp: {}
+  installer_email: {}
+  f0_: {}
+
+  remote_site_id:
+    format: ID
+
+  symbol_eventlatencies_p99:
+    sql: Symbol_EventLatencies_P99
+
+  symbol_eventlatencies_p90:
+    sql: Symbol_EventLatencies_P90
+
+  symbol_eventlatencies_p50:
+    sql: Symbol_EventLatencies_P50
+
+  structural_eventlatencies_p99:
+    sql: Structural_EventLatencies_P99
+
+  structural_eventlatencies_p90:
+    sql: Structural_EventLatencies_P90
+
+  structural_eventlatencies_p50:
+    sql: Structural_EventLatencies_P50
+
+  repo_eventlatencies_p99:
+    sql: Repo_EventLatencies_P99
+
+  repo_eventlatencies_p90:
+    sql: Repo_EventLatencies_P90
+
+  repo_eventlatencies_p50:
+    sql: Repo_EventLatencies_P50
+
+  regexp_eventlatencies_p99:
+    sql: Regexp_EventLatencies_P99
+
+  regexp_eventlatencies_p90:
+    sql: Regexp_EventLatencies_P90
+
+  regexp_eventlatencies_p50:
+    sql: Regexp_EventLatencies_P50
+
+  literal_eventlatencies_p99:
+    sql: Literal_EventLatencies_P99
+
+  literal_eventlatencies_p90:
+    sql: Literal_EventLatencies_P90
+
+  literal_eventlatencies_p50:
+    sql: Literal_EventLatencies_P50
+
+  file_eventlatencies_p99:
+    sql: File_EventLatencies_P99
+
+  file_eventlatencies_p90:
+    sql: File_EventLatencies_P90
+
+  file_eventlatencies_p50:
+    sql: File_EventLatencies_P50
+
+  diff_eventlatencies_p99:
+    sql: Diff_EventLatencies_P99
+
+  diff_eventlatencies_p90:
+    sql: Diff_EventLatencies_P90
+
+  diff_eventlatencies_p50:
+    sql: Diff_EventLatencies_P50
+
+  commit_eventlatencies_p99:
+    sql: Commit_EventLatencies_P99
+
+  commit_eventlatencies_p90:
+    sql: Commit_EventLatencies_P90
+
+  commit_eventlatencies_p50:
+    sql: Commit_EventLatencies_P50
+
+measures:
+  count:
+    aggregate_type: count

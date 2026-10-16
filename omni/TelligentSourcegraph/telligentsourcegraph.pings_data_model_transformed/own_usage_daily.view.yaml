@@ -1,0 +1,19 @@
+# Reference this view as telligentsourcegraph_pings_data_model_transformed__own_usage_daily
+catalog: telligentsourcegraph
+schema: pings_data_model_transformed
+table_name: own_usage_daily
+
+dimensions:
+  timestamp: {}
+  installer_email: {}
+  date: {}
+  file_has_owner_search_dau: {}
+  ownership_panel_opened_dau: {}
+  select_file_owners_search_dau: {}
+
+  remote_site_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

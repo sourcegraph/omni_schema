@@ -1,0 +1,19 @@
+# Reference this view as telligentsourcegraph_pings_data_model_transformed__app
+catalog: telligentsourcegraph
+schema: pings_data_model_transformed
+table_name: app
+
+dimensions:
+  timestamp: {}
+  installer_email: {}
+  dte: {}
+  os: {}
+  total_repos: {}
+  active_today: {}
+
+  remote_site_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

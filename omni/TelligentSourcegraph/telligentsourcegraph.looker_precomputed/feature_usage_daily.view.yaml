@@ -1,0 +1,69 @@
+# Reference this view as telligentsourcegraph_looker_precomputed__feature_usage_daily
+description: Daily feature usage metrics (chat, completions, commands,
+  deepsearch) for Looker. Reduces repeated v2_events scans.
+
+catalog: telligentsourcegraph
+schema: looker_precomputed
+table_name: feature_usage_daily
+
+dimensions:
+  activity_date: {}
+  chat_events: {}
+  chat_users: {}
+  completion_accepted_events: {}
+  completion_suggested_events: {}
+  completion_events: {}
+  completion_users: {}
+  completion_accepted_users: {}
+  autoedit_accepted_events: {}
+  autoedit_suggested_events: {}
+  autoedit_users: {}
+  command_events: {}
+  command_users: {}
+  deepsearch_events: {}
+  deepsearch_completed: {}
+  deepsearch_errors: {}
+  deepsearch_cancelled: {}
+  deepsearch_consumed_queries: {}
+  deepsearch_consumed_query_users: {}
+  deepsearch_users: {}
+  billing_events: {}
+  billing_users: {}
+  search_billing_events: {}
+  search_billing_users: {}
+  search_file_views: {}
+  search_result_click: {}
+  ui_searches: {}
+  ui_search_users: {}
+  cody_billing_events: {}
+  cody_billing_users: {}
+  batch_billing_users: {}
+  batch_change_views: {}
+  batch_specs_created: {}
+  batch_specs_executed: {}
+  batch_changeset_merged: {}
+  batch_changesets_published: {}
+  batch_specs_merged: {}
+  batch_specs_push_to_code_host: {}
+  workspace_executed_completed: {}
+  workspace_executed_errored: {}
+  workspace_executed_failed: {}
+  workspace_executed_incompleted: {}
+  workspace_executed_total: {}
+  code_intel_actions: {}
+  code_intel_users: {}
+  code_insight_actions: {}
+  code_insight_users: {}
+  mcp_actions: {}
+  mcp_users: {}
+
+  external_url:
+    sql: externalUrl
+
+  workspace_id:
+    sql: workspaceId
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

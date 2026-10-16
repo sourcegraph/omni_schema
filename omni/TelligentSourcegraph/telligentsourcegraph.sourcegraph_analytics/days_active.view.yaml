@@ -1,0 +1,12 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__days_active
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: days_active
+
+dimensions:
+  installer_email: {}
+  days_active: {}
+
+measures:
+  count:
+    aggregate_type: count

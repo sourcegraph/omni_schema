@@ -1,0 +1,22 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__v2_user_dimensions
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: v2_user_dimensions
+
+dimensions:
+  signup_date: {}
+
+  user_id:
+    sql: userId
+    format: ID
+
+  unique_user_id:
+    sql: uniqueUserId
+    format: ID
+
+  external_url:
+    sql: externalUrl
+
+measures:
+  count:
+    aggregate_type: count

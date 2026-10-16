@@ -1,0 +1,14 @@
+# Reference this view as telligentsourcegraph_lookup__slack
+catalog: telligentsourcegraph
+schema: lookup
+table_name: slack
+
+dimensions:
+  username: {}
+  userid: {}
+  fullname: {}
+  displayname: {}
+
+measures:
+  count:
+    aggregate_type: count

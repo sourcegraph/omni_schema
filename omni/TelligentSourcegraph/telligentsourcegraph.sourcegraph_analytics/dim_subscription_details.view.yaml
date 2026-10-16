@@ -1,0 +1,66 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__dim_subscription_details
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: dim_subscription_details
+
+dimensions:
+  account_name: {}
+  current_contract_start_date_c: {}
+  churn_effective_date_c: {}
+  created_date: {}
+  sub_name: {}
+  product_subscription_c: {}
+  pricing_metric_c: {}
+  current_deployment_method_c: {}
+  amp_team_id_c: {}
+  products_purchased: {}
+  active_product_classification: {}
+  cip_acv: {}
+  cody_seats: {}
+  search_seats: {}
+  cip_last_month_mau: {}
+  amp_team_name: {}
+  amp_single_day_run_rate_yesterday: {}
+  user_level_event_usage_data_analytics_c: {}
+  customer_type: {}
+  account_executive: {}
+  customer_engineer: {}
+  technical_advisor: {}
+  tier: {}
+  annual_revenue: {}
+  bundle_size: {}
+  industry: {}
+  is_strategic_account: {}
+  geo: {}
+  region: {}
+  country: {}
+  number_of_employees: {}
+  number_of_engineers: {}
+  technical_advisor_support_level_c: {}
+  ta_segmentation_c: {}
+  fy_25_segmentation_c: {}
+  eng_count: {}
+  account_name_legal_c: {}
+  code_hosts_c: {}
+  bq_auth_providers_c: {}
+  fy_26_soy_ta_segmentation_c: {}
+  bq_git_directory_size_c: {}
+
+  sub_id:
+    format: ID
+
+  account_id:
+    format: ID
+
+  sfdc_unique_id:
+    format: ID
+
+  parent_account_id:
+    format: ID
+
+  source:
+    sql: SOURCE
+
+measures:
+  count:
+    aggregate_type: count

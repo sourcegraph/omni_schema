@@ -1,0 +1,26 @@
+# Reference this view as telligentsourcegraph_looker_precomputed__median_daus_to_maus
+description: Pre-computed rolling 4-week median DAU / MAU ratios by server. This
+  is the most expensive Looker query (~$59/day, 473GB avg). Materializing saves
+  ~$55/day.
+
+catalog: telligentsourcegraph
+schema: looker_precomputed
+table_name: median_daus_to_maus
+
+dimensions:
+  week_start: {}
+  installer_email: {}
+  rolling_median: {}
+  month: {}
+  last_month_user_count: {}
+  rolling_median_to_mau_ratio: {}
+
+  remote_site_id:
+    format: ID
+
+  external_url:
+    sql: externalUrl
+
+measures:
+  count:
+    aggregate_type: count

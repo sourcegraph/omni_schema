@@ -1,0 +1,27 @@
+# Reference this view as telligentsourcegraph_deepsearch__conversations
+catalog: telligentsourcegraph
+schema: deepsearch
+table_name: conversations
+
+dimensions:
+  created_at: {}
+  updated_at: {}
+  read_token: {}
+  is_starred: {}
+  title: {}
+  data: {}
+  overrides: {}
+
+  id:
+    format: ID
+    primary_key: true
+
+  user_id:
+    format: ID
+
+  tenant_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

@@ -1,0 +1,33 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__hubspot_email_optout_users
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: hubspot_email_optout_users
+
+dimensions:
+  user_email: {}
+  property_hs_email_optout: {}
+  property_hs_email_optout_1251645: {}
+  property_hs_email_optout_1251800: {}
+  property_hs_email_optout_1253742: {}
+  property_hs_email_optout_1264056: {}
+  property_hs_email_optout_15904819: {}
+  property_hs_email_optout_16414300: {}
+  property_hs_email_optout_24312627: {}
+  property_hs_email_optout_24312678: {}
+  property_hs_email_optout_24312715: {}
+  property_hs_email_optout_24312750: {}
+  property_hs_email_optout_26903086: {}
+  property_hs_email_optout_3179112: {}
+  property_hs_email_optout_6813549: {}
+  property_hs_email_optout_7116894: {}
+  property_hs_email_optout_7310524: {}
+  property_hs_email_optout_9209695: {}
+  property_hs_email_optout_9594670: {}
+  property_opt_out_of_onboarding_sequences: {}
+  property_hs_email_optout_225869670: {}
+  property_hs_email_optout_332349645: {}
+  property_hs_email_optout_313773682: {}
+
+measures:
+  count:
+    aggregate_type: count

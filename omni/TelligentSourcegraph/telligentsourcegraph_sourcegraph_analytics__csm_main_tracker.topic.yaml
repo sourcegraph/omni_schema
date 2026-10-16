@@ -1,0 +1,8 @@
+base_view: telligentsourcegraph_sourcegraph_analytics__csm_main_tracker
+label: CSM Main Tracker
+
+joins:
+  telligentsourcegraph_sfdc_current__looker_dim_account_details:
+    telligentsourcegraph_sourcegraph_analytics__daily_llm_token_usage_tier_country: {}
+    telligentsourcegraph_sourcegraph_analytics__server_instances:
+      telligentsourcegraph_sourcegraph_analytics__technical_health_score_v2: {}

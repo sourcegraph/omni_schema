@@ -1,0 +1,19 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__deep_search_allocation_by_customer
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: deep_search_allocation_by_customer
+
+dimensions:
+  account_name: {}
+  deep_search_allocation: {}
+  source_type: {}
+
+  external_url:
+    sql: externalUrl
+
+  acv_or_seat_value:
+    sql: ACV_or_seat_value
+
+measures:
+  count:
+    aggregate_type: count

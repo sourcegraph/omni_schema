@@ -1,0 +1,24 @@
+# Reference this view as telligentsourcegraph_pings_data_model_transformed__batch_changeset_distrubution_all_time
+catalog: telligentsourcegraph
+schema: pings_data_model_transformed
+table_name: batch_changeset_distrubution_all_time
+
+dimensions:
+  installer_email: {}
+  timestamp: {}
+  date: {}
+  ping_type: {}
+  batch_changes_count: {}
+
+  remote_site_id:
+    format: ID
+
+  source:
+    sql: SOURCE
+
+  rnge:
+    sql: RNGE
+
+measures:
+  count:
+    aggregate_type: count

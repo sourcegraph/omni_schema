@@ -1,0 +1,15 @@
+# Reference this view as telligentsourcegraph_gsheets__account_dev_penetration
+catalog: telligentsourcegraph
+schema: gsheets
+table_name: account_dev_penetration
+
+dimensions:
+  account_name:
+    sql: Account_Name
+
+  implied_dev_penetration:
+    sql: Implied_Dev_Penetration
+
+measures:
+  count:
+    aggregate_type: count

@@ -1,0 +1,23 @@
+# Reference this view as telligentsourcegraph_pings_data_model_transformed__intel_repos_bylang_weekly
+catalog: telligentsourcegraph
+schema: pings_data_model_transformed
+table_name: intel_repos_bylang_weekly
+
+dimensions:
+  timestamp: {}
+  installer_email: {}
+  week: {}
+  num_repositories_with_index_records: {}
+  num_repositories_with_upload_records: {}
+  num_repositories_with_fresh_index_records: {}
+  num_repositories_with_fresh_upload_records: {}
+
+  remote_site_id:
+    format: ID
+
+  language_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

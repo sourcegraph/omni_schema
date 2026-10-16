@@ -1,0 +1,55 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__sq_sfdc_account_details
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: sq_sfdc_account_details
+
+dimensions:
+  name: {}
+  account_tier_c: {}
+  customer_type: {}
+  account_exec: {}
+  customer_engineer: {}
+  technical_advisor: {}
+  contract_measurement_metric: {}
+  country: {}
+  region: {}
+  industry: {}
+  is_strategic_account: {}
+  employee_count: {}
+  employee_range: {}
+  engineer_count: {}
+  company_revenue_range: {}
+  logo_rights: {}
+  contract_start: {}
+  contract_end: {}
+  contract_term: {}
+  opportunity_source: {}
+  opportunity_type: {}
+  opportunity_stage: {}
+  products_purchased: {}
+  hard_cap: {}
+  expansion_bundle_size: {}
+  use_cases: {}
+  poc_start_date: {}
+  poc_end_date: {}
+  prod_infra_complete_date: {}
+  deal_desk_approved: {}
+  license_key: {}
+  license_create_date: {}
+  license_expire_date: {}
+  license_type: {}
+  license_tags: {}
+  license_seats: {}
+
+  sfdc_unique_id:
+    format: ID
+
+  account_id:
+    format: ID
+
+  subscription_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

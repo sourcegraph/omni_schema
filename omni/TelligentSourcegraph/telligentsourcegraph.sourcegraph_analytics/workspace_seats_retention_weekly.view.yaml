@@ -1,0 +1,24 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__workspace_seats_retention_weekly
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: workspace_seats_retention_weekly
+
+dimensions:
+  cohort_week: {}
+  total_seats: {}
+  week_1_retention: {}
+  week_1_seats: {}
+  week_2_retention: {}
+  week_2_seats: {}
+  week_3_retention: {}
+  week_3_seats: {}
+  week_4_retention: {}
+  week_4_seats: {}
+  week_5_retention: {}
+  week_5_seats: {}
+  week_6_retention: {}
+  week_6_seats: {}
+
+measures:
+  count:
+    aggregate_type: count

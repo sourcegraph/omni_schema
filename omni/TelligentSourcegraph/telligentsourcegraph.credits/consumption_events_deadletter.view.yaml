@@ -1,0 +1,17 @@
+# Reference this view as telligentsourcegraph_credits__consumption_events_deadletter
+catalog: telligentsourcegraph
+schema: credits
+table_name: consumption_events_deadletter
+
+dimensions:
+  subscription_name: {}
+  publish_time: {}
+  attributes: {}
+  data: {}
+
+  message_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

@@ -1,0 +1,14 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__precise_code_intel_startdate
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: precise_code_intel_startdate
+
+dimensions:
+  start_date: {}
+
+  unique_server_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

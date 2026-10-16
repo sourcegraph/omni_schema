@@ -1,0 +1,40 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__power_users_summary_oct8
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: power_users_summary_oct8
+
+dimensions:
+  email: {}
+  signup_date: {}
+  team_name: {}
+  mode: {}
+  has_monetized: {}
+  became_monetized_date: {}
+  days_to_monetization: {}
+  plan_tier: {}
+  thread_count: {}
+  total_credits_consumed: {}
+  active_days: {}
+  active_days_last_28: {}
+  usage_span_days: {}
+  credits_first_7d: {}
+  time_to_first_thread_hours: {}
+  execution_ratio: {}
+  pct_of_team: {}
+  retained_w1: {}
+  retained_w2: {}
+  retained_w3: {}
+  retained_w4: {}
+  retained_w6: {}
+  retained_w8: {}
+  retained_w12: {}
+
+  user_id:
+    format: ID
+
+  team_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

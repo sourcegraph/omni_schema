@@ -1,0 +1,20 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__org_stats
+description: Dotcom PG table replication
+
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: org_stats
+
+dimensions:
+  code_host_repo_count: {}
+  updated_at: {}
+
+  org_id:
+    format: ID
+
+  tenant_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

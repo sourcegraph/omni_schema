@@ -1,0 +1,37 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__customer_purchased_seats
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: customer_purchased_seats
+
+dimensions:
+  dh_product: {}
+  product_group: {}
+  n_seats: {}
+  parent_name: {}
+  reporting_parent_name: {}
+  account_name_legal_c: {}
+  account_name: {}
+  deal_hub_product_code_c: {}
+  sourcegraph_subscription_id_c: {}
+  deal_hub_url: {}
+  start_date: {}
+  end_date: {}
+  iarr_recognition_date: {}
+  churn_effective_date: {}
+  deal_hub_status_c: {}
+
+  parent_id:
+    format: ID
+
+  reporting_parent_id:
+    format: ID
+
+  account_id:
+    format: ID
+
+  deal_hub_subscription_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

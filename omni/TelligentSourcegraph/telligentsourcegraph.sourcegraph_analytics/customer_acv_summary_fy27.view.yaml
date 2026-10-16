@@ -1,0 +1,57 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__customer_acv_summary_fy27
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: customer_acv_summary_fy27
+
+dimensions:
+  account_name:
+    sql: Account_Name
+
+  iacv:
+    sql: IACV
+
+  search_acv:
+    sql: Search_ACV
+
+  support__recurring_:
+    sql: Support__Recurring_
+
+  platform_fee_:
+    sql: Platform_Fee_
+
+  cody_acv:
+    sql: Cody_ACV
+
+  cip_acv:
+    sql: CIP_ACV
+
+  deep_search_acv:
+    sql: Deep_Search_ACV
+
+  eng_count:
+    sql: Eng_Count
+
+  fy27_segment:
+    sql: FY27_Segment
+
+  arr_bucket:
+    sql: ARR_Bucket
+
+  purchased_seats__search_platform_:
+    sql: Purchased_Seats__Search_Platform_
+
+  purchased_seats__cody_:
+    sql: Purchased_Seats__Cody_
+
+  max:
+    sql: Max
+
+  total_acv:
+    sql: Total_ACV
+
+  total_customers:
+    sql: Total_Customers
+
+measures:
+  count:
+    aggregate_type: count

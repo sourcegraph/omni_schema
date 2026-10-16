@@ -1,0 +1,114 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__update_checks_deadletter
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: update_checks_deadletter
+
+dimensions:
+  timestamp: {}
+  id_str: {}
+  remote_site_version: {}
+  installer_email: {}
+  remote_ip: {}
+  auth_providers: {}
+  deploy_type: {}
+  unique_users_today: {}
+  has_code_intelligence: {}
+  has_update: {}
+  total_user_accounts: {}
+
+  remote_site_id:
+    format: ID
+
+  site_activity:
+    parent_field: site_activity
+
+  site_activity_daus:
+    sql: site_activity.DAUs
+    parent_field: site_activity
+
+  site_activity_daus_anonymoususercount:
+    sql: AnonymousUserCount
+    nested_on_field: site_activity_daus
+    parent_field: site_activity
+
+  site_activity_daus_integrationusercount:
+    sql: IntegrationUserCount
+    nested_on_field: site_activity_daus
+    parent_field: site_activity
+
+  site_activity_daus_registeredusercount:
+    sql: RegisteredUserCount
+    nested_on_field: site_activity_daus
+    parent_field: site_activity
+
+  site_activity_daus_starttime:
+    sql: StartTime
+    nested_on_field: site_activity_daus
+    parent_field: site_activity
+
+  site_activity_daus_usercount:
+    sql: UserCount
+    nested_on_field: site_activity_daus
+    parent_field: site_activity
+
+  site_activity_maus:
+    sql: site_activity.MAUs
+    parent_field: site_activity
+
+  site_activity_maus_anonymoususercount:
+    sql: AnonymousUserCount
+    nested_on_field: site_activity_maus
+    parent_field: site_activity
+
+  site_activity_maus_integrationusercount:
+    sql: IntegrationUserCount
+    nested_on_field: site_activity_maus
+    parent_field: site_activity
+
+  site_activity_maus_registeredusercount:
+    sql: RegisteredUserCount
+    nested_on_field: site_activity_maus
+    parent_field: site_activity
+
+  site_activity_maus_starttime:
+    sql: StartTime
+    nested_on_field: site_activity_maus
+    parent_field: site_activity
+
+  site_activity_maus_usercount:
+    sql: UserCount
+    nested_on_field: site_activity_maus
+    parent_field: site_activity
+
+  site_activity_waus:
+    sql: site_activity.WAUs
+    parent_field: site_activity
+
+  site_activity_waus_anonymoususercount:
+    sql: AnonymousUserCount
+    nested_on_field: site_activity_waus
+    parent_field: site_activity
+
+  site_activity_waus_integrationusercount:
+    sql: IntegrationUserCount
+    nested_on_field: site_activity_waus
+    parent_field: site_activity
+
+  site_activity_waus_registeredusercount:
+    sql: RegisteredUserCount
+    nested_on_field: site_activity_waus
+    parent_field: site_activity
+
+  site_activity_waus_starttime:
+    sql: StartTime
+    nested_on_field: site_activity_waus
+    parent_field: site_activity
+
+  site_activity_waus_usercount:
+    sql: UserCount
+    nested_on_field: site_activity_waus
+    parent_field: site_activity
+
+measures:
+  count:
+    aggregate_type: count

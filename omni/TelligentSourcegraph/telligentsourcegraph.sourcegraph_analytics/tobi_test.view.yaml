@@ -1,0 +1,24 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__tobi_test
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: tobi_test
+
+dimensions:
+  installer_email: {}
+  last_month_maus: {}
+  current_month_monthly_active_users: {}
+  median_wau_last4wks: {}
+  median_dau_last4wks: {}
+
+  remote_site_id:
+    format: ID
+
+  external_url:
+    sql: externalUrl
+
+  last_4wk_daus_to_last_maus:
+    sql: last_4wk_DAUs_to_last_MAUs
+
+measures:
+  count:
+    aggregate_type: count

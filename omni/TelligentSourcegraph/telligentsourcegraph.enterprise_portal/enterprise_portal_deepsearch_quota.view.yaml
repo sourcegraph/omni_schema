@@ -1,0 +1,42 @@
+# Reference this view as telligentsourcegraph_enterprise_portal__enterprise_portal_deepsearch_quota
+description: Enterprise Portal DeepSearch quota data enriched with base_quota
+  from telemetry events
+
+catalog: telligentsourcegraph
+schema: enterprise_portal
+table_name: enterprise_portal_deepsearch_quota
+
+dimensions:
+  additional_quota: {}
+  consumed: {}
+  quota_date: {}
+  created_at: {}
+  updated_at: {}
+  is_unlimited: {}
+  use_base_quota: {}
+
+  id:
+    format: ID
+    primary_key: true
+
+  subscription_id:
+    format: ID
+
+  datastream_metadata:
+    parent_field: datastream_metadata
+
+  datastream_metadata_source_timestamp:
+    sql: datastream_metadata.source_timestamp
+    parent_field: datastream_metadata
+
+  datastream_metadata_uuid:
+    sql: datastream_metadata.`uuid`
+    parent_field: datastream_metadata
+
+  base_quota:
+    description: Base quota value extracted from v2 telemetry event
+      'deepsearch.quota.state:state'
+
+measures:
+  count:
+    aggregate_type: count

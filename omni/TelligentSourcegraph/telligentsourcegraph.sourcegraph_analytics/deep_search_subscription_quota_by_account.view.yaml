@@ -1,0 +1,34 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__deep_search_subscription_quota_by_account
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: deep_search_subscription_quota_by_account
+
+dimensions:
+  account_name: {}
+  active_product_classification: {}
+  technical_advisor: {}
+  ta_segmentation_c: {}
+  fy_25_segmentation_c: {}
+  amp_team_id_c: {}
+  ep_display_name: {}
+  total_quota: {}
+  consumed_this_month: {}
+  pct_consumed_this_month: {}
+  base_quota: {}
+  additional_quota: {}
+  seat_count: {}
+  is_unlimited: {}
+  effective_unlimited: {}
+
+  account_id:
+    format: ID
+
+  sfdc_unique_id:
+    format: ID
+
+  ep_subscription_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

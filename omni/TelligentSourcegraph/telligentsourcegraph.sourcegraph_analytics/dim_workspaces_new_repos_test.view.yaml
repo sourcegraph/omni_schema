@@ -1,0 +1,38 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__dim_workspaces_new_repos_test
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: dim_workspaces_new_repos_test
+
+dimensions:
+  workspace_name: {}
+  workspace_display_name: {}
+  created_at: {}
+  state: {}
+  open_invite_enabled: {}
+  purchased_seats: {}
+  purchased_seats_last_updated: {}
+  consumed_seats_last_updated: {}
+  consumed_seats: {}
+  repo_data_last_updated: {}
+  num_users: {}
+  workspace_admin_emails: {}
+
+  id:
+    format: ID
+    primary_key: true
+
+  external_url:
+    sql: externalUrl
+
+  num_repositories:
+    sql: numRepositories
+
+  total_disk_size_bytes:
+    sql: totalDiskSizeBytes
+
+  workspace_admin_userids:
+    sql: workspace_admin_userIds
+
+measures:
+  count:
+    aggregate_type: count

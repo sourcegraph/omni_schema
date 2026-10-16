@@ -1,0 +1,18 @@
+# Reference this view as telligentsourcegraph_sfdc_current__stage_iarr_anchor
+catalog: telligentsourcegraph
+schema: sfdc_current
+table_name: stage_iarr_anchor
+
+dimensions:
+  segment: {}
+  type: {}
+  n_deals: {}
+  median_iarr: {}
+  mean_iarr: {}
+  p25_iarr: {}
+  p75_iarr: {}
+  low_confidence: {}
+
+measures:
+  count:
+    aggregate_type: count

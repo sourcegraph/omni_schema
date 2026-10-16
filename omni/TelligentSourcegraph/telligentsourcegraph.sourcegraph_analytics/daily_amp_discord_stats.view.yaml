@@ -1,0 +1,16 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__daily_amp_discord_stats
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: daily_amp_discord stats
+
+dimensions:
+  day: {}
+  threads_created: {}
+  loc_added: {}
+  loc_deleted: {}
+  loc_changed: {}
+  number_messages: {}
+
+measures:
+  count:
+    aggregate_type: count

@@ -1,0 +1,16 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__cloud_hubspot_sync
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: cloud_hubspot_sync
+
+dimensions:
+  email: {}
+  has_code_host_cloud: {}
+  has_ever_searched_cloud: {}
+  has_ever_hover_cloud: {}
+  days_active_cloud: {}
+  last_product_usage_cloud: {}
+
+measures:
+  count:
+    aggregate_type: count

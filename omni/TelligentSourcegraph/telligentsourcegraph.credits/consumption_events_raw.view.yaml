@@ -1,0 +1,31 @@
+# Reference this view as telligentsourcegraph_credits__consumption_events_raw
+catalog: telligentsourcegraph
+schema: credits
+table_name: consumption_events_raw
+
+dimensions:
+  subscription_name: {}
+  publish_time: {}
+  attributes: {}
+  sku: {}
+  count: {}
+  credits: {}
+  created_at: {}
+  received_at: {}
+  was_inside_debit_window: {}
+
+  message_id:
+    format: ID
+
+  subscription_id:
+    format: ID
+
+  consumption_id:
+    format: ID
+
+  user_id:
+    format: ID
+
+measures:
+  row_count:
+    aggregate_type: count

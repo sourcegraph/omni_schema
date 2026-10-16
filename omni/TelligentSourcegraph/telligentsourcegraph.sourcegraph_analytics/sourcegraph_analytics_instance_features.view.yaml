@@ -1,0 +1,12 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__sourcegraph_analytics_instance_features
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: sourcegraph_analytics_instance_features
+
+dimensions:
+  instance_url: {}
+  features: {}
+
+measures:
+  count:
+    aggregate_type: count

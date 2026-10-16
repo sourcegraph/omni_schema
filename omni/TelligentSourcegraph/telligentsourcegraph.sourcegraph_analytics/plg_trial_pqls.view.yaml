@@ -1,0 +1,17 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__plg_trial_pqls
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: plg_trial_pqls
+
+dimensions:
+  latest_total_user_accounts: {}
+  max_waus: {}
+  number_of_power_users: {}
+  pql: {}
+
+  unique_server_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

@@ -1,0 +1,59 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__workspaces_weekly_report
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: workspaces_weekly_report
+
+dimensions:
+  week_start: {}
+  num_workspace_created: {}
+  num_workspace_churned: {}
+  net_new_seats: {}
+  expansion_new_seats: {}
+  total_new_seats_purchased: {}
+  cumulative_total_purchased_seats: {}
+  cumulative_net_new_seats: {}
+  cumulative_expansion_seats: {}
+  cumulative_num_seats_renewed: {}
+  weekly_renewed_seats: {}
+  cumulative_consumed_seats: {}
+  cumulative_num_users_activated: {}
+  weekly_activated_seats: {}
+  cumulative_num_seats_churned: {}
+  weekly_churned_seats: {}
+  seats_added_net_churn: {}
+  q1_seats_added_net_churn: {}
+  q2_seats_added_net_churn: {}
+
+  current_mrr:
+    sql: current_MRR
+
+  current_arr:
+    sql: current_ARR
+
+  zap_q1_2025_imrr:
+    sql: zap_q1_2025_iMRR
+
+  zap_q1_2025_iarr:
+    sql: zap_q1_2025_iARR
+
+  zap_q1_2025_imrr_percent_target:
+    sql: zap_q1_2025_iMRR_percent_target
+
+  zap_q1_2025_iarr_percent_target:
+    sql: zap_q1_2025_iARR_percent_target
+
+  zap_q2_2025_imrr:
+    sql: zap_q2_2025_iMRR
+
+  zap_q2_2025_iarr:
+    sql: zap_q2_2025_iARR
+
+  zap_q2_2025_imrr_percent_target:
+    sql: zap_q2_2025_iMRR_percent_target
+
+  zap_q2_2025_iarr_percent_target:
+    sql: zap_q2_2025_iARR_percent_target
+
+measures:
+  count:
+    aggregate_type: count

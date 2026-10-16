@@ -1,0 +1,240 @@
+# Reference this view as telligentsourcegraph_sfdc_current__looker_dim_account_details
+label: Customer Dim Account Details
+
+catalog: telligentsourcegraph
+schema: sfdc_current
+table_name: looker_dim_account_details
+
+dimensions:
+  active_product_classification: {}
+  type_of_agreement: {}
+  implementation_engineer: {}
+  account_owner: {}
+  customer_success_manager: {}
+  technical_advisor_support_level_c: {}
+  eng_count: {}
+  amp_csm_queue: {}
+  csm_relationship_signal_overview: {}
+  analytics_pii_terms: {}
+  close_date: {}
+  poc_start_date: {}
+  poc_end_date: {}
+
+  csm_relationship_signal_color:
+    sql: |-
+      CASE
+        WHEN csm_relationship_signal_color = 'Green' THEN '🟩 Green'
+        WHEN csm_relationship_signal_color = 'Yellow' THEN '🟨 Yellow'
+        WHEN csm_relationship_signal_color = 'Red' THEN '🟥 Red'
+        WHEN csm_relationship_signal_color IS NULL THEN '❌ CSM Input Missing'
+      ELSE csm_relationship_signal_color END
+
+  ai_terms:
+    label: AI Terms (SFDC)
+
+  customer_type:
+    hidden: true
+
+  year_one_solution_engineer:
+    label: Solutions Engineer - Year 1
+
+  account_id:
+    sql: account_id
+    format: ID
+
+  sfdc_unique_id:
+    sql: sfdc_unique_id
+    format: ID
+    primary_key: true
+
+  name:
+    sql: name
+    label: Account Name
+
+  parent_account_id:
+    sql: parent_account_id
+    format: ID
+
+  user_level_event_usage_data_analytics_c:
+    sql: user_level_event_usage_data_analytics_c
+    label: User level data collection
+
+  account_executive:
+    sql: account_executive
+
+  customer_engineer:
+    sql: |-
+      CASE
+        WHEN ${account_type} = 'Customer' THEN customer_engineer
+        ELSE NULL
+      END
+    label: Solutions Engineer
+
+  technical_advisor:
+    sql: technical_advisor
+    label: Account Manager
+
+  source:
+    sql: SOURCE
+
+  tier:
+    sql: tier
+
+  annual_revenue:
+    sql: annual_revenue
+    label: Company's annual revenue
+    description: Annual revenue made by this company. NOT sourcegraph ARR.
+
+  bundle_size:
+    sql: bundle_size
+
+  industry:
+    sql: industry
+
+  is_strategic_account:
+    sql: is_strategic_account
+
+  geo:
+    sql: geo
+
+  region:
+    sql: region
+
+  country:
+    sql: country
+
+  number_of_employees:
+    sql: number_of_employees
+
+  number_of_engineers:
+    sql: number_of_engineers
+
+  ta_segmentation_c:
+    sql: ta_segmentation_c
+    label: TA segmentation
+
+  fy_25_segmentation_c:
+    sql: fy_25_segmentation_c
+    label: FY27 segmentation
+
+  opportunity_id:
+    format: ID
+
+  contract_start:
+    sql: contract_start
+    convert_tz: false
+
+  contract_end:
+    sql: contract_end
+    convert_tz: false
+
+  contract_term:
+    sql: contract_term
+
+  products_purchased:
+    sql: products_purchased
+
+  hard_cap:
+    sql: hard_cap
+
+  use_cases:
+    sql: use_cases
+
+  deal_desk_approved:
+    sql: deal_desk_approved
+
+  account_type:
+    sql: |-
+      CASE 
+        WHEN customer_type IN ('(1) Enterprise Customer','(2) Self-Service - Paid') THEN 'Customer' ELSE 'Not Customer' END
+    label: Enterprise Customer Status
+
+  customer_type_original:
+    sql: customer_type
+    hidden: true
+
+  poc_end:
+    sql: poc_end_date
+    convert_tz: false
+
+  poc_start:
+    sql: poc_start_date
+    convert_tz: false
+
+  technical_advisor_support_level:
+    sql: technical_advisor_support_level_c
+    label: Technical advisor support level raw
+    hidden: true
+
+  technical_advisor_support_level_group:
+    sql: CASE WHEN technical_advisor_support_level_c IN ('Enterprise','Commercial',
+      'Strategic') THEN 'TA Managed' WHEN technical_advisor_support_level_c =
+      'Scaled Success' THEN 'Scaled Success' ELSE 'Null' END
+    label: Technical advisor support level group
+    hidden: true
+
+  selected_solutions_eng:
+    sql: |-
+      CASE
+        WHEN ${customer_engineer} IN (
+          'Ajay Sridhar', 'Jacqui Dow', 'Ben Pepper',
+          'Carson Hopkins', 'Taber Miyauchi', 'Nic Galluzzo'
+        ) THEN ${customer_engineer}
+        ELSE 'NULL - Carson Hopkins'
+      END
+    label: Solutions Engineer (Selected)
+
+  is_byok:
+    ##https://sourcegraph.slack.com/archives/CN4FC7XT4/p1762446125623169?thread_ts=1762430415.578369&cid=CN4FC7XT4
+    sql: |-
+      CASE
+        WHEN ${name} IN (
+          'Quadrature',
+          'Leidos - REACTS',
+          'Leidos - Australia',
+          'Leidos - SMIT',
+          'Leidos - National Security Sector',
+          'Leidos - National Institutes of Health',
+          'Bridgewater Associates',
+          'Bridgewater Associates (Contractors)',
+          'Icahn School of Medicine at Mount Sinai',
+          'Carrier',
+          'Two Sigma Investments, LP',
+          'Coinbase, Inc.'
+        ) THEN TRUE
+        ELSE FALSE
+      END
+    label: Is BYOK (Y/N)
+    description: Hardcoded account list as of Nov 6, 2025
+
+  ai_terms_derived:
+    sql: |-
+      CASE
+        WHEN ${type_of_agreement} LIKE '%Cody Terms%'
+          OR ${type_of_agreement} LIKE '%Enterprise AI Addendum%'
+          OR ${type_of_agreement} LIKE '%Self-hosted & Managed Instance Terms%'
+          OR ${type_of_agreement} LIKE '%AI Terms%'
+        THEN TRUE
+        ELSE FALSE
+      END
+    label: AI Terms (derived)
+    description: Parsed from type_of_agreement text, distinct from the SFDC ai_terms flag
+
+  days_to_contract_end:
+    sql: DATE_DIFF(DATE(contract_end), CURRENT_DATE(), DAY)
+    label: Days to Contract End
+    description: Days from today until contract_end. Negative for expired contracts.
+
+measures:
+  count:
+    aggregate_type: count
+
+  count_distinct:
+    sql: name
+    label: Distinct Accounts
+    aggregate_type: count_distinct
+
+  engineering_tam:
+    sql: eng_count
+    label: Engineering TAM
+    aggregate_type: sum

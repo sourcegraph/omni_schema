@@ -1,0 +1,20 @@
+# Reference this view as telligentsourcegraph_pings_data_model_transformed__code_insights_backfill_latency
+catalog: telligentsourcegraph
+schema: pings_data_model_transformed
+table_name: code_insights_backfill_latency
+
+dimensions:
+  timestamp: {}
+  installer_email: {}
+  week: {}
+  all_repos: {}
+  p50_seconds: {}
+  p90_seconds: {}
+  p99_seconds: {}
+
+  remote_site_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

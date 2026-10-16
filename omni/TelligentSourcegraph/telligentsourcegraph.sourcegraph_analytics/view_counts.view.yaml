@@ -1,0 +1,25 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__view_counts
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: view_counts
+
+dimensions:
+  last_weekly_ping: {}
+
+  unique_server_id:
+    format: ID
+
+  flattened:
+    parent_field: flattened
+
+  flattened_totalcount:
+    sql: flattened.TotalCount
+    parent_field: flattened
+
+  flattened_viewtype:
+    sql: flattened.ViewType
+    parent_field: flattened
+
+measures:
+  count:
+    aggregate_type: count

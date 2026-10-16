@@ -1,0 +1,33 @@
+# Reference this view as telligentsourcegraph_credits__consumption_v2t_reconciliation
+description: QA reconciliation between credit consumption events (from Pub/Sub
+  pipeline) and v2t metering telemetry events. Flags events present in one
+  source but not the other.
+
+catalog: telligentsourcegraph
+schema: credits
+table_name: consumption_v2t_reconciliation
+
+dimensions:
+  event_timestamp: {}
+  sku: {}
+  credits: {}
+  credit_type: {}
+  customer_name: {}
+  instance_domain: {}
+  match_status: {}
+
+  subscription_id:
+    format: ID
+
+  consumption_id:
+    format: ID
+
+  metering_event_id:
+    format: ID
+
+  v2t_user_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

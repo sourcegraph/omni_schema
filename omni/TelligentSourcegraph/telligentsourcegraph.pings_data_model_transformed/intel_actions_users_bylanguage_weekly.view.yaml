@@ -1,0 +1,26 @@
+# Reference this view as telligentsourcegraph_pings_data_model_transformed__intel_actions_users_bylanguage_weekly
+catalog: telligentsourcegraph
+schema: pings_data_model_transformed
+table_name: intel_actions_users_bylanguage_weekly
+
+dimensions:
+  installer_email: {}
+  timestamp: {}
+  date: {}
+  start_time: {}
+  ping_type: {}
+  action: {}
+  cross_repository: {}
+  source: {}
+  weekly_active_users: {}
+  total_actions: {}
+
+  remote_site_id:
+    format: ID
+
+  language_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

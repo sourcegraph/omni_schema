@@ -1,0 +1,29 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__sq_sfdc_accounts
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: sq_sfdc_accounts
+
+dimensions:
+  name: {}
+  account_tier_c: {}
+  customer_type: {}
+  account_exec: {}
+  customer_engineer: {}
+  technical_advisor: {}
+  contract_measurement_metric: {}
+  country: {}
+  region: {}
+  industry: {}
+  is_strategic_account: {}
+  employee_count: {}
+  employee_range: {}
+  engineer_count: {}
+  company_revenue_range: {}
+  logo_rights: {}
+
+  sfdc_unique_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

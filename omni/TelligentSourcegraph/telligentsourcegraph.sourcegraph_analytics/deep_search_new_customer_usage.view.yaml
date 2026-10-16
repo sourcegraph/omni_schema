@@ -1,0 +1,23 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__deep_search_new_customer_usage
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: deep_search_new_customer_usage
+
+dimensions:
+  row_num: {}
+  pk: {}
+  account_name: {}
+  csm: {}
+  csm_slack_username: {}
+  v2_events_external_url: {}
+  first_threshold_date: {}
+  users_at_threshold: {}
+  queries_at_threshold: {}
+  threshold_type: {}
+
+  csm_slack_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

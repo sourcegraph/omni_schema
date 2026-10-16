@@ -1,0 +1,22 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__code_intel_language_events
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: code_intel_language_events
+
+dimensions:
+  timestamp: {}
+  installer_email: {}
+  num_requests: {}
+
+  unique_server_id:
+    format: ID
+
+  remote_site_id:
+    format: ID
+
+  language_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

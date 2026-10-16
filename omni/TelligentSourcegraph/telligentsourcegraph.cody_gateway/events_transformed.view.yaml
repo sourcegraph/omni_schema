@@ -1,0 +1,268 @@
+# Reference this view as telligentsourcegraph_cody_gateway__events_transformed
+description: transforming and enriching the cody gateway events
+
+catalog: telligentsourcegraph
+schema: cody_gateway
+table_name: events_transformed
+
+dimensions:
+  identifier: {}
+  metadata: {}
+
+  created_at:
+    description: The event capture time
+
+  name:
+    description: The name of the event
+
+  requester_identifier:
+    sql: identifier
+    description: Either the Sourcegraph.com subscription ID of the instance or the
+      Sourcegraph.com user ID of the connected Cody user
+
+  dotcom_user_id:
+    sql: CASE WHEN CHAR_LENGTH(identifier) = 36 THEN NULL ELSE identifier END
+    description: The user ID (non-Enterprise aka dotcom users only)
+
+  feature_raw:
+    sql: feature
+    hidden: true
+
+  feature:
+    sql: |
+      CASE
+        WHEN ${feature_raw} = 'code_completions' THEN 'Completion'
+        WHEN ${feature_raw} = 'chat_completions' THEN 'Chat'
+        ELSE ${feature_raw}
+      END
+    description: The feature used
+
+  provider:
+    label: Model Provider
+    description: The model provider used
+
+  source:
+    sql: SOURCE
+    description: The source of the event
+
+  model:
+    sql: MODEL
+    label: Model Full (Provider+Model)
+    description: The model used (Provider+Model)
+
+  model_trunc:
+    sql: REGEXP_EXTRACT(${model}, r'/([^/]+)$')
+    label: Model Trunc
+    description: Extracts the model name from the full path
+
+  sg_scope:
+    sql: STRING(JSON_QUERY(${metadata}, '$.sg_scope'))
+
+  event_id:
+    format: ID
+
+  route_via_google_vertex:
+    sql: CAST(JSON_VALUE(${metadata}, '$.route_via_google_vertex') AS BOOL)
+    hidden: true
+
+  forced_vertex_by_subscription_id:
+    sql: CAST(JSON_VALUE(${metadata}, '$.forced_vertex_by_subscription_id') AS BOOL)
+    hidden: true
+
+  display_name:
+    sql: displayName
+    label: Subscription EP Display Name
+
+  external_url:
+    sql: externalUrl
+
+  salesforce_account_id:
+    sql: salesforceAccountId
+    format: ID
+
+  sams_external_id:
+    sql: samsExternalId
+    format: ID
+
+  instance_user_id:
+    sql: instanceUserId
+    format: ID
+
+  unique_user_id:
+    sql: uniqueUserId
+    format: ID
+
+  workspace_id:
+    sql: workspaceId
+    format: ID
+
+  user_metadata:
+    sql: userMetadata
+    parent_field: user_metadata
+
+  usermetadata_email:
+    sql: userMetadata.email
+    label: Email
+    group_label: User Metadata
+    parent_field: user_metadata
+
+  usermetadata_name:
+    sql: userMetadata.name
+    label: Name
+    group_label: User Metadata
+    parent_field: user_metadata
+
+  completion:
+    parent_field: completion
+
+  completion_charactercount:
+    sql: completion.characterCount
+    parent_field: completion
+
+  completion_tokencount:
+    sql: completion.tokenCount
+    parent_field: completion
+
+  prompt:
+    parent_field: prompt
+
+  prompt_cachetokenhitcount:
+    sql: prompt.cacheTokenHitCount
+    parent_field: prompt
+
+  prompt_cachetokenwritecount:
+    sql: prompt.cacheTokenWriteCount
+    parent_field: prompt
+
+  prompt_charactercount:
+    sql: prompt.characterCount
+    parent_field: prompt
+
+  prompt_tokencount:
+    sql: prompt.tokenCount
+    parent_field: prompt
+
+  cost:
+    parent_field: cost
+
+  cost_completion:
+    sql: cost.completion
+    parent_field: cost
+
+  cost_prompt:
+    sql: cost.prompt
+    parent_field: cost
+
+  cost_promptcachehit:
+    sql: cost.promptCacheHit
+    parent_field: cost
+
+  cost_promptcachewrite:
+    sql: cost.promptCacheWrite
+    parent_field: cost
+
+  cost_total:
+    sql: cost.total
+    parent_field: cost
+
+  trace_id:
+    sql: traceId
+    format: ID
+
+  published_at:
+    description: When the event was successfully published to Pub/Sub
+
+  processed_at:
+    description: When Enterprise Portal confirmed that it processed the event
+
+measures:
+  count:
+    drill_fields: [ display_name, name, usermetadata_name ]
+    aggregate_type: count
+
+  total_completion_character_count:
+    sql: ${completion_charactercount}
+    description: Sum of completion character counts
+    aggregate_type: sum
+
+  total_prompt_character_count:
+    sql: ${prompt_charactercount}
+    description: Sum of prompt character counts
+    aggregate_type: sum
+
+  total_prompt_token_count:
+    sql: ${prompt_tokencount}
+    label: Total Input Tokens (Prompt)
+    description: Sum of prompt token counts
+    aggregate_type: sum
+
+  total_completion_token_count:
+    sql: ${completion_tokencount}
+    label: Total Output Tokens (Completion)
+    description: Sum of completion token counts
+    aggregate_type: sum
+
+  prompt_cache_token_hit_count:
+    sql: ${prompt_cachetokenhitcount}
+    aggregate_type: sum
+
+  prompt_cache_token_write_count:
+    sql: ${prompt_cachetokenwritecount}
+    aggregate_type: sum
+
+  total_tokens:
+    sql: ${total_prompt_token_count} + ${total_completion_token_count} +
+      ${prompt_cache_token_hit_count} + ${prompt_cache_token_write_count}
+
+  total_tokens_without_cache:
+    sql: ${total_prompt_token_count} + ${total_completion_token_count}
+
+  total_characters:
+    sql: ${total_prompt_character_count} + ${total_completion_character_count}
+
+  distinct_identifiers:
+    sql: ${requester_identifier}
+    drill_fields: [ name ]
+    aggregate_type: count_distinct
+
+  distinct_users:
+    sql: ${instance_user_id}
+    drill_fields: [ name ]
+    aggregate_type: count_distinct
+
+  total_requests:
+    sql: ${event_id}
+    description: Distinct count of event_id values
+    aggregate_type: count_distinct
+
+  routed_via_vertex:
+    description: Count of requests routed via Google Vertex
+    aggregate_type: count
+    filters:
+      route_via_google_vertex:
+        is: true
+
+  not_routed_via_vertex:
+    description: Count of requests not routed via Google Vertex
+    aggregate_type: count
+    filters:
+      route_via_google_vertex:
+        is: false
+
+  missing_route_field:
+    description: Count of requests missing the route_via_google_vertex field
+    aggregate_type: count
+    filters:
+      route_via_google_vertex:
+        is: null
+
+  forced_via_subscription:
+    description: Count of requests forced to Vertex via subscription id
+    aggregate_type: count
+    filters:
+      forced_vertex_by_subscription_id:
+        is: true
+
+  num_active_days:
+    sql: ${created_at[date]}
+    aggregate_type: count_distinct

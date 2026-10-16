@@ -1,0 +1,20 @@
+# Reference this view as telligentsourcegraph_post_sales__post_sales_account_level
+catalog: telligentsourcegraph
+schema: post_sales
+table_name: post_sales_account_level
+
+dimensions:
+  name: {}
+  external_url: {}
+  customer_type: {}
+  active_product_classification: {}
+  current_fy_segmentation: {}
+  ds_credit_ready: {}
+  credits_allocated: {}
+  latest_version: {}
+  latest_version_normalized: {}
+  post_sales_account: {}
+
+measures:
+  count:
+    aggregate_type: count

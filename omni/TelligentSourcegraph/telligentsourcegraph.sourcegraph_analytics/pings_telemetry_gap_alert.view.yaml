@@ -1,0 +1,30 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__pings_telemetry_gap_alert
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: pings_telemetry_gap_alert
+
+dimensions:
+  primary_key: {}
+  external_url: {}
+  account_name: {}
+  gap_type: {}
+  last_ping_date: {}
+  last_v2_event_date: {}
+  detected_at: {}
+  latest_version: {}
+  max_unique_users_today: {}
+  max_total_user_accounts: {}
+  csm: {}
+
+  remote_site_id:
+    format: ID
+
+  unique_server_id:
+    format: ID
+
+  csm_slack_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

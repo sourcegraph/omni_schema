@@ -1,0 +1,425 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__server_instances
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: server_instances
+
+dimensions:
+  flag_account_user_today_or_total: {}
+  repos_count_all: {}
+  repos_count_greater_1gb: {}
+  latest_has_cody_enabled: {}
+  executor_deploy_types: {}
+  executor_versions: {}
+  executor_count: {}
+  latest_total_user_accounts: {}
+
+  max_total_user_accounts:
+    hidden: true
+
+  max_unique_users_today:
+    hidden: true
+
+  sfdc_name:
+    sql: sfdc_name
+    description: Salesforce Account Name
+    hidden: true
+
+  company_type:
+    sql: |-
+      CASE WHEN company_type = "Free" THEN "Not Customer"
+                ELSE company_type END
+    label: Enterprise Customer Status
+    hidden: true
+
+  unique_server_id:
+    sql: unique_server_id
+    format: ID
+    primary_key: true
+
+  sfdc_unique_id:
+    sql: sfdc_unique_id
+    format: ID
+    hidden: true
+
+  instance_type:
+    sql: instance_type
+    description: PRIMARY, SECONDARY (Dev), INTERNAL
+
+  remote_site_id:
+    sql: remote_site_id
+    format: ID
+    description: Server identifier
+
+  latest_version:
+    sql: latest_version
+    label: Sourcegraph version full
+
+  latest_version_truncated:
+    sql: latest_version_truncated
+    label: Sourcegraph version truncated
+
+  latest_installer_email:
+    sql: latest_installer_email
+    label: Installer email
+    description: Email used to set up the instance - usually the email of the first admin
+
+  latest_deploy_type:
+    sql: latest_deploy_type
+    label: Deploy type
+    description: docker, kubernetes, etc
+
+  latest_auth_providers:
+    sql: latest_auth_providers
+    label: Auth provider
+
+  latest_ext_services:
+    sql: latest_ext_services
+    label: External service (Code hosts)
+
+  first_ping:
+    sql: first_ping
+    timeframes: [ raw, hour, date, week, month, quarter, year ]
+
+  latest_ping:
+    sql: latest_ping
+    timeframes: [ raw, hour, date, week, month, quarter, year ]
+
+  latest_builtin_signup_allowed:
+    sql: latest_builtin_signup_allowed
+    label: Built-in signup allowed?
+
+  latest_has_external_url:
+    sql: latest_has_external_url
+    label: Has external URL?
+
+  latest_has_repos:
+    sql: latest_has_repos
+    label: Has repos?
+    description: Does this instance have repos on it?
+
+  latest_ever_searched:
+    sql: latest_ever_searched
+    label: Ever searched?
+    description: Has any user on this instance ever searched?
+
+  latest_ever_find_refs:
+    sql: latest_ever_find_refs
+    label: Ever used find refs?
+    description: Has any user on this instance ever used find refs?
+
+  latest_hover_lsif_eventscount:
+    sql: latest_hover_LSIF_EventsCount
+
+  latest_hover_lsp_eventscount:
+    sql: latest_hover_LSP_EventsCount
+
+  latest_hover_search_eventscount:
+    sql: latest_hover_Search_EventsCount
+
+  latest_definitions_lsif_eventscount:
+    sql: latest_Definitions_LSIF_EventsCount
+
+  latest_definitions_lsp_eventscount:
+    sql: latest_Definitions_LSP_EventsCount
+
+  latest_definitions_search_eventscount:
+    sql: latest_Definitions_Search_EventsCount
+
+  latest_references_lsif_eventscount:
+    sql: latest_References_LSIF_EventsCount
+
+  latest_references_lsp_eventscount:
+    sql: latest_References_LSP_EventsCount
+
+  latest_references_search_eventscount:
+    sql: latest_References_Search_EventsCount
+
+  automation_usage_campaignscount:
+    sql: automation_usage_CampaignsCount
+
+  daily_structural_eventlatencies_p99:
+    sql: Daily_Structural_EventLatencies_P99
+
+  daily_file_eventlatencies_p99:
+    sql: Daily_File_EventLatencies_P99
+
+  daily_repo_eventlatencies_p99:
+    sql: Daily_Repo_EventLatencies_P99
+
+  daily_diff_eventlatencies_p99:
+    sql: Daily_Diff_EventLatencies_P99
+
+  daily_commit_eventlatencies_p99:
+    sql: Daily_Commit_EventLatencies_P99
+
+  daily_symbol_eventlatencies_p99:
+    sql: Daily_Symbol_EventLatencies_P99
+
+  daily_literal_eventlatencies_p99:
+    sql: Daily_Literal_EventLatencies_P99
+
+  daily_regexp_eventlatencies_p99:
+    sql: Daily_Regexp_EventLatencies_P99
+
+  license_key:
+    sql: license_key
+
+  git_dir_bytes:
+    sql: GitDirBytes
+
+  new_lines_count:
+    sql: ROUND(NewLinesCount/1000000,0)
+    label: Lines of code (in millions)
+
+  default_branch_new_lines_count:
+    sql: DefaultBranchNewLinesCount
+    hidden: true
+
+  other_branches_new_lines_count:
+    sql: OtherBranchesNewLinesCount
+    hidden: true
+
+  codyproviders_completions_chatmodel:
+    sql: CodyProviders_Completions_ChatModel
+
+  codyproviders_completions_completionmodel:
+    sql: CodyProviders_Completions_CompletionModel
+
+  codyproviders_completions_fastchatmodel:
+    sql: CodyProviders_Completions_FastChatModel
+
+  codyproviders_completions_provider:
+    sql: CodyProviders_Completions_Provider
+
+  codyproviders_embeddings_model:
+    sql: CodyProviders_Embeddings_Model
+
+  codyproviders_embeddings_provider:
+    sql: CodyProviders_Embeddings_Provider
+
+  postgres_version:
+    sql: postgres_version
+    description: The version of Postgres that the instance is running
+
+  redis_cache_version:
+    sql: redis_cache_version
+    description: The version of Redis that the instance is running for Redis Cache
+
+  redis_store_version:
+    sql: redis_store_version
+    description: The version of Redis that the instance is running for Redis Store
+
+  server_endpoint:
+    sql: serverEndpoint
+
+  has_external_db:
+    sql: has_external_db
+
+  pings_count:
+    sql: pings_count
+
+  deployment_method:
+    sql: deployment_method
+    label: Hosting type
+    description: Managed instance, self-hosted
+
+  automation_usage_campaigns_count:
+    sql: automation_usage_CampaignsCount
+    hidden: true
+
+  daily_commit_event_latencies_p99:
+    sql: Daily_Commit_EventLatencies_P99
+    hidden: true
+
+  daily_diff_event_latencies_p99:
+    sql: Daily_Diff_EventLatencies_P99
+    hidden: true
+
+  daily_file_event_latencies_p99:
+    sql: Daily_File_EventLatencies_P99
+    hidden: true
+
+  daily_literal_event_latencies_p99:
+    sql: Daily_Literal_EventLatencies_P99
+    hidden: true
+
+  daily_regexp_event_latencies_p99:
+    sql: Daily_Regexp_EventLatencies_P99
+    hidden: true
+
+  daily_repo_event_latencies_p99:
+    sql: Daily_Repo_EventLatencies_P99
+    hidden: true
+
+  daily_structural_event_latencies_p99:
+    sql: Daily_Structural_EventLatencies_P99
+    hidden: true
+
+  daily_symbol_event_latencies_p99:
+    sql: Daily_Symbol_EventLatencies_P99
+    hidden: true
+
+  git_dir_bytes_mb:
+    sql: ROUND(GitDirBytes/1000000,0)
+    label: Git Dir Bytes MB
+    description: Size of instance git directory, in megabytes
+
+  git_dir_bytes_gb:
+    sql: ROUND( ${git_dir_bytes_mb}/1000,0)
+    label: Git Dir Bytes GB
+    description: Size of instance git directory, in gigabytes
+
+  latest_definitions_lsif_events_count:
+    sql: latest_Definitions_LSIF_EventsCount
+    hidden: true
+
+  latest_definitions_lsp_events_count:
+    sql: latest_Definitions_LSP_EventsCount
+    hidden: true
+
+  latest_definitions_search_events_count:
+    sql: latest_Definitions_Search_EventsCount
+    hidden: true
+
+  latest_hover_lsif_events_count:
+    sql: latest_hover_LSIF_EventsCount
+    hidden: true
+
+  latest_hover_lsp_events_count:
+    sql: latest_hover_LSP_EventsCount
+    hidden: true
+
+  latest_hover_search_events_count:
+    sql: latest_hover_Search_EventsCount
+    hidden: true
+
+  latest_references_lsif_events_count:
+    sql: latest_References_LSIF_EventsCount
+    hidden: true
+
+  latest_references_lsp_events_count:
+    sql: latest_References_LSP_EventsCount
+    hidden: true
+
+  latest_references_search_events_count:
+    sql: latest_References_Search_EventsCount
+    hidden: true
+
+  user_accounts_tier:
+    sql: latest_total_user_accounts
+    bin_boundaries: [ 0, 50, 100, 500, 1000 ]
+    label: User accounts (Tiered)
+    description: The number of accounts on the instance, grouped into buckets
+    group_label: Usage info
+
+  cody_provider_chat:
+    sql: CodyProviders_Completions_ChatModel
+    label: "Cody providers: latest chat model"
+
+  cody_provider_completions:
+    sql: CodyProviders_Completions_CompletionModel
+    label: "Cody providers: latest completions model"
+
+  cody_provider_fast_chat:
+    sql: CodyProviders_Completions_FastChatModel
+    label: "Cody providers: latest fast chat model"
+
+  cody_provider_completions_provider:
+    sql: CodyProviders_Completions_Provider
+    label: "Cody providers: latest completions provider"
+
+  cody_provider_embeddings_provider:
+    sql: CodyProviders_Embeddings_Provider
+    label: "Cody providers: latest embeddings provider"
+
+  cody_provider_embeddings_model:
+    sql: CodyProviders_Embeddings_Model
+    label: "Cody providers: latest embeddings model"
+
+  new_lines_count_raw:
+    sql: NewLinesCount
+    label: Lines of code (raw)
+
+  multi_code_host:
+    sql: CASE WHEN ${latest_ext_services} LIKE "%,%" THEN "Yes" ELSE "No" END
+    label: Multi-Code Host (Y/N)
+
+  serverendpoint:
+    sql: serverEndpoint
+    label: External URL
+    description: Instance URL
+
+measures:
+  count:
+    aggregate_type: count
+
+  recent_max_total_user_accounts:
+    sql: latest_total_user_accounts
+    label: User accounts
+    group_label: Usage info
+    description: The number of accounts on the instance
+    aggregate_type: sum
+
+  count_remote_site_id:
+    sql: remote_site_id
+    label: Count distinct instances
+    aggregate_type: count_distinct
+
+  p50_percentile_git_dir_bytes_mb:
+    sql: ${git_dir_bytes_mb}
+    label: p50 Git Dir Bytes Mb
+    group_label: Git Directory Size Percentiles
+    format: number_1
+    aggregate_type: percentile
+    percentile: 50
+
+  p75_percentile_git_dir_bytes_mb:
+    sql: ${git_dir_bytes_mb}
+    label: p75 Git Dir Bytes Mb
+    group_label: Git Directory Size Percentiles
+    format: number_1
+    aggregate_type: percentile
+    percentile: 75
+
+  p90_percentile_git_dir_bytes_mb:
+    sql: ${git_dir_bytes_mb}
+    label: p90 Git Dir Bytes Mb
+    group_label: Git Directory Size Percentiles
+    format: number_1
+    aggregate_type: percentile
+    percentile: 90
+
+  p95_percentile_git_dir_bytes_mb:
+    sql: ${git_dir_bytes_mb}
+    label: p95 Git Dir Bytes Mb
+    group_label: Git Directory Size Percentiles
+    format: number_1
+    aggregate_type: percentile
+    percentile: 95
+
+  max_total_user_accounts_ever:
+    sql: max_total_user_accounts
+    group_label: Usage info
+    description: The most user accounts that were ever on the instance
+    aggregate_type: max
+
+  max_unique_users_today_metric:
+    sql: max_unique_users_today
+    label: Unique users today
+    group_label: Usage info
+    aggregate_type: max
+
+  total_repos_greater_1gb:
+    sql: ${repos_count_greater_1gb}
+    label: Repos >= 1GB
+    aggregate_type: sum
+
+  total_repos_all:
+    sql: ${repos_count_all}
+    label: Repos (All)
+    aggregate_type: sum
+
+  pct_repos_greater_1gb:
+    sql: safe_divide(${total_repos_greater_1gb}, ${total_repos_all})
+    label: Pct of Repos >= 1GB
+    format: 0.0%

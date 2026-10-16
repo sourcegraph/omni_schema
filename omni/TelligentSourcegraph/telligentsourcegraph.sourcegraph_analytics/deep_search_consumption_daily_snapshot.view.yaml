@@ -1,0 +1,40 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__deep_search_consumption_daily_snapshot
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: deep_search_consumption_daily_snapshot
+
+dimensions:
+  snapshot_date: {}
+  instance_domain: {}
+  display_name: {}
+  last_recorded_time: {}
+  quota_period_start_time: {}
+  reset_time: {}
+  updated_time: {}
+  created_time: {}
+  total_quota: {}
+  consumed: {}
+  queries_remaining: {}
+  pct_consumed: {}
+  base_quota: {}
+  additional_quota: {}
+  calculated_base_quota: {}
+  seat_count: {}
+  quota_per_seat: {}
+  is_unlimited: {}
+  effective_unlimited: {}
+  use_base_quota: {}
+  default_use_base_quota: {}
+
+  subscription_id:
+    format: ID
+
+  s_id:
+    format: ID
+
+  salesforce_account_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

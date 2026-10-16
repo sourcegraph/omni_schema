@@ -1,0 +1,13 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__workspaces_daily_repos_total
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: workspaces_daily_repos_total
+
+dimensions:
+  snapshot_date: {}
+  total_repos: {}
+  total_disk_size_gb: {}
+
+measures:
+  count:
+    aggregate_type: count

@@ -1,0 +1,71 @@
+# Reference this view as telligentsourcegraph_enterprise_portal__credit_buckets
+catalog: telligentsourcegraph
+schema: enterprise_portal
+table_name: credit_buckets
+
+dimensions:
+  display_name: {}
+  credits_total: {}
+  credits_consumed: {}
+  last_consumed_at: {}
+  start_at: {}
+  expires_at: {}
+  deleted_at: {}
+  priority: {}
+  rollover_expires_at: {}
+  created_at: {}
+  notes: {}
+
+  id:
+    format: ID
+    primary_key: true
+
+  subscription_id:
+    format: ID
+
+  dealhub_subscription_id:
+    format: ID
+
+  datastream_metadata:
+    parent_field: datastream_metadata
+
+  datastream_metadata_source_timestamp:
+    sql: datastream_metadata.source_timestamp
+    parent_field: datastream_metadata
+
+  datastream_metadata_uuid:
+    sql: datastream_metadata.`uuid`
+    parent_field: datastream_metadata
+
+  status:
+    sql: |-
+      CASE
+        WHEN CURRENT_DATE() < DATE(start_at) THEN 'Pending'
+        WHEN CURRENT_DATE() >= DATE(start_at)
+             AND CURRENT_DATE() < DATE(expires_at) THEN 'Active'
+        ELSE 'Expired'
+      END
+    label: Bucket Status
+
+measures:
+  count:
+    drill_fields: [ id, display_name ]
+    aggregate_type: count
+
+  credits_allocated:
+    sql: ${credits_total}
+    format: number_0
+    description: Total credits allocated across buckets
+    aggregate_type: sum
+
+  credits_consumed_total:
+    sql: ${credits_consumed}
+    label: Credits Consumed
+    format: number_0
+    description: Total credits consumed across buckets
+    aggregate_type: sum
+
+  percent_consumed:
+    sql: SAFE_DIVIDE(${credits_consumed_total}, ${credits_allocated})
+    format: percent_1
+    description: Share of allocated credits that have been consumed

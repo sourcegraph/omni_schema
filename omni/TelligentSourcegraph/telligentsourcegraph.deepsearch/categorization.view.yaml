@@ -1,0 +1,33 @@
+# Reference this view as telligentsourcegraph_deepsearch__categorization
+catalog: telligentsourcegraph
+schema: deepsearch
+table_name: categorization
+
+dimensions:
+  title: {}
+  created_at: {}
+  updated_at: {}
+  followup_count: {}
+  messages: {}
+  output: {}
+  raw_response: {}
+  cleaned_response: {}
+  primary_intent: {}
+  secondary_intent: {}
+  tertiary_intent: {}
+  primary_topic: {}
+  secondary_topic: {}
+  tertiary_topic: {}
+  score: {}
+  confidence_level: {}
+  model_version: {}
+
+  conversation_id:
+    format: ID
+
+  user_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

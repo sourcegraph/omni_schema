@@ -1,0 +1,12 @@
+# Reference this view as telligentsourcegraph_gsheets__customer_cody_domains
+catalog: telligentsourcegraph
+schema: gsheets
+table_name: customer_cody_domains
+
+dimensions:
+  customer_name: {}
+  domain: {}
+
+measures:
+  count:
+    aggregate_type: count

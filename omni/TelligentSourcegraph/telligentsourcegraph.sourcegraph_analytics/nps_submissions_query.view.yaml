@@ -1,0 +1,22 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__nps_submissions_query
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: nps_submissions_query
+
+dimensions:
+  score: {}
+  user_is_authenticated: {}
+  use_cases: {}
+  reason: {}
+  suggestions: {}
+  email: {}
+  date_submitted: {}
+  first_name: {}
+  last_name: {}
+
+  remote_site_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

@@ -1,0 +1,39 @@
+# Reference this view as telligentsourcegraph_telemetry_staging__cloud_users
+catalog: telligentsourcegraph
+schema: telemetry_staging
+table_name: cloud_users
+
+dimensions:
+  username: {}
+
+  request_id:
+    sql: requestId
+    format: ID
+
+  external_url:
+    sql: LOWER( REPLACE( REGEXP_REPLACE( REGEXP_EXTRACT(externalUrl,
+      r'https?://([^/]+)/?'), r'^\.', '' ),'"',''))
+
+  instance_id:
+    sql: instanceId
+    format: ID
+
+  license_key:
+    sql: licenseKey
+
+  user_id:
+    sql: userId
+    format: ID
+
+  primary_email:
+    sql: primaryEmail
+
+  service_account:
+    sql: serviceAccount
+
+  assigned_rbac_roles:
+    sql: assignedRbacRoles
+
+measures:
+  count:
+    aggregate_type: count

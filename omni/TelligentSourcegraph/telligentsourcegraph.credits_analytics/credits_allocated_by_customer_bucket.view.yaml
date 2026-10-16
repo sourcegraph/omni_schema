@@ -1,0 +1,30 @@
+# Reference this view as telligentsourcegraph_credits_analytics__credits_allocated_by_customer_bucket
+catalog: telligentsourcegraph
+schema: credits_analytics
+table_name: credits_allocated_by_customer_bucket
+
+dimensions:
+  bucket_name: {}
+  bucket_start_date: {}
+  bucket_expiry_date: {}
+  instance_domain: {}
+  instance_type: {}
+  account_name: {}
+  credit_allocated: {}
+  credit_allocated_format: {}
+
+  bucket_id:
+    format: ID
+
+  subscription_id:
+    format: ID
+
+  salesforce_subscription_id:
+    format: ID
+
+  sfdc_unique_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

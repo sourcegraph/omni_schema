@@ -1,0 +1,119 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__upgrade_list
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: upgrade_list
+
+dimensions:
+  latest_installer_email: {}
+  upgrade_date: {}
+  remote_site_version: {}
+  user_level_event_usage_data_analytics_c: {}
+  customer_type: {}
+  active_product_classification: {}
+  type_of_agreement: {}
+  account_executive: {}
+  customer_engineer: {}
+  technical_advisor: {}
+  implementation_engineer: {}
+  account_owner: {}
+  customer_success_manager: {}
+  tier: {}
+  annual_revenue: {}
+  bundle_size: {}
+  industry: {}
+  is_strategic_account: {}
+  geo: {}
+  region: {}
+  country: {}
+  number_of_employees: {}
+  number_of_engineers: {}
+  technical_advisor_support_level_c: {}
+  ta_segmentation_c: {}
+  fy_25_segmentation_c: {}
+  eng_count: {}
+  amp_csm_queue: {}
+  csm_relationship_signal_overview: {}
+  csm_relationship_signal_color: {}
+  ai_terms: {}
+  analytics_pii_terms: {}
+  close_date: {}
+  contract_start: {}
+  contract_end: {}
+  contract_term: {}
+  products_purchased: {}
+  hard_cap: {}
+  use_cases: {}
+  poc_start_date: {}
+  poc_end_date: {}
+  deal_desk_approved: {}
+  year_one_solution_engineer: {}
+
+  name:
+    label: Account Name
+
+  unique_server_id:
+    format: ID
+
+  account_id:
+    format: ID
+
+  sfdc_unique_id:
+    format: ID
+
+  parent_account_id:
+    format: ID
+
+  source:
+    sql: SOURCE
+
+  opportunity_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count
+
+  count_accounts:
+    sql: ${account_id}
+    aggregate_type: count_distinct
+
+  count_accounts_upgraded_30d:
+    sql: |
+      CASE
+        WHEN date(${upgrade_date}) >= DATE_SUB(CURRENT_DATE(), INTERVAL 30 DAY)
+         AND date(${upgrade_date}) <= CURRENT_DATE
+        THEN ${account_id}
+      END
+    label: Accounts Upgraded (Last 30 Days)
+    description: Distinct accounts with an upgrade_date in the trailing 30 days
+    aggregate_type: count_distinct
+
+  count_accounts_upgraded_90d:
+    sql: |
+      CASE
+        WHEN date(${upgrade_date}) >= DATE_SUB(CURRENT_DATE(), INTERVAL 90 DAY)
+         AND date(${upgrade_date}) <= CURRENT_DATE
+        THEN ${account_id}
+      END
+    label: Accounts Upgraded (Last 90 Days)
+    aggregate_type: count_distinct
+
+  count_accounts_upgraded_180d:
+    sql: |
+      CASE
+        WHEN date(${upgrade_date}) >= DATE_SUB(CURRENT_DATE(), INTERVAL 180 DAY)
+         AND date(${upgrade_date}) <= CURRENT_DATE
+        THEN ${account_id}
+      END
+    label: Accounts Upgraded (Last 180 Days)
+    aggregate_type: count_distinct
+
+  count_accounts_upgraded_360d:
+    sql: |
+      CASE
+        WHEN date(${upgrade_date}) >= DATE_SUB(CURRENT_DATE(), INTERVAL 360 DAY)
+         AND date(${upgrade_date}) <= CURRENT_DATE
+        THEN ${account_id}
+      END
+    label: Accounts Upgraded (Last 360 Days)
+    aggregate_type: count_distinct

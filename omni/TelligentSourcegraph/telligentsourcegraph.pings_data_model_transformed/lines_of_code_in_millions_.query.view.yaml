@@ -1,0 +1,28 @@
+# Reference this view as lines_of_code_in_millions_
+label: Lines of code (in millions)
+
+catalog: telligentsourcegraph
+schema: pings_data_model_transformed
+query:
+  fields:
+    telligentsourcegraph_pings_data_model_transformed__server_instance_usage_repositories_monthly.month[month]: month_month
+    telligentsourcegraph_pings_data_model_transformed__server_instance_usage_repositories_monthly.lines_of_code_millions: lines_of_code_millions
+  base_view: telligentsourcegraph_pings_data_model_transformed__server_instance_usage_repositories_monthly
+  filters:
+    telligentsourcegraph_sfdc_current__dim_account_details.name:
+      is: 1Password
+    telligentsourcegraph_pings_data_model_transformed__server_instance_usage_repositories_monthly.month:
+      time_for_duration: [ 4 months ago, 4 months ]
+  sorts:
+    - field: telligentsourcegraph_pings_data_model_transformed__server_instance_usage_repositories_monthly.month[month]
+      desc: true
+
+dimensions:
+  lines_of_code_millions: {}
+
+  month_month:
+    primary_key: true
+
+measures:
+  count:
+    aggregate_type: count

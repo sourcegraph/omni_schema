@@ -1,0 +1,12 @@
+base_view: telligentsourcegraph_sourcegraph_analytics__server_instances
+label: Server Instances
+
+default_filters:
+  telligentsourcegraph_sfdc_current__dim_account_details.customer_type:
+    is: (1) Enterprise Customer
+
+joins:
+  telligentsourcegraph_sfdc_current__dim_account_details:
+    telligentsourcegraph_gsheets__customer_telemetry_status_updated: {}
+    telligentsourcegraph_sfdc_current__purchased_seat_monthly: {}
+  telligentsourcegraph_sfdc_current__looker_dim_account_details: {}

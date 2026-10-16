@@ -1,0 +1,75 @@
+# Reference this view as telligentsourcegraph_gsheets__pql_leads_by_account_type
+catalog: telligentsourcegraph
+schema: gsheets
+table_name: PQL_leads_by_account_type
+
+dimensions:
+  first_name:
+    sql: First_Name
+
+  last_name:
+    sql: Last_Name
+
+  title:
+    sql: Title
+
+  company___account:
+    sql: Company___Account
+
+  email:
+    sql: Email
+
+  rating:
+    sql: Rating
+
+  lead_owner:
+    sql: Lead_Owner
+
+  lead_status:
+    sql: Lead_Status
+
+  create_date:
+    sql: Create_Date
+    description: "%m/%d/%E4Y"
+
+  original_source:
+    sql: Original_Source
+
+  lead_source:
+    sql: Lead_Source
+
+  campaign_source:
+    sql: Campaign_Source
+
+  converted:
+    sql: Converted
+
+  first_touchpoint:
+    sql: First_Touchpoint
+
+  first_touchpoint_date:
+    sql: First_Touchpoint_Date
+    description: "%m/%d/%E4Y"
+
+  mql_date:
+    sql: MQL_Date
+    description: "%m/%d/%E4Y"
+
+  pql_date:
+    sql: PQL_Date
+    description: "%m/%d/%E4Y"
+
+  mql_pql_reason:
+    sql: MQL_PQL_Reason
+
+  pql_date___private_instance:
+    sql: PQL_Date___Private_Instance
+    description: "%m/%d/%E4Y"
+
+  pql_date___cloud:
+    sql: PQL_Date___Cloud
+    description: "%m/%d/%E4Y"
+
+measures:
+  count:
+    aggregate_type: count

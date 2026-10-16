@@ -1,0 +1,19 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__matik_code_insights_critical_total_count
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: matik_code_insights_critical_total_count
+
+dimensions:
+  remote_site_version: {}
+  ping_timestamp: {}
+  total_insights: {}
+
+  unique_server_id:
+    format: ID
+
+  remote_site_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

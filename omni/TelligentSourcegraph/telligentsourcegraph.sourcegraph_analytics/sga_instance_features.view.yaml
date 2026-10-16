@@ -1,0 +1,20 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__sga_instance_features
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: sga_instance_features
+
+dimensions:
+  instance_url: {}
+  in_cody_gateway: {}
+  has_cody_telemetry: {}
+  gateway_users_45d: {}
+  telemetry_users_30d: {}
+  total_active_users_30d: {}
+  best_cody_user_estimate: {}
+  cody_adoption_pct: {}
+  cody_detection_method: {}
+  features: {}
+
+measures:
+  count:
+    aggregate_type: count

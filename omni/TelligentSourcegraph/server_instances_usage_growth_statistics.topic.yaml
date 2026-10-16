@@ -1,0 +1,7 @@
+base_view: server_instances_usage_growth_statistics
+label: Created Deleted Users
+
+joins:
+  telligentsourcegraph_sourcegraph_analytics__server_instances:
+    telligentsourcegraph_sfdc_current__dim_account_details: {}
+    telligentsourcegraph_sfdc_current__looker_dim_account_details: {}

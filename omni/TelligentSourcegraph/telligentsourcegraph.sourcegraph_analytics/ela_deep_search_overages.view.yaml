@@ -1,0 +1,18 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__ela_deep_search_overages
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: ELA_deep_search_overages
+
+dimensions:
+  external_url: {}
+  account_name: {}
+  month: {}
+  deep_search_allocation: {}
+  source_type: {}
+  ds_queries: {}
+  ds_users: {}
+  monthly_overage: {}
+
+measures:
+  count:
+    aggregate_type: count

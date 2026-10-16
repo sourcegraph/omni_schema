@@ -1,0 +1,26 @@
+# Reference this view as telligentsourcegraph_pings_data_model_transformed__server_instance_usage_repositories_monthly
+catalog: telligentsourcegraph
+schema: pings_data_model_transformed
+table_name: server_instance_usage_repositories_monthly
+
+dimensions:
+  timestamp: {}
+  installer_email: {}
+  month: {}
+  new_lines_count: {}
+  default_branch_new_lines_count: {}
+  other_branches_new_lines_count: {}
+  git_dir_bytes: {}
+
+  remote_site_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count
+
+  lines_of_code_millions:
+    sql: ROUND(SUM(${new_lines_count}) / 1000000, 2)
+    label: Lines of code (in millions)
+    format: "#,##0.0"
+    description: Sum of new lines of code, scaled to millions

@@ -1,0 +1,48 @@
+# Reference this view as telligentsourcegraph_gsheets__systems_list
+catalog: telligentsourcegraph
+schema: gsheets
+table_name: systems_list
+
+dimensions:
+  system_vendor:
+    sql: System_Vendor
+
+  owner:
+    sql: Owner
+
+  backup_contact:
+    sql: Backup_Contact
+
+  owner__department_:
+    sql: Owner__Department_
+
+  currently_active:
+    sql: Currently_Active
+
+  access_method:
+    sql: Access_Method
+
+  user_provisioning_method:
+    sql: User_Provisioning_Method
+
+  data:
+    sql: Data
+
+  access_approval_required:
+    sql: Access_Approval_Required
+
+  customer_data:
+    sql: Customer_Data
+
+  category:
+    sql: Category
+
+  use_cases:
+    sql: Use_Cases
+
+  last_reviewed:
+    sql: Last_Reviewed
+
+measures:
+  count:
+    aggregate_type: count

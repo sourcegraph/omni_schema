@@ -1,0 +1,44 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__daus_to_maus
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: daus_to_maus
+
+dimensions:
+  average_DAUs: {}
+
+  external_url:
+    sql: externalUrl
+    label: External Url
+
+  month:
+    sql: CAST(month AS TIMESTAMP)
+    label: Month
+    description: Calendar week
+    timeframes: [ month ]
+
+measures:
+  sum_average_daus:
+    sql: average_DAUs
+    label: Avg DAUs
+    aggregate_type: sum
+
+  avg_daus:
+    sql: average_DAUs
+    hidden: true
+    aggregate_type: average
+
+  sum_maus:
+    sql: MAUs
+    label: MAUs
+    aggregate_type: sum
+
+  daus_to_maus:
+    sql: DAUs_to_MAUs
+    hidden: true
+    aggregate_type: sum
+
+  average_daus_to_maus:
+    sql: DAUs_to_MAUs
+    label: Average DAUs to MAUs
+    format: PERCENT_1
+    aggregate_type: average

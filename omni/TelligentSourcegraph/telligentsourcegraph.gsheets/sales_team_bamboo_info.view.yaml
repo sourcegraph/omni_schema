@@ -1,0 +1,20 @@
+# Reference this view as telligentsourcegraph_gsheets__sales_team_bamboo_info
+catalog: telligentsourcegraph
+schema: gsheets
+table_name: sales_team_bamboo_info
+
+dimensions:
+  name: {}
+  division_current: {}
+  title_current: {}
+  title_previous: {}
+
+  effective_date_current:
+    description: "%m/%d/%E4Y"
+
+  effective_date_previous:
+    description: "%E4Y-%m-%d"
+
+measures:
+  count:
+    aggregate_type: count

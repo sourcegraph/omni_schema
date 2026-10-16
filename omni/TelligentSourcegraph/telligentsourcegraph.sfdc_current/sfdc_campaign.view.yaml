@@ -1,0 +1,146 @@
+# Reference this view as telligentsourcegraph_sfdc_current__sfdc_campaign
+catalog: telligentsourcegraph
+schema: sfdc_current
+table_name: sfdc_campaign
+
+dimensions:
+  campaign__fivetran_synced: {}
+  actual_cost: {}
+  valid_from: {}
+  amount_all_opportunities: {}
+  amount_won_opportunities: {}
+  budgeted_cost: {}
+  campaign_created_date: {}
+  campaign_description: {}
+  end_date: {}
+  expected_response: {}
+  expected_revenue: {}
+  is_active: {}
+  campaign_is_deleted: {}
+  last_activity_date: {}
+  campaign_last_modified_date: {}
+  last_referenced_date: {}
+  last_viewed_date: {}
+  campaign_name: {}
+  number_of_contacts: {}
+  number_of_converted_leads: {}
+  number_of_leads: {}
+  number_of_opportunities: {}
+  number_of_responses: {}
+  number_of_won_opportunities: {}
+  number_sent: {}
+  start_date: {}
+  campaign_status: {}
+  campaign_system_modstamp: {}
+  campaign_type: {}
+  use_cases_c: {}
+  customer_involved_c: {}
+  target_registration_c: {}
+  is_abx_campaign_c: {}
+  unique_name_validation_c: {}
+  postal_io_item_trigger_1_c: {}
+  postal_io_status_update_1_value_c: {}
+  postal_io_status_update_2_value_c: {}
+  postal_io_action_2_c: {}
+  postal_io_action_1_c: {}
+  postal_io_item_trigger_2_c: {}
+  campaign_member__fivetran_synced: {}
+  city: {}
+  company_or_account: {}
+  country: {}
+  campaign_member_created_date: {}
+  campaign_member_description: {}
+  do_not_call: {}
+  email: {}
+  fax: {}
+  first_name: {}
+  first_responded_date: {}
+  has_opted_out_of_email: {}
+  has_opted_out_of_fax: {}
+  has_responded: {}
+  campaign_member_is_deleted: {}
+  campaign_member_last_modified_date: {}
+  last_name: {}
+  lead_source: {}
+  mobile_phone: {}
+  campaign_member_name: {}
+  phone: {}
+  postal_code: {}
+  salutation: {}
+  state: {}
+  campaign_member_status: {}
+  street: {}
+  campaign_member_system_modstamp: {}
+  title: {}
+  campaign_member_type: {}
+  event_conversation_notes_c: {}
+  survey_notes_c: {}
+  reporting_responded_date_c: {}
+  person_source_c: {}
+  person_source_category_c: {}
+  person_source_detail_c: {}
+  total_responders_c: {}
+  persona_details_c: {}
+  original_person_source_c: {}
+  current_person_source_c: {}
+  original_person_source_details_c: {}
+  current_person_source_details_c: {}
+  lead_status_c: {}
+  lead_sub_status_c: {}
+  ae_owner_c: {}
+  current_person_source_category_c: {}
+  original_person_source_category_c: {}
+  out_of_sla_c: {}
+  last_activity_since_membership_c: {}
+  person_created_date_c: {}
+  id_18_c: {}
+  date_uploaded: {}
+
+  campaign_id:
+    format: ID
+
+  campaign_member_record_type_id:
+    format: ID
+
+  campaign_created_by_id:
+    format: ID
+
+  campaign_last_modified_by_id:
+    format: ID
+
+  owner_id:
+    format: ID
+
+  parent_id:
+    format: ID
+
+  campaign_member_id:
+    format: ID
+
+  contact_id:
+    format: ID
+
+  campaign_member_created_by_id:
+    format: ID
+
+  campaign_member_last_modified_by_id:
+    format: ID
+
+  lead_id:
+    format: ID
+
+  lead_or_contact_id:
+    format: ID
+
+  lead_or_contact_owner_id:
+    format: ID
+
+  account_id:
+    format: ID
+
+  __index_level_0__:
+    hidden: true
+
+measures:
+  count:
+    aggregate_type: count

@@ -1,0 +1,24 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__cloud_hubspot_sync_product
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: cloud_hubspot_sync_product
+
+dimensions:
+  cohort_week: {}
+  has_added_repos: {}
+  has_cloud_account: {}
+  number_of_private_repos_added: {}
+  number_of_public_repos_added: {}
+  number_of_repos_added: {}
+  has_private_repos_cloud: {}
+  has_public_repos_cloud: {}
+  email: {}
+  last_product_usage: {}
+  days_active_last_30_cloud: {}
+
+  user_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

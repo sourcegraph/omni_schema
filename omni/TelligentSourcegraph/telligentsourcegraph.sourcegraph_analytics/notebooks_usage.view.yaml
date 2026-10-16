@@ -1,0 +1,48 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__notebooks_usage
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: notebooks_usage
+
+dimensions:
+  timestamp: {}
+  installer_email: {}
+
+  unique_server_id:
+    format: ID
+
+  remote_site_id:
+    format: ID
+
+  notebook_page_views:
+    sql: NotebookPageViews
+
+  embedded_notebook_page_views:
+    sql: EmbeddedNotebookPageViews
+
+  notebooks_list_page_views:
+    sql: NotebooksListPageViews
+
+  notebooks_created_count:
+    sql: NotebooksCreatedCount
+
+  notebook_added_stars_count:
+    sql: NotebookAddedStarsCount
+
+  notebook_added_markdown_blocks_count:
+    sql: NotebookAddedMarkdownBlocksCount
+
+  notebook_added_query_blocks_count:
+    sql: NotebookAddedQueryBlocksCount
+
+  notebook_added_file_blocks_count:
+    sql: NotebookAddedFileBlocksCount
+
+  notebook_added_symbol_blocks_count:
+    sql: NotebookAddedSymbolBlocksCount
+
+  notebook_added_compute_blocks_count:
+    sql: NotebookAddedComputeBlocksCount
+
+measures:
+  count:
+    aggregate_type: count

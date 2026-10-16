@@ -1,0 +1,36 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__account_assignment_prospect_score
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: account_assignment_prospect_score
+
+dimensions:
+  run_date: {}
+  name: {}
+  prospect_segment: {}
+  eng_count: {}
+  geo_c: {}
+  region_c: {}
+  geo_region_combined: {}
+  billing_country: {}
+  x_6_sense_6_qa_buying_stage_c: {}
+  industry: {}
+  opp_count: {}
+  targeted_tech_list_c: {}
+  target_tech_list_count: {}
+  tam_potential_score: {}
+  buying_signals_score: {}
+  region_score: {}
+  industry_score: {}
+  opp_count_score: {}
+  tech_list_score: {}
+  weighted_score: {}
+  clearbit_industry_c: {}
+  clearbit_industry_group_c: {}
+
+  id:
+    format: ID
+    primary_key: true
+
+measures:
+  count:
+    aggregate_type: count

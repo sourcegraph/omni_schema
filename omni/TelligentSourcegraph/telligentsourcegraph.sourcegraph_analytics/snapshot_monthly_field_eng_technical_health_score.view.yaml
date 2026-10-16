@@ -1,0 +1,48 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__snapshot_monthly_field_eng_technical_health_score
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: snapshot_monthly_field_eng_technical_health_score
+
+dimensions:
+  run_date: {}
+  customer_name: {}
+  arr: {}
+  external_url: {}
+  latest_ping: {}
+  host_type: {}
+  latest_version: {}
+  minor_versions_behind: {}
+  latest_deploy_type: {}
+  has_external_db: {}
+  postgres_version: {}
+  postgres_major: {}
+  executor_deploy_types: {}
+  executor_count: {}
+  executors_deployed: {}
+  executor_type: {}
+  executor_classification_source: {}
+  deep_search_observed: {}
+  agentic_batch_changes_observed: {}
+  batch_changes_observed: {}
+  precise_observed: {}
+  mcp_observed: {}
+  recent_ping_received: {}
+  technical_champion: {}
+  host_points: {}
+  version_points: {}
+  deployment_type_points: {}
+  feature_activation_points: {}
+  database_points: {}
+  executor_points: {}
+  technical_champion_points: {}
+  technical_health_score_out_of_100: {}
+
+  salesforce_account_id:
+    format: ID
+
+  sfdc_unique_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

@@ -1,0 +1,54 @@
+# Reference this view as telligentsourcegraph_enterprise_portal__subscriptions
+description: Enterprise Portal Subscriptions data sourced via EXTERNAL_QUERY
+
+catalog: telligentsourcegraph
+schema: enterprise_portal
+table_name: subscriptions
+
+dimensions:
+  instance_domain: {}
+  display_name: {}
+  created_at: {}
+  updated_at: {}
+  archived_at: {}
+  verified_domains: {}
+  salesforce_account_external_id_synced_at: {}
+
+  instance_type:
+    sql: CASE WHEN instance_type like "%PRIMARY%" THEN 'Primary' WHEN instance_type
+      like "%SECONDARY%" THEN 'Secondary' WHEN instance_type like "%INTERNAL%"
+      THEN 'Internal' ELSE instance_type END
+
+  id:
+    format: ID
+    primary_key: true
+
+  salesforce_subscription_id:
+    format: ID
+
+  salesforce_account_id:
+    format: ID
+
+  datastream_metadata:
+    parent_field: datastream_metadata
+
+  datastream_metadata_source_timestamp:
+    sql: datastream_metadata.source_timestamp
+    parent_field: datastream_metadata
+
+  datastream_metadata_uuid:
+    sql: datastream_metadata.`uuid`
+    parent_field: datastream_metadata
+
+  cloud_instance_id:
+    format: ID
+
+  salesforce_account_external_id:
+    format: ID
+
+  cloud_instance_gcp_project_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

@@ -1,0 +1,122 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__iarr_pacing_bot
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: iarr_pacing_bot
+
+dimensions:
+  iarr_recognized_week: {}
+  week_end: {}
+  cumulative_new_business: {}
+  cumulative_expansion: {}
+  cumulative_churn: {}
+  total_iarr: {}
+  total_acv: {}
+  q126_cumulative_new_business: {}
+  q126_cumulative_expansion: {}
+  q126_cumulative_churn: {}
+  q126_total_iarr: {}
+  q126_total_acv: {}
+  q226_cumulative_new_business: {}
+  q226_cumulative_expansion: {}
+  q226_cumulative_churn: {}
+  q226_total_iarr: {}
+  q226_total_acv: {}
+  fy26_cumulative_new_business: {}
+  fy26_cumulative_expansion: {}
+  fy26_cumulative_churn: {}
+  fy26_total_iarr: {}
+  fy26_total_acv: {}
+  q126_new_biz_attainment: {}
+  q126_expansion_attainment: {}
+  q126_churn_attainment: {}
+  q126_total_iarr_attainment: {}
+  q126_total_acv_attainment: {}
+  q126_new_biz_go_get: {}
+  q126_expansion_go_get: {}
+  q126_churn_go_get: {}
+  q126_total_arr_go_get: {}
+  q126_total_acv_go_get: {}
+  q226_new_biz_attainment: {}
+  q226_expansion_attainment: {}
+  q226_churn_attainment: {}
+  q226_total_iarr_attainment: {}
+  q226_total_acv_attainment: {}
+  q226_new_biz_go_get: {}
+  q226_expansion_go_get: {}
+  q226_churn_go_get: {}
+  q226_total_arr_go_get: {}
+  q226_total_acv_go_get: {}
+  q126_wow_new_biz: {}
+  q126_wow_expansion: {}
+  q126_wow_churn: {}
+  q126_wow_total_iarr: {}
+  q126_wow_total_acv: {}
+  q126_wow_new_biz_attainment: {}
+  q126_wow_expansion_attainment: {}
+  q126_wow_churn_attainment: {}
+  q126_wow_total_iarr_attainment: {}
+  q126_wow_total_acv_attainment: {}
+  q226_wow_new_biz: {}
+  q226_wow_expansion: {}
+  q226_wow_churn: {}
+  q226_wow_total_iarr: {}
+  q226_wow_total_acv: {}
+  q226_wow_new_biz_attainment: {}
+  q226_wow_expansion_attainment: {}
+  q226_wow_churn_attainment: {}
+  q226_wow_total_iarr_attainment: {}
+  q226_wow_total_acv_attainment: {}
+  fy26_wow_new_biz: {}
+  fy26_wow_expansion: {}
+  fy26_wow_churn: {}
+  fy26_wow_total_iarr: {}
+  fy26_wow_total_acv: {}
+
+  fy26_new_biz_attainment:
+    sql: FY26_new_biz_attainment
+
+  fy26_expansion_attainment:
+    sql: FY26_expansion_attainment
+
+  fy26_churn_attainment:
+    sql: FY26_churn_attainment
+
+  fy26_total_iarr_attainment:
+    sql: FY26_total_iarr_attainment
+
+  fy26_total_acv_attainment:
+    sql: FY26_total_acv_attainment
+
+  fy26_new_biz_go_get:
+    sql: FY26_new_biz_go_get
+
+  fy26_expansion_go_get:
+    sql: FY26_expansion_go_get
+
+  fy26_churn_go_get:
+    sql: FY26_churn_go_get
+
+  fy26_total_arr_go_get:
+    sql: FY26_total_arr_go_get
+
+  fy26_total_acv_go_get:
+    sql: FY26_total_acv_go_get
+
+  fy26_wow_new_biz_attainment:
+    sql: FY26_wow_new_biz_attainment
+
+  fy26_wow_expansion_attainment:
+    sql: FY26_wow_expansion_attainment
+
+  fy26_wow_churn_attainment:
+    sql: FY26_wow_churn_attainment
+
+  fy26_wow_total_iarr_attainment:
+    sql: FY26_wow_total_iarr_attainment
+
+  fy26_wow_total_acv_attainment:
+    sql: FY26_wow_total_acv_attainment
+
+measures:
+  count:
+    aggregate_type: count

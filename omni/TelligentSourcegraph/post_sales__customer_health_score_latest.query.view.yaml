@@ -1,0 +1,246 @@
+# Reference this view as post_sales__customer_health_score_latest
+label: Health Score (Latest)
+description: Most recent customer_health_score_final row per account, picked by
+  latest run_date.
+
+sql: |-
+  SELECT *
+  FROM `telligentsourcegraph.post_sales.customer_health_score_final`
+  QUALIFY ROW_NUMBER() OVER (
+    PARTITION BY account_id
+    ORDER BY run_date DESC
+  ) = 1
+
+dimensions:
+  # ── Account ────────────────────────────────────────────────────
+  account_name: {}
+  account_manager: {}
+  account_owner: {}
+  segmentation: {}
+  score_max: {}
+  score_feature_breadth: {}
+  score_versions_behind: {}
+  score_repos: {}
+  score_precise: {}
+  score_power_users: {}
+  score_inactive_users: {}
+  bonus_admin_analytics: {}
+  purchased_seats: {}
+  total_users: {}
+  power_highly_active_users: {}
+  inactive_users: {}
+  sga_users_past30d: {}
+  eng_count_final: {}
+  mau_over_eng_count: {}
+  # ── Features ───────────────────────────────────────────────────
+  features_used_90d: {}
+  features_used_list: {}
+  products_purchased: {}
+  # ── Deep Search ────────────────────────────────────────────────
+  ds_distinct_categories: {}
+  ds_categories_list: {}
+  ds_is_eligible: {}
+  ds_is_system_ready: {}
+  ds_all_time_queries: {}
+  ds_all_time_users: {}
+  # ── MCP ────────────────────────────────────────────────────────
+  num_mcp_users: {}
+  # ── Technical health ───────────────────────────────────────────
+  deployment_method: {}
+  current_version: {}
+  versions_behind: {}
+  repos_count_all: {}
+  repos_count_greater_1gb: {}
+  precise_enabled: {}
+  precise_actions_last_90d: {}
+  telemetry_status: {}
+  # ── Contract ───────────────────────────────────────────────────
+  has_ai_addendum: {}
+  type_of_agreement: {}
+  # ── Account churn ──────────────────────────────────────────────
+  ae_csm_changes_12m: {}
+  # ── Dates ──────────────────────────────────────────────────────
+  run_date: {}
+  first_contract_start: {}
+  ds_activated_date: {}
+
+  account_id:
+    format: ID
+    primary_key: true
+
+  sfdc_unique_id:
+    format: ID
+
+  unique_server_id:
+    format: ID
+
+  # ── Health score & band ────────────────────────────────────────
+  # Source columns are 0-100; divided by 100 so percent formatting renders.
+  health_score:
+    sql: health_score / 100
+    format: percent_0
+
+  raw_score:
+    sql: raw_score / 100
+    format: percent_0
+
+  health_band:
+    sql: |-
+      CASE
+        WHEN health_band = 'Green'        THEN '🟢 Green'
+        WHEN health_band = 'Yellow'       THEN '🟡 Yellow'
+        WHEN health_band = 'Red'          THEN '🔴 Red'
+        WHEN health_band = 'Onboarding'   THEN '🛠️ Onboarding'
+        WHEN health_band = 'No Telemetry' THEN '🚫 No Telemetry'
+        ELSE health_band
+      END
+
+  health_band_sort:
+    sql: |-
+      CASE
+        WHEN health_band = 'Green'        THEN 1
+        WHEN health_band = 'Yellow'       THEN 2
+        WHEN health_band = 'Red'          THEN 3
+        WHEN health_band = 'Onboarding'   THEN 4
+        WHEN health_band = 'No Telemetry' THEN 5
+        ELSE 6
+      END
+    label: Health Band (sort)
+    hidden: true
+
+  # ── Score components ───────────────────────────────────────────
+  score_mau_seats:
+    label: Score MAU/Seats
+
+  score_ds_diversity:
+    label: Score DS Diversity
+
+  score_ds_ready:
+    label: Score DS Ready
+
+  score_ai_addendum:
+    label: Score AI Adoption
+
+  score_products:
+    label: Score Products Purchased
+
+  score_mcp_adoption:
+    label: Score MCP Adoption
+
+  penalty_ds_unused:
+    label: Penalty DS Unused
+
+  # ── Band contributions ─────────────────────────────────────────
+  dimensions_red:
+    label: Health Red Dimensions
+
+  dimensions_yellow:
+    label: Health Yellow Dimensions
+
+  dimensions_green:
+    label: Health Green Dimensions
+
+  # ── Revenue ────────────────────────────────────────────────────
+  iacv:
+    label: IACV
+    format: usdcurrency_0
+
+  is_ela:
+    label: Is ELA
+
+  # ── Seats & usage ──────────────────────────────────────────────
+  last_mau:
+    label: Last MAU
+
+  avg_3m_mau_over_seats:
+    label: Avg 3M MAU/Seats
+    format: percent_0
+
+  pct_power_highly_active:
+    format: percent_0
+
+  pct_inactive:
+    format: percent_0
+
+  pct_users_mcp:
+    format: percent_0
+
+measures:
+  count:
+    drill_fields: [ account_name ]
+    aggregate_type: count
+
+  avg_health_score:
+    sql: ${health_score}
+    label: Health Score
+    format: percent_0
+    drill_fields:
+      [
+        run_date,
+        account_name,
+        sfdc_unique_id,
+        segmentation,
+        health_score,
+        health_band,
+        dimensions_green,
+        dimensions_yellow,
+        dimensions_red,
+        bonus_admin_analytics,
+        penalty_ds_unused
+      ]
+    aggregate_type: average
+
+  total_iacv:
+    sql: ${iacv}
+    label: IACV
+    format: usdcurrency_0
+    drill_fields:
+      [
+        run_date,
+        account_name,
+        sfdc_unique_id,
+        segmentation,
+        health_score,
+        health_band,
+        dimensions_green,
+        dimensions_yellow,
+        dimensions_red,
+        bonus_admin_analytics,
+        penalty_ds_unused
+      ]
+    aggregate_type: sum
+
+  distinct_accounts:
+    sql: ${account_name}
+    label: Distinct Accounts
+    drill_fields:
+      [
+        run_date,
+        account_name,
+        sfdc_unique_id,
+        segmentation,
+        health_score,
+        health_band,
+        dimensions_green,
+        dimensions_yellow,
+        dimensions_red,
+        bonus_admin_analytics,
+        penalty_ds_unused
+      ]
+    aggregate_type: count_distinct
+
+  # ── Band counts (not in LookML, cheap to add) ──────────────────
+  accounts_green:
+    sql: CASE WHEN health_band = 'Green' THEN 1 END
+    label: Accounts Green
+    aggregate_type: count
+
+  accounts_yellow:
+    sql: CASE WHEN health_band = 'Yellow' THEN 1 END
+    label: Accounts Yellow
+    aggregate_type: count
+
+  accounts_red:
+    sql: CASE WHEN health_band = 'Red' THEN 1 END
+    label: Accounts Red
+    aggregate_type: count

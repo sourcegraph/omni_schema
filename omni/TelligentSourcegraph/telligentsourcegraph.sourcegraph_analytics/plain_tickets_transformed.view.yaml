@@ -1,0 +1,501 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__plain_tickets_transformed
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: plain_tickets_transformed
+
+dimensions:
+  # ===========================================================================
+  # TICKET DETAILS
+  # ===========================================================================
+
+  title: {}
+  description: {}
+  preview_text: {}
+  status: {}
+  priority: {}
+  first_inbound_message_at: {}
+  first_outbound_message_at: {}
+  customer_name: {}
+  customer_email: {}
+  ##customer_email_domain: {}
+  company_domain: {}
+  status_detail: {}
+  label_names: {}
+  thread_type: {}
+  escalated: {}
+  product_area: {}
+
+  # ===========================================================================
+  # PRIMARY KEY
+  # ===========================================================================
+
+  id:
+    format: ID
+    links:
+      - url: https://app.plain.com/workspace/w_01K95VFHPKPY4ERZD73YRRR0RH/thread/${telligentsourcegraph_sourcegraph_analytics__plain_tickets_transformed.id}
+        label: 🔗 Open in Plain
+        target: blank
+    primary_key: true
+
+  external_id:
+    format: ID
+
+  hosting_type_raw:
+    sql: hosting_type
+    hidden: true
+
+  hosting_type:
+    sql: COALESCE(${hosting_type_raw}, 'Self-hosted')
+
+  status_group:
+    sql: |
+      CASE
+        WHEN ${status} IN ('DONE', 'IGNORED') THEN 'Closed'
+        ELSE 'Open'
+      END
+
+  priority_label:
+    sql: |
+      CASE ${priority}
+        WHEN 0 THEN '0 - Urgent'
+        WHEN 1 THEN '1 - High'
+        WHEN 2 THEN '2 - Normal'
+        WHEN 3 THEN '3 - Low'
+        ELSE 'Unknown'
+      END
+    order_by_field: priority
+
+  labels:
+    label: Labels (Product Area)
+
+  assignee_id:
+    format: ID
+    hidden: true
+
+  assignee_name:
+    label: Assignee
+
+  # ===========================================================================
+  # DATES
+  # ===========================================================================
+
+  created_at:
+    timeframes: [ raw, date, week, month, quarter, year ]
+
+  updated_at:
+    timeframes: [ raw, date, week, month, quarter, year ]
+
+  status_changed_at:
+    label: Resolved
+    timeframes: [ raw, date, week, month, quarter, year ]
+
+  day_of_week:
+    sql: EXTRACT(DAYOFWEEK FROM DATE(SAFE_CAST(${created_at[raw]} AS TIMESTAMP)))
+    label: Day of Week Number
+    group_label: Timestamp Period
+
+  day_of_week_name:
+    sql: |
+      CASE ${day_of_week}
+        WHEN 1 THEN 'Sunday'
+        WHEN 2 THEN 'Monday'
+        WHEN 3 THEN 'Tuesday'
+        WHEN 4 THEN 'Wednesday'
+        WHEN 5 THEN 'Thursday'
+        WHEN 6 THEN 'Friday'
+        WHEN 7 THEN 'Saturday'
+        ELSE 'Other'
+      END
+    label: Day of Week
+    group_label: Timestamp Period
+    order_by_field: day_of_week
+
+  ticket_age_days:
+    sql: TIMESTAMP_DIFF(CURRENT_TIMESTAMP(), ${created_at[raw]}, DAY)
+
+  ticket_age_bucket_sort:
+    sql: |
+      CASE
+        WHEN ${ticket_age_days} <  1 THEN 0
+        WHEN ${ticket_age_days} <  3 THEN 1
+        WHEN ${ticket_age_days} <  7 THEN 2
+        WHEN ${ticket_age_days} < 14 THEN 3
+        WHEN ${ticket_age_days} < 30 THEN 4
+        WHEN ${ticket_age_days} < 60 THEN 5
+        ELSE 6
+      END
+    hidden: true
+
+  ticket_age_bucket:
+    sql: |
+      CASE
+        WHEN ${ticket_age_days} <  1 THEN 'below 1'
+        WHEN ${ticket_age_days} <  3 THEN '1 to 2'
+        WHEN ${ticket_age_days} <  7 THEN '3 to 6'
+        WHEN ${ticket_age_days} < 14 THEN '7 to 13'
+        WHEN ${ticket_age_days} < 30 THEN '14 to 29'
+        WHEN ${ticket_age_days} < 60 THEN '30 to 59'
+        ELSE '60 or above'
+      END
+    order_by_field: ticket_age_bucket_sort
+
+  # ===========================================================================
+  # CUSTOMER
+  # ===========================================================================
+
+  customer_id:
+    format: ID
+    hidden: true
+
+  # ===========================================================================
+  # COMPANY (Plain)
+  # ===========================================================================
+
+  company_id:
+    format: ID
+    hidden: true
+
+  company_name:
+    label: Company (Plain)
+
+  contract_value:
+    format: CURRENCY_0
+
+  # ===========================================================================
+  # SFDC ACCOUNT (matched via domain)
+  # ===========================================================================
+
+  account_name:
+    label: Account Name (SFDC)
+
+  is_enterprise_customer:
+    sql: ${account_name} IS NOT NULL
+
+  # ===========================================================================
+  # RESOLUTION METRICS
+  # ===========================================================================
+
+  resolution_time_minutes:
+    hidden: true
+
+  resolution_time_hours:
+    format: "0.0"
+
+  resolution_time_business_days:
+    format: "0.0"
+
+  resolution_time_bucket_sort:
+    sql: |
+      CASE
+        WHEN ${resolution_time_hours} <   1 THEN 0
+        WHEN ${resolution_time_hours} <   4 THEN 1
+        WHEN ${resolution_time_hours} <   8 THEN 2
+        WHEN ${resolution_time_hours} <  24 THEN 3
+        WHEN ${resolution_time_hours} <  48 THEN 4
+        WHEN ${resolution_time_hours} <  72 THEN 5
+        WHEN ${resolution_time_hours} < 168 THEN 6
+        ELSE 7
+      END
+    hidden: true
+
+  resolution_time_bucket:
+    sql: |
+      CASE
+        WHEN ${resolution_time_hours} <   1 THEN 'below 1'
+        WHEN ${resolution_time_hours} <   4 THEN '1 to 3'
+        WHEN ${resolution_time_hours} <   8 THEN '4 to 7'
+        WHEN ${resolution_time_hours} <  24 THEN '8 to 23'
+        WHEN ${resolution_time_hours} <  48 THEN '24 to 47'
+        WHEN ${resolution_time_hours} <  72 THEN '48 to 71'
+        WHEN ${resolution_time_hours} < 168 THEN '72 to 167'
+        ELSE '168 or above'
+      END
+    order_by_field: resolution_time_bucket_sort
+
+  status_detail_ui:
+    label: Status Detail UI
+
+  first_response_sla_status:
+    label: SLA Status
+
+  channel:
+    label: Channel Source
+
+  ai_agent_status:
+    label: AI Agent Status
+
+  # ===========================================================================
+  # FIRST RESPONSE TIME
+  # ===========================================================================
+
+  first_response_seconds:
+    group_label: First Response Time
+
+  first_response_minutes:
+    group_label: First Response Time
+
+  first_response_hours:
+    group_label: First Response Time
+
+  first_response_days:
+    group_label: First Response Time
+
+  first_response_bucket:
+    group_label: First Response Time
+
+  plain_link:
+    sql: ${id}
+    label: Open in Plain
+    description: Renders the ticket ID as a clickable link to the thread in Plain.
+    markdown: "[🔗 Open in
+      Plain](https://app.plain.com/workspace/w_01K95VFHPKPY4ERZD73YRRR0RH/threa\
+      d/{{value}})"
+    links:
+      - url: https://app.plain.com/workspace/w_01K95VFHPKPY4ERZD73YRRR0RH/thread/${telligentsourcegraph_sourcegraph_analytics__plain_tickets_transformed.id}
+        label: 🔗 Open in Plain
+        target: blank
+
+measures:
+  # ===========================================================================
+  # COUNTS
+  # ===========================================================================
+
+  count:
+    label: Ticket Count
+    drill_fields:
+      [
+        id,
+        title,
+        status,
+        priority_label,
+        customer_name,
+        company_name,
+        account_name,
+        labels,
+        created_at,
+        assignee_name
+      ]
+    aggregate_type: count
+
+  count_open:
+    label: Open Tickets
+    drill_fields:
+      [
+        id,
+        title,
+        status,
+        priority_label,
+        customer_name,
+        company_name,
+        account_name,
+        labels,
+        created_at,
+        assignee_name
+      ]
+    aggregate_type: count
+    filters:
+      status_group:
+        is: Open
+
+  count_closed:
+    label: Closed Tickets
+    drill_fields:
+      [
+        id,
+        title,
+        status,
+        priority_label,
+        customer_name,
+        company_name,
+        account_name,
+        labels,
+        created_at,
+        assignee_name
+      ]
+    aggregate_type: count
+    filters:
+      status_group:
+        is: Closed
+
+  count_urgent:
+    label: Urgent Tickets
+    drill_fields:
+      [
+        id,
+        title,
+        status,
+        priority_label,
+        customer_name,
+        company_name,
+        account_name,
+        labels,
+        created_at,
+        assignee_name
+      ]
+    aggregate_type: count
+    filters:
+      priority:
+        is: 0
+
+  count_high_priority:
+    label: High Priority Tickets (Urgent + High)
+    drill_fields:
+      [
+        id,
+        title,
+        status,
+        priority_label,
+        customer_name,
+        company_name,
+        account_name,
+        labels,
+        created_at,
+        assignee_name
+      ]
+    aggregate_type: count
+    filters:
+      priority:
+        is: [ 0, 1 ]
+
+  count_sla_achieved:
+    aggregate_type: count
+    filters:
+      first_response_sla_status:
+        is: Achieved
+
+  count_sla_breached:
+    aggregate_type: count
+    filters:
+      first_response_sla_status:
+        is: Breached
+
+  pct_achieved:
+    sql: SAFE_DIVIDE(${count_sla_achieved}, ${count_sla_achieved} +
+      ${count_sla_breached})
+    format: PERCENT_0
+
+  count_enterprise:
+    label: Enterprise Customer Tickets
+    drill_fields:
+      [
+        id,
+        title,
+        status,
+        priority_label,
+        customer_name,
+        company_name,
+        account_name,
+        labels,
+        created_at,
+        assignee_name
+      ]
+    aggregate_type: count
+    filters:
+      is_enterprise_customer:
+        is: true
+
+  count_distinct_companies:
+    sql: ${company_name}
+    label: Distinct Companies
+    aggregate_type: count_distinct
+
+  count_distinct_customers:
+    sql: ${customer_email}
+    label: Distinct Customers
+    aggregate_type: count_distinct
+
+  # ===========================================================================
+  # RESOLUTION TIME
+  # ===========================================================================
+
+  avg_resolution_time_hours:
+    sql: ${resolution_time_hours}
+    label: Avg Resolution Time (Hours)
+    format: "0.0"
+    aggregate_type: average
+
+  avg_resolution_time_business_days:
+    sql: ${resolution_time_business_days}
+    label: Avg Resolution Time (Business Days)
+    format: "0.0"
+    aggregate_type: average
+
+  median_resolution_time_hours:
+    sql: ${resolution_time_hours}
+    label: Median Resolution Time (Hours)
+    format: "0.0"
+    aggregate_type: median
+
+  p90_resolution_time_hours:
+    sql: ${resolution_time_hours}
+    label: P90 Resolution Time (Hours)
+    format: "0.0"
+    aggregate_type: percentile
+    percentile: 90
+
+  p75_resolution_time_hours:
+    sql: ${resolution_time_hours}
+    label: P75 Resolution Time (Hours)
+    format: "0.0"
+    aggregate_type: percentile
+    percentile: 75
+
+  # ===========================================================================
+  # FIRST RESPONSE TIME
+  # ===========================================================================
+
+  avg_first_response_seconds:
+    sql: ${first_response_seconds}
+    group_label: First Response Time
+    format: "0.0"
+    aggregate_type: average
+
+  median_first_response_seconds:
+    sql: ${first_response_seconds}
+    group_label: First Response Time
+    format: "0.0"
+    aggregate_type: median
+
+  avg_first_response_minutes:
+    sql: ${first_response_minutes}
+    group_label: First Response Time
+    format: "0.0"
+    aggregate_type: average
+
+  avg_first_response_hours:
+    sql: ${first_response_hours}
+    group_label: First Response Time
+    format: "0.0"
+    aggregate_type: average
+
+  avg_first_response_days:
+    sql: ${first_response_days}
+    group_label: First Response Time
+    format: "0.0"
+    aggregate_type: average
+
+  # ===========================================================================
+  # TICKET AGE (open tickets)
+  # ===========================================================================
+
+  avg_ticket_age_days:
+    sql: ${ticket_age_days}
+    label: Avg Ticket Age (Days)
+    format: "0.0"
+    description: Average age of open tickets
+    aggregate_type: average
+    filters:
+      status_group:
+        is: Open
+
+  oldest_ticket_age_days:
+    sql: ${ticket_age_days}
+    label: Oldest Open Ticket (Days)
+    aggregate_type: max
+    filters:
+      status_group:
+        is: Open
+
+  tickets_per_customer:
+    sql: ${count} / ${count_distinct_customers}
+    format: "0.00"

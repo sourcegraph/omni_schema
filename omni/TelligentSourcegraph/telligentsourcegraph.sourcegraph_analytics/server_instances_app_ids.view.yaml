@@ -1,0 +1,15 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__server_instances_app_ids
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: server_instances_app_ids
+
+dimensions:
+  unique_server_id:
+    format: ID
+
+  app_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

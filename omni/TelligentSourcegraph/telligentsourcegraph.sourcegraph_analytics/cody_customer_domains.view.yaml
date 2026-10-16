@@ -1,0 +1,12 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__cody_customer_domains
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: cody_customer_domains
+
+dimensions:
+  customer_name: {}
+  domain: {}
+
+measures:
+  count:
+    aggregate_type: count

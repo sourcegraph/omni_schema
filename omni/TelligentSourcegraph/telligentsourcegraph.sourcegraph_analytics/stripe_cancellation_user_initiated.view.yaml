@@ -1,0 +1,33 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__stripe_cancellation_user_initiated
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: stripe_cancellation_user_initiated
+
+dimensions:
+  customer_created_date: {}
+  canceled_at_click: {}
+  cancel_at_period_end: {}
+  refund_amount: {}
+  refund_date: {}
+  days_to_cancel: {}
+  weeks_to_cancel: {}
+  did_cancel: {}
+  fraud_type: {}
+  failure_code: {}
+  cancellation_details_comment: {}
+  cancellation_details_reason: {}
+  cancellation_details_feedback: {}
+
+  id:
+    format: ID
+    primary_key: true
+
+  cancel_at_planend:
+    sql: cancel_at_planEnd
+
+  refund_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

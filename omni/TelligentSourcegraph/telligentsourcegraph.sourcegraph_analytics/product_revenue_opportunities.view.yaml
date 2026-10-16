@@ -1,0 +1,16 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__product_revenue_opportunities
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: product_revenue_opportunities
+
+dimensions:
+  feature: {}
+  new_business_revenue: {}
+  expansion_revenue: {}
+  new_business_opportunities: {}
+  expansion_opportunities: {}
+  github_issue_number: {}
+
+measures:
+  count:
+    aggregate_type: count

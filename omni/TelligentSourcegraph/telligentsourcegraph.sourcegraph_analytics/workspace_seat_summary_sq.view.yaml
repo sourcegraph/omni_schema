@@ -1,0 +1,26 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__workspace_seat_summary_sq
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: workspace_seat_summary_sq
+
+dimensions:
+  event_date: {}
+  seat_delta_creation: {}
+  seat_delta_update: {}
+  seat_delta_consumed: {}
+  number_of_seats_active: {}
+  sum_coupons: {}
+  seats_at_renewal: {}
+  churned_seats_user_initiated: {}
+  churned_seats_billing_period_end: {}
+
+  workspace_id:
+    sql: workspaceId
+    format: ID
+
+  amount_cents_paid:
+    sql: amountCentsPaid
+
+measures:
+  count:
+    aggregate_type: count

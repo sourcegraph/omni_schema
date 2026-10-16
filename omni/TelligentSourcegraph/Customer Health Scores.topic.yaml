@@ -1,0 +1,8 @@
+base_view: post_sales__customer_health_score_latest
+
+joins:
+  telligentsourcegraph_sfdc_current__looker_dim_account_details:
+    telligentsourcegraph_credits_analytics__credits_pacing_by_customer: {}
+    telligentsourcegraph_sourcegraph_analytics__server_instances: {}
+  post_sales__customer_momentum_score_latest: {}
+  post_sales__csm_relationship_signal_latest: {}

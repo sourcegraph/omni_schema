@@ -1,0 +1,18 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__maus_last_full_month
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: maus_last_full_month
+
+dimensions:
+  month: {}
+  user_count: {}
+
+  unique_server_id:
+    format: ID
+
+  sfdc_unique_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

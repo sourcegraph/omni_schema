@@ -1,0 +1,60 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__cloud_repos_master_table
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: cloud_repos_master_table
+
+dimensions:
+  repo_name: {}
+  repo_description: {}
+  repo_forked: {}
+  repo_created_at: {}
+  repo_updated_at: {}
+  repo_external_service_type: {}
+  repo_archived: {}
+  repo_deleted_at: {}
+  repo_private: {}
+  repo_stars: {}
+  username: {}
+  user_created_at: {}
+  user_updated_at: {}
+  user_deleted_at: {}
+  user_invite_quota: {}
+  user_site_admin: {}
+  user_page_views: {}
+  user_search_queries: {}
+  email: {}
+  email_created_at: {}
+  email_verified_at: {}
+  last_email_verification_sent_at: {}
+  email_is_primary: {}
+
+  repo_id:
+    format: ID
+
+  repo_external_id:
+    format: ID
+
+  codehost_added_repo_id:
+    format: ID
+
+  codehost_added_user_id:
+    format: ID
+
+  url_added_repo_id:
+    format: ID
+
+  url_added_user_id:
+    format: ID
+
+  master_user_id:
+    format: ID
+
+  user_billing_customer_id:
+    format: ID
+
+  user_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

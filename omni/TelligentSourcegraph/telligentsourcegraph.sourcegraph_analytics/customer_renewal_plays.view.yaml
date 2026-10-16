@@ -1,0 +1,38 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__customer_renewal_plays
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: customer_renewal_plays
+
+dimensions:
+  customer_name: {}
+  account_manager: {}
+  customer_tier: {}
+  renewal_date: {}
+  contract_term_length: {}
+  products_purchased: {}
+  mau: {}
+  seats: {}
+  mau_to_seats_ratio: {}
+  dau: {}
+  wau: {}
+  dau_to_wau_ratio: {}
+  is_self_hosted: {}
+  versions_behind: {}
+  version: {}
+  is_byok: {}
+  deep_search_free_allocation: {}
+  deep_search_total_quota: {}
+  deep_search_consumption: {}
+  deep_search_pct_consumed: {}
+  deep_search_projected_runout_date: {}
+  deep_search_active_users: {}
+  is_using_agents: {}
+  has_mcp_usage: {}
+  avg_daily_mcp_users: {}
+
+  customer_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

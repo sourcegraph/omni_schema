@@ -1,0 +1,27 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__iarr_sfdc_opportunity
+description: All iARR Opportunities as of Q1 2025
+
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: iarr_sfdc_opportunity
+
+dimensions:
+  account_name: {}
+  account_type: {}
+  opp_name: {}
+  close_date: {}
+  type: {}
+  iarr_c: {}
+  stage_name: {}
+  iarr_recognized_date: {}
+  final_type: {}
+
+  opportunity_id:
+    format: ID
+
+  account_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

@@ -1,0 +1,19 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__polytomic_account_assignment_sfdc
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: polytomic_account_assignment_sfdc
+
+dimensions:
+  account_name: {}
+  account_type: {}
+  expansion_score: {}
+  prospect_score: {}
+  health_score: {}
+  momentum_score: {}
+
+  account_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

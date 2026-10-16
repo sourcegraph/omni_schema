@@ -1,0 +1,33 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__iarr_tracking_daily
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: iarr_tracking_daily
+
+dimensions:
+  iarr_recognized_week: {}
+  iarr_recognized_date: {}
+  new_business: {}
+  expansion: {}
+  churn: {}
+  cumulative_new_business: {}
+  cumulative_expansion: {}
+  cumulative_churn: {}
+  q126_cumulative_new_business: {}
+  q126_cumulative_expansion: {}
+  q126_cumulative_churn: {}
+  q226_cumulative_new_business: {}
+  q226_cumulative_expansion: {}
+  q226_cumulative_churn: {}
+
+  fy26_cumulative_new_business:
+    sql: FY26_cumulative_new_business
+
+  fy26_cumulative_expansion:
+    sql: FY26_cumulative_expansion
+
+  fy26_cumulative_churn:
+    sql: FY26_cumulative_churn
+
+measures:
+  count:
+    aggregate_type: count

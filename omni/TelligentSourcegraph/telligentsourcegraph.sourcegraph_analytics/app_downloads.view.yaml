@@ -1,0 +1,68 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__app_downloads
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: app_downloads
+
+dimensions:
+  name: {}
+  url: {}
+  source: {}
+  argument: {}
+  version: {}
+  timestamp: {}
+  first_source_url: {}
+  feature_flags: {}
+  cohort_id: {}
+  referrer: {}
+  public_argument: {}
+  last_source_url: {}
+  original_referrer: {}
+  session_referrer: {}
+  session_first_url: {}
+  billing_product_category: {}
+  client: {}
+  hashed_license_key: {}
+  email: {}
+  username: {}
+  is_sourcegraph_teammate: {}
+  date: {}
+  site: {}
+  os: {}
+  is_sourcegraph_employee: {}
+
+  user_id:
+    format: ID
+
+  anonymous_user_id:
+    format: ID
+
+  device_id:
+    format: ID
+
+  insert_id:
+    format: ID
+
+  device_session_id:
+    format: ID
+
+  connected_site_id:
+    format: ID
+
+  billing_event_id:
+    format: ID
+
+  is_cody_product_dau_event:
+    sql: is_cody_product_DAU_event
+
+  is_cody_product_dau_or_installation_event:
+    sql: is_cody_product_DAU_or_installation_event
+
+  is_cody_billing_dau_event:
+    sql: is_cody_billing_DAU_event
+
+  original_raw_user_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

@@ -1,0 +1,176 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__missing_credit_bucket_alerts
+description: Append-only Zapier alerts for completed credit allocations that
+  need an Enterprise Portal credit bucket created or fixed.
+
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: missing_credit_bucket_alerts
+
+dimensions:
+  product_code: {}
+  assigned_priority: {}
+  customer_success_manager_name: {}
+  customer_success_manager_email: {}
+
+  alert_id:
+    format: ID
+    description: Stable identifier derived from the DealHub credit-line ID. Zapier
+      should use this field for deduplication.
+
+  detected_at:
+    description: Timestamp when the hourly pipeline first detected the missing bucket.
+
+  customer_name:
+    description: Salesforce account name.
+
+  salesforce_account_id:
+    format: ID
+
+  opportunity_name:
+    description: Completed opportunity containing the credit allocation.
+
+  closed_won_date:
+    description: Opportunity close date.
+
+  salesforce_opportunity_url:
+    description: Direct link to the Salesforce opportunity.
+
+  dealhub_subscription_id:
+    format: ID
+    description: DealHub credit-line ID that should be linked from the Enterprise
+      Portal bucket.
+
+  salesforce_subscription_id:
+    format: ID
+    description: Salesforce subscription ID referenced by the DealHub credit line.
+
+  enterprise_portal_subscription_id:
+    format: ID
+    description: Matching active Enterprise Portal subscription when exactly one exists.
+
+  subscription_mapping_status:
+    description: READY, MISSING_PORTAL_SUBSCRIPTION, or MULTIPLE_PORTAL_SUBSCRIPTIONS.
+
+  subscription_mapping_method:
+    description: Matched by Salesforce subscription ID or primary Salesforce account
+      fallback.
+
+  credit_type:
+    description: Included credits or add-on credits.
+
+  credit_quantity:
+    description: Expected bucket quantity from its DealHub line; seat true-up lines
+      are reassigned to current and future contract years without changing their
+      ID-to-quantity pairing.
+
+  credit_start_date:
+    description: Expected bucket start date, aligned to contract-year boundaries for
+      seat true-ups.
+
+  credit_end_date:
+    description: Expected bucket end date, aligned to contract-year boundaries for
+      seat true-ups.
+
+  requested_bucket_name:
+    description: Enterprise Portal bucket name requested in DealHub.
+
+  requested_priority:
+    description: Enterprise Portal bucket priority requested in DealHub.
+
+  account_owner_name:
+    description: Salesforce account owner who should create or fix the bucket.
+
+  account_owner_email:
+    description: Email Zapier should use to route the alert.
+
+  account_executive_name:
+    description: Salesforce account executive assigned to the opportunity.
+
+  account_executive_email:
+    description: Email for the assigned account executive.
+
+  customer_engineer_name:
+    description: Salesforce customer engineer assigned to the opportunity or account.
+
+  customer_engineer_email:
+    description: Email for the assigned customer engineer.
+
+  data_quality_issues:
+    description: Semicolon-delimited fields that must be fixed before a bucket can
+      be created.
+
+  possible_unlinked_bucket_count:
+    description: Active buckets on the same EP subscription with a blank or
+      incorrect DealHub ID and compatible allocation details.
+
+  possible_unlinked_bucket_ids:
+    description: Comma-separated Enterprise Portal bucket IDs to review for fix alerts.
+
+  possible_unlinked_bucket_details:
+    description: Potential unlinked bucket IDs and form values for owner review.
+
+  form_display_name:
+    description: Copy-ready value for the Create credit bucket Display name field.
+
+  form_dealhub_subscription_id:
+    format: ID
+    description: Copy-ready value for the DealHub subscription ID field.
+
+  form_credits_total:
+    description: Copy-ready value for the Credits total field.
+
+  form_priority:
+    description: Approved base priority for standard allocations, or one below the
+      lowest existing same-year included-credit priority for seat true-ups.
+
+  form_start_date:
+    description: Copy-ready value for the Start date field.
+
+  form_expiry_date:
+    description: Copy-ready value for the Expiry date field.
+
+  alert_type:
+    description: "Zapier filter field: NEW_BUCKET_REQUIRED or EXISTING_BUCKET_FIX_REQUIRED."
+
+  alert_title:
+    description: Short Zapier-ready title for the alert.
+
+  required_action:
+    description: Concise instruction describing whether to create a bucket or fix an
+      existing bucket.
+
+  priority_action:
+    description: Instruction to use the supplied priority, including true-up
+      priority laddering.
+
+  rollover_action:
+    description: Manual reminder because Salesforce does not provide an
+      authoritative rollover value.
+
+  form_notes:
+    description: Copy-ready notes containing the Salesforce opportunity and DealHub
+      references.
+
+  action_message:
+    description: Zapier-ready message tailored to the required create or fix action.
+
+  enterprise_portal_credits_url:
+    description: Direct link to the Enterprise Portal Credits page for the mapped
+      subscription.
+
+  secondary_recipient_role:
+    description: CUSTOMER_SUCCESS_MANAGER for existing-customer opportunities;
+      otherwise SOLUTION_ENGINEER for Year 1 buckets and
+      CUSTOMER_SUCCESS_MANAGER for later years.
+
+  secondary_recipient_name:
+    description: Salesforce user who shares responsibility with the Account Owner
+      based on opportunity type and bucket year.
+
+  secondary_recipient_email:
+    description: Email Zapier should use to find and tag the opportunity- and
+      year-based secondary recipient in Slack.
+
+measures:
+  count:
+    aggregate_type: count

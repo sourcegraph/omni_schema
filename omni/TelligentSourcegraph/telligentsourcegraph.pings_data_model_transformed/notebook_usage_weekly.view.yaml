@@ -1,0 +1,25 @@
+# Reference this view as telligentsourcegraph_pings_data_model_transformed__notebook_usage_weekly
+catalog: telligentsourcegraph
+schema: pings_data_model_transformed
+table_name: notebook_usage_weekly
+
+dimensions:
+  timestamp: {}
+  installer_email: {}
+  week: {}
+  embedded_notebook_page_views: {}
+  notebooks_created_count: {}
+  notebook_page_views: {}
+  notebook_added_markdown_blocks_count: {}
+  notebooks_list_page_views: {}
+  notebook_added_stars_count: {}
+  notebook_added_compute_blocks_count: {}
+  notebook_added_query_blocks_count: {}
+  notebook_added_file_blocks_count: {}
+
+  remote_site_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

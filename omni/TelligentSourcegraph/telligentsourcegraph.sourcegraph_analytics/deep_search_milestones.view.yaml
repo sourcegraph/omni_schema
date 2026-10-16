@@ -1,0 +1,54 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__deep_search_milestones
+description: Append-only customer and all-customer milestones for Deep Search
+  queries and unique users.
+
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: deep_search_milestones
+
+dimensions:
+  milestone_id:
+    format: ID
+    description: Stable identifier derived from customer, event type, and milestone count.
+
+  customer_key:
+    description: Salesforce account ID when available; otherwise the normalized
+      external URL. Global milestones use all_customers.
+
+  customer_name:
+    description: Salesforce customer name when available; otherwise the external
+      URL. Global milestones use All customers.
+
+  triggering_external_url:
+    description: Instance whose activity caused the customer to cross the milestone.
+
+  event_type:
+    description: Customer or lifetime all-customer Deep Search milestone category.
+
+  milestone_count:
+    description: Threshold reached for the event type.
+
+  current_metric_count:
+    description: Customer or all-customer lifetime query/user count when detected.
+
+  customers_with_milestone:
+    description: Total customers that have reached this event type and milestone
+      count; null for all-customer milestones.
+
+  milestone_reached_at:
+    description: Date the customer first crossed the milestone, represented as a UTC
+      timestamp.
+
+  detected_at:
+    description: Timestamp when this row was first inserted by the hourly pipeline.
+
+  notification_sort_key:
+    description: Monotonically sortable, unique key used by Zapier's BigQuery New
+      Row trigger.
+
+  alert_message:
+    description: Preformatted Slack milestone message.
+
+measures:
+  count:
+    aggregate_type: count

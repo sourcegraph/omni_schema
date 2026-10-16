@@ -1,0 +1,23 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__ai_impact_retention_weekly
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: ai_impact_retention_weekly
+
+dimensions:
+  ai_terms: {}
+  num_cohorts: {}
+  total_users: {}
+  avg_week_0_retention: {}
+  avg_week_1_retention: {}
+  avg_week_2_retention: {}
+  avg_week_3_retention: {}
+  avg_week_4_retention: {}
+  avg_week_5_retention: {}
+  avg_week_6_retention: {}
+  avg_week_7_retention: {}
+  avg_week_8_retention: {}
+  avg_week_12_retention: {}
+
+measures:
+  count:
+    aggregate_type: count

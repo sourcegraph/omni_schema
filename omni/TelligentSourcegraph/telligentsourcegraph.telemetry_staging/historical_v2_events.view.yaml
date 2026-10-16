@@ -1,0 +1,531 @@
+# Reference this view as telligentsourcegraph_telemetry_staging__historical_v2_events
+catalog: telligentsourcegraph
+schema: telemetry_staging
+table_name: historical_v2_events
+
+dimensions:
+  publish_time:
+    description: Timestamp of when the event landed in our data-warehouse.
+
+  timestamp:
+    description: Timestamp of when the original event was recorded.
+
+  metadata:
+    description: Metadata associated with the request to publish this event.
+    parent_field: metadata
+
+  metadata_identifier:
+    sql: metadata.identifier
+    description: |-
+      Telemetry publisher self-identification - for example, a Sourcegraph
+       instance of some other kind of service.
+    parent_field: metadata
+
+  metadata_identifier_licensedinstance:
+    sql: metadata.identifier.licensedInstance
+    description: A licensed Sourcegraph instance.
+    parent_field: metadata
+
+  metadata_identifier_licensedinstance_externalurl:
+    sql: metadata.identifier.licensedInstance.externalUrl
+    description: Instance external URL defined in the instance site configuration.
+    parent_field: metadata
+
+  metadata_identifier_licensedinstance_instanceid:
+    sql: metadata.identifier.licensedInstance.instanceId
+    description: Self-reported Sourcegraph instance identifier.
+    parent_field: metadata
+
+  metadata_identifier_licensedinstance_licensekey:
+    sql: metadata.identifier.licensedInstance.licenseKey
+    description: License key configured in the Sourcegraph instance emitting the event.
+    parent_field: metadata
+
+  metadata_identifier_managedservice:
+    sql: metadata.identifier.managedService
+    description: |-
+      A service operated and managed by the Sourcegraph team, for example
+       a service deployed by MSP: https://handbook.sourcegraph.com/departments/engineering/teams/core-services/managed-services/platform/
+
+       Valid SAMS client credentials are required to publish events under a
+       managed service identifier. The required scope is
+       'telemetry_gateway::events::publish'. See go/sams-client-credentials and
+       go/sams-token-scopes for more information.
+    parent_field: metadata
+
+  metadata_identifier_managedservice_serviceenvironment:
+    sql: metadata.identifier.managedService.serviceEnvironment
+    description: Self-reported service environment, for example 'prod' or 'dev'.
+    parent_field: metadata
+
+  metadata_identifier_managedservice_serviceid:
+    sql: metadata.identifier.managedService.serviceId
+    description: Self-reported service identifier, for example 'my-service'.
+    parent_field: metadata
+
+  metadata_identifier_unlicensedinstance:
+    sql: metadata.identifier.unlicensedInstance
+    description: An unlicensed Sourcegraph instance.
+    parent_field: metadata
+
+  metadata_identifier_unlicensedinstance_externalurl:
+    sql: metadata.identifier.unlicensedInstance.externalUrl
+    description: Instance external URL defined in the instance site configuration.
+    parent_field: metadata
+
+  metadata_identifier_unlicensedinstance_instanceid:
+    sql: metadata.identifier.unlicensedInstance.instanceId
+    description: Self-reported Sourcegraph instance identifier.
+    parent_field: metadata
+
+  metadata_identifier_workspace:
+    sql: metadata.identifier.workspace
+    description: A Sourcegraph workspace.
+    parent_field: metadata
+
+  metadata_identifier_workspace_externalurl:
+    sql: metadata.identifier.workspace.externalUrl
+    description: Workspace external URL.
+    parent_field: metadata
+
+  metadata_identifier_workspace_workspaceid:
+    sql: metadata.identifier.workspace.workspaceId
+    description: Workspace identifier.
+    parent_field: metadata
+
+  metadata_requestid:
+    sql: metadata.requestId
+    description: ID associated with the request to publish this event.
+    parent_field: metadata
+
+  external_url:
+    sql: externalUrl
+    description: Instance external URL defined in the instance site configuration.
+      Populated from either the licensed or unlicensed instance metadata.
+
+  instance_id:
+    sql: instanceId
+    format: ID
+    description: Self-reported Sourcegraph instance identifier. Populated from
+      either the licensed or unlicensed instance metadata.
+
+  id:
+    format: ID
+    description: Generated ID of the event, currently expected to be UUID v4.
+    primary_key: true
+
+  user_id:
+    sql: userId
+    format: ID
+    description: |-
+      Sourcegraph instance database user ID of the user. User IDs are specific to
+       a Sourcegraph instance, and are not universal across Sourcegraph instances.
+
+       We use an int64 as an ID because in Sourcegraph, database user IDs are
+       always integers.
+
+  anonymous_user_id:
+    sql: anonymousUserId
+    format: ID
+    description: |-
+      Randomized unique identifier representing the user (typically stored in
+       localstorage in web clients, or similar mechanisms elsewhere). This is
+       often used for unauthenticated users, but can persist to authenticated
+       users as well.
+
+  sams_external_id:
+    sql: samsExternalId
+    format: ID
+    description: |-
+      Sourcegraph Accounts Management System (SAMS) account associated with the
+       user, represented by a SAMS external user ID in a UUID format. This is only
+       valid for services leveraging SAMS as an identity provider - in other words,
+       traditional Sourcegraph instances will not provide this.
+
+       Learn more about SAMS: https://handbook.sourcegraph.com/departments/engineering/teams/core-services/sams
+
+  user_metadata:
+    sql: userMetadata
+    description: Metadata associated with the user. Populated by data & analytics pipelines
+    parent_field: user_metadata
+
+  usermetadata_email:
+    sql: userMetadata.email
+    description: Primary email address associated with the user
+    parent_field: user_metadata
+
+  usermetadata_issourcegraphteammate:
+    sql: userMetadata.isSourcegraphTeammate
+    description: Indicates whether the user is a Sourcegraph teammate.
+    parent_field: user_metadata
+
+  usermetadata_username:
+    sql: userMetadata.username
+    description: Username associated with the user
+    parent_field: user_metadata
+
+  unique_user_id:
+    sql: uniqueUserId
+    format: ID
+    description: Concatenated userId and instanceId. Used to uniquely identify users
+      within an instance.
+
+  feature:
+    description: Feature associated with the event in camelCase, e.g. 'myFeature'.
+
+  action:
+    description: Action associated with the event in camelCase, e.g. 'pageView'.
+
+  event_name:
+    sql: eventName
+    description: Concatenated feature:action, e.g. myFeature:pageView
+
+  server:
+    description: |-
+      Information about the server that is publishing the event, based on
+       RecordEventsRequestMetadata.Identifier.
+    parent_field: server
+
+  server_apirequestclient:
+    sql: server.apiRequestClient
+    description: Information about the client that made an API request.
+    parent_field: server
+
+  server_apirequestclient_apiclientfeature:
+    sql: server.apiRequestClient.apiClientFeature
+    description: Feature of the client that made an API request.
+    parent_field: server
+
+  server_apirequestclient_apiclientname:
+    sql: server.apiRequestClient.apiClientName
+    description: Name of the client that made an API request.
+    parent_field: server
+
+  server_apirequestclient_apiclientversion:
+    sql: server.apiRequestClient.apiClientVersion
+    description: Version of the client that made an API request.
+    parent_field: server
+
+  server_apirequestclient_requestedwith:
+    sql: server.apiRequestClient.requestedWith
+    description: HTTP header identifying the type of client making the API request.
+    parent_field: server
+
+  server_apirequestclient_useragent:
+    sql: server.apiRequestClient.userAgent
+    description: User agent of the client that made an API request.
+    parent_field: server
+
+  server_version:
+    sql: server.version
+    description: |-
+      Version of the server emitting the event, corresponding to
+       RecordEventsRequestMetadata.Identifier. For example, if the Identifier
+       indicates the publisher is a Sourcegraph instance, the version represents
+       the version of the Sourcegraph server.
+    parent_field: server
+
+  client:
+    description: Information about the client that generated the event.
+    parent_field: client
+
+  client_name:
+    sql: client.name
+    description: Source client of the event.
+    parent_field: client
+
+  client_version:
+    sql: client.version
+    description: Version of the client.
+    parent_field: client
+
+  client_versionmajor:
+    sql: client.versionMajor
+    description: Major version of the client.
+    parent_field: client
+
+  client_versionminor:
+    sql: client.versionMinor
+    description: Minor version of the client.
+    parent_field: client
+
+  client_versionnormalized:
+    sql: client.versionNormalized
+    description: Normalized version of the client, in the format left-padded
+      'major.minor.patch'.
+    parent_field: client
+
+  client_versionpatch:
+    sql: client.versionPatch
+    description: Patch version of the client.
+    parent_field: client
+
+  client_and_service_id:
+    sql: clientAndServiceId
+    format: ID
+    description: Concatenated serviceId + client, e.g. cody-analytics:web
+
+  parameters:
+    description: Parameters of the event.
+    parent_field: parameters
+
+  parameters_billingmetadata:
+    sql: parameters.billingMetadata
+    description: Optional billing-related metadata.
+    parent_field: parameters
+
+  parameters_billingmetadata_category:
+    sql: parameters.billingMetadata.category
+    description: Billing category ID the event falls into.
+    parent_field: parameters
+
+  parameters_billingmetadata_product:
+    sql: parameters.billingMetadata.product
+    description: Billing product ID associated with the event.
+    parent_field: parameters
+
+  parameters_legacymetadata:
+    sql: parameters.legacyMetadata
+    description: |-
+      DEPRECATED, legacy metadata format that only accepted int64 - use the new
+       'metadata' field instead, which accepts float values. Values sent through
+       this proto field will be merged into the new metadata attributes.
+
+       We don't use a [deprecated = true] tag because we use this field to handle
+       accepting exporters sending metadata in this format.
+    parent_field: parameters
+
+  parameters_metadata:
+    sql: parameters.metadata
+    description: |-
+      Strictly typed metadata, restricted to integer values to avoid accidentally
+       exporting sensitive or private data.
+    parent_field: parameters
+
+  parameters_privatemetadata:
+    sql: parameters.privateMetadata
+    description: |-
+      Additional potentially sensitive metadata - i.e. not restricted to integer
+       values.
+
+       🚨 SECURITY: This metadata is NOT exported from instances by default, as it
+       can contain arbitrarily-shaped data that may accidentally contain sensitive
+       or private contents.
+
+       This metadata is only exported on an allowlist basis based on terms of
+       use agreements and combinations of event feature and action, alongside
+       careful audit of callsites.
+    parent_field: parameters
+
+  parameters_version:
+    sql: parameters.version
+    description: |-
+      Version of the event parameters, used for indicating the "shape" of this
+       event's metadata, beginning at 0. Useful for denoting if the shape of
+       metadata has changed in any way.
+    parent_field: parameters
+
+  feature_flags:
+    sql: featureFlags
+    description: Optional feature flags configured in the context of the event.
+    parent_field: feature_flags
+
+  featureflags_flags:
+    sql: featureFlags.flags
+    description: |-
+      Evaluated feature flags. In Soucegraph we currently only support boolean
+       feature flags, but in the API we allow arbitrary string values for future
+       extensibility.
+
+       This field should be hydrated by the Sourcegraph server, and not provided
+       by clients.
+    parent_field: feature_flags
+
+  marketing_tracking:
+    sql: marketingTracking
+    description: |-
+      Optional marketing campaign tracking parameters.
+
+       🚨 SECURITY: This metadata is NEVER exported from single-tenant Sourcegraph
+       instances, and is only exported for events tracked in the public
+       Sourcegraph.com instance and managed services.
+    parent_field: marketing_tracking
+
+  marketingtracking_cohortid:
+    sql: marketingTracking.cohortId
+    description: Cohort ID to identify the user as part of a specific A/B test.
+    parent_field: marketing_tracking
+
+  marketingtracking_devicesessionid:
+    sql: marketingTracking.deviceSessionId
+    description: Device session ID to identify the user's session.
+    parent_field: marketing_tracking
+
+  marketingtracking_firstpageseenurl:
+    sql: marketingTracking.firstPageSeenUrl
+    description: First URL the user visited in their current session.
+    parent_field: marketing_tracking
+
+  marketingtracking_firstsourceurl:
+    sql: marketingTracking.firstSourceUrl
+    description: Initial URL the user landed on.
+    parent_field: marketing_tracking
+
+  marketingtracking_lastpageseenurl:
+    sql: marketingTracking.lastPageSeenUrl
+    description: Last page seen URL by the user.
+    parent_field: marketing_tracking
+
+  marketingtracking_lastsourceurl:
+    sql: marketingTracking.lastSourceUrl
+    description: Last source URL visited by the user.
+    parent_field: marketing_tracking
+
+  marketingtracking_mostrecentreferrer:
+    sql: marketingTracking.mostRecentReferrer
+    description: Most recent refferer URL.
+    parent_field: marketing_tracking
+
+  marketingtracking_referrer:
+    sql: marketingTracking.referrer
+    description: Referrer URL that refers the user to Sourcegraph.
+    parent_field: marketing_tracking
+
+  marketingtracking_sessionfirsturl:
+    sql: marketingTracking.sessionFirstUrl
+    description: First URL the user visited in their current session.
+    parent_field: marketing_tracking
+
+  marketingtracking_sessionreferrer:
+    sql: marketingTracking.sessionReferrer
+    description: Session referrer URL for the user.
+    parent_field: marketing_tracking
+
+  marketingtracking_url:
+    sql: marketingTracking.url
+    description: URL the event occurred on.
+    parent_field: marketing_tracking
+
+  marketingtracking_utmcampaign:
+    sql: marketingTracking.utmCampaign
+    description: UTM campaign parameter.
+    parent_field: marketing_tracking
+
+  marketingtracking_utmcontent:
+    sql: marketingTracking.utmContent
+    description: UTM content parameter.
+    parent_field: marketing_tracking
+
+  marketingtracking_utmmedium:
+    sql: marketingTracking.utmMedium
+    description: UTM medium parameter.
+    parent_field: marketing_tracking
+
+  marketingtracking_utmsource:
+    sql: marketingTracking.utmSource
+    description: UTM source parameter.
+    parent_field: marketing_tracking
+
+  marketingtracking_utmterm:
+    sql: marketingTracking.utmTerm
+    description: UTM term parameter.
+    parent_field: marketing_tracking
+
+  interaction:
+    description: Optional metadata identifying the interaction that generated the event.
+    parent_field: interaction
+
+  interaction_geolocation:
+    sql: interaction.geolocation
+    description: |-
+      Geolocation associated with the interaction, typically inferred from the
+       originating client's IP address (which we do not collect).
+    parent_field: interaction
+
+  interaction_geolocation_countrycode:
+    sql: interaction.geolocation.countryCode
+    description: Inferred ISO 3166-1 alpha-2 or alpha-3 country code
+    parent_field: interaction
+
+  interaction_interactionid:
+    sql: interaction.interactionId
+    description: Custom interaction ID representing the interaction associated with
+      the event.
+    parent_field: interaction
+
+  interaction_traceid:
+    sql: interaction.traceId
+    description: OpenTelemetry trace ID representing the interaction associated with
+      the event.
+    parent_field: interaction
+
+  dau_lookup:
+    sql: dauLookup
+    description: DAU classification of each event per product. Populated by data &
+      analytics pipelines
+    parent_field: dau_lookup
+
+  daulookup_billingdau:
+    sql: dauLookup.billingDau
+    description: A billing DAU represents a user who interacts with the product,
+      regardless of intention and result.
+    parent_field: dau_lookup
+
+  daulookup_billingevent:
+    sql: dauLookup.billingEvent
+    description: A billable Cody user is defined as someone who is signed into their
+      Enterprise Sourcegraph account and actively engages with Cody through
+      various interactions, such as receiving autocompletions, running commands,
+      chatting, or adjusting settings. Similarly, a billable active Code Search
+      or Code Intelligence Platform user is one who signs into and accesses
+      Sourcegraph.
+    parent_field: dau_lookup
+
+  daulookup_coreevent:
+    sql: dauLookup.coreEvent
+    description: A core event (whether for Cody or Code Search) represents a
+      user-initiated action that the user likely gets value from
+    parent_field: dau_lookup
+
+  daulookup_eventcategory:
+    sql: dauLookup.eventCategory
+    description: Product category of the event, e.g. 'Cody', 'Search', 'Code Insights'.
+    parent_field: dau_lookup
+
+  daulookup_navvalueadd:
+    sql: dauLookup.navValueAdd
+    description: Indicates whether this event directly aided the user in
+      successfully navigating to their intended destination.
+    parent_field: dau_lookup
+
+  daulookup_product:
+    sql: dauLookup.product
+    description: The product or SKU that the event can be primarily attributed to.
+      e.g. 'Cody', 'Search', 'Code Insights'.
+    parent_field: dau_lookup
+
+  daulookup_productdau:
+    sql: dauLookup.productDau
+    description: A product DAU represents a user who (1) makes a choice to interact
+      or engage with the product and (2) likely gets value from it.
+    parent_field: dau_lookup
+
+  daulookup_productorinstalldau:
+    sql: dauLookup.productOrInstallDau
+    description: Product DAUs + Installers. Used for retention calculations only.
+    parent_field: dau_lookup
+
+  daulookup_searchvalueadd:
+    sql: dauLookup.searchValueAdd
+    description: Indicates whether this event directly contributed to a successful
+      search result for the user.
+    parent_field: dau_lookup
+
+  workspace_id:
+    sql: workspaceId
+    format: ID
+    description: Self-reported workspace identifier.
+
+measures:
+  count:
+    aggregate_type: count

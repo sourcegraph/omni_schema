@@ -1,0 +1,24 @@
+# Reference this view as telligentsourcegraph_pings_data_model_transformed__cody_actions_users_daily
+catalog: telligentsourcegraph
+schema: pings_data_model_transformed
+table_name: cody_actions_users_daily
+
+dimensions:
+  timestamp: {}
+  installer_email: {}
+  date: {}
+  total_users: {}
+  total_code_generation_users: {}
+  total_explanation_users: {}
+  total_events: {}
+  total_code_generation_events: {}
+  total_code_explanation_events: {}
+  total_invalid_events_count: {}
+  total_invalid_users_count: {}
+
+  remote_site_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

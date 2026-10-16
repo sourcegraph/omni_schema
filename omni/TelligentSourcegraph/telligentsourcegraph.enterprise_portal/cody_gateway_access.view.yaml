@@ -1,0 +1,29 @@
+# Reference this view as telligentsourcegraph_enterprise_portal__cody_gateway_access
+catalog: telligentsourcegraph
+schema: enterprise_portal
+table_name: cody_gateway_access
+
+dimensions:
+  enabled: {}
+  chat_completions_rate_limit: {}
+  chat_completions_rate_limit_interval_seconds: {}
+  code_completions_rate_limit: {}
+  code_completions_rate_limit_interval_seconds: {}
+
+  subscription_id:
+    format: ID
+
+  datastream_metadata:
+    parent_field: datastream_metadata
+
+  datastream_metadata_source_timestamp:
+    sql: datastream_metadata.source_timestamp
+    parent_field: datastream_metadata
+
+  datastream_metadata_uuid:
+    sql: datastream_metadata.`uuid`
+    parent_field: datastream_metadata
+
+measures:
+  count:
+    aggregate_type: count

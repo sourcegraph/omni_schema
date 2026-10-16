@@ -1,0 +1,20 @@
+# Reference this view as telligentsourcegraph_sfdc_current__purchased_seat_monthly
+catalog: telligentsourcegraph
+schema: sfdc_current
+table_name: purchased_seat_monthly
+
+dimensions:
+  account_name: {}
+  product_group: {}
+  current_month_date: {}
+  total_seats: {}
+
+  sourcegraph_subscription_id:
+    format: ID
+
+  total_arr:
+    format: USDCURRENCY_0
+
+measures:
+  count:
+    aggregate_type: count

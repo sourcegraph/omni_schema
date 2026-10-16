@@ -1,0 +1,82 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__self_serve_weekly_report_by_product
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: self_serve_weekly_report_by_product
+
+dimensions:
+  week_start: {}
+  self_serve_product: {}
+  num_workspace_created: {}
+  num_workspace_churned: {}
+  paid_seats_added: {}
+  churned_seats: {}
+  reactivated_from_churn: {}
+  net_paid_seats_added: {}
+  net_paid_seats_added_weekly_attaintment: {}
+  retained_seats: {}
+  cumulative_net_avg_user_per_workspace: {}
+  all_paying_seats: {}
+  q1_2025_seats_added_net_churn: {}
+  q1_seat_attainment: {}
+  target_q1_2025_seats_net_churn: {}
+  q2_2025_seats_added_net_churn: {}
+  q2_seat_attainment: {}
+  target_q2_2025_seats_net_churn: {}
+
+  current_mrr:
+    sql: current_MRR
+
+  current_arr:
+    sql: current_ARR
+
+  q1_imrr:
+    sql: q1_iMRR
+
+  q1_iarr:
+    sql: q1_iARR
+
+  q1_arr_variance_from_plan:
+    sql: q1_ARR_variance_from_plan
+
+  q1_mrr_variance_from_plan:
+    sql: q1_MRR_variance_from_plan
+
+  q1_imrr_attainment_percent:
+    sql: q1_iMRR_attainment_percent
+
+  q1_iarr_attainment_percent:
+    sql: q1_iARR_attainment_percent
+
+  target_q1_2025_iarr:
+    sql: target_q1_2025_iARR
+
+  target_q1_2025_imrr:
+    sql: target_q1_2025_iMRR
+
+  q2_imrr:
+    sql: q2_iMRR
+
+  q2_iarr:
+    sql: q2_iARR
+
+  q2_arr_variance_from_plan:
+    sql: q2_ARR_variance_from_plan
+
+  q2_mrr_variance_from_plan:
+    sql: q2_MRR_variance_from_plan
+
+  q2_imrr_attainment_percent:
+    sql: q2_iMRR_attainment_percent
+
+  q2_iarr_attainment_percent:
+    sql: q2_iARR_attainment_percent
+
+  target_q2_2025_iarr:
+    sql: target_q2_2025_iARR
+
+  target_q2_2025_imrr:
+    sql: target_q2_2025_iMRR
+
+measures:
+  count:
+    aggregate_type: count

@@ -1,0 +1,105 @@
+# Reference this view as telligentsourcegraph_gsheets__vitally_activation_campaign_users
+catalog: telligentsourcegraph
+schema: gsheets
+table_name: vitally_activation_campaign_users
+
+dimensions:
+  campaign_name: {}
+  name: {}
+  email: {}
+
+  campaign_sent_at:
+    description: "%E4Y-%m-%d"
+
+  _:
+    hidden: true
+
+  id:
+    format: ID
+    primary_key: true
+
+  external_id:
+    sql: externalId
+    format: ID
+
+  account_id:
+    sql: accountId
+    format: ID
+
+  account_name:
+    sql: accountName
+
+  account_external_id:
+    sql: accountExternalId
+    format: ID
+
+  is_account_owner:
+    sql: isAccountOwner
+
+  account_ids:
+    sql: accountIds
+
+  account_external_ids:
+    sql: accountExternalIds
+
+  account_names:
+    sql: accountNames
+
+  organization_ids:
+    sql: organizationIds
+
+  organization_external_ids:
+    sql: organizationExternalIds
+
+  organization_names:
+    sql: organizationNames
+
+  first_known:
+    sql: firstKnown
+    description: bq-datetime
+
+  last_seen_timestamp:
+    sql: lastSeenTimestamp
+
+  sessions_count:
+    sql: sessionsCount
+
+  nps_last_score:
+    sql: npsLastScore
+
+  nps_last_feedback:
+    sql: npsLastFeedback
+
+  nps_last_responded_at:
+    sql: npsLastRespondedAt
+
+  nps_last_dismissed_at:
+    sql: npsLastDismissedAt
+
+  last_inbound_message_timestamp:
+    sql: lastInboundMessageTimestamp
+    description: bq-datetime
+
+  last_outbound_message_timestamp:
+    sql: lastOutboundMessageTimestamp
+    description: bq-datetime
+
+  unsubscribed_from_conversations:
+    sql: unsubscribedFromConversations
+
+  deactivated_at:
+    sql: deactivatedAt
+
+  delete_on:
+    sql: deleteOn
+
+  created_at:
+    sql: createdAt
+    description: bq-datetime
+
+  last_email_bounced:
+    sql: lastEmailBounced
+
+measures:
+  count:
+    aggregate_type: count

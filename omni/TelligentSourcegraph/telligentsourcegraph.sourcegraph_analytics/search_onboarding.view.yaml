@@ -1,0 +1,33 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__search_onboarding
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: search_onboarding
+
+dimensions:
+  remote_site_id:
+    format: ID
+
+  total_onboarding_tour_views:
+    sql: totalOnboardingTourViews
+
+  viewed_lang_step:
+    sql: viewedLangStep
+
+  viewed_filter_repo_step:
+    sql: viewedFilterRepoStep
+
+  viewed_add_query_term_step:
+    sql: viewedAddQueryTermStep
+
+  viewed_submit_search_step:
+    sql: viewedSubmitSearchStep
+
+  viewed_search_reference_step:
+    sql: viewedSearchReferenceStep
+
+  close_onboarding_tour_clicked:
+    sql: closeOnboardingTourClicked
+
+measures:
+  count:
+    aggregate_type: count

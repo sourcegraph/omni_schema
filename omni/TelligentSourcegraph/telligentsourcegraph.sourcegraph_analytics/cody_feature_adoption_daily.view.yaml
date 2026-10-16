@@ -1,0 +1,20 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__cody_feature_adoption_daily
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: cody_feature_adoption_daily
+
+dimensions:
+  dte: {}
+  cnt_all_users: {}
+  cnt_exclusive_chat_users: {}
+  cnt_exclusive_completion_users: {}
+  cnt_exclusive_command_users: {}
+  exclusive_chat_users_over_all_users: {}
+  exclusive_completion_users_over_all_users: {}
+  exclusive_command_users_over_all_users: {}
+  cnt_users_with_any_feature_usage: {}
+  users_with_any_feature_usage_over_all_users: {}
+
+measures:
+  count:
+    aggregate_type: count

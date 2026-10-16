@@ -1,0 +1,5705 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__update_checks_test
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: update_checks_test
+
+dimensions:
+  timestamp: {}
+  remote_site_version: {}
+  installer_email: {}
+  remote_ip: {}
+  auth_providers: {}
+  deploy_type: {}
+  unique_users_today: {}
+  has_code_intelligence: {}
+  has_update: {}
+  total_user_accounts: {}
+  builtin_signup_allowed: {}
+  has_external_url: {}
+  has_repos: {}
+  ever_searched: {}
+  ever_find_refs: {}
+  ext_services: {}
+  license_key: {}
+  code_host_versions: {}
+  access_request_enabled: {}
+  repository_size_histogram: {}
+  os: {}
+  total_repos: {}
+  active_today: {}
+  has_cody_enabled: {}
+
+  remote_site_id:
+    format: ID
+
+  site_activity:
+    parent_field: site_activity
+
+  site_activity_daus:
+    sql: site_activity.DAUs
+    parent_field: site_activity
+
+  site_activity_daus_anonymoususercount:
+    sql: AnonymousUserCount
+    nested_on_field: site_activity_daus
+    parent_field: site_activity
+
+  site_activity_daus_integrationusercount:
+    sql: IntegrationUserCount
+    nested_on_field: site_activity_daus
+    parent_field: site_activity
+
+  site_activity_daus_registeredusercount:
+    sql: RegisteredUserCount
+    nested_on_field: site_activity_daus
+    parent_field: site_activity
+
+  site_activity_daus_stages:
+    sql: Stages
+    nested_on_field: site_activity_daus
+    parent_field: site_activity
+
+  site_activity_daus_stages_auto:
+    sql: Stages.auto
+    nested_on_field: site_activity_daus
+    parent_field: site_activity
+
+  site_activity_daus_stages_code:
+    sql: Stages.code
+    nested_on_field: site_activity_daus
+    parent_field: site_activity
+
+  site_activity_daus_stages_conf:
+    sql: Stages.conf
+    nested_on_field: site_activity_daus
+    parent_field: site_activity
+
+  site_activity_daus_stages_depl:
+    sql: Stages.depl
+    nested_on_field: site_activity_daus
+    parent_field: site_activity
+
+  site_activity_daus_stages_mng:
+    sql: Stages.mng
+    nested_on_field: site_activity_daus
+    parent_field: site_activity
+
+  site_activity_daus_stages_mtr:
+    sql: Stages.mtr
+    nested_on_field: site_activity_daus
+    parent_field: site_activity
+
+  site_activity_daus_stages_pkg:
+    sql: Stages.pkg
+    nested_on_field: site_activity_daus
+    parent_field: site_activity
+
+  site_activity_daus_stages_plan:
+    sql: Stages.plan
+    nested_on_field: site_activity_daus
+    parent_field: site_activity
+
+  site_activity_daus_stages_rev:
+    sql: Stages.rev
+    nested_on_field: site_activity_daus
+    parent_field: site_activity
+
+  site_activity_daus_stages_sec:
+    sql: Stages.sec
+    nested_on_field: site_activity_daus
+    parent_field: site_activity
+
+  site_activity_daus_stages_ver:
+    sql: Stages.ver
+    nested_on_field: site_activity_daus
+    parent_field: site_activity
+
+  site_activity_daus_starttime:
+    sql: StartTime
+    nested_on_field: site_activity_daus
+    parent_field: site_activity
+
+  site_activity_daus_usercount:
+    sql: UserCount
+    nested_on_field: site_activity_daus
+    parent_field: site_activity
+
+  site_activity_maus:
+    sql: site_activity.MAUs
+    parent_field: site_activity
+
+  site_activity_maus_anonymoususercount:
+    sql: AnonymousUserCount
+    nested_on_field: site_activity_maus
+    parent_field: site_activity
+
+  site_activity_maus_integrationusercount:
+    sql: IntegrationUserCount
+    nested_on_field: site_activity_maus
+    parent_field: site_activity
+
+  site_activity_maus_registeredusercount:
+    sql: RegisteredUserCount
+    nested_on_field: site_activity_maus
+    parent_field: site_activity
+
+  site_activity_maus_stages:
+    sql: Stages
+    nested_on_field: site_activity_maus
+    parent_field: site_activity
+
+  site_activity_maus_stages_auto:
+    sql: Stages.auto
+    nested_on_field: site_activity_maus
+    parent_field: site_activity
+
+  site_activity_maus_stages_code:
+    sql: Stages.code
+    nested_on_field: site_activity_maus
+    parent_field: site_activity
+
+  site_activity_maus_stages_conf:
+    sql: Stages.conf
+    nested_on_field: site_activity_maus
+    parent_field: site_activity
+
+  site_activity_maus_stages_depl:
+    sql: Stages.depl
+    nested_on_field: site_activity_maus
+    parent_field: site_activity
+
+  site_activity_maus_stages_mng:
+    sql: Stages.mng
+    nested_on_field: site_activity_maus
+    parent_field: site_activity
+
+  site_activity_maus_stages_mtr:
+    sql: Stages.mtr
+    nested_on_field: site_activity_maus
+    parent_field: site_activity
+
+  site_activity_maus_stages_pkg:
+    sql: Stages.pkg
+    nested_on_field: site_activity_maus
+    parent_field: site_activity
+
+  site_activity_maus_stages_plan:
+    sql: Stages.plan
+    nested_on_field: site_activity_maus
+    parent_field: site_activity
+
+  site_activity_maus_stages_rev:
+    sql: Stages.rev
+    nested_on_field: site_activity_maus
+    parent_field: site_activity
+
+  site_activity_maus_stages_sec:
+    sql: Stages.sec
+    nested_on_field: site_activity_maus
+    parent_field: site_activity
+
+  site_activity_maus_stages_ver:
+    sql: Stages.ver
+    nested_on_field: site_activity_maus
+    parent_field: site_activity
+
+  site_activity_maus_starttime:
+    sql: StartTime
+    nested_on_field: site_activity_maus
+    parent_field: site_activity
+
+  site_activity_maus_usercount:
+    sql: UserCount
+    nested_on_field: site_activity_maus
+    parent_field: site_activity
+
+  site_activity_rmaus:
+    sql: site_activity.RMAUs
+    parent_field: site_activity
+
+  site_activity_rmaus_anonymoususercount:
+    sql: AnonymousUserCount
+    nested_on_field: site_activity_rmaus
+    parent_field: site_activity
+
+  site_activity_rmaus_integrationusercount:
+    sql: IntegrationUserCount
+    nested_on_field: site_activity_rmaus
+    parent_field: site_activity
+
+  site_activity_rmaus_registeredusercount:
+    sql: RegisteredUserCount
+    nested_on_field: site_activity_rmaus
+    parent_field: site_activity
+
+  site_activity_rmaus_starttime:
+    sql: StartTime
+    nested_on_field: site_activity_rmaus
+    parent_field: site_activity
+
+  site_activity_rmaus_usercount:
+    sql: UserCount
+    nested_on_field: site_activity_rmaus
+    parent_field: site_activity
+
+  site_activity_waus:
+    sql: site_activity.WAUs
+    parent_field: site_activity
+
+  site_activity_waus_anonymoususercount:
+    sql: AnonymousUserCount
+    nested_on_field: site_activity_waus
+    parent_field: site_activity
+
+  site_activity_waus_integrationusercount:
+    sql: IntegrationUserCount
+    nested_on_field: site_activity_waus
+    parent_field: site_activity
+
+  site_activity_waus_registeredusercount:
+    sql: RegisteredUserCount
+    nested_on_field: site_activity_waus
+    parent_field: site_activity
+
+  site_activity_waus_stages:
+    sql: Stages
+    nested_on_field: site_activity_waus
+    parent_field: site_activity
+
+  site_activity_waus_stages_auto:
+    sql: Stages.auto
+    nested_on_field: site_activity_waus
+    parent_field: site_activity
+
+  site_activity_waus_stages_code:
+    sql: Stages.code
+    nested_on_field: site_activity_waus
+    parent_field: site_activity
+
+  site_activity_waus_stages_conf:
+    sql: Stages.conf
+    nested_on_field: site_activity_waus
+    parent_field: site_activity
+
+  site_activity_waus_stages_depl:
+    sql: Stages.depl
+    nested_on_field: site_activity_waus
+    parent_field: site_activity
+
+  site_activity_waus_stages_mng:
+    sql: Stages.mng
+    nested_on_field: site_activity_waus
+    parent_field: site_activity
+
+  site_activity_waus_stages_mtr:
+    sql: Stages.mtr
+    nested_on_field: site_activity_waus
+    parent_field: site_activity
+
+  site_activity_waus_stages_pkg:
+    sql: Stages.pkg
+    nested_on_field: site_activity_waus
+    parent_field: site_activity
+
+  site_activity_waus_stages_plan:
+    sql: Stages.plan
+    nested_on_field: site_activity_waus
+    parent_field: site_activity
+
+  site_activity_waus_stages_rev:
+    sql: Stages.rev
+    nested_on_field: site_activity_waus
+    parent_field: site_activity
+
+  site_activity_waus_stages_sec:
+    sql: Stages.sec
+    nested_on_field: site_activity_waus
+    parent_field: site_activity
+
+  site_activity_waus_stages_ver:
+    sql: Stages.ver
+    nested_on_field: site_activity_waus
+    parent_field: site_activity
+
+  site_activity_waus_starttime:
+    sql: StartTime
+    nested_on_field: site_activity_waus
+    parent_field: site_activity
+
+  site_activity_waus_usercount:
+    sql: UserCount
+    nested_on_field: site_activity_waus
+    parent_field: site_activity
+
+  automation_usage:
+    parent_field: automation_usage
+
+  automation_usage_actionchangesetscount:
+    sql: automation_usage.ActionChangesetsCount
+    parent_field: automation_usage
+
+  automation_usage_actionchangesetsdiffstataddedsum:
+    sql: automation_usage.ActionChangesetsDiffStatAddedSum
+    parent_field: automation_usage
+
+  automation_usage_actionchangesetsdiffstatchangedsum:
+    sql: automation_usage.ActionChangesetsDiffStatChangedSum
+    parent_field: automation_usage
+
+  automation_usage_actionchangesetsdiffstatdeletedsum:
+    sql: automation_usage.ActionChangesetsDiffStatDeletedSum
+    parent_field: automation_usage
+
+  automation_usage_actionchangesetsmergedcount:
+    sql: automation_usage.ActionChangesetsMergedCount
+    parent_field: automation_usage
+
+  automation_usage_actionchangesetsmergeddiffstataddedsum:
+    sql: automation_usage.ActionChangesetsMergedDiffStatAddedSum
+    parent_field: automation_usage
+
+  automation_usage_actionchangesetsmergeddiffstatchangedsum:
+    sql: automation_usage.ActionChangesetsMergedDiffStatChangedSum
+    parent_field: automation_usage
+
+  automation_usage_actionchangesetsmergeddiffstatdeletedsum:
+    sql: automation_usage.ActionChangesetsMergedDiffStatDeletedSum
+    parent_field: automation_usage
+
+  automation_usage_campaignspecscreatedcount:
+    sql: automation_usage.CampaignSpecsCreatedCount
+    parent_field: automation_usage
+
+  automation_usage_campaignsclosedcount:
+    sql: automation_usage.CampaignsClosedCount
+    parent_field: automation_usage
+
+  automation_usage_campaignscount:
+    sql: automation_usage.CampaignsCount
+    parent_field: automation_usage
+
+  automation_usage_changesetspecscreatedcount:
+    sql: automation_usage.ChangesetSpecsCreatedCount
+    parent_field: automation_usage
+
+  automation_usage_manualchangesetscount:
+    sql: automation_usage.ManualChangesetsCount
+    parent_field: automation_usage
+
+  automation_usage_manualchangesetsmergedcount:
+    sql: automation_usage.ManualChangesetsMergedCount
+    parent_field: automation_usage
+
+  automation_usage_viewcampaignapplypagecount:
+    sql: automation_usage.ViewCampaignApplyPageCount
+    parent_field: automation_usage
+
+  automation_usage_viewcampaigndetailspageaftercreatecount:
+    sql: automation_usage.ViewCampaignDetailsPageAfterCreateCount
+    parent_field: automation_usage
+
+  automation_usage_viewcampaigndetailspageafterupdatecount:
+    sql: automation_usage.ViewCampaignDetailsPageAfterUpdateCount
+    parent_field: automation_usage
+
+  code_intel_usage:
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily:
+    sql: code_intel_usage.Daily
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_definitions:
+    sql: code_intel_usage.Daily.Definitions
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_definitions_lsif:
+    sql: code_intel_usage.Daily.Definitions.LSIF
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_definitions_lsif_eventlatencies:
+    sql: code_intel_usage.Daily.Definitions.LSIF.EventLatencies
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_definitions_lsif_eventlatencies_p50:
+    sql: code_intel_usage.Daily.Definitions.LSIF.EventLatencies.P50
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_definitions_lsif_eventlatencies_p90:
+    sql: code_intel_usage.Daily.Definitions.LSIF.EventLatencies.P90
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_definitions_lsif_eventlatencies_p99:
+    sql: code_intel_usage.Daily.Definitions.LSIF.EventLatencies.P99
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_definitions_lsif_eventscount:
+    sql: code_intel_usage.Daily.Definitions.LSIF.EventsCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_definitions_lsif_userscount:
+    sql: code_intel_usage.Daily.Definitions.LSIF.UsersCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_definitions_lsp:
+    sql: code_intel_usage.Daily.Definitions.LSP
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_definitions_lsp_eventlatencies:
+    sql: code_intel_usage.Daily.Definitions.LSP.EventLatencies
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_definitions_lsp_eventlatencies_p50:
+    sql: code_intel_usage.Daily.Definitions.LSP.EventLatencies.P50
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_definitions_lsp_eventlatencies_p90:
+    sql: code_intel_usage.Daily.Definitions.LSP.EventLatencies.P90
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_definitions_lsp_eventlatencies_p99:
+    sql: code_intel_usage.Daily.Definitions.LSP.EventLatencies.P99
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_definitions_lsp_eventscount:
+    sql: code_intel_usage.Daily.Definitions.LSP.EventsCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_definitions_lsp_userscount:
+    sql: code_intel_usage.Daily.Definitions.LSP.UsersCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_definitions_search:
+    sql: code_intel_usage.Daily.Definitions.Search
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_definitions_search_eventlatencies:
+    sql: code_intel_usage.Daily.Definitions.Search.EventLatencies
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_definitions_search_eventlatencies_p50:
+    sql: code_intel_usage.Daily.Definitions.Search.EventLatencies.P50
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_definitions_search_eventlatencies_p90:
+    sql: code_intel_usage.Daily.Definitions.Search.EventLatencies.P90
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_definitions_search_eventlatencies_p99:
+    sql: code_intel_usage.Daily.Definitions.Search.EventLatencies.P99
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_definitions_search_eventscount:
+    sql: code_intel_usage.Daily.Definitions.Search.EventsCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_definitions_search_userscount:
+    sql: code_intel_usage.Daily.Definitions.Search.UsersCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_hover:
+    sql: code_intel_usage.Daily.Hover
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_hover_lsif:
+    sql: code_intel_usage.Daily.Hover.LSIF
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_hover_lsif_eventlatencies:
+    sql: code_intel_usage.Daily.Hover.LSIF.EventLatencies
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_hover_lsif_eventlatencies_p50:
+    sql: code_intel_usage.Daily.Hover.LSIF.EventLatencies.P50
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_hover_lsif_eventlatencies_p90:
+    sql: code_intel_usage.Daily.Hover.LSIF.EventLatencies.P90
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_hover_lsif_eventlatencies_p99:
+    sql: code_intel_usage.Daily.Hover.LSIF.EventLatencies.P99
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_hover_lsif_eventscount:
+    sql: code_intel_usage.Daily.Hover.LSIF.EventsCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_hover_lsif_userscount:
+    sql: code_intel_usage.Daily.Hover.LSIF.UsersCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_hover_lsp:
+    sql: code_intel_usage.Daily.Hover.LSP
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_hover_lsp_eventlatencies:
+    sql: code_intel_usage.Daily.Hover.LSP.EventLatencies
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_hover_lsp_eventlatencies_p50:
+    sql: code_intel_usage.Daily.Hover.LSP.EventLatencies.P50
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_hover_lsp_eventlatencies_p90:
+    sql: code_intel_usage.Daily.Hover.LSP.EventLatencies.P90
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_hover_lsp_eventlatencies_p99:
+    sql: code_intel_usage.Daily.Hover.LSP.EventLatencies.P99
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_hover_lsp_eventscount:
+    sql: code_intel_usage.Daily.Hover.LSP.EventsCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_hover_lsp_userscount:
+    sql: code_intel_usage.Daily.Hover.LSP.UsersCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_hover_search:
+    sql: code_intel_usage.Daily.Hover.Search
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_hover_search_eventlatencies:
+    sql: code_intel_usage.Daily.Hover.Search.EventLatencies
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_hover_search_eventlatencies_p50:
+    sql: code_intel_usage.Daily.Hover.Search.EventLatencies.P50
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_hover_search_eventlatencies_p90:
+    sql: code_intel_usage.Daily.Hover.Search.EventLatencies.P90
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_hover_search_eventlatencies_p99:
+    sql: code_intel_usage.Daily.Hover.Search.EventLatencies.P99
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_hover_search_eventscount:
+    sql: code_intel_usage.Daily.Hover.Search.EventsCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_hover_search_userscount:
+    sql: code_intel_usage.Daily.Hover.Search.UsersCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_references:
+    sql: code_intel_usage.Daily.References
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_references_lsif:
+    sql: code_intel_usage.Daily.References.LSIF
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_references_lsif_eventlatencies:
+    sql: code_intel_usage.Daily.References.LSIF.EventLatencies
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_references_lsif_eventlatencies_p50:
+    sql: code_intel_usage.Daily.References.LSIF.EventLatencies.P50
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_references_lsif_eventlatencies_p90:
+    sql: code_intel_usage.Daily.References.LSIF.EventLatencies.P90
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_references_lsif_eventlatencies_p99:
+    sql: code_intel_usage.Daily.References.LSIF.EventLatencies.P99
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_references_lsif_eventscount:
+    sql: code_intel_usage.Daily.References.LSIF.EventsCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_references_lsif_userscount:
+    sql: code_intel_usage.Daily.References.LSIF.UsersCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_references_lsp:
+    sql: code_intel_usage.Daily.References.LSP
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_references_lsp_eventlatencies:
+    sql: code_intel_usage.Daily.References.LSP.EventLatencies
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_references_lsp_eventlatencies_p50:
+    sql: code_intel_usage.Daily.References.LSP.EventLatencies.P50
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_references_lsp_eventlatencies_p90:
+    sql: code_intel_usage.Daily.References.LSP.EventLatencies.P90
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_references_lsp_eventlatencies_p99:
+    sql: code_intel_usage.Daily.References.LSP.EventLatencies.P99
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_references_lsp_eventscount:
+    sql: code_intel_usage.Daily.References.LSP.EventsCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_references_lsp_userscount:
+    sql: code_intel_usage.Daily.References.LSP.UsersCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_references_search:
+    sql: code_intel_usage.Daily.References.Search
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_references_search_eventlatencies:
+    sql: code_intel_usage.Daily.References.Search.EventLatencies
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_references_search_eventlatencies_p50:
+    sql: code_intel_usage.Daily.References.Search.EventLatencies.P50
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_references_search_eventlatencies_p90:
+    sql: code_intel_usage.Daily.References.Search.EventLatencies.P90
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_references_search_eventlatencies_p99:
+    sql: code_intel_usage.Daily.References.Search.EventLatencies.P99
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_references_search_eventscount:
+    sql: code_intel_usage.Daily.References.Search.EventsCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_references_search_userscount:
+    sql: code_intel_usage.Daily.References.Search.UsersCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_daily_starttime:
+    sql: code_intel_usage.Daily.StartTime
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly:
+    sql: code_intel_usage.Monthly
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_definitions:
+    sql: code_intel_usage.Monthly.Definitions
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_definitions_lsif:
+    sql: code_intel_usage.Monthly.Definitions.LSIF
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_definitions_lsif_eventlatencies:
+    sql: code_intel_usage.Monthly.Definitions.LSIF.EventLatencies
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_definitions_lsif_eventlatencies_p50:
+    sql: code_intel_usage.Monthly.Definitions.LSIF.EventLatencies.P50
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_definitions_lsif_eventlatencies_p90:
+    sql: code_intel_usage.Monthly.Definitions.LSIF.EventLatencies.P90
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_definitions_lsif_eventlatencies_p99:
+    sql: code_intel_usage.Monthly.Definitions.LSIF.EventLatencies.P99
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_definitions_lsif_eventscount:
+    sql: code_intel_usage.Monthly.Definitions.LSIF.EventsCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_definitions_lsif_userscount:
+    sql: code_intel_usage.Monthly.Definitions.LSIF.UsersCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_definitions_lsp:
+    sql: code_intel_usage.Monthly.Definitions.LSP
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_definitions_lsp_eventlatencies:
+    sql: code_intel_usage.Monthly.Definitions.LSP.EventLatencies
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_definitions_lsp_eventlatencies_p50:
+    sql: code_intel_usage.Monthly.Definitions.LSP.EventLatencies.P50
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_definitions_lsp_eventlatencies_p90:
+    sql: code_intel_usage.Monthly.Definitions.LSP.EventLatencies.P90
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_definitions_lsp_eventlatencies_p99:
+    sql: code_intel_usage.Monthly.Definitions.LSP.EventLatencies.P99
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_definitions_lsp_eventscount:
+    sql: code_intel_usage.Monthly.Definitions.LSP.EventsCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_definitions_lsp_userscount:
+    sql: code_intel_usage.Monthly.Definitions.LSP.UsersCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_definitions_search:
+    sql: code_intel_usage.Monthly.Definitions.Search
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_definitions_search_eventlatencies:
+    sql: code_intel_usage.Monthly.Definitions.Search.EventLatencies
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_definitions_search_eventlatencies_p50:
+    sql: code_intel_usage.Monthly.Definitions.Search.EventLatencies.P50
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_definitions_search_eventlatencies_p90:
+    sql: code_intel_usage.Monthly.Definitions.Search.EventLatencies.P90
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_definitions_search_eventlatencies_p99:
+    sql: code_intel_usage.Monthly.Definitions.Search.EventLatencies.P99
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_definitions_search_eventscount:
+    sql: code_intel_usage.Monthly.Definitions.Search.EventsCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_definitions_search_userscount:
+    sql: code_intel_usage.Monthly.Definitions.Search.UsersCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_hover:
+    sql: code_intel_usage.Monthly.Hover
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_hover_lsif:
+    sql: code_intel_usage.Monthly.Hover.LSIF
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_hover_lsif_eventlatencies:
+    sql: code_intel_usage.Monthly.Hover.LSIF.EventLatencies
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_hover_lsif_eventlatencies_p50:
+    sql: code_intel_usage.Monthly.Hover.LSIF.EventLatencies.P50
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_hover_lsif_eventlatencies_p90:
+    sql: code_intel_usage.Monthly.Hover.LSIF.EventLatencies.P90
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_hover_lsif_eventlatencies_p99:
+    sql: code_intel_usage.Monthly.Hover.LSIF.EventLatencies.P99
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_hover_lsif_eventscount:
+    sql: code_intel_usage.Monthly.Hover.LSIF.EventsCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_hover_lsif_userscount:
+    sql: code_intel_usage.Monthly.Hover.LSIF.UsersCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_hover_lsp:
+    sql: code_intel_usage.Monthly.Hover.LSP
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_hover_lsp_eventlatencies:
+    sql: code_intel_usage.Monthly.Hover.LSP.EventLatencies
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_hover_lsp_eventlatencies_p50:
+    sql: code_intel_usage.Monthly.Hover.LSP.EventLatencies.P50
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_hover_lsp_eventlatencies_p90:
+    sql: code_intel_usage.Monthly.Hover.LSP.EventLatencies.P90
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_hover_lsp_eventlatencies_p99:
+    sql: code_intel_usage.Monthly.Hover.LSP.EventLatencies.P99
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_hover_lsp_eventscount:
+    sql: code_intel_usage.Monthly.Hover.LSP.EventsCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_hover_lsp_userscount:
+    sql: code_intel_usage.Monthly.Hover.LSP.UsersCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_hover_search:
+    sql: code_intel_usage.Monthly.Hover.Search
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_hover_search_eventlatencies:
+    sql: code_intel_usage.Monthly.Hover.Search.EventLatencies
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_hover_search_eventlatencies_p50:
+    sql: code_intel_usage.Monthly.Hover.Search.EventLatencies.P50
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_hover_search_eventlatencies_p90:
+    sql: code_intel_usage.Monthly.Hover.Search.EventLatencies.P90
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_hover_search_eventlatencies_p99:
+    sql: code_intel_usage.Monthly.Hover.Search.EventLatencies.P99
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_hover_search_eventscount:
+    sql: code_intel_usage.Monthly.Hover.Search.EventsCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_hover_search_userscount:
+    sql: code_intel_usage.Monthly.Hover.Search.UsersCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_references:
+    sql: code_intel_usage.Monthly.References
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_references_lsif:
+    sql: code_intel_usage.Monthly.References.LSIF
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_references_lsif_eventlatencies:
+    sql: code_intel_usage.Monthly.References.LSIF.EventLatencies
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_references_lsif_eventlatencies_p50:
+    sql: code_intel_usage.Monthly.References.LSIF.EventLatencies.P50
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_references_lsif_eventlatencies_p90:
+    sql: code_intel_usage.Monthly.References.LSIF.EventLatencies.P90
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_references_lsif_eventlatencies_p99:
+    sql: code_intel_usage.Monthly.References.LSIF.EventLatencies.P99
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_references_lsif_eventscount:
+    sql: code_intel_usage.Monthly.References.LSIF.EventsCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_references_lsif_userscount:
+    sql: code_intel_usage.Monthly.References.LSIF.UsersCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_references_lsp:
+    sql: code_intel_usage.Monthly.References.LSP
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_references_lsp_eventlatencies:
+    sql: code_intel_usage.Monthly.References.LSP.EventLatencies
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_references_lsp_eventlatencies_p50:
+    sql: code_intel_usage.Monthly.References.LSP.EventLatencies.P50
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_references_lsp_eventlatencies_p90:
+    sql: code_intel_usage.Monthly.References.LSP.EventLatencies.P90
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_references_lsp_eventlatencies_p99:
+    sql: code_intel_usage.Monthly.References.LSP.EventLatencies.P99
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_references_lsp_eventscount:
+    sql: code_intel_usage.Monthly.References.LSP.EventsCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_references_lsp_userscount:
+    sql: code_intel_usage.Monthly.References.LSP.UsersCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_references_search:
+    sql: code_intel_usage.Monthly.References.Search
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_references_search_eventlatencies:
+    sql: code_intel_usage.Monthly.References.Search.EventLatencies
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_references_search_eventlatencies_p50:
+    sql: code_intel_usage.Monthly.References.Search.EventLatencies.P50
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_references_search_eventlatencies_p90:
+    sql: code_intel_usage.Monthly.References.Search.EventLatencies.P90
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_references_search_eventlatencies_p99:
+    sql: code_intel_usage.Monthly.References.Search.EventLatencies.P99
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_references_search_eventscount:
+    sql: code_intel_usage.Monthly.References.Search.EventsCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_references_search_userscount:
+    sql: code_intel_usage.Monthly.References.Search.UsersCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_monthly_starttime:
+    sql: code_intel_usage.Monthly.StartTime
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly:
+    sql: code_intel_usage.Weekly
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_definitions:
+    sql: code_intel_usage.Weekly.Definitions
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_definitions_lsif:
+    sql: code_intel_usage.Weekly.Definitions.LSIF
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_definitions_lsif_eventlatencies:
+    sql: code_intel_usage.Weekly.Definitions.LSIF.EventLatencies
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_definitions_lsif_eventlatencies_p50:
+    sql: code_intel_usage.Weekly.Definitions.LSIF.EventLatencies.P50
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_definitions_lsif_eventlatencies_p90:
+    sql: code_intel_usage.Weekly.Definitions.LSIF.EventLatencies.P90
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_definitions_lsif_eventlatencies_p99:
+    sql: code_intel_usage.Weekly.Definitions.LSIF.EventLatencies.P99
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_definitions_lsif_eventscount:
+    sql: code_intel_usage.Weekly.Definitions.LSIF.EventsCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_definitions_lsif_userscount:
+    sql: code_intel_usage.Weekly.Definitions.LSIF.UsersCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_definitions_lsp:
+    sql: code_intel_usage.Weekly.Definitions.LSP
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_definitions_lsp_eventlatencies:
+    sql: code_intel_usage.Weekly.Definitions.LSP.EventLatencies
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_definitions_lsp_eventlatencies_p50:
+    sql: code_intel_usage.Weekly.Definitions.LSP.EventLatencies.P50
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_definitions_lsp_eventlatencies_p90:
+    sql: code_intel_usage.Weekly.Definitions.LSP.EventLatencies.P90
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_definitions_lsp_eventlatencies_p99:
+    sql: code_intel_usage.Weekly.Definitions.LSP.EventLatencies.P99
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_definitions_lsp_eventscount:
+    sql: code_intel_usage.Weekly.Definitions.LSP.EventsCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_definitions_lsp_userscount:
+    sql: code_intel_usage.Weekly.Definitions.LSP.UsersCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_definitions_search:
+    sql: code_intel_usage.Weekly.Definitions.Search
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_definitions_search_eventlatencies:
+    sql: code_intel_usage.Weekly.Definitions.Search.EventLatencies
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_definitions_search_eventlatencies_p50:
+    sql: code_intel_usage.Weekly.Definitions.Search.EventLatencies.P50
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_definitions_search_eventlatencies_p90:
+    sql: code_intel_usage.Weekly.Definitions.Search.EventLatencies.P90
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_definitions_search_eventlatencies_p99:
+    sql: code_intel_usage.Weekly.Definitions.Search.EventLatencies.P99
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_definitions_search_eventscount:
+    sql: code_intel_usage.Weekly.Definitions.Search.EventsCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_definitions_search_userscount:
+    sql: code_intel_usage.Weekly.Definitions.Search.UsersCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_hover:
+    sql: code_intel_usage.Weekly.Hover
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_hover_lsif:
+    sql: code_intel_usage.Weekly.Hover.LSIF
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_hover_lsif_eventlatencies:
+    sql: code_intel_usage.Weekly.Hover.LSIF.EventLatencies
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_hover_lsif_eventlatencies_p50:
+    sql: code_intel_usage.Weekly.Hover.LSIF.EventLatencies.P50
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_hover_lsif_eventlatencies_p90:
+    sql: code_intel_usage.Weekly.Hover.LSIF.EventLatencies.P90
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_hover_lsif_eventlatencies_p99:
+    sql: code_intel_usage.Weekly.Hover.LSIF.EventLatencies.P99
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_hover_lsif_eventscount:
+    sql: code_intel_usage.Weekly.Hover.LSIF.EventsCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_hover_lsif_userscount:
+    sql: code_intel_usage.Weekly.Hover.LSIF.UsersCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_hover_lsp:
+    sql: code_intel_usage.Weekly.Hover.LSP
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_hover_lsp_eventlatencies:
+    sql: code_intel_usage.Weekly.Hover.LSP.EventLatencies
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_hover_lsp_eventlatencies_p50:
+    sql: code_intel_usage.Weekly.Hover.LSP.EventLatencies.P50
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_hover_lsp_eventlatencies_p90:
+    sql: code_intel_usage.Weekly.Hover.LSP.EventLatencies.P90
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_hover_lsp_eventlatencies_p99:
+    sql: code_intel_usage.Weekly.Hover.LSP.EventLatencies.P99
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_hover_lsp_eventscount:
+    sql: code_intel_usage.Weekly.Hover.LSP.EventsCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_hover_lsp_userscount:
+    sql: code_intel_usage.Weekly.Hover.LSP.UsersCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_hover_search:
+    sql: code_intel_usage.Weekly.Hover.Search
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_hover_search_eventlatencies:
+    sql: code_intel_usage.Weekly.Hover.Search.EventLatencies
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_hover_search_eventlatencies_p50:
+    sql: code_intel_usage.Weekly.Hover.Search.EventLatencies.P50
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_hover_search_eventlatencies_p90:
+    sql: code_intel_usage.Weekly.Hover.Search.EventLatencies.P90
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_hover_search_eventlatencies_p99:
+    sql: code_intel_usage.Weekly.Hover.Search.EventLatencies.P99
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_hover_search_eventscount:
+    sql: code_intel_usage.Weekly.Hover.Search.EventsCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_hover_search_userscount:
+    sql: code_intel_usage.Weekly.Hover.Search.UsersCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_references:
+    sql: code_intel_usage.Weekly.References
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_references_lsif:
+    sql: code_intel_usage.Weekly.References.LSIF
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_references_lsif_eventlatencies:
+    sql: code_intel_usage.Weekly.References.LSIF.EventLatencies
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_references_lsif_eventlatencies_p50:
+    sql: code_intel_usage.Weekly.References.LSIF.EventLatencies.P50
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_references_lsif_eventlatencies_p90:
+    sql: code_intel_usage.Weekly.References.LSIF.EventLatencies.P90
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_references_lsif_eventlatencies_p99:
+    sql: code_intel_usage.Weekly.References.LSIF.EventLatencies.P99
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_references_lsif_eventscount:
+    sql: code_intel_usage.Weekly.References.LSIF.EventsCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_references_lsif_userscount:
+    sql: code_intel_usage.Weekly.References.LSIF.UsersCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_references_lsp:
+    sql: code_intel_usage.Weekly.References.LSP
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_references_lsp_eventlatencies:
+    sql: code_intel_usage.Weekly.References.LSP.EventLatencies
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_references_lsp_eventlatencies_p50:
+    sql: code_intel_usage.Weekly.References.LSP.EventLatencies.P50
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_references_lsp_eventlatencies_p90:
+    sql: code_intel_usage.Weekly.References.LSP.EventLatencies.P90
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_references_lsp_eventlatencies_p99:
+    sql: code_intel_usage.Weekly.References.LSP.EventLatencies.P99
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_references_lsp_eventscount:
+    sql: code_intel_usage.Weekly.References.LSP.EventsCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_references_lsp_userscount:
+    sql: code_intel_usage.Weekly.References.LSP.UsersCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_references_search:
+    sql: code_intel_usage.Weekly.References.Search
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_references_search_eventlatencies:
+    sql: code_intel_usage.Weekly.References.Search.EventLatencies
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_references_search_eventlatencies_p50:
+    sql: code_intel_usage.Weekly.References.Search.EventLatencies.P50
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_references_search_eventlatencies_p90:
+    sql: code_intel_usage.Weekly.References.Search.EventLatencies.P90
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_references_search_eventlatencies_p99:
+    sql: code_intel_usage.Weekly.References.Search.EventLatencies.P99
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_references_search_eventscount:
+    sql: code_intel_usage.Weekly.References.Search.EventsCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_references_search_userscount:
+    sql: code_intel_usage.Weekly.References.Search.UsersCount
+    parent_field: code_intel_usage
+
+  code_intel_usage_weekly_starttime:
+    sql: code_intel_usage.Weekly.StartTime
+    parent_field: code_intel_usage
+
+  search_usage:
+    parent_field: search_usage
+
+  search_usage_daily:
+    sql: search_usage.Daily
+    parent_field: search_usage
+
+  search_usage_daily_after:
+    sql: search_usage.Daily.After
+    parent_field: search_usage
+
+  search_usage_daily_after_eventscount:
+    sql: search_usage.Daily.After.EventsCount
+    parent_field: search_usage
+
+  search_usage_daily_after_usercount:
+    sql: search_usage.Daily.After.UserCount
+    parent_field: search_usage
+
+  search_usage_daily_archived:
+    sql: search_usage.Daily.Archived
+    parent_field: search_usage
+
+  search_usage_daily_archived_eventscount:
+    sql: search_usage.Daily.Archived.EventsCount
+    parent_field: search_usage
+
+  search_usage_daily_archived_usercount:
+    sql: search_usage.Daily.Archived.UserCount
+    parent_field: search_usage
+
+  search_usage_daily_author:
+    sql: search_usage.Daily.Author
+    parent_field: search_usage
+
+  search_usage_daily_author_eventscount:
+    sql: search_usage.Daily.Author.EventsCount
+    parent_field: search_usage
+
+  search_usage_daily_author_usercount:
+    sql: search_usage.Daily.Author.UserCount
+    parent_field: search_usage
+
+  search_usage_daily_before:
+    sql: search_usage.Daily.Before
+    parent_field: search_usage
+
+  search_usage_daily_before_eventscount:
+    sql: search_usage.Daily.Before.EventsCount
+    parent_field: search_usage
+
+  search_usage_daily_before_usercount:
+    sql: search_usage.Daily.Before.UserCount
+    parent_field: search_usage
+
+  search_usage_daily_case:
+    sql: search_usage.Daily.`Case`
+    parent_field: search_usage
+
+  search_usage_daily_case_eventscount:
+    sql: search_usage.Daily.`Case`.EventsCount
+    parent_field: search_usage
+
+  search_usage_daily_case_usercount:
+    sql: search_usage.Daily.`Case`.UserCount
+    parent_field: search_usage
+
+  search_usage_daily_commit:
+    sql: search_usage.Daily.Commit
+    parent_field: search_usage
+
+  search_usage_daily_commit_eventlatencies:
+    sql: search_usage.Daily.Commit.EventLatencies
+    parent_field: search_usage
+
+  search_usage_daily_commit_eventlatencies_p50:
+    sql: search_usage.Daily.Commit.EventLatencies.P50
+    parent_field: search_usage
+
+  search_usage_daily_commit_eventlatencies_p90:
+    sql: search_usage.Daily.Commit.EventLatencies.P90
+    parent_field: search_usage
+
+  search_usage_daily_commit_eventlatencies_p99:
+    sql: search_usage.Daily.Commit.EventLatencies.P99
+    parent_field: search_usage
+
+  search_usage_daily_commit_eventscount:
+    sql: search_usage.Daily.Commit.EventsCount
+    parent_field: search_usage
+
+  search_usage_daily_commit_usercount:
+    sql: search_usage.Daily.Commit.UserCount
+    parent_field: search_usage
+
+  search_usage_daily_committer:
+    sql: search_usage.Daily.Committer
+    parent_field: search_usage
+
+  search_usage_daily_committer_eventscount:
+    sql: search_usage.Daily.Committer.EventsCount
+    parent_field: search_usage
+
+  search_usage_daily_committer_usercount:
+    sql: search_usage.Daily.Committer.UserCount
+    parent_field: search_usage
+
+  search_usage_daily_content:
+    sql: search_usage.Daily.Content
+    parent_field: search_usage
+
+  search_usage_daily_content_eventscount:
+    sql: search_usage.Daily.Content.EventsCount
+    parent_field: search_usage
+
+  search_usage_daily_content_usercount:
+    sql: search_usage.Daily.Content.UserCount
+    parent_field: search_usage
+
+  search_usage_daily_count:
+    sql: search_usage.Daily.Count
+    parent_field: search_usage
+
+  search_usage_daily_count_eventscount:
+    sql: search_usage.Daily.Count.EventsCount
+    parent_field: search_usage
+
+  search_usage_daily_count_usercount:
+    sql: search_usage.Daily.Count.UserCount
+    parent_field: search_usage
+
+  search_usage_daily_countall:
+    sql: search_usage.Daily.CountAll
+    parent_field: search_usage
+
+  search_usage_daily_countall_eventscount:
+    sql: search_usage.Daily.CountAll.EventsCount
+    parent_field: search_usage
+
+  search_usage_daily_countall_usercount:
+    sql: search_usage.Daily.CountAll.UserCount
+    parent_field: search_usage
+
+  search_usage_daily_diff:
+    sql: search_usage.Daily.Diff
+    parent_field: search_usage
+
+  search_usage_daily_diff_eventlatencies:
+    sql: search_usage.Daily.Diff.EventLatencies
+    parent_field: search_usage
+
+  search_usage_daily_diff_eventlatencies_p50:
+    sql: search_usage.Daily.Diff.EventLatencies.P50
+    parent_field: search_usage
+
+  search_usage_daily_diff_eventlatencies_p90:
+    sql: search_usage.Daily.Diff.EventLatencies.P90
+    parent_field: search_usage
+
+  search_usage_daily_diff_eventlatencies_p99:
+    sql: search_usage.Daily.Diff.EventLatencies.P99
+    parent_field: search_usage
+
+  search_usage_daily_diff_eventscount:
+    sql: search_usage.Daily.Diff.EventsCount
+    parent_field: search_usage
+
+  search_usage_daily_diff_usercount:
+    sql: search_usage.Daily.Diff.UserCount
+    parent_field: search_usage
+
+  search_usage_daily_file:
+    sql: search_usage.Daily.File
+    parent_field: search_usage
+
+  search_usage_daily_file_eventlatencies:
+    sql: search_usage.Daily.File.EventLatencies
+    parent_field: search_usage
+
+  search_usage_daily_file_eventlatencies_p50:
+    sql: search_usage.Daily.File.EventLatencies.P50
+    parent_field: search_usage
+
+  search_usage_daily_file_eventlatencies_p90:
+    sql: search_usage.Daily.File.EventLatencies.P90
+    parent_field: search_usage
+
+  search_usage_daily_file_eventlatencies_p99:
+    sql: search_usage.Daily.File.EventLatencies.P99
+    parent_field: search_usage
+
+  search_usage_daily_file_eventscount:
+    sql: search_usage.Daily.File.EventsCount
+    parent_field: search_usage
+
+  search_usage_daily_file_usercount:
+    sql: search_usage.Daily.File.UserCount
+    parent_field: search_usage
+
+  search_usage_daily_fork:
+    sql: search_usage.Daily.Fork
+    parent_field: search_usage
+
+  search_usage_daily_fork_eventscount:
+    sql: search_usage.Daily.Fork.EventsCount
+    parent_field: search_usage
+
+  search_usage_daily_fork_usercount:
+    sql: search_usage.Daily.Fork.UserCount
+    parent_field: search_usage
+
+  search_usage_daily_index:
+    sql: search_usage.Daily.Index
+    parent_field: search_usage
+
+  search_usage_daily_index_eventscount:
+    sql: search_usage.Daily.Index.EventsCount
+    parent_field: search_usage
+
+  search_usage_daily_index_usercount:
+    sql: search_usage.Daily.Index.UserCount
+    parent_field: search_usage
+
+  search_usage_daily_lang:
+    sql: search_usage.Daily.Lang
+    parent_field: search_usage
+
+  search_usage_daily_lang_eventscount:
+    sql: search_usage.Daily.Lang.EventsCount
+    parent_field: search_usage
+
+  search_usage_daily_lang_usercount:
+    sql: search_usage.Daily.Lang.UserCount
+    parent_field: search_usage
+
+  search_usage_daily_literal:
+    sql: search_usage.Daily.Literal
+    parent_field: search_usage
+
+  search_usage_daily_literal_eventlatencies:
+    sql: search_usage.Daily.Literal.EventLatencies
+    parent_field: search_usage
+
+  search_usage_daily_literal_eventlatencies_p50:
+    sql: search_usage.Daily.Literal.EventLatencies.P50
+    parent_field: search_usage
+
+  search_usage_daily_literal_eventlatencies_p90:
+    sql: search_usage.Daily.Literal.EventLatencies.P90
+    parent_field: search_usage
+
+  search_usage_daily_literal_eventlatencies_p99:
+    sql: search_usage.Daily.Literal.EventLatencies.P99
+    parent_field: search_usage
+
+  search_usage_daily_literal_eventscount:
+    sql: search_usage.Daily.Literal.EventsCount
+    parent_field: search_usage
+
+  search_usage_daily_literal_usercount:
+    sql: search_usage.Daily.Literal.UserCount
+    parent_field: search_usage
+
+  search_usage_daily_message:
+    sql: search_usage.Daily.Message
+    parent_field: search_usage
+
+  search_usage_daily_message_eventscount:
+    sql: search_usage.Daily.Message.EventsCount
+    parent_field: search_usage
+
+  search_usage_daily_message_usercount:
+    sql: search_usage.Daily.Message.UserCount
+    parent_field: search_usage
+
+  search_usage_daily_nonglobalcontext:
+    sql: search_usage.Daily.NonGlobalContext
+    parent_field: search_usage
+
+  search_usage_daily_nonglobalcontext_eventscount:
+    sql: search_usage.Daily.NonGlobalContext.EventsCount
+    parent_field: search_usage
+
+  search_usage_daily_nonglobalcontext_usercount:
+    sql: search_usage.Daily.NonGlobalContext.UserCount
+    parent_field: search_usage
+
+  search_usage_daily_onlypatterns:
+    sql: search_usage.Daily.OnlyPatterns
+    parent_field: search_usage
+
+  search_usage_daily_onlypatterns_eventscount:
+    sql: search_usage.Daily.OnlyPatterns.EventsCount
+    parent_field: search_usage
+
+  search_usage_daily_onlypatterns_usercount:
+    sql: search_usage.Daily.OnlyPatterns.UserCount
+    parent_field: search_usage
+
+  search_usage_daily_onlypatternsthreeormore:
+    sql: search_usage.Daily.OnlyPatternsThreeOrMore
+    parent_field: search_usage
+
+  search_usage_daily_onlypatternsthreeormore_eventscount:
+    sql: search_usage.Daily.OnlyPatternsThreeOrMore.EventsCount
+    parent_field: search_usage
+
+  search_usage_daily_onlypatternsthreeormore_usercount:
+    sql: search_usage.Daily.OnlyPatternsThreeOrMore.UserCount
+    parent_field: search_usage
+
+  search_usage_daily_operatorand:
+    sql: search_usage.Daily.OperatorAnd
+    parent_field: search_usage
+
+  search_usage_daily_operatorand_eventscount:
+    sql: search_usage.Daily.OperatorAnd.EventsCount
+    parent_field: search_usage
+
+  search_usage_daily_operatorand_usercount:
+    sql: search_usage.Daily.OperatorAnd.UserCount
+    parent_field: search_usage
+
+  search_usage_daily_operatornot:
+    sql: search_usage.Daily.OperatorNot
+    parent_field: search_usage
+
+  search_usage_daily_operatornot_eventscount:
+    sql: search_usage.Daily.OperatorNot.EventsCount
+    parent_field: search_usage
+
+  search_usage_daily_operatornot_usercount:
+    sql: search_usage.Daily.OperatorNot.UserCount
+    parent_field: search_usage
+
+  search_usage_daily_operatoror:
+    sql: search_usage.Daily.OperatorOr
+    parent_field: search_usage
+
+  search_usage_daily_operatoror_eventscount:
+    sql: search_usage.Daily.OperatorOr.EventsCount
+    parent_field: search_usage
+
+  search_usage_daily_operatoror_usercount:
+    sql: search_usage.Daily.OperatorOr.UserCount
+    parent_field: search_usage
+
+  search_usage_daily_patterntype:
+    sql: search_usage.Daily.PatternType
+    parent_field: search_usage
+
+  search_usage_daily_patterntype_eventscount:
+    sql: search_usage.Daily.PatternType.EventsCount
+    parent_field: search_usage
+
+  search_usage_daily_patterntype_usercount:
+    sql: search_usage.Daily.PatternType.UserCount
+    parent_field: search_usage
+
+  search_usage_daily_regexp:
+    sql: search_usage.Daily.Regexp
+    parent_field: search_usage
+
+  search_usage_daily_regexp_eventlatencies:
+    sql: search_usage.Daily.Regexp.EventLatencies
+    parent_field: search_usage
+
+  search_usage_daily_regexp_eventlatencies_p50:
+    sql: search_usage.Daily.Regexp.EventLatencies.P50
+    parent_field: search_usage
+
+  search_usage_daily_regexp_eventlatencies_p90:
+    sql: search_usage.Daily.Regexp.EventLatencies.P90
+    parent_field: search_usage
+
+  search_usage_daily_regexp_eventlatencies_p99:
+    sql: search_usage.Daily.Regexp.EventLatencies.P99
+    parent_field: search_usage
+
+  search_usage_daily_regexp_eventscount:
+    sql: search_usage.Daily.Regexp.EventsCount
+    parent_field: search_usage
+
+  search_usage_daily_regexp_usercount:
+    sql: search_usage.Daily.Regexp.UserCount
+    parent_field: search_usage
+
+  search_usage_daily_repo:
+    sql: search_usage.Daily.Repo
+    parent_field: search_usage
+
+  search_usage_daily_repo_eventlatencies:
+    sql: search_usage.Daily.Repo.EventLatencies
+    parent_field: search_usage
+
+  search_usage_daily_repo_eventlatencies_p50:
+    sql: search_usage.Daily.Repo.EventLatencies.P50
+    parent_field: search_usage
+
+  search_usage_daily_repo_eventlatencies_p90:
+    sql: search_usage.Daily.Repo.EventLatencies.P90
+    parent_field: search_usage
+
+  search_usage_daily_repo_eventlatencies_p99:
+    sql: search_usage.Daily.Repo.EventLatencies.P99
+    parent_field: search_usage
+
+  search_usage_daily_repo_eventscount:
+    sql: search_usage.Daily.Repo.EventsCount
+    parent_field: search_usage
+
+  search_usage_daily_repo_usercount:
+    sql: search_usage.Daily.Repo.UserCount
+    parent_field: search_usage
+
+  search_usage_daily_repocontains:
+    sql: search_usage.Daily.RepoContains
+    parent_field: search_usage
+
+  search_usage_daily_repocontains_eventscount:
+    sql: search_usage.Daily.RepoContains.EventsCount
+    parent_field: search_usage
+
+  search_usage_daily_repocontains_usercount:
+    sql: search_usage.Daily.RepoContains.UserCount
+    parent_field: search_usage
+
+  search_usage_daily_repocontainscommitafter:
+    sql: search_usage.Daily.RepoContainsCommitAfter
+    parent_field: search_usage
+
+  search_usage_daily_repocontainscommitafter_eventscount:
+    sql: search_usage.Daily.RepoContainsCommitAfter.EventsCount
+    parent_field: search_usage
+
+  search_usage_daily_repocontainscommitafter_usercount:
+    sql: search_usage.Daily.RepoContainsCommitAfter.UserCount
+    parent_field: search_usage
+
+  search_usage_daily_repocontainscontent:
+    sql: search_usage.Daily.RepoContainsContent
+    parent_field: search_usage
+
+  search_usage_daily_repocontainscontent_eventscount:
+    sql: search_usage.Daily.RepoContainsContent.EventsCount
+    parent_field: search_usage
+
+  search_usage_daily_repocontainscontent_usercount:
+    sql: search_usage.Daily.RepoContainsContent.UserCount
+    parent_field: search_usage
+
+  search_usage_daily_repocontainsfile:
+    sql: search_usage.Daily.RepoContainsFile
+    parent_field: search_usage
+
+  search_usage_daily_repocontainsfile_eventscount:
+    sql: search_usage.Daily.RepoContainsFile.EventsCount
+    parent_field: search_usage
+
+  search_usage_daily_repocontainsfile_usercount:
+    sql: search_usage.Daily.RepoContainsFile.UserCount
+    parent_field: search_usage
+
+  search_usage_daily_repodependencies:
+    sql: search_usage.Daily.RepoDependencies
+    parent_field: search_usage
+
+  search_usage_daily_repodependencies_eventscount:
+    sql: search_usage.Daily.RepoDependencies.EventsCount
+    parent_field: search_usage
+
+  search_usage_daily_repodependencies_usercount:
+    sql: search_usage.Daily.RepoDependencies.UserCount
+    parent_field: search_usage
+
+  search_usage_daily_repogroup:
+    sql: search_usage.Daily.Repogroup
+    parent_field: search_usage
+
+  search_usage_daily_repogroup_eventscount:
+    sql: search_usage.Daily.Repogroup.EventsCount
+    parent_field: search_usage
+
+  search_usage_daily_repogroup_usercount:
+    sql: search_usage.Daily.Repogroup.UserCount
+    parent_field: search_usage
+
+  search_usage_daily_repohascommitafter:
+    sql: search_usage.Daily.Repohascommitafter
+    parent_field: search_usage
+
+  search_usage_daily_repohascommitafter_eventscount:
+    sql: search_usage.Daily.Repohascommitafter.EventsCount
+    parent_field: search_usage
+
+  search_usage_daily_repohascommitafter_usercount:
+    sql: search_usage.Daily.Repohascommitafter.UserCount
+    parent_field: search_usage
+
+  search_usage_daily_repohasfile:
+    sql: search_usage.Daily.Repohasfile
+    parent_field: search_usage
+
+  search_usage_daily_repohasfile_eventscount:
+    sql: search_usage.Daily.Repohasfile.EventsCount
+    parent_field: search_usage
+
+  search_usage_daily_repohasfile_usercount:
+    sql: search_usage.Daily.Repohasfile.UserCount
+    parent_field: search_usage
+
+  search_usage_daily_searchmodes:
+    sql: search_usage.Daily.SearchModes
+    parent_field: search_usage
+
+  search_usage_daily_searchmodes_interactive:
+    sql: search_usage.Daily.SearchModes.Interactive
+    parent_field: search_usage
+
+  search_usage_daily_searchmodes_interactive_eventscount:
+    sql: search_usage.Daily.SearchModes.Interactive.EventsCount
+    parent_field: search_usage
+
+  search_usage_daily_searchmodes_interactive_usercount:
+    sql: search_usage.Daily.SearchModes.Interactive.UserCount
+    parent_field: search_usage
+
+  search_usage_daily_searchmodes_interactive_userscount:
+    sql: search_usage.Daily.SearchModes.Interactive.UsersCount
+    parent_field: search_usage
+
+  search_usage_daily_searchmodes_plaintext:
+    sql: search_usage.Daily.SearchModes.PlainText
+    parent_field: search_usage
+
+  search_usage_daily_searchmodes_plaintext_eventscount:
+    sql: search_usage.Daily.SearchModes.PlainText.EventsCount
+    parent_field: search_usage
+
+  search_usage_daily_searchmodes_plaintext_usercount:
+    sql: search_usage.Daily.SearchModes.PlainText.UserCount
+    parent_field: search_usage
+
+  search_usage_daily_searchmodes_plaintext_userscount:
+    sql: search_usage.Daily.SearchModes.PlainText.UsersCount
+    parent_field: search_usage
+
+  search_usage_daily_selectcommitdiffadded:
+    sql: search_usage.Daily.SelectCommitDiffAdded
+    parent_field: search_usage
+
+  search_usage_daily_selectcommitdiffadded_eventscount:
+    sql: search_usage.Daily.SelectCommitDiffAdded.EventsCount
+    parent_field: search_usage
+
+  search_usage_daily_selectcommitdiffadded_usercount:
+    sql: search_usage.Daily.SelectCommitDiffAdded.UserCount
+    parent_field: search_usage
+
+  search_usage_daily_selectcommitdiffremoved:
+    sql: search_usage.Daily.SelectCommitDiffRemoved
+    parent_field: search_usage
+
+  search_usage_daily_selectcommitdiffremoved_eventscount:
+    sql: search_usage.Daily.SelectCommitDiffRemoved.EventsCount
+    parent_field: search_usage
+
+  search_usage_daily_selectcommitdiffremoved_usercount:
+    sql: search_usage.Daily.SelectCommitDiffRemoved.UserCount
+    parent_field: search_usage
+
+  search_usage_daily_selectcontent:
+    sql: search_usage.Daily.SelectContent
+    parent_field: search_usage
+
+  search_usage_daily_selectcontent_eventscount:
+    sql: search_usage.Daily.SelectContent.EventsCount
+    parent_field: search_usage
+
+  search_usage_daily_selectcontent_usercount:
+    sql: search_usage.Daily.SelectContent.UserCount
+    parent_field: search_usage
+
+  search_usage_daily_selectfile:
+    sql: search_usage.Daily.SelectFile
+    parent_field: search_usage
+
+  search_usage_daily_selectfile_eventscount:
+    sql: search_usage.Daily.SelectFile.EventsCount
+    parent_field: search_usage
+
+  search_usage_daily_selectfile_usercount:
+    sql: search_usage.Daily.SelectFile.UserCount
+    parent_field: search_usage
+
+  search_usage_daily_selectrepo:
+    sql: search_usage.Daily.SelectRepo
+    parent_field: search_usage
+
+  search_usage_daily_selectrepo_eventscount:
+    sql: search_usage.Daily.SelectRepo.EventsCount
+    parent_field: search_usage
+
+  search_usage_daily_selectrepo_usercount:
+    sql: search_usage.Daily.SelectRepo.UserCount
+    parent_field: search_usage
+
+  search_usage_daily_selectsymbol:
+    sql: search_usage.Daily.SelectSymbol
+    parent_field: search_usage
+
+  search_usage_daily_selectsymbol_eventscount:
+    sql: search_usage.Daily.SelectSymbol.EventsCount
+    parent_field: search_usage
+
+  search_usage_daily_selectsymbol_usercount:
+    sql: search_usage.Daily.SelectSymbol.UserCount
+    parent_field: search_usage
+
+  search_usage_daily_starttime:
+    sql: search_usage.Daily.StartTime
+    parent_field: search_usage
+
+  search_usage_daily_structural:
+    sql: search_usage.Daily.Structural
+    parent_field: search_usage
+
+  search_usage_daily_structural_eventlatencies:
+    sql: search_usage.Daily.Structural.EventLatencies
+    parent_field: search_usage
+
+  search_usage_daily_structural_eventlatencies_p50:
+    sql: search_usage.Daily.Structural.EventLatencies.P50
+    parent_field: search_usage
+
+  search_usage_daily_structural_eventlatencies_p90:
+    sql: search_usage.Daily.Structural.EventLatencies.P90
+    parent_field: search_usage
+
+  search_usage_daily_structural_eventlatencies_p99:
+    sql: search_usage.Daily.Structural.EventLatencies.P99
+    parent_field: search_usage
+
+  search_usage_daily_structural_eventscount:
+    sql: search_usage.Daily.Structural.EventsCount
+    parent_field: search_usage
+
+  search_usage_daily_structural_usercount:
+    sql: search_usage.Daily.Structural.UserCount
+    parent_field: search_usage
+
+  search_usage_daily_symbol:
+    sql: search_usage.Daily.Symbol
+    parent_field: search_usage
+
+  search_usage_daily_symbol_eventlatencies:
+    sql: search_usage.Daily.Symbol.EventLatencies
+    parent_field: search_usage
+
+  search_usage_daily_symbol_eventlatencies_p50:
+    sql: search_usage.Daily.Symbol.EventLatencies.P50
+    parent_field: search_usage
+
+  search_usage_daily_symbol_eventlatencies_p90:
+    sql: search_usage.Daily.Symbol.EventLatencies.P90
+    parent_field: search_usage
+
+  search_usage_daily_symbol_eventlatencies_p99:
+    sql: search_usage.Daily.Symbol.EventLatencies.P99
+    parent_field: search_usage
+
+  search_usage_daily_symbol_eventscount:
+    sql: search_usage.Daily.Symbol.EventsCount
+    parent_field: search_usage
+
+  search_usage_daily_symbol_usercount:
+    sql: search_usage.Daily.Symbol.UserCount
+    parent_field: search_usage
+
+  search_usage_daily_timeout:
+    sql: search_usage.Daily.Timeout
+    parent_field: search_usage
+
+  search_usage_daily_timeout_eventscount:
+    sql: search_usage.Daily.Timeout.EventsCount
+    parent_field: search_usage
+
+  search_usage_daily_timeout_usercount:
+    sql: search_usage.Daily.Timeout.UserCount
+    parent_field: search_usage
+
+  search_usage_daily_totalusers:
+    sql: search_usage.Daily.TotalUsers
+    parent_field: search_usage
+
+  search_usage_daily_type:
+    sql: search_usage.Daily.Type
+    parent_field: search_usage
+
+  search_usage_daily_type_eventscount:
+    sql: search_usage.Daily.Type.EventsCount
+    parent_field: search_usage
+
+  search_usage_daily_type_usercount:
+    sql: search_usage.Daily.Type.UserCount
+    parent_field: search_usage
+
+  search_usage_monthly:
+    sql: search_usage.Monthly
+    parent_field: search_usage
+
+  search_usage_monthly_after:
+    sql: search_usage.Monthly.After
+    parent_field: search_usage
+
+  search_usage_monthly_after_eventscount:
+    sql: search_usage.Monthly.After.EventsCount
+    parent_field: search_usage
+
+  search_usage_monthly_after_usercount:
+    sql: search_usage.Monthly.After.UserCount
+    parent_field: search_usage
+
+  search_usage_monthly_archived:
+    sql: search_usage.Monthly.Archived
+    parent_field: search_usage
+
+  search_usage_monthly_archived_eventscount:
+    sql: search_usage.Monthly.Archived.EventsCount
+    parent_field: search_usage
+
+  search_usage_monthly_archived_usercount:
+    sql: search_usage.Monthly.Archived.UserCount
+    parent_field: search_usage
+
+  search_usage_monthly_author:
+    sql: search_usage.Monthly.Author
+    parent_field: search_usage
+
+  search_usage_monthly_author_eventscount:
+    sql: search_usage.Monthly.Author.EventsCount
+    parent_field: search_usage
+
+  search_usage_monthly_author_usercount:
+    sql: search_usage.Monthly.Author.UserCount
+    parent_field: search_usage
+
+  search_usage_monthly_before:
+    sql: search_usage.Monthly.Before
+    parent_field: search_usage
+
+  search_usage_monthly_before_eventscount:
+    sql: search_usage.Monthly.Before.EventsCount
+    parent_field: search_usage
+
+  search_usage_monthly_before_usercount:
+    sql: search_usage.Monthly.Before.UserCount
+    parent_field: search_usage
+
+  search_usage_monthly_case:
+    sql: search_usage.Monthly.`Case`
+    parent_field: search_usage
+
+  search_usage_monthly_case_eventscount:
+    sql: search_usage.Monthly.`Case`.EventsCount
+    parent_field: search_usage
+
+  search_usage_monthly_case_usercount:
+    sql: search_usage.Monthly.`Case`.UserCount
+    parent_field: search_usage
+
+  search_usage_monthly_commit:
+    sql: search_usage.Monthly.Commit
+    parent_field: search_usage
+
+  search_usage_monthly_commit_eventlatencies:
+    sql: search_usage.Monthly.Commit.EventLatencies
+    parent_field: search_usage
+
+  search_usage_monthly_commit_eventlatencies_p50:
+    sql: search_usage.Monthly.Commit.EventLatencies.P50
+    parent_field: search_usage
+
+  search_usage_monthly_commit_eventlatencies_p90:
+    sql: search_usage.Monthly.Commit.EventLatencies.P90
+    parent_field: search_usage
+
+  search_usage_monthly_commit_eventlatencies_p99:
+    sql: search_usage.Monthly.Commit.EventLatencies.P99
+    parent_field: search_usage
+
+  search_usage_monthly_commit_eventscount:
+    sql: search_usage.Monthly.Commit.EventsCount
+    parent_field: search_usage
+
+  search_usage_monthly_commit_usercount:
+    sql: search_usage.Monthly.Commit.UserCount
+    parent_field: search_usage
+
+  search_usage_monthly_committer:
+    sql: search_usage.Monthly.Committer
+    parent_field: search_usage
+
+  search_usage_monthly_committer_eventscount:
+    sql: search_usage.Monthly.Committer.EventsCount
+    parent_field: search_usage
+
+  search_usage_monthly_committer_usercount:
+    sql: search_usage.Monthly.Committer.UserCount
+    parent_field: search_usage
+
+  search_usage_monthly_content:
+    sql: search_usage.Monthly.Content
+    parent_field: search_usage
+
+  search_usage_monthly_content_eventscount:
+    sql: search_usage.Monthly.Content.EventsCount
+    parent_field: search_usage
+
+  search_usage_monthly_content_usercount:
+    sql: search_usage.Monthly.Content.UserCount
+    parent_field: search_usage
+
+  search_usage_monthly_count:
+    sql: search_usage.Monthly.Count
+    parent_field: search_usage
+
+  search_usage_monthly_count_eventscount:
+    sql: search_usage.Monthly.Count.EventsCount
+    parent_field: search_usage
+
+  search_usage_monthly_count_usercount:
+    sql: search_usage.Monthly.Count.UserCount
+    parent_field: search_usage
+
+  search_usage_monthly_countall:
+    sql: search_usage.Monthly.CountAll
+    parent_field: search_usage
+
+  search_usage_monthly_countall_eventscount:
+    sql: search_usage.Monthly.CountAll.EventsCount
+    parent_field: search_usage
+
+  search_usage_monthly_countall_usercount:
+    sql: search_usage.Monthly.CountAll.UserCount
+    parent_field: search_usage
+
+  search_usage_monthly_diff:
+    sql: search_usage.Monthly.Diff
+    parent_field: search_usage
+
+  search_usage_monthly_diff_eventlatencies:
+    sql: search_usage.Monthly.Diff.EventLatencies
+    parent_field: search_usage
+
+  search_usage_monthly_diff_eventlatencies_p50:
+    sql: search_usage.Monthly.Diff.EventLatencies.P50
+    parent_field: search_usage
+
+  search_usage_monthly_diff_eventlatencies_p90:
+    sql: search_usage.Monthly.Diff.EventLatencies.P90
+    parent_field: search_usage
+
+  search_usage_monthly_diff_eventlatencies_p99:
+    sql: search_usage.Monthly.Diff.EventLatencies.P99
+    parent_field: search_usage
+
+  search_usage_monthly_diff_eventscount:
+    sql: search_usage.Monthly.Diff.EventsCount
+    parent_field: search_usage
+
+  search_usage_monthly_diff_usercount:
+    sql: search_usage.Monthly.Diff.UserCount
+    parent_field: search_usage
+
+  search_usage_monthly_file:
+    sql: search_usage.Monthly.File
+    parent_field: search_usage
+
+  search_usage_monthly_file_eventlatencies:
+    sql: search_usage.Monthly.File.EventLatencies
+    parent_field: search_usage
+
+  search_usage_monthly_file_eventlatencies_p50:
+    sql: search_usage.Monthly.File.EventLatencies.P50
+    parent_field: search_usage
+
+  search_usage_monthly_file_eventlatencies_p90:
+    sql: search_usage.Monthly.File.EventLatencies.P90
+    parent_field: search_usage
+
+  search_usage_monthly_file_eventlatencies_p99:
+    sql: search_usage.Monthly.File.EventLatencies.P99
+    parent_field: search_usage
+
+  search_usage_monthly_file_eventscount:
+    sql: search_usage.Monthly.File.EventsCount
+    parent_field: search_usage
+
+  search_usage_monthly_file_usercount:
+    sql: search_usage.Monthly.File.UserCount
+    parent_field: search_usage
+
+  search_usage_monthly_fork:
+    sql: search_usage.Monthly.Fork
+    parent_field: search_usage
+
+  search_usage_monthly_fork_eventscount:
+    sql: search_usage.Monthly.Fork.EventsCount
+    parent_field: search_usage
+
+  search_usage_monthly_fork_usercount:
+    sql: search_usage.Monthly.Fork.UserCount
+    parent_field: search_usage
+
+  search_usage_monthly_index:
+    sql: search_usage.Monthly.Index
+    parent_field: search_usage
+
+  search_usage_monthly_index_eventscount:
+    sql: search_usage.Monthly.Index.EventsCount
+    parent_field: search_usage
+
+  search_usage_monthly_index_usercount:
+    sql: search_usage.Monthly.Index.UserCount
+    parent_field: search_usage
+
+  search_usage_monthly_lang:
+    sql: search_usage.Monthly.Lang
+    parent_field: search_usage
+
+  search_usage_monthly_lang_eventscount:
+    sql: search_usage.Monthly.Lang.EventsCount
+    parent_field: search_usage
+
+  search_usage_monthly_lang_usercount:
+    sql: search_usage.Monthly.Lang.UserCount
+    parent_field: search_usage
+
+  search_usage_monthly_literal:
+    sql: search_usage.Monthly.Literal
+    parent_field: search_usage
+
+  search_usage_monthly_literal_eventlatencies:
+    sql: search_usage.Monthly.Literal.EventLatencies
+    parent_field: search_usage
+
+  search_usage_monthly_literal_eventlatencies_p50:
+    sql: search_usage.Monthly.Literal.EventLatencies.P50
+    parent_field: search_usage
+
+  search_usage_monthly_literal_eventlatencies_p90:
+    sql: search_usage.Monthly.Literal.EventLatencies.P90
+    parent_field: search_usage
+
+  search_usage_monthly_literal_eventlatencies_p99:
+    sql: search_usage.Monthly.Literal.EventLatencies.P99
+    parent_field: search_usage
+
+  search_usage_monthly_literal_eventscount:
+    sql: search_usage.Monthly.Literal.EventsCount
+    parent_field: search_usage
+
+  search_usage_monthly_literal_usercount:
+    sql: search_usage.Monthly.Literal.UserCount
+    parent_field: search_usage
+
+  search_usage_monthly_message:
+    sql: search_usage.Monthly.Message
+    parent_field: search_usage
+
+  search_usage_monthly_message_eventscount:
+    sql: search_usage.Monthly.Message.EventsCount
+    parent_field: search_usage
+
+  search_usage_monthly_message_usercount:
+    sql: search_usage.Monthly.Message.UserCount
+    parent_field: search_usage
+
+  search_usage_monthly_nonglobalcontext:
+    sql: search_usage.Monthly.NonGlobalContext
+    parent_field: search_usage
+
+  search_usage_monthly_nonglobalcontext_eventscount:
+    sql: search_usage.Monthly.NonGlobalContext.EventsCount
+    parent_field: search_usage
+
+  search_usage_monthly_nonglobalcontext_usercount:
+    sql: search_usage.Monthly.NonGlobalContext.UserCount
+    parent_field: search_usage
+
+  search_usage_monthly_onlypatterns:
+    sql: search_usage.Monthly.OnlyPatterns
+    parent_field: search_usage
+
+  search_usage_monthly_onlypatterns_eventscount:
+    sql: search_usage.Monthly.OnlyPatterns.EventsCount
+    parent_field: search_usage
+
+  search_usage_monthly_onlypatterns_usercount:
+    sql: search_usage.Monthly.OnlyPatterns.UserCount
+    parent_field: search_usage
+
+  search_usage_monthly_onlypatternsthreeormore:
+    sql: search_usage.Monthly.OnlyPatternsThreeOrMore
+    parent_field: search_usage
+
+  search_usage_monthly_onlypatternsthreeormore_eventscount:
+    sql: search_usage.Monthly.OnlyPatternsThreeOrMore.EventsCount
+    parent_field: search_usage
+
+  search_usage_monthly_onlypatternsthreeormore_usercount:
+    sql: search_usage.Monthly.OnlyPatternsThreeOrMore.UserCount
+    parent_field: search_usage
+
+  search_usage_monthly_operatorand:
+    sql: search_usage.Monthly.OperatorAnd
+    parent_field: search_usage
+
+  search_usage_monthly_operatorand_eventscount:
+    sql: search_usage.Monthly.OperatorAnd.EventsCount
+    parent_field: search_usage
+
+  search_usage_monthly_operatorand_usercount:
+    sql: search_usage.Monthly.OperatorAnd.UserCount
+    parent_field: search_usage
+
+  search_usage_monthly_operatornot:
+    sql: search_usage.Monthly.OperatorNot
+    parent_field: search_usage
+
+  search_usage_monthly_operatornot_eventscount:
+    sql: search_usage.Monthly.OperatorNot.EventsCount
+    parent_field: search_usage
+
+  search_usage_monthly_operatornot_usercount:
+    sql: search_usage.Monthly.OperatorNot.UserCount
+    parent_field: search_usage
+
+  search_usage_monthly_operatoror:
+    sql: search_usage.Monthly.OperatorOr
+    parent_field: search_usage
+
+  search_usage_monthly_operatoror_eventscount:
+    sql: search_usage.Monthly.OperatorOr.EventsCount
+    parent_field: search_usage
+
+  search_usage_monthly_operatoror_usercount:
+    sql: search_usage.Monthly.OperatorOr.UserCount
+    parent_field: search_usage
+
+  search_usage_monthly_patterntype:
+    sql: search_usage.Monthly.PatternType
+    parent_field: search_usage
+
+  search_usage_monthly_patterntype_eventscount:
+    sql: search_usage.Monthly.PatternType.EventsCount
+    parent_field: search_usage
+
+  search_usage_monthly_patterntype_usercount:
+    sql: search_usage.Monthly.PatternType.UserCount
+    parent_field: search_usage
+
+  search_usage_monthly_regexp:
+    sql: search_usage.Monthly.Regexp
+    parent_field: search_usage
+
+  search_usage_monthly_regexp_eventlatencies:
+    sql: search_usage.Monthly.Regexp.EventLatencies
+    parent_field: search_usage
+
+  search_usage_monthly_regexp_eventlatencies_p50:
+    sql: search_usage.Monthly.Regexp.EventLatencies.P50
+    parent_field: search_usage
+
+  search_usage_monthly_regexp_eventlatencies_p90:
+    sql: search_usage.Monthly.Regexp.EventLatencies.P90
+    parent_field: search_usage
+
+  search_usage_monthly_regexp_eventlatencies_p99:
+    sql: search_usage.Monthly.Regexp.EventLatencies.P99
+    parent_field: search_usage
+
+  search_usage_monthly_regexp_eventscount:
+    sql: search_usage.Monthly.Regexp.EventsCount
+    parent_field: search_usage
+
+  search_usage_monthly_regexp_usercount:
+    sql: search_usage.Monthly.Regexp.UserCount
+    parent_field: search_usage
+
+  search_usage_monthly_repo:
+    sql: search_usage.Monthly.Repo
+    parent_field: search_usage
+
+  search_usage_monthly_repo_eventlatencies:
+    sql: search_usage.Monthly.Repo.EventLatencies
+    parent_field: search_usage
+
+  search_usage_monthly_repo_eventlatencies_p50:
+    sql: search_usage.Monthly.Repo.EventLatencies.P50
+    parent_field: search_usage
+
+  search_usage_monthly_repo_eventlatencies_p90:
+    sql: search_usage.Monthly.Repo.EventLatencies.P90
+    parent_field: search_usage
+
+  search_usage_monthly_repo_eventlatencies_p99:
+    sql: search_usage.Monthly.Repo.EventLatencies.P99
+    parent_field: search_usage
+
+  search_usage_monthly_repo_eventscount:
+    sql: search_usage.Monthly.Repo.EventsCount
+    parent_field: search_usage
+
+  search_usage_monthly_repo_usercount:
+    sql: search_usage.Monthly.Repo.UserCount
+    parent_field: search_usage
+
+  search_usage_monthly_repocontains:
+    sql: search_usage.Monthly.RepoContains
+    parent_field: search_usage
+
+  search_usage_monthly_repocontains_eventscount:
+    sql: search_usage.Monthly.RepoContains.EventsCount
+    parent_field: search_usage
+
+  search_usage_monthly_repocontains_usercount:
+    sql: search_usage.Monthly.RepoContains.UserCount
+    parent_field: search_usage
+
+  search_usage_monthly_repocontainscommitafter:
+    sql: search_usage.Monthly.RepoContainsCommitAfter
+    parent_field: search_usage
+
+  search_usage_monthly_repocontainscommitafter_eventscount:
+    sql: search_usage.Monthly.RepoContainsCommitAfter.EventsCount
+    parent_field: search_usage
+
+  search_usage_monthly_repocontainscommitafter_usercount:
+    sql: search_usage.Monthly.RepoContainsCommitAfter.UserCount
+    parent_field: search_usage
+
+  search_usage_monthly_repocontainscontent:
+    sql: search_usage.Monthly.RepoContainsContent
+    parent_field: search_usage
+
+  search_usage_monthly_repocontainscontent_eventscount:
+    sql: search_usage.Monthly.RepoContainsContent.EventsCount
+    parent_field: search_usage
+
+  search_usage_monthly_repocontainscontent_usercount:
+    sql: search_usage.Monthly.RepoContainsContent.UserCount
+    parent_field: search_usage
+
+  search_usage_monthly_repocontainsfile:
+    sql: search_usage.Monthly.RepoContainsFile
+    parent_field: search_usage
+
+  search_usage_monthly_repocontainsfile_eventscount:
+    sql: search_usage.Monthly.RepoContainsFile.EventsCount
+    parent_field: search_usage
+
+  search_usage_monthly_repocontainsfile_usercount:
+    sql: search_usage.Monthly.RepoContainsFile.UserCount
+    parent_field: search_usage
+
+  search_usage_monthly_repodependencies:
+    sql: search_usage.Monthly.RepoDependencies
+    parent_field: search_usage
+
+  search_usage_monthly_repodependencies_eventscount:
+    sql: search_usage.Monthly.RepoDependencies.EventsCount
+    parent_field: search_usage
+
+  search_usage_monthly_repodependencies_usercount:
+    sql: search_usage.Monthly.RepoDependencies.UserCount
+    parent_field: search_usage
+
+  search_usage_monthly_repogroup:
+    sql: search_usage.Monthly.Repogroup
+    parent_field: search_usage
+
+  search_usage_monthly_repogroup_eventscount:
+    sql: search_usage.Monthly.Repogroup.EventsCount
+    parent_field: search_usage
+
+  search_usage_monthly_repogroup_usercount:
+    sql: search_usage.Monthly.Repogroup.UserCount
+    parent_field: search_usage
+
+  search_usage_monthly_repohascommitafter:
+    sql: search_usage.Monthly.Repohascommitafter
+    parent_field: search_usage
+
+  search_usage_monthly_repohascommitafter_eventscount:
+    sql: search_usage.Monthly.Repohascommitafter.EventsCount
+    parent_field: search_usage
+
+  search_usage_monthly_repohascommitafter_usercount:
+    sql: search_usage.Monthly.Repohascommitafter.UserCount
+    parent_field: search_usage
+
+  search_usage_monthly_repohasfile:
+    sql: search_usage.Monthly.Repohasfile
+    parent_field: search_usage
+
+  search_usage_monthly_repohasfile_eventscount:
+    sql: search_usage.Monthly.Repohasfile.EventsCount
+    parent_field: search_usage
+
+  search_usage_monthly_repohasfile_usercount:
+    sql: search_usage.Monthly.Repohasfile.UserCount
+    parent_field: search_usage
+
+  search_usage_monthly_searchmodes:
+    sql: search_usage.Monthly.SearchModes
+    parent_field: search_usage
+
+  search_usage_monthly_searchmodes_interactive:
+    sql: search_usage.Monthly.SearchModes.Interactive
+    parent_field: search_usage
+
+  search_usage_monthly_searchmodes_interactive_eventscount:
+    sql: search_usage.Monthly.SearchModes.Interactive.EventsCount
+    parent_field: search_usage
+
+  search_usage_monthly_searchmodes_interactive_usercount:
+    sql: search_usage.Monthly.SearchModes.Interactive.UserCount
+    parent_field: search_usage
+
+  search_usage_monthly_searchmodes_interactive_userscount:
+    sql: search_usage.Monthly.SearchModes.Interactive.UsersCount
+    parent_field: search_usage
+
+  search_usage_monthly_searchmodes_plaintext:
+    sql: search_usage.Monthly.SearchModes.PlainText
+    parent_field: search_usage
+
+  search_usage_monthly_searchmodes_plaintext_eventscount:
+    sql: search_usage.Monthly.SearchModes.PlainText.EventsCount
+    parent_field: search_usage
+
+  search_usage_monthly_searchmodes_plaintext_usercount:
+    sql: search_usage.Monthly.SearchModes.PlainText.UserCount
+    parent_field: search_usage
+
+  search_usage_monthly_searchmodes_plaintext_userscount:
+    sql: search_usage.Monthly.SearchModes.PlainText.UsersCount
+    parent_field: search_usage
+
+  search_usage_monthly_selectcommitdiffadded:
+    sql: search_usage.Monthly.SelectCommitDiffAdded
+    parent_field: search_usage
+
+  search_usage_monthly_selectcommitdiffadded_eventscount:
+    sql: search_usage.Monthly.SelectCommitDiffAdded.EventsCount
+    parent_field: search_usage
+
+  search_usage_monthly_selectcommitdiffadded_usercount:
+    sql: search_usage.Monthly.SelectCommitDiffAdded.UserCount
+    parent_field: search_usage
+
+  search_usage_monthly_selectcommitdiffremoved:
+    sql: search_usage.Monthly.SelectCommitDiffRemoved
+    parent_field: search_usage
+
+  search_usage_monthly_selectcommitdiffremoved_eventscount:
+    sql: search_usage.Monthly.SelectCommitDiffRemoved.EventsCount
+    parent_field: search_usage
+
+  search_usage_monthly_selectcommitdiffremoved_usercount:
+    sql: search_usage.Monthly.SelectCommitDiffRemoved.UserCount
+    parent_field: search_usage
+
+  search_usage_monthly_selectcontent:
+    sql: search_usage.Monthly.SelectContent
+    parent_field: search_usage
+
+  search_usage_monthly_selectcontent_eventscount:
+    sql: search_usage.Monthly.SelectContent.EventsCount
+    parent_field: search_usage
+
+  search_usage_monthly_selectcontent_usercount:
+    sql: search_usage.Monthly.SelectContent.UserCount
+    parent_field: search_usage
+
+  search_usage_monthly_selectfile:
+    sql: search_usage.Monthly.SelectFile
+    parent_field: search_usage
+
+  search_usage_monthly_selectfile_eventscount:
+    sql: search_usage.Monthly.SelectFile.EventsCount
+    parent_field: search_usage
+
+  search_usage_monthly_selectfile_usercount:
+    sql: search_usage.Monthly.SelectFile.UserCount
+    parent_field: search_usage
+
+  search_usage_monthly_selectrepo:
+    sql: search_usage.Monthly.SelectRepo
+    parent_field: search_usage
+
+  search_usage_monthly_selectrepo_eventscount:
+    sql: search_usage.Monthly.SelectRepo.EventsCount
+    parent_field: search_usage
+
+  search_usage_monthly_selectrepo_usercount:
+    sql: search_usage.Monthly.SelectRepo.UserCount
+    parent_field: search_usage
+
+  search_usage_monthly_selectsymbol:
+    sql: search_usage.Monthly.SelectSymbol
+    parent_field: search_usage
+
+  search_usage_monthly_selectsymbol_eventscount:
+    sql: search_usage.Monthly.SelectSymbol.EventsCount
+    parent_field: search_usage
+
+  search_usage_monthly_selectsymbol_usercount:
+    sql: search_usage.Monthly.SelectSymbol.UserCount
+    parent_field: search_usage
+
+  search_usage_monthly_starttime:
+    sql: search_usage.Monthly.StartTime
+    parent_field: search_usage
+
+  search_usage_monthly_structural:
+    sql: search_usage.Monthly.Structural
+    parent_field: search_usage
+
+  search_usage_monthly_structural_eventlatencies:
+    sql: search_usage.Monthly.Structural.EventLatencies
+    parent_field: search_usage
+
+  search_usage_monthly_structural_eventlatencies_p50:
+    sql: search_usage.Monthly.Structural.EventLatencies.P50
+    parent_field: search_usage
+
+  search_usage_monthly_structural_eventlatencies_p90:
+    sql: search_usage.Monthly.Structural.EventLatencies.P90
+    parent_field: search_usage
+
+  search_usage_monthly_structural_eventlatencies_p99:
+    sql: search_usage.Monthly.Structural.EventLatencies.P99
+    parent_field: search_usage
+
+  search_usage_monthly_structural_eventscount:
+    sql: search_usage.Monthly.Structural.EventsCount
+    parent_field: search_usage
+
+  search_usage_monthly_structural_usercount:
+    sql: search_usage.Monthly.Structural.UserCount
+    parent_field: search_usage
+
+  search_usage_monthly_symbol:
+    sql: search_usage.Monthly.Symbol
+    parent_field: search_usage
+
+  search_usage_monthly_symbol_eventlatencies:
+    sql: search_usage.Monthly.Symbol.EventLatencies
+    parent_field: search_usage
+
+  search_usage_monthly_symbol_eventlatencies_p50:
+    sql: search_usage.Monthly.Symbol.EventLatencies.P50
+    parent_field: search_usage
+
+  search_usage_monthly_symbol_eventlatencies_p90:
+    sql: search_usage.Monthly.Symbol.EventLatencies.P90
+    parent_field: search_usage
+
+  search_usage_monthly_symbol_eventlatencies_p99:
+    sql: search_usage.Monthly.Symbol.EventLatencies.P99
+    parent_field: search_usage
+
+  search_usage_monthly_symbol_eventscount:
+    sql: search_usage.Monthly.Symbol.EventsCount
+    parent_field: search_usage
+
+  search_usage_monthly_symbol_usercount:
+    sql: search_usage.Monthly.Symbol.UserCount
+    parent_field: search_usage
+
+  search_usage_monthly_timeout:
+    sql: search_usage.Monthly.Timeout
+    parent_field: search_usage
+
+  search_usage_monthly_timeout_eventscount:
+    sql: search_usage.Monthly.Timeout.EventsCount
+    parent_field: search_usage
+
+  search_usage_monthly_timeout_usercount:
+    sql: search_usage.Monthly.Timeout.UserCount
+    parent_field: search_usage
+
+  search_usage_monthly_totalusers:
+    sql: search_usage.Monthly.TotalUsers
+    parent_field: search_usage
+
+  search_usage_monthly_type:
+    sql: search_usage.Monthly.Type
+    parent_field: search_usage
+
+  search_usage_monthly_type_eventscount:
+    sql: search_usage.Monthly.Type.EventsCount
+    parent_field: search_usage
+
+  search_usage_monthly_type_usercount:
+    sql: search_usage.Monthly.Type.UserCount
+    parent_field: search_usage
+
+  search_usage_weekly:
+    sql: search_usage.Weekly
+    parent_field: search_usage
+
+  search_usage_weekly_after:
+    sql: search_usage.Weekly.After
+    parent_field: search_usage
+
+  search_usage_weekly_after_eventscount:
+    sql: search_usage.Weekly.After.EventsCount
+    parent_field: search_usage
+
+  search_usage_weekly_after_usercount:
+    sql: search_usage.Weekly.After.UserCount
+    parent_field: search_usage
+
+  search_usage_weekly_archived:
+    sql: search_usage.Weekly.Archived
+    parent_field: search_usage
+
+  search_usage_weekly_archived_eventscount:
+    sql: search_usage.Weekly.Archived.EventsCount
+    parent_field: search_usage
+
+  search_usage_weekly_archived_usercount:
+    sql: search_usage.Weekly.Archived.UserCount
+    parent_field: search_usage
+
+  search_usage_weekly_author:
+    sql: search_usage.Weekly.Author
+    parent_field: search_usage
+
+  search_usage_weekly_author_eventscount:
+    sql: search_usage.Weekly.Author.EventsCount
+    parent_field: search_usage
+
+  search_usage_weekly_author_usercount:
+    sql: search_usage.Weekly.Author.UserCount
+    parent_field: search_usage
+
+  search_usage_weekly_before:
+    sql: search_usage.Weekly.Before
+    parent_field: search_usage
+
+  search_usage_weekly_before_eventscount:
+    sql: search_usage.Weekly.Before.EventsCount
+    parent_field: search_usage
+
+  search_usage_weekly_before_usercount:
+    sql: search_usage.Weekly.Before.UserCount
+    parent_field: search_usage
+
+  search_usage_weekly_case:
+    sql: search_usage.Weekly.`Case`
+    parent_field: search_usage
+
+  search_usage_weekly_case_eventscount:
+    sql: search_usage.Weekly.`Case`.EventsCount
+    parent_field: search_usage
+
+  search_usage_weekly_case_usercount:
+    sql: search_usage.Weekly.`Case`.UserCount
+    parent_field: search_usage
+
+  search_usage_weekly_commit:
+    sql: search_usage.Weekly.Commit
+    parent_field: search_usage
+
+  search_usage_weekly_commit_eventlatencies:
+    sql: search_usage.Weekly.Commit.EventLatencies
+    parent_field: search_usage
+
+  search_usage_weekly_commit_eventlatencies_p50:
+    sql: search_usage.Weekly.Commit.EventLatencies.P50
+    parent_field: search_usage
+
+  search_usage_weekly_commit_eventlatencies_p90:
+    sql: search_usage.Weekly.Commit.EventLatencies.P90
+    parent_field: search_usage
+
+  search_usage_weekly_commit_eventlatencies_p99:
+    sql: search_usage.Weekly.Commit.EventLatencies.P99
+    parent_field: search_usage
+
+  search_usage_weekly_commit_eventscount:
+    sql: search_usage.Weekly.Commit.EventsCount
+    parent_field: search_usage
+
+  search_usage_weekly_commit_usercount:
+    sql: search_usage.Weekly.Commit.UserCount
+    parent_field: search_usage
+
+  search_usage_weekly_committer:
+    sql: search_usage.Weekly.Committer
+    parent_field: search_usage
+
+  search_usage_weekly_committer_eventscount:
+    sql: search_usage.Weekly.Committer.EventsCount
+    parent_field: search_usage
+
+  search_usage_weekly_committer_usercount:
+    sql: search_usage.Weekly.Committer.UserCount
+    parent_field: search_usage
+
+  search_usage_weekly_content:
+    sql: search_usage.Weekly.Content
+    parent_field: search_usage
+
+  search_usage_weekly_content_eventscount:
+    sql: search_usage.Weekly.Content.EventsCount
+    parent_field: search_usage
+
+  search_usage_weekly_content_usercount:
+    sql: search_usage.Weekly.Content.UserCount
+    parent_field: search_usage
+
+  search_usage_weekly_count:
+    sql: search_usage.Weekly.Count
+    parent_field: search_usage
+
+  search_usage_weekly_count_eventscount:
+    sql: search_usage.Weekly.Count.EventsCount
+    parent_field: search_usage
+
+  search_usage_weekly_count_usercount:
+    sql: search_usage.Weekly.Count.UserCount
+    parent_field: search_usage
+
+  search_usage_weekly_countall:
+    sql: search_usage.Weekly.CountAll
+    parent_field: search_usage
+
+  search_usage_weekly_countall_eventscount:
+    sql: search_usage.Weekly.CountAll.EventsCount
+    parent_field: search_usage
+
+  search_usage_weekly_countall_usercount:
+    sql: search_usage.Weekly.CountAll.UserCount
+    parent_field: search_usage
+
+  search_usage_weekly_diff:
+    sql: search_usage.Weekly.Diff
+    parent_field: search_usage
+
+  search_usage_weekly_diff_eventlatencies:
+    sql: search_usage.Weekly.Diff.EventLatencies
+    parent_field: search_usage
+
+  search_usage_weekly_diff_eventlatencies_p50:
+    sql: search_usage.Weekly.Diff.EventLatencies.P50
+    parent_field: search_usage
+
+  search_usage_weekly_diff_eventlatencies_p90:
+    sql: search_usage.Weekly.Diff.EventLatencies.P90
+    parent_field: search_usage
+
+  search_usage_weekly_diff_eventlatencies_p99:
+    sql: search_usage.Weekly.Diff.EventLatencies.P99
+    parent_field: search_usage
+
+  search_usage_weekly_diff_eventscount:
+    sql: search_usage.Weekly.Diff.EventsCount
+    parent_field: search_usage
+
+  search_usage_weekly_diff_usercount:
+    sql: search_usage.Weekly.Diff.UserCount
+    parent_field: search_usage
+
+  search_usage_weekly_file:
+    sql: search_usage.Weekly.File
+    parent_field: search_usage
+
+  search_usage_weekly_file_eventlatencies:
+    sql: search_usage.Weekly.File.EventLatencies
+    parent_field: search_usage
+
+  search_usage_weekly_file_eventlatencies_p50:
+    sql: search_usage.Weekly.File.EventLatencies.P50
+    parent_field: search_usage
+
+  search_usage_weekly_file_eventlatencies_p90:
+    sql: search_usage.Weekly.File.EventLatencies.P90
+    parent_field: search_usage
+
+  search_usage_weekly_file_eventlatencies_p99:
+    sql: search_usage.Weekly.File.EventLatencies.P99
+    parent_field: search_usage
+
+  search_usage_weekly_file_eventscount:
+    sql: search_usage.Weekly.File.EventsCount
+    parent_field: search_usage
+
+  search_usage_weekly_file_usercount:
+    sql: search_usage.Weekly.File.UserCount
+    parent_field: search_usage
+
+  search_usage_weekly_fork:
+    sql: search_usage.Weekly.Fork
+    parent_field: search_usage
+
+  search_usage_weekly_fork_eventscount:
+    sql: search_usage.Weekly.Fork.EventsCount
+    parent_field: search_usage
+
+  search_usage_weekly_fork_usercount:
+    sql: search_usage.Weekly.Fork.UserCount
+    parent_field: search_usage
+
+  search_usage_weekly_index:
+    sql: search_usage.Weekly.Index
+    parent_field: search_usage
+
+  search_usage_weekly_index_eventscount:
+    sql: search_usage.Weekly.Index.EventsCount
+    parent_field: search_usage
+
+  search_usage_weekly_index_usercount:
+    sql: search_usage.Weekly.Index.UserCount
+    parent_field: search_usage
+
+  search_usage_weekly_lang:
+    sql: search_usage.Weekly.Lang
+    parent_field: search_usage
+
+  search_usage_weekly_lang_eventscount:
+    sql: search_usage.Weekly.Lang.EventsCount
+    parent_field: search_usage
+
+  search_usage_weekly_lang_usercount:
+    sql: search_usage.Weekly.Lang.UserCount
+    parent_field: search_usage
+
+  search_usage_weekly_literal:
+    sql: search_usage.Weekly.Literal
+    parent_field: search_usage
+
+  search_usage_weekly_literal_eventlatencies:
+    sql: search_usage.Weekly.Literal.EventLatencies
+    parent_field: search_usage
+
+  search_usage_weekly_literal_eventlatencies_p50:
+    sql: search_usage.Weekly.Literal.EventLatencies.P50
+    parent_field: search_usage
+
+  search_usage_weekly_literal_eventlatencies_p90:
+    sql: search_usage.Weekly.Literal.EventLatencies.P90
+    parent_field: search_usage
+
+  search_usage_weekly_literal_eventlatencies_p99:
+    sql: search_usage.Weekly.Literal.EventLatencies.P99
+    parent_field: search_usage
+
+  search_usage_weekly_literal_eventscount:
+    sql: search_usage.Weekly.Literal.EventsCount
+    parent_field: search_usage
+
+  search_usage_weekly_literal_usercount:
+    sql: search_usage.Weekly.Literal.UserCount
+    parent_field: search_usage
+
+  search_usage_weekly_message:
+    sql: search_usage.Weekly.Message
+    parent_field: search_usage
+
+  search_usage_weekly_message_eventscount:
+    sql: search_usage.Weekly.Message.EventsCount
+    parent_field: search_usage
+
+  search_usage_weekly_message_usercount:
+    sql: search_usage.Weekly.Message.UserCount
+    parent_field: search_usage
+
+  search_usage_weekly_nonglobalcontext:
+    sql: search_usage.Weekly.NonGlobalContext
+    parent_field: search_usage
+
+  search_usage_weekly_nonglobalcontext_eventscount:
+    sql: search_usage.Weekly.NonGlobalContext.EventsCount
+    parent_field: search_usage
+
+  search_usage_weekly_nonglobalcontext_usercount:
+    sql: search_usage.Weekly.NonGlobalContext.UserCount
+    parent_field: search_usage
+
+  search_usage_weekly_onlypatterns:
+    sql: search_usage.Weekly.OnlyPatterns
+    parent_field: search_usage
+
+  search_usage_weekly_onlypatterns_eventscount:
+    sql: search_usage.Weekly.OnlyPatterns.EventsCount
+    parent_field: search_usage
+
+  search_usage_weekly_onlypatterns_usercount:
+    sql: search_usage.Weekly.OnlyPatterns.UserCount
+    parent_field: search_usage
+
+  search_usage_weekly_onlypatternsthreeormore:
+    sql: search_usage.Weekly.OnlyPatternsThreeOrMore
+    parent_field: search_usage
+
+  search_usage_weekly_onlypatternsthreeormore_eventscount:
+    sql: search_usage.Weekly.OnlyPatternsThreeOrMore.EventsCount
+    parent_field: search_usage
+
+  search_usage_weekly_onlypatternsthreeormore_usercount:
+    sql: search_usage.Weekly.OnlyPatternsThreeOrMore.UserCount
+    parent_field: search_usage
+
+  search_usage_weekly_operatorand:
+    sql: search_usage.Weekly.OperatorAnd
+    parent_field: search_usage
+
+  search_usage_weekly_operatorand_eventscount:
+    sql: search_usage.Weekly.OperatorAnd.EventsCount
+    parent_field: search_usage
+
+  search_usage_weekly_operatorand_usercount:
+    sql: search_usage.Weekly.OperatorAnd.UserCount
+    parent_field: search_usage
+
+  search_usage_weekly_operatornot:
+    sql: search_usage.Weekly.OperatorNot
+    parent_field: search_usage
+
+  search_usage_weekly_operatornot_eventscount:
+    sql: search_usage.Weekly.OperatorNot.EventsCount
+    parent_field: search_usage
+
+  search_usage_weekly_operatornot_usercount:
+    sql: search_usage.Weekly.OperatorNot.UserCount
+    parent_field: search_usage
+
+  search_usage_weekly_operatoror:
+    sql: search_usage.Weekly.OperatorOr
+    parent_field: search_usage
+
+  search_usage_weekly_operatoror_eventscount:
+    sql: search_usage.Weekly.OperatorOr.EventsCount
+    parent_field: search_usage
+
+  search_usage_weekly_operatoror_usercount:
+    sql: search_usage.Weekly.OperatorOr.UserCount
+    parent_field: search_usage
+
+  search_usage_weekly_patterntype:
+    sql: search_usage.Weekly.PatternType
+    parent_field: search_usage
+
+  search_usage_weekly_patterntype_eventscount:
+    sql: search_usage.Weekly.PatternType.EventsCount
+    parent_field: search_usage
+
+  search_usage_weekly_patterntype_usercount:
+    sql: search_usage.Weekly.PatternType.UserCount
+    parent_field: search_usage
+
+  search_usage_weekly_regexp:
+    sql: search_usage.Weekly.Regexp
+    parent_field: search_usage
+
+  search_usage_weekly_regexp_eventlatencies:
+    sql: search_usage.Weekly.Regexp.EventLatencies
+    parent_field: search_usage
+
+  search_usage_weekly_regexp_eventlatencies_p50:
+    sql: search_usage.Weekly.Regexp.EventLatencies.P50
+    parent_field: search_usage
+
+  search_usage_weekly_regexp_eventlatencies_p90:
+    sql: search_usage.Weekly.Regexp.EventLatencies.P90
+    parent_field: search_usage
+
+  search_usage_weekly_regexp_eventlatencies_p99:
+    sql: search_usage.Weekly.Regexp.EventLatencies.P99
+    parent_field: search_usage
+
+  search_usage_weekly_regexp_eventscount:
+    sql: search_usage.Weekly.Regexp.EventsCount
+    parent_field: search_usage
+
+  search_usage_weekly_regexp_usercount:
+    sql: search_usage.Weekly.Regexp.UserCount
+    parent_field: search_usage
+
+  search_usage_weekly_repo:
+    sql: search_usage.Weekly.Repo
+    parent_field: search_usage
+
+  search_usage_weekly_repo_eventlatencies:
+    sql: search_usage.Weekly.Repo.EventLatencies
+    parent_field: search_usage
+
+  search_usage_weekly_repo_eventlatencies_p50:
+    sql: search_usage.Weekly.Repo.EventLatencies.P50
+    parent_field: search_usage
+
+  search_usage_weekly_repo_eventlatencies_p90:
+    sql: search_usage.Weekly.Repo.EventLatencies.P90
+    parent_field: search_usage
+
+  search_usage_weekly_repo_eventlatencies_p99:
+    sql: search_usage.Weekly.Repo.EventLatencies.P99
+    parent_field: search_usage
+
+  search_usage_weekly_repo_eventscount:
+    sql: search_usage.Weekly.Repo.EventsCount
+    parent_field: search_usage
+
+  search_usage_weekly_repo_usercount:
+    sql: search_usage.Weekly.Repo.UserCount
+    parent_field: search_usage
+
+  search_usage_weekly_repocontains:
+    sql: search_usage.Weekly.RepoContains
+    parent_field: search_usage
+
+  search_usage_weekly_repocontains_eventscount:
+    sql: search_usage.Weekly.RepoContains.EventsCount
+    parent_field: search_usage
+
+  search_usage_weekly_repocontains_usercount:
+    sql: search_usage.Weekly.RepoContains.UserCount
+    parent_field: search_usage
+
+  search_usage_weekly_repocontainscommitafter:
+    sql: search_usage.Weekly.RepoContainsCommitAfter
+    parent_field: search_usage
+
+  search_usage_weekly_repocontainscommitafter_eventscount:
+    sql: search_usage.Weekly.RepoContainsCommitAfter.EventsCount
+    parent_field: search_usage
+
+  search_usage_weekly_repocontainscommitafter_usercount:
+    sql: search_usage.Weekly.RepoContainsCommitAfter.UserCount
+    parent_field: search_usage
+
+  search_usage_weekly_repocontainscontent:
+    sql: search_usage.Weekly.RepoContainsContent
+    parent_field: search_usage
+
+  search_usage_weekly_repocontainscontent_eventscount:
+    sql: search_usage.Weekly.RepoContainsContent.EventsCount
+    parent_field: search_usage
+
+  search_usage_weekly_repocontainscontent_usercount:
+    sql: search_usage.Weekly.RepoContainsContent.UserCount
+    parent_field: search_usage
+
+  search_usage_weekly_repocontainsfile:
+    sql: search_usage.Weekly.RepoContainsFile
+    parent_field: search_usage
+
+  search_usage_weekly_repocontainsfile_eventscount:
+    sql: search_usage.Weekly.RepoContainsFile.EventsCount
+    parent_field: search_usage
+
+  search_usage_weekly_repocontainsfile_usercount:
+    sql: search_usage.Weekly.RepoContainsFile.UserCount
+    parent_field: search_usage
+
+  search_usage_weekly_repodependencies:
+    sql: search_usage.Weekly.RepoDependencies
+    parent_field: search_usage
+
+  search_usage_weekly_repodependencies_eventscount:
+    sql: search_usage.Weekly.RepoDependencies.EventsCount
+    parent_field: search_usage
+
+  search_usage_weekly_repodependencies_usercount:
+    sql: search_usage.Weekly.RepoDependencies.UserCount
+    parent_field: search_usage
+
+  search_usage_weekly_repogroup:
+    sql: search_usage.Weekly.Repogroup
+    parent_field: search_usage
+
+  search_usage_weekly_repogroup_eventscount:
+    sql: search_usage.Weekly.Repogroup.EventsCount
+    parent_field: search_usage
+
+  search_usage_weekly_repogroup_usercount:
+    sql: search_usage.Weekly.Repogroup.UserCount
+    parent_field: search_usage
+
+  search_usage_weekly_repohascommitafter:
+    sql: search_usage.Weekly.Repohascommitafter
+    parent_field: search_usage
+
+  search_usage_weekly_repohascommitafter_eventscount:
+    sql: search_usage.Weekly.Repohascommitafter.EventsCount
+    parent_field: search_usage
+
+  search_usage_weekly_repohascommitafter_usercount:
+    sql: search_usage.Weekly.Repohascommitafter.UserCount
+    parent_field: search_usage
+
+  search_usage_weekly_repohasfile:
+    sql: search_usage.Weekly.Repohasfile
+    parent_field: search_usage
+
+  search_usage_weekly_repohasfile_eventscount:
+    sql: search_usage.Weekly.Repohasfile.EventsCount
+    parent_field: search_usage
+
+  search_usage_weekly_repohasfile_usercount:
+    sql: search_usage.Weekly.Repohasfile.UserCount
+    parent_field: search_usage
+
+  search_usage_weekly_searchmodes:
+    sql: search_usage.Weekly.SearchModes
+    parent_field: search_usage
+
+  search_usage_weekly_searchmodes_interactive:
+    sql: search_usage.Weekly.SearchModes.Interactive
+    parent_field: search_usage
+
+  search_usage_weekly_searchmodes_interactive_eventscount:
+    sql: search_usage.Weekly.SearchModes.Interactive.EventsCount
+    parent_field: search_usage
+
+  search_usage_weekly_searchmodes_interactive_usercount:
+    sql: search_usage.Weekly.SearchModes.Interactive.UserCount
+    parent_field: search_usage
+
+  search_usage_weekly_searchmodes_interactive_userscount:
+    sql: search_usage.Weekly.SearchModes.Interactive.UsersCount
+    parent_field: search_usage
+
+  search_usage_weekly_searchmodes_plaintext:
+    sql: search_usage.Weekly.SearchModes.PlainText
+    parent_field: search_usage
+
+  search_usage_weekly_searchmodes_plaintext_eventscount:
+    sql: search_usage.Weekly.SearchModes.PlainText.EventsCount
+    parent_field: search_usage
+
+  search_usage_weekly_searchmodes_plaintext_usercount:
+    sql: search_usage.Weekly.SearchModes.PlainText.UserCount
+    parent_field: search_usage
+
+  search_usage_weekly_searchmodes_plaintext_userscount:
+    sql: search_usage.Weekly.SearchModes.PlainText.UsersCount
+    parent_field: search_usage
+
+  search_usage_weekly_selectcommitdiffadded:
+    sql: search_usage.Weekly.SelectCommitDiffAdded
+    parent_field: search_usage
+
+  search_usage_weekly_selectcommitdiffadded_eventscount:
+    sql: search_usage.Weekly.SelectCommitDiffAdded.EventsCount
+    parent_field: search_usage
+
+  search_usage_weekly_selectcommitdiffadded_usercount:
+    sql: search_usage.Weekly.SelectCommitDiffAdded.UserCount
+    parent_field: search_usage
+
+  search_usage_weekly_selectcommitdiffremoved:
+    sql: search_usage.Weekly.SelectCommitDiffRemoved
+    parent_field: search_usage
+
+  search_usage_weekly_selectcommitdiffremoved_eventscount:
+    sql: search_usage.Weekly.SelectCommitDiffRemoved.EventsCount
+    parent_field: search_usage
+
+  search_usage_weekly_selectcommitdiffremoved_usercount:
+    sql: search_usage.Weekly.SelectCommitDiffRemoved.UserCount
+    parent_field: search_usage
+
+  search_usage_weekly_selectcontent:
+    sql: search_usage.Weekly.SelectContent
+    parent_field: search_usage
+
+  search_usage_weekly_selectcontent_eventscount:
+    sql: search_usage.Weekly.SelectContent.EventsCount
+    parent_field: search_usage
+
+  search_usage_weekly_selectcontent_usercount:
+    sql: search_usage.Weekly.SelectContent.UserCount
+    parent_field: search_usage
+
+  search_usage_weekly_selectfile:
+    sql: search_usage.Weekly.SelectFile
+    parent_field: search_usage
+
+  search_usage_weekly_selectfile_eventscount:
+    sql: search_usage.Weekly.SelectFile.EventsCount
+    parent_field: search_usage
+
+  search_usage_weekly_selectfile_usercount:
+    sql: search_usage.Weekly.SelectFile.UserCount
+    parent_field: search_usage
+
+  search_usage_weekly_selectrepo:
+    sql: search_usage.Weekly.SelectRepo
+    parent_field: search_usage
+
+  search_usage_weekly_selectrepo_eventscount:
+    sql: search_usage.Weekly.SelectRepo.EventsCount
+    parent_field: search_usage
+
+  search_usage_weekly_selectrepo_usercount:
+    sql: search_usage.Weekly.SelectRepo.UserCount
+    parent_field: search_usage
+
+  search_usage_weekly_selectsymbol:
+    sql: search_usage.Weekly.SelectSymbol
+    parent_field: search_usage
+
+  search_usage_weekly_selectsymbol_eventscount:
+    sql: search_usage.Weekly.SelectSymbol.EventsCount
+    parent_field: search_usage
+
+  search_usage_weekly_selectsymbol_usercount:
+    sql: search_usage.Weekly.SelectSymbol.UserCount
+    parent_field: search_usage
+
+  search_usage_weekly_starttime:
+    sql: search_usage.Weekly.StartTime
+    parent_field: search_usage
+
+  search_usage_weekly_structural:
+    sql: search_usage.Weekly.Structural
+    parent_field: search_usage
+
+  search_usage_weekly_structural_eventlatencies:
+    sql: search_usage.Weekly.Structural.EventLatencies
+    parent_field: search_usage
+
+  search_usage_weekly_structural_eventlatencies_p50:
+    sql: search_usage.Weekly.Structural.EventLatencies.P50
+    parent_field: search_usage
+
+  search_usage_weekly_structural_eventlatencies_p90:
+    sql: search_usage.Weekly.Structural.EventLatencies.P90
+    parent_field: search_usage
+
+  search_usage_weekly_structural_eventlatencies_p99:
+    sql: search_usage.Weekly.Structural.EventLatencies.P99
+    parent_field: search_usage
+
+  search_usage_weekly_structural_eventscount:
+    sql: search_usage.Weekly.Structural.EventsCount
+    parent_field: search_usage
+
+  search_usage_weekly_structural_usercount:
+    sql: search_usage.Weekly.Structural.UserCount
+    parent_field: search_usage
+
+  search_usage_weekly_symbol:
+    sql: search_usage.Weekly.Symbol
+    parent_field: search_usage
+
+  search_usage_weekly_symbol_eventlatencies:
+    sql: search_usage.Weekly.Symbol.EventLatencies
+    parent_field: search_usage
+
+  search_usage_weekly_symbol_eventlatencies_p50:
+    sql: search_usage.Weekly.Symbol.EventLatencies.P50
+    parent_field: search_usage
+
+  search_usage_weekly_symbol_eventlatencies_p90:
+    sql: search_usage.Weekly.Symbol.EventLatencies.P90
+    parent_field: search_usage
+
+  search_usage_weekly_symbol_eventlatencies_p99:
+    sql: search_usage.Weekly.Symbol.EventLatencies.P99
+    parent_field: search_usage
+
+  search_usage_weekly_symbol_eventscount:
+    sql: search_usage.Weekly.Symbol.EventsCount
+    parent_field: search_usage
+
+  search_usage_weekly_symbol_usercount:
+    sql: search_usage.Weekly.Symbol.UserCount
+    parent_field: search_usage
+
+  search_usage_weekly_timeout:
+    sql: search_usage.Weekly.Timeout
+    parent_field: search_usage
+
+  search_usage_weekly_timeout_eventscount:
+    sql: search_usage.Weekly.Timeout.EventsCount
+    parent_field: search_usage
+
+  search_usage_weekly_timeout_usercount:
+    sql: search_usage.Weekly.Timeout.UserCount
+    parent_field: search_usage
+
+  search_usage_weekly_totalusers:
+    sql: search_usage.Weekly.TotalUsers
+    parent_field: search_usage
+
+  search_usage_weekly_type:
+    sql: search_usage.Weekly.Type
+    parent_field: search_usage
+
+  search_usage_weekly_type_eventscount:
+    sql: search_usage.Weekly.Type.EventsCount
+    parent_field: search_usage
+
+  search_usage_weekly_type_usercount:
+    sql: search_usage.Weekly.Type.UserCount
+    parent_field: search_usage
+
+  growth_statistics:
+    parent_field: growth_statistics
+
+  growth_statistics_approvedaccessrequests:
+    sql: growth_statistics.ApprovedAccessRequests
+    parent_field: growth_statistics
+
+  growth_statistics_churnedusers:
+    sql: growth_statistics.ChurnedUsers
+    parent_field: growth_statistics
+
+  growth_statistics_createdusers:
+    sql: growth_statistics.CreatedUsers
+    parent_field: growth_statistics
+
+  growth_statistics_deletedusers:
+    sql: growth_statistics.DeletedUsers
+    parent_field: growth_statistics
+
+  growth_statistics_pendingaccessrequests:
+    sql: growth_statistics.PendingAccessRequests
+    parent_field: growth_statistics
+
+  growth_statistics_rejectedaccessrequests:
+    sql: growth_statistics.RejectedAccessRequests
+    parent_field: growth_statistics
+
+  growth_statistics_resurrectedusers:
+    sql: growth_statistics.ResurrectedUsers
+    parent_field: growth_statistics
+
+  growth_statistics_retainedusers:
+    sql: growth_statistics.RetainedUsers
+    parent_field: growth_statistics
+
+  saved_searches:
+    parent_field: saved_searches
+
+  saved_searches_notificationsclicked:
+    sql: saved_searches.notificationsClicked
+    parent_field: saved_searches
+
+  saved_searches_notificationssent:
+    sql: saved_searches.notificationsSent
+    parent_field: saved_searches
+
+  saved_searches_orgsavedsearches:
+    sql: saved_searches.orgSavedSearches
+    parent_field: saved_searches
+
+  saved_searches_totalsavedsearches:
+    sql: saved_searches.totalSavedSearches
+    parent_field: saved_searches
+
+  saved_searches_uniqueuserpageviews:
+    sql: saved_searches.uniqueUserPageViews
+    parent_field: saved_searches
+
+  saved_searches_uniqueusers:
+    sql: saved_searches.uniqueUsers
+    parent_field: saved_searches
+
+  repositories:
+    parent_field: repositories
+
+  repositories_defaultbranchnewlinescount:
+    sql: repositories.DefaultBranchNewLinesCount
+    parent_field: repositories
+
+  repositories_gitdirbytes:
+    sql: repositories.GitDirBytes
+    parent_field: repositories
+
+  repositories_newlinescount:
+    sql: repositories.NewLinesCount
+    parent_field: repositories
+
+  repositories_otherbranchesnewlinescount:
+    sql: repositories.OtherBranchesNewLinesCount
+    parent_field: repositories
+
+  homepage_panels:
+    parent_field: homepage_panels
+
+  homepage_panels_newsavedsearchesclickedpercentage:
+    sql: homepage_panels.newSavedSearchesClickedPercentage
+    parent_field: homepage_panels
+
+  homepage_panels_percentusersshown:
+    sql: homepage_panels.percentUsersShown
+    parent_field: homepage_panels
+
+  homepage_panels_recentfilesclickedpercentage:
+    sql: homepage_panels.recentFilesClickedPercentage
+    parent_field: homepage_panels
+
+  homepage_panels_recentrepositoriesclickedpercentage:
+    sql: homepage_panels.recentRepositoriesClickedPercentage
+    parent_field: homepage_panels
+
+  homepage_panels_recentsearchclickedpercentage:
+    sql: homepage_panels.recentSearchClickedPercentage
+    parent_field: homepage_panels
+
+  homepage_panels_savedsearchesclickedpercentage:
+    sql: homepage_panels.savedSearchesClickedPercentage
+    parent_field: homepage_panels
+
+  homepage_panels_totalpanelviews:
+    sql: homepage_panels.totalPanelViews
+    parent_field: homepage_panels
+
+  homepage_panels_usersfilesclickedpercentage:
+    sql: homepage_panels.usersFilesClickedPercentage
+    parent_field: homepage_panels
+
+  homepage_panels_usersnewsavedsearchesclickedpercentage:
+    sql: homepage_panels.usersNewSavedSearchesClickedPercentage
+    parent_field: homepage_panels
+
+  homepage_panels_usersrepositoriesclickedpercentage:
+    sql: homepage_panels.usersRepositoriesClickedPercentage
+    parent_field: homepage_panels
+
+  homepage_panels_userssavedsearchesclickedpercentage:
+    sql: homepage_panels.usersSavedSearchesClickedPercentage
+    parent_field: homepage_panels
+
+  homepage_panels_userssearchclickedpercentage:
+    sql: homepage_panels.usersSearchClickedPercentage
+    parent_field: homepage_panels
+
+  dependency_versions:
+    parent_field: dependency_versions
+
+  dependency_versions_postgresversion:
+    sql: dependency_versions.postgresVersion
+    parent_field: dependency_versions
+
+  dependency_versions_rediscacheversion:
+    sql: dependency_versions.redisCacheVersion
+    parent_field: dependency_versions
+
+  dependency_versions_redisstoreversion:
+    sql: dependency_versions.redisStoreVersion
+    parent_field: dependency_versions
+
+  search_onboarding:
+    parent_field: search_onboarding
+
+  search_onboarding_closeonboardingtourclicked:
+    sql: search_onboarding.closeOnboardingTourClicked
+    parent_field: search_onboarding
+
+  search_onboarding_totalonboardingtourviews:
+    sql: search_onboarding.totalOnboardingTourViews
+    parent_field: search_onboarding
+
+  search_onboarding_viewedaddquerytermstep:
+    sql: search_onboarding.viewedAddQueryTermStep
+    parent_field: search_onboarding
+
+  search_onboarding_viewedfilterrepostep:
+    sql: search_onboarding.viewedFilterRepoStep
+    parent_field: search_onboarding
+
+  search_onboarding_viewedlangstep:
+    sql: search_onboarding.viewedLangStep
+    parent_field: search_onboarding
+
+  search_onboarding_viewedsearchreferencestep:
+    sql: search_onboarding.viewedSearchReferenceStep
+    parent_field: search_onboarding
+
+  search_onboarding_viewedsubmitsearchstep:
+    sql: search_onboarding.viewedSubmitSearchStep
+    parent_field: search_onboarding
+
+  new_code_intel_usage:
+    parent_field: new_code_intel_usage
+
+  new_code_intel_usage_counts_by_language:
+    sql: new_code_intel_usage.counts_by_language
+    parent_field: new_code_intel_usage
+
+  new_code_intel_usage_counts_by_language_language_id:
+    sql: language_id
+    format: ID
+    nested_on_field: new_code_intel_usage_counts_by_language
+    parent_field: new_code_intel_usage
+
+  new_code_intel_usage_counts_by_language_num_repositories_with_fresh_index_records:
+    sql: num_repositories_with_fresh_index_records
+    nested_on_field: new_code_intel_usage_counts_by_language
+    parent_field: new_code_intel_usage
+
+  new_code_intel_usage_counts_by_language_num_repositories_with_fresh_upload_records:
+    sql: num_repositories_with_fresh_upload_records
+    nested_on_field: new_code_intel_usage_counts_by_language
+    parent_field: new_code_intel_usage
+
+  new_code_intel_usage_counts_by_language_num_repositories_with_index_records:
+    sql: num_repositories_with_index_records
+    nested_on_field: new_code_intel_usage_counts_by_language
+    parent_field: new_code_intel_usage
+
+  new_code_intel_usage_counts_by_language_num_repositories_with_upload_records:
+    sql: num_repositories_with_upload_records
+    nested_on_field: new_code_intel_usage_counts_by_language
+    parent_field: new_code_intel_usage
+
+  new_code_intel_usage_event_summaries:
+    sql: new_code_intel_usage.event_summaries
+    parent_field: new_code_intel_usage
+
+  new_code_intel_usage_event_summaries_action:
+    sql: action
+    nested_on_field: new_code_intel_usage_event_summaries
+    parent_field: new_code_intel_usage
+
+  new_code_intel_usage_event_summaries_cross_repository:
+    sql: cross_repository
+    nested_on_field: new_code_intel_usage_event_summaries
+    parent_field: new_code_intel_usage
+
+  new_code_intel_usage_event_summaries_language_id:
+    sql: language_id
+    format: ID
+    nested_on_field: new_code_intel_usage_event_summaries
+    parent_field: new_code_intel_usage
+
+  new_code_intel_usage_event_summaries_source:
+    sql: source
+    nested_on_field: new_code_intel_usage_event_summaries
+    parent_field: new_code_intel_usage
+
+  new_code_intel_usage_event_summaries_total_actions:
+    sql: total_actions
+    nested_on_field: new_code_intel_usage_event_summaries
+    parent_field: new_code_intel_usage
+
+  new_code_intel_usage_event_summaries_waus:
+    sql: waus
+    nested_on_field: new_code_intel_usage_event_summaries
+    parent_field: new_code_intel_usage
+
+  new_code_intel_usage_investigation_events:
+    sql: new_code_intel_usage.investigation_events
+    parent_field: new_code_intel_usage
+
+  new_code_intel_usage_investigation_events_total:
+    sql: total
+    nested_on_field: new_code_intel_usage_investigation_events
+    parent_field: new_code_intel_usage
+
+  new_code_intel_usage_investigation_events_type:
+    sql: type
+    nested_on_field: new_code_intel_usage_investigation_events
+    parent_field: new_code_intel_usage
+
+  new_code_intel_usage_investigation_events_waus:
+    sql: waus
+    nested_on_field: new_code_intel_usage_investigation_events
+    parent_field: new_code_intel_usage
+
+  new_code_intel_usage_language_requests:
+    sql: new_code_intel_usage.language_requests
+    parent_field: new_code_intel_usage
+
+  new_code_intel_usage_language_requests_language_id:
+    sql: language_id
+    format: ID
+    nested_on_field: new_code_intel_usage_language_requests
+    parent_field: new_code_intel_usage
+
+  new_code_intel_usage_language_requests_num_requests:
+    sql: num_requests
+    nested_on_field: new_code_intel_usage_language_requests
+    parent_field: new_code_intel_usage
+
+  new_code_intel_usage_num_repositories:
+    sql: new_code_intel_usage.num_repositories
+    parent_field: new_code_intel_usage
+
+  new_code_intel_usage_num_repositories_with_fresh_index_records:
+    sql: new_code_intel_usage.num_repositories_with_fresh_index_records
+    parent_field: new_code_intel_usage
+
+  new_code_intel_usage_num_repositories_with_fresh_upload_records:
+    sql: new_code_intel_usage.num_repositories_with_fresh_upload_records
+    parent_field: new_code_intel_usage
+
+  new_code_intel_usage_num_repositories_with_index_configuration_records:
+    sql: new_code_intel_usage.num_repositories_with_index_configuration_records
+    parent_field: new_code_intel_usage
+
+  new_code_intel_usage_num_repositories_with_index_records:
+    sql: new_code_intel_usage.num_repositories_with_index_records
+    parent_field: new_code_intel_usage
+
+  new_code_intel_usage_num_repositories_with_upload_records:
+    sql: new_code_intel_usage.num_repositories_with_upload_records
+    parent_field: new_code_intel_usage
+
+  new_code_intel_usage_num_repositories_without_upload_records:
+    sql: new_code_intel_usage.num_repositories_without_upload_records
+    parent_field: new_code_intel_usage
+
+  new_code_intel_usage_precise_waus:
+    sql: new_code_intel_usage.precise_waus
+    parent_field: new_code_intel_usage
+
+  new_code_intel_usage_precise_xrepo_waus:
+    sql: new_code_intel_usage.precise_xrepo_waus
+    parent_field: new_code_intel_usage
+
+  new_code_intel_usage_search_waus:
+    sql: new_code_intel_usage.search_waus
+    parent_field: new_code_intel_usage
+
+  new_code_intel_usage_search_xrepo_waus:
+    sql: new_code_intel_usage.search_xrepo_waus
+    parent_field: new_code_intel_usage
+
+  new_code_intel_usage_settings_page_view_count:
+    sql: new_code_intel_usage.settings_page_view_count
+    parent_field: new_code_intel_usage
+
+  new_code_intel_usage_start_time:
+    sql: new_code_intel_usage.start_time
+    parent_field: new_code_intel_usage
+
+  new_code_intel_usage_users_with_ref_panel_redesign_enabled:
+    sql: new_code_intel_usage.users_with_ref_panel_redesign_enabled
+    parent_field: new_code_intel_usage
+
+  new_code_intel_usage_waus:
+    sql: new_code_intel_usage.waus
+    parent_field: new_code_intel_usage
+
+  new_code_intel_usage_xrepo_waus:
+    sql: new_code_intel_usage.xrepo_waus
+    parent_field: new_code_intel_usage
+
+  retention_statistics:
+    parent_field: retention_statistics
+
+  retention_statistics_weekly:
+    sql: retention_statistics.Weekly
+    parent_field: retention_statistics
+
+  retention_statistics_weekly_cohortsize:
+    sql: CohortSize
+    nested_on_field: retention_statistics_weekly
+    parent_field: retention_statistics
+
+  retention_statistics_weekly_week0:
+    sql: Week0
+    nested_on_field: retention_statistics_weekly
+    parent_field: retention_statistics
+
+  retention_statistics_weekly_week1:
+    sql: Week1
+    nested_on_field: retention_statistics_weekly
+    parent_field: retention_statistics
+
+  retention_statistics_weekly_week10:
+    sql: Week10
+    nested_on_field: retention_statistics_weekly
+    parent_field: retention_statistics
+
+  retention_statistics_weekly_week11:
+    sql: Week11
+    nested_on_field: retention_statistics_weekly
+    parent_field: retention_statistics
+
+  retention_statistics_weekly_week2:
+    sql: Week2
+    nested_on_field: retention_statistics_weekly
+    parent_field: retention_statistics
+
+  retention_statistics_weekly_week3:
+    sql: Week3
+    nested_on_field: retention_statistics_weekly
+    parent_field: retention_statistics
+
+  retention_statistics_weekly_week4:
+    sql: Week4
+    nested_on_field: retention_statistics_weekly
+    parent_field: retention_statistics
+
+  retention_statistics_weekly_week5:
+    sql: Week5
+    nested_on_field: retention_statistics_weekly
+    parent_field: retention_statistics
+
+  retention_statistics_weekly_week6:
+    sql: Week6
+    nested_on_field: retention_statistics_weekly
+    parent_field: retention_statistics
+
+  retention_statistics_weekly_week7:
+    sql: Week7
+    nested_on_field: retention_statistics_weekly
+    parent_field: retention_statistics
+
+  retention_statistics_weekly_week8:
+    sql: Week8
+    nested_on_field: retention_statistics_weekly
+    parent_field: retention_statistics
+
+  retention_statistics_weekly_week9:
+    sql: Week9
+    nested_on_field: retention_statistics_weekly
+    parent_field: retention_statistics
+
+  retention_statistics_weekly_weekstart:
+    sql: WeekStart
+    nested_on_field: retention_statistics_weekly
+    parent_field: retention_statistics
+
+  extensions_usage:
+    parent_field: extensions_usage
+
+  extensions_usage_averagenondefaultextensions:
+    sql: extensions_usage.AverageNonDefaultExtensions
+    parent_field: extensions_usage
+
+  extensions_usage_nondefaultextensionusers:
+    sql: extensions_usage.NonDefaultExtensionUsers
+    parent_field: extensions_usage
+
+  extensions_usage_usagestatisticsbyextension:
+    sql: extensions_usage.UsageStatisticsByExtension
+    parent_field: extensions_usage
+
+  extensions_usage_usagestatisticsbyextension_averageactivations:
+    sql: AverageActivations
+    nested_on_field: extensions_usage_usagestatisticsbyextension
+    parent_field: extensions_usage
+
+  extensions_usage_usagestatisticsbyextension_extensionid:
+    sql: ExtensionID
+    nested_on_field: extensions_usage_usagestatisticsbyextension
+    parent_field: extensions_usage
+
+  extensions_usage_usagestatisticsbyextension_usercount:
+    sql: UserCount
+    nested_on_field: extensions_usage_usagestatisticsbyextension
+    parent_field: extensions_usage
+
+  extensions_usage_weekstart:
+    sql: extensions_usage.WeekStart
+    parent_field: extensions_usage
+
+  code_insights_usage:
+    parent_field: code_insights_usage
+
+  code_insights_usage_insightaddmoreclick:
+    sql: code_insights_usage.InsightAddMoreClick
+    parent_field: code_insights_usage
+
+  code_insights_usage_insightconfigureclick:
+    sql: code_insights_usage.InsightConfigureClick
+    parent_field: code_insights_usage
+
+  code_insights_usage_insightorgvisible:
+    sql: code_insights_usage.InsightOrgVisible
+    parent_field: code_insights_usage
+
+  code_insights_usage_insightorgvisible_totalcount:
+    sql: TotalCount
+    nested_on_field: code_insights_usage_insightorgvisible
+    parent_field: code_insights_usage
+
+  code_insights_usage_insightorgvisible_type:
+    sql: Type
+    nested_on_field: code_insights_usage_insightorgvisible
+    parent_field: code_insights_usage
+
+  code_insights_usage_insighttimeintervals:
+    sql: code_insights_usage.InsightTimeIntervals
+    parent_field: code_insights_usage
+
+  code_insights_usage_insighttimeintervals_intervaldays:
+    sql: IntervalDays
+    nested_on_field: code_insights_usage_insighttimeintervals
+    parent_field: code_insights_usage
+
+  code_insights_usage_insighttimeintervals_totalcount:
+    sql: TotalCount
+    nested_on_field: code_insights_usage_insighttimeintervals
+    parent_field: code_insights_usage
+
+  code_insights_usage_insighttotalcounts:
+    sql: code_insights_usage.InsightTotalCounts
+    parent_field: code_insights_usage
+
+  code_insights_usage_insighttotalcounts_seriescounts:
+    sql: code_insights_usage.InsightTotalCounts.SeriesCounts
+    parent_field: code_insights_usage
+
+  code_insights_usage_insighttotalcounts_seriescounts_generationtype:
+    sql: GenerationType
+    nested_on_field: code_insights_usage_insighttotalcounts_seriescounts
+    parent_field: code_insights_usage
+
+  code_insights_usage_insighttotalcounts_seriescounts_totalcount:
+    sql: TotalCount
+    nested_on_field: code_insights_usage_insighttotalcounts_seriescounts
+    parent_field: code_insights_usage
+
+  code_insights_usage_insighttotalcounts_viewcounts:
+    sql: code_insights_usage.InsightTotalCounts.ViewCounts
+    parent_field: code_insights_usage
+
+  code_insights_usage_insighttotalcounts_viewcounts_totalcount:
+    sql: TotalCount
+    nested_on_field: code_insights_usage_insighttotalcounts_viewcounts
+    parent_field: code_insights_usage
+
+  code_insights_usage_insighttotalcounts_viewcounts_viewtype:
+    sql: ViewType
+    nested_on_field: code_insights_usage_insighttotalcounts_viewcounts
+    parent_field: code_insights_usage
+
+  code_insights_usage_insighttotalcounts_viewseriescounts:
+    sql: code_insights_usage.InsightTotalCounts.ViewSeriesCounts
+    parent_field: code_insights_usage
+
+  code_insights_usage_insighttotalcounts_viewseriescounts_generationtype:
+    sql: GenerationType
+    nested_on_field: code_insights_usage_insighttotalcounts_viewseriescounts
+    parent_field: code_insights_usage
+
+  code_insights_usage_insighttotalcounts_viewseriescounts_totalcount:
+    sql: TotalCount
+    nested_on_field: code_insights_usage_insighttotalcounts_viewseriescounts
+    parent_field: code_insights_usage
+
+  code_insights_usage_insighttotalcounts_viewseriescounts_viewtype:
+    sql: ViewType
+    nested_on_field: code_insights_usage_insighttotalcounts_viewseriescounts
+    parent_field: code_insights_usage
+
+  code_insights_usage_insightspageviews:
+    sql: code_insights_usage.InsightsPageViews
+    parent_field: code_insights_usage
+
+  code_insights_usage_insightsperdashboard:
+    sql: code_insights_usage.InsightsPerDashboard
+    parent_field: code_insights_usage
+
+  code_insights_usage_insightsperdashboard_avg:
+    sql: code_insights_usage.InsightsPerDashboard.Avg
+    parent_field: code_insights_usage
+
+  code_insights_usage_insightsperdashboard_max:
+    sql: code_insights_usage.InsightsPerDashboard.Max
+    parent_field: code_insights_usage
+
+  code_insights_usage_insightsperdashboard_median:
+    sql: code_insights_usage.InsightsPerDashboard.Median
+    parent_field: code_insights_usage
+
+  code_insights_usage_insightsperdashboard_min:
+    sql: code_insights_usage.InsightsPerDashboard.Min
+    parent_field: code_insights_usage
+
+  code_insights_usage_insightsperdashboard_stddev:
+    sql: code_insights_usage.InsightsPerDashboard.StdDev
+    parent_field: code_insights_usage
+
+  code_insights_usage_insightsuniquepageviews:
+    sql: code_insights_usage.InsightsUniquePageViews
+    parent_field: code_insights_usage
+
+  code_insights_usage_totaldashboardcount:
+    sql: code_insights_usage.TotalDashboardCount
+    parent_field: code_insights_usage
+
+  code_insights_usage_totalorgswithdashboard:
+    sql: code_insights_usage.TotalOrgsWithDashboard
+    parent_field: code_insights_usage
+
+  code_insights_usage_usagestatisticsbyinsight:
+    sql: code_insights_usage.UsageStatisticsByInsight
+    parent_field: code_insights_usage
+
+  code_insights_usage_usagestatisticsbyinsight_additions:
+    sql: Additions
+    nested_on_field: code_insights_usage_usagestatisticsbyinsight
+    parent_field: code_insights_usage
+
+  code_insights_usage_usagestatisticsbyinsight_datapointclicks:
+    sql: DataPointClicks
+    nested_on_field: code_insights_usage_usagestatisticsbyinsight
+    parent_field: code_insights_usage
+
+  code_insights_usage_usagestatisticsbyinsight_edits:
+    sql: Edits
+    nested_on_field: code_insights_usage_usagestatisticsbyinsight
+    parent_field: code_insights_usage
+
+  code_insights_usage_usagestatisticsbyinsight_filterschange:
+    sql: FiltersChange
+    nested_on_field: code_insights_usage_usagestatisticsbyinsight
+    parent_field: code_insights_usage
+
+  code_insights_usage_usagestatisticsbyinsight_hovers:
+    sql: Hovers
+    nested_on_field: code_insights_usage_usagestatisticsbyinsight
+    parent_field: code_insights_usage
+
+  code_insights_usage_usagestatisticsbyinsight_insighttype:
+    sql: InsightType
+    nested_on_field: code_insights_usage_usagestatisticsbyinsight
+    parent_field: code_insights_usage
+
+  code_insights_usage_usagestatisticsbyinsight_removals:
+    sql: Removals
+    nested_on_field: code_insights_usage_usagestatisticsbyinsight
+    parent_field: code_insights_usage
+
+  code_insights_usage_usagestatisticsbyinsight_uicustomizations:
+    sql: UICustomizations
+    nested_on_field: code_insights_usage_usagestatisticsbyinsight
+    parent_field: code_insights_usage
+
+  code_insights_usage_weekstart:
+    sql: code_insights_usage.WeekStart
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklyaggregatedusage:
+    sql: code_insights_usage.WeeklyAggregatedUsage
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklyaggregatedusage_name:
+    sql: Name
+    nested_on_field: code_insights_usage_weeklyaggregatedusage
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklyaggregatedusage_totalcount:
+    sql: TotalCount
+    nested_on_field: code_insights_usage_weeklyaggregatedusage
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklyaggregatedusage_uniquecount:
+    sql: UniqueCount
+    nested_on_field: code_insights_usage_weeklyaggregatedusage
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklydataexportclicks:
+    sql: code_insights_usage.WeeklyDataExportClicks
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklyfirsttimeinsightcreators:
+    sql: code_insights_usage.WeeklyFirstTimeInsightCreators
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklygetstartedtabclickbytab:
+    sql: code_insights_usage.WeeklyGetStartedTabClickByTab
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklygetstartedtabclickbytab_tabname:
+    sql: TabName
+    nested_on_field: code_insights_usage_weeklygetstartedtabclickbytab
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklygetstartedtabclickbytab_totalcount:
+    sql: TotalCount
+    nested_on_field: code_insights_usage_weeklygetstartedtabclickbytab
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklygetstartedtabmoreclickbytab:
+    sql: code_insights_usage.WeeklyGetStartedTabMoreClickByTab
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklygetstartedtabmoreclickbytab_tabname:
+    sql: TabName
+    nested_on_field: code_insights_usage_weeklygetstartedtabmoreclickbytab
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklygetstartedtabmoreclickbytab_totalcount:
+    sql: TotalCount
+    nested_on_field: code_insights_usage_weeklygetstartedtabmoreclickbytab
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklygroupresultsaggregationmodeclicked:
+    sql: code_insights_usage.WeeklyGroupResultsAggregationModeClicked
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklygroupresultsaggregationmodeclicked_aggregationmode:
+    sql: AggregationMode
+    nested_on_field: code_insights_usage_weeklygroupresultsaggregationmodeclicked
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklygroupresultsaggregationmodeclicked_count:
+    sql: Count
+    nested_on_field: code_insights_usage_weeklygroupresultsaggregationmodeclicked
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklygroupresultsaggregationmodeclicked_uimode:
+    sql: UIMode
+    nested_on_field: code_insights_usage_weeklygroupresultsaggregationmodeclicked
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklygroupresultsaggregationmodedisabledhover:
+    sql: code_insights_usage.WeeklyGroupResultsAggregationModeDisabledHover
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklygroupresultsaggregationmodedisabledhover_aggregationmode:
+    sql: AggregationMode
+    nested_on_field: code_insights_usage_weeklygroupresultsaggregationmodedisabledhover
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklygroupresultsaggregationmodedisabledhover_count:
+    sql: Count
+    nested_on_field: code_insights_usage_weeklygroupresultsaggregationmodedisabledhover
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklygroupresultsaggregationmodedisabledhover_uimode:
+    sql: UIMode
+    nested_on_field: code_insights_usage_weeklygroupresultsaggregationmodedisabledhover
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklygroupresultschartbarclick:
+    sql: code_insights_usage.WeeklyGroupResultsChartBarClick
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklygroupresultschartbarclick_aggregationmode:
+    sql: AggregationMode
+    nested_on_field: code_insights_usage_weeklygroupresultschartbarclick
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklygroupresultschartbarclick_barindex:
+    sql: BarIndex
+    nested_on_field: code_insights_usage_weeklygroupresultschartbarclick
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklygroupresultschartbarclick_count:
+    sql: Count
+    nested_on_field: code_insights_usage_weeklygroupresultschartbarclick
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklygroupresultschartbarclick_uimode:
+    sql: UIMode
+    nested_on_field: code_insights_usage_weeklygroupresultschartbarclick
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklygroupresultschartbarhover:
+    sql: code_insights_usage.WeeklyGroupResultsChartBarHover
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklygroupresultschartbarhover_aggregationmode:
+    sql: AggregationMode
+    nested_on_field: code_insights_usage_weeklygroupresultschartbarhover
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklygroupresultschartbarhover_count:
+    sql: Count
+    nested_on_field: code_insights_usage_weeklygroupresultschartbarhover
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklygroupresultschartbarhover_uimode:
+    sql: UIMode
+    nested_on_field: code_insights_usage_weeklygroupresultschartbarhover
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklygroupresultscollapsesection:
+    sql: code_insights_usage.WeeklyGroupResultsCollapseSection
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklygroupresultsexpandedviewcollapse:
+    sql: code_insights_usage.WeeklyGroupResultsExpandedViewCollapse
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklygroupresultsexpandedviewcollapse_aggregationmode:
+    sql: AggregationMode
+    nested_on_field: code_insights_usage_weeklygroupresultsexpandedviewcollapse
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklygroupresultsexpandedviewcollapse_count:
+    sql: Count
+    nested_on_field: code_insights_usage_weeklygroupresultsexpandedviewcollapse
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklygroupresultsexpandedviewcollapse_uimode:
+    sql: UIMode
+    nested_on_field: code_insights_usage_weeklygroupresultsexpandedviewcollapse
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklygroupresultsexpandedviewopen:
+    sql: code_insights_usage.WeeklyGroupResultsExpandedViewOpen
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklygroupresultsexpandedviewopen_aggregationmode:
+    sql: AggregationMode
+    nested_on_field: code_insights_usage_weeklygroupresultsexpandedviewopen
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklygroupresultsexpandedviewopen_count:
+    sql: Count
+    nested_on_field: code_insights_usage_weeklygroupresultsexpandedviewopen
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklygroupresultsexpandedviewopen_uimode:
+    sql: UIMode
+    nested_on_field: code_insights_usage_weeklygroupresultsexpandedviewopen
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklygroupresultsinfoiconhover:
+    sql: code_insights_usage.WeeklyGroupResultsInfoIconHover
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklygroupresultsopensection:
+    sql: code_insights_usage.WeeklyGroupResultsOpenSection
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklygroupresultssearches:
+    sql: code_insights_usage.WeeklyGroupResultsSearches
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklygroupresultssearches_aggregationmode:
+    sql: AggregationMode
+    nested_on_field: code_insights_usage_weeklygroupresultssearches
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklygroupresultssearches_count:
+    sql: Count
+    nested_on_field: code_insights_usage_weeklygroupresultssearches
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklygroupresultssearches_name:
+    sql: Name
+    nested_on_field: code_insights_usage_weeklygroupresultssearches
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklyinsightaddmoreclick:
+    sql: code_insights_usage.WeeklyInsightAddMoreClick
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklyinsightconfigureclick:
+    sql: code_insights_usage.WeeklyInsightConfigureClick
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklyinsightcreators:
+    sql: code_insights_usage.WeeklyInsightCreators
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklyinsightsgetstartedpageviews:
+    sql: code_insights_usage.WeeklyInsightsGetStartedPageViews
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklyinsightsgetstarteduniquepageviews:
+    sql: code_insights_usage.WeeklyInsightsGetStartedUniquePageViews
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklyinsightspageviews:
+    sql: code_insights_usage.WeeklyInsightsPageViews
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklyinsightsuniquepageviews:
+    sql: code_insights_usage.WeeklyInsightsUniquePageViews
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklyseriesbackfilltime:
+    sql: code_insights_usage.WeeklySeriesBackfillTime
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklyseriesbackfilltime_allrepos:
+    sql: AllRepos
+    nested_on_field: code_insights_usage_weeklyseriesbackfilltime
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklyseriesbackfilltime_count:
+    sql: Count
+    nested_on_field: code_insights_usage_weeklyseriesbackfilltime
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklyseriesbackfilltime_p50seconds:
+    sql: P50Seconds
+    nested_on_field: code_insights_usage_weeklyseriesbackfilltime
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklyseriesbackfilltime_p90seconds:
+    sql: P90Seconds
+    nested_on_field: code_insights_usage_weeklyseriesbackfilltime
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklyseriesbackfilltime_p99seconds:
+    sql: P99Seconds
+    nested_on_field: code_insights_usage_weeklyseriesbackfilltime
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklystandalonedashboardclicks:
+    sql: code_insights_usage.WeeklyStandaloneDashboardClicks
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklystandaloneeditclicks:
+    sql: code_insights_usage.WeeklyStandaloneEditClicks
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklystandaloneinsightpageviews:
+    sql: code_insights_usage.WeeklyStandaloneInsightPageViews
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklystandaloneinsightuniquedashboardclicks:
+    sql: code_insights_usage.WeeklyStandaloneInsightUniqueDashboardClicks
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklystandaloneinsightuniqueeditclicks:
+    sql: code_insights_usage.WeeklyStandaloneInsightUniqueEditClicks
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklystandaloneinsightuniquepageviews:
+    sql: code_insights_usage.WeeklyStandaloneInsightUniquePageViews
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklyusagestatisticsbyinsight:
+    sql: code_insights_usage.WeeklyUsageStatisticsByInsight
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklyusagestatisticsbyinsight_additions:
+    sql: Additions
+    nested_on_field: code_insights_usage_weeklyusagestatisticsbyinsight
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklyusagestatisticsbyinsight_datapointclicks:
+    sql: DataPointClicks
+    nested_on_field: code_insights_usage_weeklyusagestatisticsbyinsight
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklyusagestatisticsbyinsight_edits:
+    sql: Edits
+    nested_on_field: code_insights_usage_weeklyusagestatisticsbyinsight
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklyusagestatisticsbyinsight_filterschange:
+    sql: FiltersChange
+    nested_on_field: code_insights_usage_weeklyusagestatisticsbyinsight
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklyusagestatisticsbyinsight_hovers:
+    sql: Hovers
+    nested_on_field: code_insights_usage_weeklyusagestatisticsbyinsight
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklyusagestatisticsbyinsight_insighttype:
+    sql: InsightType
+    nested_on_field: code_insights_usage_weeklyusagestatisticsbyinsight
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklyusagestatisticsbyinsight_removals:
+    sql: Removals
+    nested_on_field: code_insights_usage_weeklyusagestatisticsbyinsight
+    parent_field: code_insights_usage
+
+  code_insights_usage_weeklyusagestatisticsbyinsight_uicustomizations:
+    sql: UICustomizations
+    nested_on_field: code_insights_usage_weeklyusagestatisticsbyinsight
+    parent_field: code_insights_usage
+
+  batch_changes_usage:
+    parent_field: batch_changes_usage
+
+  batch_changes_usage_activeexecutorscount:
+    sql: batch_changes_usage.ActiveExecutorsCount
+    parent_field: batch_changes_usage
+
+  batch_changes_usage_batchchangestatsbysource:
+    sql: batch_changes_usage.BatchChangeStatsBySource
+    parent_field: batch_changes_usage
+
+  batch_changes_usage_batchchangestatsbysource_batchchangescount:
+    sql: BatchChangesCount
+    nested_on_field: batch_changes_usage_batchchangestatsbysource
+    parent_field: batch_changes_usage
+
+  batch_changes_usage_batchchangestatsbysource_publishedchangesetscount:
+    sql: PublishedChangesetsCount
+    nested_on_field: batch_changes_usage_batchchangestatsbysource
+    parent_field: batch_changes_usage
+
+  batch_changes_usage_batchchangestatsbysource_source:
+    sql: Source
+    nested_on_field: batch_changes_usage_batchchangestatsbysource
+    parent_field: batch_changes_usage
+
+  batch_changes_usage_batchchangesclosedcount:
+    sql: batch_changes_usage.BatchChangesClosedCount
+    parent_field: batch_changes_usage
+
+  batch_changes_usage_batchchangescohorts:
+    sql: batch_changes_usage.BatchChangesCohorts
+    parent_field: batch_changes_usage
+
+  batch_changes_usage_batchchangescohorts_batchchangesclosed:
+    sql: BatchChangesClosed
+    nested_on_field: batch_changes_usage_batchchangescohorts
+    parent_field: batch_changes_usage
+
+  batch_changes_usage_batchchangescohorts_batchchangesopen:
+    sql: BatchChangesOpen
+    nested_on_field: batch_changes_usage_batchchangescohorts
+    parent_field: batch_changes_usage
+
+  batch_changes_usage_batchchangescohorts_changesetsimported:
+    sql: ChangesetsImported
+    nested_on_field: batch_changes_usage_batchchangescohorts
+    parent_field: batch_changes_usage
+
+  batch_changes_usage_batchchangescohorts_changesetspublished:
+    sql: ChangesetsPublished
+    nested_on_field: batch_changes_usage_batchchangescohorts
+    parent_field: batch_changes_usage
+
+  batch_changes_usage_batchchangescohorts_changesetspublishedclosed:
+    sql: ChangesetsPublishedClosed
+    nested_on_field: batch_changes_usage_batchchangescohorts
+    parent_field: batch_changes_usage
+
+  batch_changes_usage_batchchangescohorts_changesetspublisheddraft:
+    sql: ChangesetsPublishedDraft
+    nested_on_field: batch_changes_usage_batchchangescohorts
+    parent_field: batch_changes_usage
+
+  batch_changes_usage_batchchangescohorts_changesetspublishedmerged:
+    sql: ChangesetsPublishedMerged
+    nested_on_field: batch_changes_usage_batchchangescohorts
+    parent_field: batch_changes_usage
+
+  batch_changes_usage_batchchangescohorts_changesetspublishedopen:
+    sql: ChangesetsPublishedOpen
+    nested_on_field: batch_changes_usage_batchchangescohorts
+    parent_field: batch_changes_usage
+
+  batch_changes_usage_batchchangescohorts_changesetsunpublished:
+    sql: ChangesetsUnpublished
+    nested_on_field: batch_changes_usage_batchchangescohorts
+    parent_field: batch_changes_usage
+
+  batch_changes_usage_batchchangescohorts_week:
+    sql: Week
+    nested_on_field: batch_changes_usage_batchchangescohorts
+    parent_field: batch_changes_usage
+
+  batch_changes_usage_batchchangescount:
+    sql: batch_changes_usage.BatchChangesCount
+    parent_field: batch_changes_usage
+
+  batch_changes_usage_batchspecscreatedcount:
+    sql: batch_changes_usage.BatchSpecsCreatedCount
+    parent_field: batch_changes_usage
+
+  batch_changes_usage_bulkoperationscount:
+    sql: batch_changes_usage.BulkOperationsCount
+    parent_field: batch_changes_usage
+
+  batch_changes_usage_bulkoperationscount_count:
+    sql: Count
+    nested_on_field: batch_changes_usage_bulkoperationscount
+    parent_field: batch_changes_usage
+
+  batch_changes_usage_bulkoperationscount_name:
+    sql: Name
+    nested_on_field: batch_changes_usage_bulkoperationscount
+    parent_field: batch_changes_usage
+
+  batch_changes_usage_changesetdistribution:
+    sql: batch_changes_usage.ChangesetDistribution
+    parent_field: batch_changes_usage
+
+  batch_changes_usage_changesetdistribution_batchchangescount:
+    sql: BatchChangesCount
+    nested_on_field: batch_changes_usage_changesetdistribution
+    parent_field: batch_changes_usage
+
+  batch_changes_usage_changesetdistribution_range:
+    sql: "`Range`"
+    nested_on_field: batch_changes_usage_changesetdistribution
+    parent_field: batch_changes_usage
+
+  batch_changes_usage_changesetdistribution_source:
+    sql: Source
+    nested_on_field: batch_changes_usage_changesetdistribution
+    parent_field: batch_changes_usage
+
+  batch_changes_usage_changesetspecscreatedcount:
+    sql: batch_changes_usage.ChangesetSpecsCreatedCount
+    parent_field: batch_changes_usage
+
+  batch_changes_usage_currentmonthcontributorscount:
+    sql: batch_changes_usage.CurrentMonthContributorsCount
+    parent_field: batch_changes_usage
+
+  batch_changes_usage_currentmonthuserscount:
+    sql: batch_changes_usage.CurrentMonthUsersCount
+    parent_field: batch_changes_usage
+
+  batch_changes_usage_importedchangesetscount:
+    sql: batch_changes_usage.ImportedChangesetsCount
+    parent_field: batch_changes_usage
+
+  batch_changes_usage_importedchangesetsmergedcount:
+    sql: batch_changes_usage.ImportedChangesetsMergedCount
+    parent_field: batch_changes_usage
+
+  batch_changes_usage_monthlybatchchangesexecutorusage:
+    sql: batch_changes_usage.MonthlyBatchChangesExecutorUsage
+    parent_field: batch_changes_usage
+
+  batch_changes_usage_monthlybatchchangesexecutorusage_count:
+    sql: Count
+    nested_on_field: batch_changes_usage_monthlybatchchangesexecutorusage
+    parent_field: batch_changes_usage
+
+  batch_changes_usage_monthlybatchchangesexecutorusage_minutes:
+    sql: Minutes
+    nested_on_field: batch_changes_usage_monthlybatchchangesexecutorusage
+    parent_field: batch_changes_usage
+
+  batch_changes_usage_monthlybatchchangesexecutorusage_month:
+    sql: Month
+    nested_on_field: batch_changes_usage_monthlybatchchangesexecutorusage
+    parent_field: batch_changes_usage
+
+  batch_changes_usage_publishedchangesetscount:
+    sql: batch_changes_usage.PublishedChangesetsCount
+    parent_field: batch_changes_usage
+
+  batch_changes_usage_publishedchangesetsdiffstataddedsum:
+    sql: batch_changes_usage.PublishedChangesetsDiffStatAddedSum
+    parent_field: batch_changes_usage
+
+  batch_changes_usage_publishedchangesetsdiffstatchangedsum:
+    sql: batch_changes_usage.PublishedChangesetsDiffStatChangedSum
+    parent_field: batch_changes_usage
+
+  batch_changes_usage_publishedchangesetsdiffstatdeletedsum:
+    sql: batch_changes_usage.PublishedChangesetsDiffStatDeletedSum
+    parent_field: batch_changes_usage
+
+  batch_changes_usage_publishedchangesetsmergedcount:
+    sql: batch_changes_usage.PublishedChangesetsMergedCount
+    parent_field: batch_changes_usage
+
+  batch_changes_usage_publishedchangesetsmergeddiffstataddedsum:
+    sql: batch_changes_usage.PublishedChangesetsMergedDiffStatAddedSum
+    parent_field: batch_changes_usage
+
+  batch_changes_usage_publishedchangesetsmergeddiffstatchangedsum:
+    sql: batch_changes_usage.PublishedChangesetsMergedDiffStatChangedSum
+    parent_field: batch_changes_usage
+
+  batch_changes_usage_publishedchangesetsmergeddiffstatdeletedsum:
+    sql: batch_changes_usage.PublishedChangesetsMergedDiffStatDeletedSum
+    parent_field: batch_changes_usage
+
+  batch_changes_usage_publishedchangesetsunpublishedcount:
+    sql: batch_changes_usage.PublishedChangesetsUnpublishedCount
+    parent_field: batch_changes_usage
+
+  batch_changes_usage_viewbatchchangeapplypagecount:
+    sql: batch_changes_usage.ViewBatchChangeApplyPageCount
+    parent_field: batch_changes_usage
+
+  batch_changes_usage_viewbatchchangedetailspageaftercreatecount:
+    sql: batch_changes_usage.ViewBatchChangeDetailsPageAfterCreateCount
+    parent_field: batch_changes_usage
+
+  batch_changes_usage_viewbatchchangedetailspageafterupdatecount:
+    sql: batch_changes_usage.ViewBatchChangeDetailsPageAfterUpdateCount
+    parent_field: batch_changes_usage
+
+  batch_changes_usage_weeklybulkoperationstats:
+    sql: batch_changes_usage.WeeklyBulkOperationStats
+    parent_field: batch_changes_usage
+
+  batch_changes_usage_weeklybulkoperationstats_bulkoperation:
+    sql: BulkOperation
+    nested_on_field: batch_changes_usage_weeklybulkoperationstats
+    parent_field: batch_changes_usage
+
+  batch_changes_usage_weeklybulkoperationstats_count:
+    sql: Count
+    nested_on_field: batch_changes_usage_weeklybulkoperationstats
+    parent_field: batch_changes_usage
+
+  batch_changes_usage_weeklybulkoperationstats_week:
+    sql: Week
+    nested_on_field: batch_changes_usage_weeklybulkoperationstats
+    parent_field: batch_changes_usage
+
+  code_monitoring_usage:
+    parent_field: code_monitoring_usage
+
+  code_monitoring_usage_codemonitoremaillinkclicked:
+    sql: code_monitoring_usage.CodeMonitorEmailLinkClicked
+    parent_field: code_monitoring_usage
+
+  code_monitoring_usage_codemonitoremaillinkclicks:
+    sql: code_monitoring_usage.CodeMonitorEmailLinkClicks
+    parent_field: code_monitoring_usage
+
+  code_monitoring_usage_codemonitoringpageviews:
+    sql: code_monitoring_usage.CodeMonitoringPageViews
+    parent_field: code_monitoring_usage
+
+  code_monitoring_usage_createcodemonitorpageviews:
+    sql: code_monitoring_usage.CreateCodeMonitorPageViews
+    parent_field: code_monitoring_usage
+
+  code_monitoring_usage_createcodemonitorpageviewswithtriggerquery:
+    sql: code_monitoring_usage.CreateCodeMonitorPageViewsWithTriggerQuery
+    parent_field: code_monitoring_usage
+
+  code_monitoring_usage_createcodemonitorpageviewswithouttriggerquery:
+    sql: code_monitoring_usage.CreateCodeMonitorPageViewsWithoutTriggerQuery
+    parent_field: code_monitoring_usage
+
+  code_monitoring_usage_createformsubmitted:
+    sql: code_monitoring_usage.CreateFormSubmitted
+    parent_field: code_monitoring_usage
+
+  code_monitoring_usage_emailactionsenabled:
+    sql: code_monitoring_usage.EmailActionsEnabled
+    parent_field: code_monitoring_usage
+
+  code_monitoring_usage_emailactionsenableduniqueusers:
+    sql: code_monitoring_usage.EmailActionsEnabledUniqueUsers
+    parent_field: code_monitoring_usage
+
+  code_monitoring_usage_emailactionserrored:
+    sql: code_monitoring_usage.EmailActionsErrored
+    parent_field: code_monitoring_usage
+
+  code_monitoring_usage_emailactionstriggered:
+    sql: code_monitoring_usage.EmailActionsTriggered
+    parent_field: code_monitoring_usage
+
+  code_monitoring_usage_emailactionstriggereduniqueusers:
+    sql: code_monitoring_usage.EmailActionsTriggeredUniqueUsers
+    parent_field: code_monitoring_usage
+
+  code_monitoring_usage_examplemonitorclicked:
+    sql: code_monitoring_usage.ExampleMonitorClicked
+    parent_field: code_monitoring_usage
+
+  code_monitoring_usage_gettingstartedpageviewed:
+    sql: code_monitoring_usage.GettingStartedPageViewed
+    parent_field: code_monitoring_usage
+
+  code_monitoring_usage_logspageviewed:
+    sql: code_monitoring_usage.LogsPageViewed
+    parent_field: code_monitoring_usage
+
+  code_monitoring_usage_managecodemonitorpageviews:
+    sql: code_monitoring_usage.ManageCodeMonitorPageViews
+    parent_field: code_monitoring_usage
+
+  code_monitoring_usage_managedeletesubmitted:
+    sql: code_monitoring_usage.ManageDeleteSubmitted
+    parent_field: code_monitoring_usage
+
+  code_monitoring_usage_manageformsubmitted:
+    sql: code_monitoring_usage.ManageFormSubmitted
+    parent_field: code_monitoring_usage
+
+  code_monitoring_usage_monitorsenabled:
+    sql: code_monitoring_usage.MonitorsEnabled
+    parent_field: code_monitoring_usage
+
+  code_monitoring_usage_monitorsenabledlastrunerrored:
+    sql: code_monitoring_usage.MonitorsEnabledLastRunErrored
+    parent_field: code_monitoring_usage
+
+  code_monitoring_usage_monitorsenableduniqueusers:
+    sql: code_monitoring_usage.MonitorsEnabledUniqueUsers
+    parent_field: code_monitoring_usage
+
+  code_monitoring_usage_p50triggerruntimeseconds:
+    sql: code_monitoring_usage.P50TriggerRunTimeSeconds
+    parent_field: code_monitoring_usage
+
+  code_monitoring_usage_p90triggerruntimeseconds:
+    sql: code_monitoring_usage.P90TriggerRunTimeSeconds
+    parent_field: code_monitoring_usage
+
+  code_monitoring_usage_reposmonitored:
+    sql: code_monitoring_usage.ReposMonitored
+    parent_field: code_monitoring_usage
+
+  code_monitoring_usage_slackactionsenabled:
+    sql: code_monitoring_usage.SlackActionsEnabled
+    parent_field: code_monitoring_usage
+
+  code_monitoring_usage_slackactionsenableduniqueusers:
+    sql: code_monitoring_usage.SlackActionsEnabledUniqueUsers
+    parent_field: code_monitoring_usage
+
+  code_monitoring_usage_slackactionserrored:
+    sql: code_monitoring_usage.SlackActionsErrored
+    parent_field: code_monitoring_usage
+
+  code_monitoring_usage_slackactionstriggered:
+    sql: code_monitoring_usage.SlackActionsTriggered
+    parent_field: code_monitoring_usage
+
+  code_monitoring_usage_slackactionstriggereduniqueusers:
+    sql: code_monitoring_usage.SlackActionsTriggeredUniqueUsers
+    parent_field: code_monitoring_usage
+
+  code_monitoring_usage_triggerruns:
+    sql: code_monitoring_usage.TriggerRuns
+    parent_field: code_monitoring_usage
+
+  code_monitoring_usage_triggerrunserrored:
+    sql: code_monitoring_usage.TriggerRunsErrored
+    parent_field: code_monitoring_usage
+
+  code_monitoring_usage_webhookactionsenabled:
+    sql: code_monitoring_usage.WebhookActionsEnabled
+    parent_field: code_monitoring_usage
+
+  code_monitoring_usage_webhookactionsenableduniqueusers:
+    sql: code_monitoring_usage.WebhookActionsEnabledUniqueUsers
+    parent_field: code_monitoring_usage
+
+  code_monitoring_usage_webhookactionserrored:
+    sql: code_monitoring_usage.WebhookActionsErrored
+    parent_field: code_monitoring_usage
+
+  code_monitoring_usage_webhookactionstriggered:
+    sql: code_monitoring_usage.WebhookActionsTriggered
+    parent_field: code_monitoring_usage
+
+  code_monitoring_usage_webhookactionstriggereduniqueusers:
+    sql: code_monitoring_usage.WebhookActionsTriggeredUniqueUsers
+    parent_field: code_monitoring_usage
+
+  code_host_versions_external_service_kind:
+    sql: external_service_kind
+    nested_on_field: code_host_versions
+    parent_field: code_host_versions
+
+  code_host_versions_version:
+    sql: version
+    nested_on_field: code_host_versions
+    parent_field: code_host_versions
+
+  code_insights_critical_telemetry:
+    parent_field: code_insights_critical_telemetry
+
+  code_insights_critical_telemetry_totalinsights:
+    sql: code_insights_critical_telemetry.TotalInsights
+    parent_field: code_insights_critical_telemetry
+
+  code_host_integration_usage:
+    parent_field: code_host_integration_usage
+
+  code_host_integration_usage_day:
+    sql: code_host_integration_usage.Day
+    parent_field: code_host_integration_usage
+
+  code_host_integration_usage_day_browserextension:
+    sql: code_host_integration_usage.Day.BrowserExtension
+    parent_field: code_host_integration_usage
+
+  code_host_integration_usage_day_browserextension_inboundtraffictoweb:
+    sql: code_host_integration_usage.Day.BrowserExtension.InboundTrafficToWeb
+    parent_field: code_host_integration_usage
+
+  code_host_integration_usage_day_browserextension_inboundtraffictoweb_totalcount:
+    sql: code_host_integration_usage.Day.BrowserExtension.InboundTrafficToWeb.TotalCount
+    parent_field: code_host_integration_usage
+
+  code_host_integration_usage_day_browserextension_inboundtraffictoweb_uniquescount:
+    sql: code_host_integration_usage.Day.BrowserExtension.InboundTrafficToWeb.UniquesCount
+    parent_field: code_host_integration_usage
+
+  code_host_integration_usage_day_browserextension_totalcount:
+    sql: code_host_integration_usage.Day.BrowserExtension.TotalCount
+    parent_field: code_host_integration_usage
+
+  code_host_integration_usage_day_browserextension_uniquescount:
+    sql: code_host_integration_usage.Day.BrowserExtension.UniquesCount
+    parent_field: code_host_integration_usage
+
+  code_host_integration_usage_day_nativeintegration:
+    sql: code_host_integration_usage.Day.NativeIntegration
+    parent_field: code_host_integration_usage
+
+  code_host_integration_usage_day_nativeintegration_inboundtraffictoweb:
+    sql: code_host_integration_usage.Day.NativeIntegration.InboundTrafficToWeb
+    parent_field: code_host_integration_usage
+
+  code_host_integration_usage_day_nativeintegration_inboundtraffictoweb_totalcount:
+    sql: code_host_integration_usage.Day.NativeIntegration.InboundTrafficToWeb.TotalCount
+    parent_field: code_host_integration_usage
+
+  code_host_integration_usage_day_nativeintegration_inboundtraffictoweb_uniquescount:
+    sql: code_host_integration_usage.Day.NativeIntegration.InboundTrafficToWeb.UniquesCount
+    parent_field: code_host_integration_usage
+
+  code_host_integration_usage_day_nativeintegration_totalcount:
+    sql: code_host_integration_usage.Day.NativeIntegration.TotalCount
+    parent_field: code_host_integration_usage
+
+  code_host_integration_usage_day_nativeintegration_uniquescount:
+    sql: code_host_integration_usage.Day.NativeIntegration.UniquesCount
+    parent_field: code_host_integration_usage
+
+  code_host_integration_usage_day_starttime:
+    sql: code_host_integration_usage.Day.StartTime
+    parent_field: code_host_integration_usage
+
+  code_host_integration_usage_month:
+    sql: code_host_integration_usage.Month
+    parent_field: code_host_integration_usage
+
+  code_host_integration_usage_month_browserextension:
+    sql: code_host_integration_usage.Month.BrowserExtension
+    parent_field: code_host_integration_usage
+
+  code_host_integration_usage_month_browserextension_inboundtraffictoweb:
+    sql: code_host_integration_usage.Month.BrowserExtension.InboundTrafficToWeb
+    parent_field: code_host_integration_usage
+
+  code_host_integration_usage_month_browserextension_inboundtraffictoweb_totalcount:
+    sql: code_host_integration_usage.Month.BrowserExtension.InboundTrafficToWeb.TotalCount
+    parent_field: code_host_integration_usage
+
+  code_host_integration_usage_month_browserextension_inboundtraffictoweb_uniquescount:
+    sql: code_host_integration_usage.Month.BrowserExtension.InboundTrafficToWeb.UniquesCount
+    parent_field: code_host_integration_usage
+
+  code_host_integration_usage_month_browserextension_totalcount:
+    sql: code_host_integration_usage.Month.BrowserExtension.TotalCount
+    parent_field: code_host_integration_usage
+
+  code_host_integration_usage_month_browserextension_uniquescount:
+    sql: code_host_integration_usage.Month.BrowserExtension.UniquesCount
+    parent_field: code_host_integration_usage
+
+  code_host_integration_usage_month_nativeintegration:
+    sql: code_host_integration_usage.Month.NativeIntegration
+    parent_field: code_host_integration_usage
+
+  code_host_integration_usage_month_nativeintegration_inboundtraffictoweb:
+    sql: code_host_integration_usage.Month.NativeIntegration.InboundTrafficToWeb
+    parent_field: code_host_integration_usage
+
+  code_host_integration_usage_month_nativeintegration_inboundtraffictoweb_totalcount:
+    sql: code_host_integration_usage.Month.NativeIntegration.InboundTrafficToWeb.TotalCount
+    parent_field: code_host_integration_usage
+
+  code_host_integration_usage_month_nativeintegration_inboundtraffictoweb_uniquescount:
+    sql: code_host_integration_usage.Month.NativeIntegration.InboundTrafficToWeb.UniquesCount
+    parent_field: code_host_integration_usage
+
+  code_host_integration_usage_month_nativeintegration_totalcount:
+    sql: code_host_integration_usage.Month.NativeIntegration.TotalCount
+    parent_field: code_host_integration_usage
+
+  code_host_integration_usage_month_nativeintegration_uniquescount:
+    sql: code_host_integration_usage.Month.NativeIntegration.UniquesCount
+    parent_field: code_host_integration_usage
+
+  code_host_integration_usage_month_starttime:
+    sql: code_host_integration_usage.Month.StartTime
+    parent_field: code_host_integration_usage
+
+  code_host_integration_usage_week:
+    sql: code_host_integration_usage.Week
+    parent_field: code_host_integration_usage
+
+  code_host_integration_usage_week_browserextension:
+    sql: code_host_integration_usage.Week.BrowserExtension
+    parent_field: code_host_integration_usage
+
+  code_host_integration_usage_week_browserextension_inboundtraffictoweb:
+    sql: code_host_integration_usage.Week.BrowserExtension.InboundTrafficToWeb
+    parent_field: code_host_integration_usage
+
+  code_host_integration_usage_week_browserextension_inboundtraffictoweb_totalcount:
+    sql: code_host_integration_usage.Week.BrowserExtension.InboundTrafficToWeb.TotalCount
+    parent_field: code_host_integration_usage
+
+  code_host_integration_usage_week_browserextension_inboundtraffictoweb_uniquescount:
+    sql: code_host_integration_usage.Week.BrowserExtension.InboundTrafficToWeb.UniquesCount
+    parent_field: code_host_integration_usage
+
+  code_host_integration_usage_week_browserextension_totalcount:
+    sql: code_host_integration_usage.Week.BrowserExtension.TotalCount
+    parent_field: code_host_integration_usage
+
+  code_host_integration_usage_week_browserextension_uniquescount:
+    sql: code_host_integration_usage.Week.BrowserExtension.UniquesCount
+    parent_field: code_host_integration_usage
+
+  code_host_integration_usage_week_nativeintegration:
+    sql: code_host_integration_usage.Week.NativeIntegration
+    parent_field: code_host_integration_usage
+
+  code_host_integration_usage_week_nativeintegration_inboundtraffictoweb:
+    sql: code_host_integration_usage.Week.NativeIntegration.InboundTrafficToWeb
+    parent_field: code_host_integration_usage
+
+  code_host_integration_usage_week_nativeintegration_inboundtraffictoweb_totalcount:
+    sql: code_host_integration_usage.Week.NativeIntegration.InboundTrafficToWeb.TotalCount
+    parent_field: code_host_integration_usage
+
+  code_host_integration_usage_week_nativeintegration_inboundtraffictoweb_uniquescount:
+    sql: code_host_integration_usage.Week.NativeIntegration.InboundTrafficToWeb.UniquesCount
+    parent_field: code_host_integration_usage
+
+  code_host_integration_usage_week_nativeintegration_totalcount:
+    sql: code_host_integration_usage.Week.NativeIntegration.TotalCount
+    parent_field: code_host_integration_usage
+
+  code_host_integration_usage_week_nativeintegration_uniquescount:
+    sql: code_host_integration_usage.Week.NativeIntegration.UniquesCount
+    parent_field: code_host_integration_usage
+
+  code_host_integration_usage_week_starttime:
+    sql: code_host_integration_usage.Week.StartTime
+    parent_field: code_host_integration_usage
+
+  cta_usage:
+    parent_field: cta_usage
+
+  cta_usage_dailybrowserextensioncta:
+    sql: cta_usage.DailyBrowserExtensionCTA
+    parent_field: cta_usage
+
+  cta_usage_dailybrowserextensioncta_clickedonfilepage:
+    sql: cta_usage.DailyBrowserExtensionCTA.ClickedOnFilePage
+    parent_field: cta_usage
+
+  cta_usage_dailybrowserextensioncta_clickedonfilepage_eventcount:
+    sql: cta_usage.DailyBrowserExtensionCTA.ClickedOnFilePage.EventCount
+    parent_field: cta_usage
+
+  cta_usage_dailybrowserextensioncta_clickedonfilepage_usercount:
+    sql: cta_usage.DailyBrowserExtensionCTA.ClickedOnFilePage.UserCount
+    parent_field: cta_usage
+
+  cta_usage_dailybrowserextensioncta_clickedonsearchpage:
+    sql: cta_usage.DailyBrowserExtensionCTA.ClickedOnSearchPage
+    parent_field: cta_usage
+
+  cta_usage_dailybrowserextensioncta_clickedonsearchpage_eventcount:
+    sql: cta_usage.DailyBrowserExtensionCTA.ClickedOnSearchPage.EventCount
+    parent_field: cta_usage
+
+  cta_usage_dailybrowserextensioncta_clickedonsearchpage_usercount:
+    sql: cta_usage.DailyBrowserExtensionCTA.ClickedOnSearchPage.UserCount
+    parent_field: cta_usage
+
+  cta_usage_dailybrowserextensioncta_displayedonfilepage:
+    sql: cta_usage.DailyBrowserExtensionCTA.DisplayedOnFilePage
+    parent_field: cta_usage
+
+  cta_usage_dailybrowserextensioncta_displayedonfilepage_eventcount:
+    sql: cta_usage.DailyBrowserExtensionCTA.DisplayedOnFilePage.EventCount
+    parent_field: cta_usage
+
+  cta_usage_dailybrowserextensioncta_displayedonfilepage_usercount:
+    sql: cta_usage.DailyBrowserExtensionCTA.DisplayedOnFilePage.UserCount
+    parent_field: cta_usage
+
+  cta_usage_dailybrowserextensioncta_displayedonsearchpage:
+    sql: cta_usage.DailyBrowserExtensionCTA.DisplayedOnSearchPage
+    parent_field: cta_usage
+
+  cta_usage_dailybrowserextensioncta_displayedonsearchpage_eventcount:
+    sql: cta_usage.DailyBrowserExtensionCTA.DisplayedOnSearchPage.EventCount
+    parent_field: cta_usage
+
+  cta_usage_dailybrowserextensioncta_displayedonsearchpage_usercount:
+    sql: cta_usage.DailyBrowserExtensionCTA.DisplayedOnSearchPage.UserCount
+    parent_field: cta_usage
+
+  cta_usage_dailybrowserextensioncta_starttime:
+    sql: cta_usage.DailyBrowserExtensionCTA.StartTime
+    parent_field: cta_usage
+
+  cta_usage_dailyideextensioncta:
+    sql: cta_usage.DailyIDEExtensionCTA
+    parent_field: cta_usage
+
+  cta_usage_dailyideextensioncta_clickedonfilepage:
+    sql: cta_usage.DailyIDEExtensionCTA.ClickedOnFilePage
+    parent_field: cta_usage
+
+  cta_usage_dailyideextensioncta_clickedonfilepage_eventcount:
+    sql: cta_usage.DailyIDEExtensionCTA.ClickedOnFilePage.EventCount
+    parent_field: cta_usage
+
+  cta_usage_dailyideextensioncta_clickedonfilepage_usercount:
+    sql: cta_usage.DailyIDEExtensionCTA.ClickedOnFilePage.UserCount
+    parent_field: cta_usage
+
+  cta_usage_dailyideextensioncta_clickedonsearchpage:
+    sql: cta_usage.DailyIDEExtensionCTA.ClickedOnSearchPage
+    parent_field: cta_usage
+
+  cta_usage_dailyideextensioncta_clickedonsearchpage_eventcount:
+    sql: cta_usage.DailyIDEExtensionCTA.ClickedOnSearchPage.EventCount
+    parent_field: cta_usage
+
+  cta_usage_dailyideextensioncta_clickedonsearchpage_usercount:
+    sql: cta_usage.DailyIDEExtensionCTA.ClickedOnSearchPage.UserCount
+    parent_field: cta_usage
+
+  cta_usage_dailyideextensioncta_displayedonfilepage:
+    sql: cta_usage.DailyIDEExtensionCTA.DisplayedOnFilePage
+    parent_field: cta_usage
+
+  cta_usage_dailyideextensioncta_displayedonfilepage_eventcount:
+    sql: cta_usage.DailyIDEExtensionCTA.DisplayedOnFilePage.EventCount
+    parent_field: cta_usage
+
+  cta_usage_dailyideextensioncta_displayedonfilepage_usercount:
+    sql: cta_usage.DailyIDEExtensionCTA.DisplayedOnFilePage.UserCount
+    parent_field: cta_usage
+
+  cta_usage_dailyideextensioncta_displayedonsearchpage:
+    sql: cta_usage.DailyIDEExtensionCTA.DisplayedOnSearchPage
+    parent_field: cta_usage
+
+  cta_usage_dailyideextensioncta_displayedonsearchpage_eventcount:
+    sql: cta_usage.DailyIDEExtensionCTA.DisplayedOnSearchPage.EventCount
+    parent_field: cta_usage
+
+  cta_usage_dailyideextensioncta_displayedonsearchpage_usercount:
+    sql: cta_usage.DailyIDEExtensionCTA.DisplayedOnSearchPage.UserCount
+    parent_field: cta_usage
+
+  cta_usage_dailyideextensioncta_starttime:
+    sql: cta_usage.DailyIDEExtensionCTA.StartTime
+    parent_field: cta_usage
+
+  total_orgs:
+    sql: TotalOrgs
+
+  ide_extensions_usage:
+    parent_field: ide_extensions_usage
+
+  ide_extensions_usage_ides:
+    sql: ide_extensions_usage.IDEs
+    parent_field: ide_extensions_usage
+
+  ide_extensions_usage_ides_day:
+    sql: Day
+    nested_on_field: ide_extensions_usage_ides
+    parent_field: ide_extensions_usage
+
+  ide_extensions_usage_ides_day_redirectscount:
+    sql: Day.RedirectsCount
+    nested_on_field: ide_extensions_usage_ides
+    parent_field: ide_extensions_usage
+
+  ide_extensions_usage_ides_day_searchesperformed:
+    sql: Day.SearchesPerformed
+    nested_on_field: ide_extensions_usage_ides
+    parent_field: ide_extensions_usage
+
+  ide_extensions_usage_ides_day_searchesperformed_totalcount:
+    sql: Day.SearchesPerformed.TotalCount
+    nested_on_field: ide_extensions_usage_ides
+    parent_field: ide_extensions_usage
+
+  ide_extensions_usage_ides_day_searchesperformed_uniquescount:
+    sql: Day.SearchesPerformed.UniquesCount
+    nested_on_field: ide_extensions_usage_ides
+    parent_field: ide_extensions_usage
+
+  ide_extensions_usage_ides_day_starttime:
+    sql: Day.StartTime
+    nested_on_field: ide_extensions_usage_ides
+    parent_field: ide_extensions_usage
+
+  ide_extensions_usage_ides_day_userstate:
+    sql: Day.UserState
+    nested_on_field: ide_extensions_usage_ides
+    parent_field: ide_extensions_usage
+
+  ide_extensions_usage_ides_day_userstate_installs:
+    sql: Day.UserState.Installs
+    nested_on_field: ide_extensions_usage_ides
+    parent_field: ide_extensions_usage
+
+  ide_extensions_usage_ides_day_userstate_uninstalls:
+    sql: Day.UserState.Uninstalls
+    nested_on_field: ide_extensions_usage_ides
+    parent_field: ide_extensions_usage
+
+  ide_extensions_usage_ides_idekind:
+    sql: IdeKind
+    nested_on_field: ide_extensions_usage_ides
+    parent_field: ide_extensions_usage
+
+  ide_extensions_usage_ides_month:
+    sql: Month
+    nested_on_field: ide_extensions_usage_ides
+    parent_field: ide_extensions_usage
+
+  ide_extensions_usage_ides_month_idekind:
+    sql: Month.IdeKind
+    nested_on_field: ide_extensions_usage_ides
+    parent_field: ide_extensions_usage
+
+  ide_extensions_usage_ides_month_searchesperformed:
+    sql: Month.SearchesPerformed
+    nested_on_field: ide_extensions_usage_ides
+    parent_field: ide_extensions_usage
+
+  ide_extensions_usage_ides_month_searchesperformed_totalcount:
+    sql: Month.SearchesPerformed.TotalCount
+    nested_on_field: ide_extensions_usage_ides
+    parent_field: ide_extensions_usage
+
+  ide_extensions_usage_ides_month_searchesperformed_uniquescount:
+    sql: Month.SearchesPerformed.UniquesCount
+    nested_on_field: ide_extensions_usage_ides
+    parent_field: ide_extensions_usage
+
+  ide_extensions_usage_ides_month_starttime:
+    sql: Month.StartTime
+    nested_on_field: ide_extensions_usage_ides
+    parent_field: ide_extensions_usage
+
+  ide_extensions_usage_ides_week:
+    sql: Week
+    nested_on_field: ide_extensions_usage_ides
+    parent_field: ide_extensions_usage
+
+  ide_extensions_usage_ides_week_searchesperformed:
+    sql: Week.SearchesPerformed
+    nested_on_field: ide_extensions_usage_ides
+    parent_field: ide_extensions_usage
+
+  ide_extensions_usage_ides_week_searchesperformed_totalcount:
+    sql: Week.SearchesPerformed.TotalCount
+    nested_on_field: ide_extensions_usage_ides
+    parent_field: ide_extensions_usage
+
+  ide_extensions_usage_ides_week_searchesperformed_uniquescount:
+    sql: Week.SearchesPerformed.UniquesCount
+    nested_on_field: ide_extensions_usage_ides
+    parent_field: ide_extensions_usage
+
+  ide_extensions_usage_ides_week_starttime:
+    sql: Week.StartTime
+    nested_on_field: ide_extensions_usage_ides
+    parent_field: ide_extensions_usage
+
+  notebooks_usage:
+    parent_field: notebooks_usage
+
+  notebooks_usage_embeddednotebookpageviews:
+    sql: notebooks_usage.EmbeddedNotebookPageViews
+    parent_field: notebooks_usage
+
+  notebooks_usage_notebookaddedcomputeblockscount:
+    sql: notebooks_usage.NotebookAddedComputeBlocksCount
+    parent_field: notebooks_usage
+
+  notebooks_usage_notebookaddedfileblockscount:
+    sql: notebooks_usage.NotebookAddedFileBlocksCount
+    parent_field: notebooks_usage
+
+  notebooks_usage_notebookaddedmarkdownblockscount:
+    sql: notebooks_usage.NotebookAddedMarkdownBlocksCount
+    parent_field: notebooks_usage
+
+  notebooks_usage_notebookaddedqueryblockscount:
+    sql: notebooks_usage.NotebookAddedQueryBlocksCount
+    parent_field: notebooks_usage
+
+  notebooks_usage_notebookaddedstarscount:
+    sql: notebooks_usage.NotebookAddedStarsCount
+    parent_field: notebooks_usage
+
+  notebooks_usage_notebookaddedsymbolblockscount:
+    sql: notebooks_usage.NotebookAddedSymbolBlocksCount
+    parent_field: notebooks_usage
+
+  notebooks_usage_notebookpageviews:
+    sql: notebooks_usage.NotebookPageViews
+    parent_field: notebooks_usage
+
+  notebooks_usage_notebookscreatedcount:
+    sql: notebooks_usage.NotebooksCreatedCount
+    parent_field: notebooks_usage
+
+  notebooks_usage_notebookslistpageviews:
+    sql: notebooks_usage.NotebooksListPageViews
+    parent_field: notebooks_usage
+
+  migrated_extensions_usage:
+    parent_field: migrated_extensions_usage
+
+  migrated_extensions_usage_gitblamedisabled:
+    sql: migrated_extensions_usage.GitBlameDisabled
+    parent_field: migrated_extensions_usage
+
+  migrated_extensions_usage_gitblamedisableduniqueusers:
+    sql: migrated_extensions_usage.GitBlameDisabledUniqueUsers
+    parent_field: migrated_extensions_usage
+
+  migrated_extensions_usage_gitblameenabled:
+    sql: migrated_extensions_usage.GitBlameEnabled
+    parent_field: migrated_extensions_usage
+
+  migrated_extensions_usage_gitblameenableduniqueusers:
+    sql: migrated_extensions_usage.GitBlameEnabledUniqueUsers
+    parent_field: migrated_extensions_usage
+
+  migrated_extensions_usage_gitblamepopupclicked:
+    sql: migrated_extensions_usage.GitBlamePopupClicked
+    parent_field: migrated_extensions_usage
+
+  migrated_extensions_usage_gitblamepopupclickeduniqueusers:
+    sql: migrated_extensions_usage.GitBlamePopupClickedUniqueUsers
+    parent_field: migrated_extensions_usage
+
+  migrated_extensions_usage_gitblamepopupviewed:
+    sql: migrated_extensions_usage.GitBlamePopupViewed
+    parent_field: migrated_extensions_usage
+
+  migrated_extensions_usage_gitblamepopupvieweduniqueusers:
+    sql: migrated_extensions_usage.GitBlamePopupViewedUniqueUsers
+    parent_field: migrated_extensions_usage
+
+  migrated_extensions_usage_goimportssearchquerytransformed:
+    sql: migrated_extensions_usage.GoImportsSearchQueryTransformed
+    parent_field: migrated_extensions_usage
+
+  migrated_extensions_usage_goimportssearchquerytransformeduniqueusers:
+    sql: migrated_extensions_usage.GoImportsSearchQueryTransformedUniqueUsers
+    parent_field: migrated_extensions_usage
+
+  migrated_extensions_usage_openineditor:
+    sql: migrated_extensions_usage.OpenInEditor
+    parent_field: migrated_extensions_usage
+
+  migrated_extensions_usage_openineditor_clicked:
+    sql: Clicked
+    nested_on_field: migrated_extensions_usage_openineditor
+    parent_field: migrated_extensions_usage
+
+  migrated_extensions_usage_openineditor_clickeduniqueusers:
+    sql: ClickedUniqueUsers
+    nested_on_field: migrated_extensions_usage_openineditor
+    parent_field: migrated_extensions_usage
+
+  migrated_extensions_usage_openineditor_idekind:
+    sql: IdeKind
+    nested_on_field: migrated_extensions_usage_openineditor
+    parent_field: migrated_extensions_usage
+
+  migrated_extensions_usage_searchexportfailed:
+    sql: migrated_extensions_usage.SearchExportFailed
+    parent_field: migrated_extensions_usage
+
+  migrated_extensions_usage_searchexportfaileduniqueusers:
+    sql: migrated_extensions_usage.SearchExportFailedUniqueUsers
+    parent_field: migrated_extensions_usage
+
+  migrated_extensions_usage_searchexportperformed:
+    sql: migrated_extensions_usage.SearchExportPerformed
+    parent_field: migrated_extensions_usage
+
+  migrated_extensions_usage_searchexportperformeduniqueusers:
+    sql: migrated_extensions_usage.SearchExportPerformedUniqueUsers
+    parent_field: migrated_extensions_usage
+
+  own_usage:
+    parent_field: own_usage
+
+  own_usage_assigned_owners_count:
+    sql: own_usage.assigned_owners_count
+    parent_field: own_usage
+
+  own_usage_feature_flag_on:
+    sql: own_usage.feature_flag_on
+    parent_field: own_usage
+
+  own_usage_file_has_owner_search:
+    sql: own_usage.file_has_owner_search
+    parent_field: own_usage
+
+  own_usage_file_has_owner_search_dau:
+    sql: own_usage.file_has_owner_search.dau
+    parent_field: own_usage
+
+  own_usage_file_has_owner_search_mau:
+    sql: own_usage.file_has_owner_search.mau
+    parent_field: own_usage
+
+  own_usage_file_has_owner_search_wau:
+    sql: own_usage.file_has_owner_search.wau
+    parent_field: own_usage
+
+  own_usage_ownership_panel_opened:
+    sql: own_usage.ownership_panel_opened
+    parent_field: own_usage
+
+  own_usage_ownership_panel_opened_dau:
+    sql: own_usage.ownership_panel_opened.dau
+    parent_field: own_usage
+
+  own_usage_ownership_panel_opened_mau:
+    sql: own_usage.ownership_panel_opened.mau
+    parent_field: own_usage
+
+  own_usage_ownership_panel_opened_wau:
+    sql: own_usage.ownership_panel_opened.wau
+    parent_field: own_usage
+
+  own_usage_repos_count:
+    sql: own_usage.repos_count
+    parent_field: own_usage
+
+  own_usage_repos_count_total:
+    sql: own_usage.repos_count.total
+    parent_field: own_usage
+
+  own_usage_repos_count_with_ingested_ownership:
+    sql: own_usage.repos_count.with_ingested_ownership
+    parent_field: own_usage
+
+  own_usage_repos_count_with_ownership:
+    sql: own_usage.repos_count.with_ownership
+    parent_field: own_usage
+
+  own_usage_select_file_owners_search:
+    sql: own_usage.select_file_owners_search
+    parent_field: own_usage
+
+  own_usage_select_file_owners_search_dau:
+    sql: own_usage.select_file_owners_search.dau
+    parent_field: own_usage
+
+  own_usage_select_file_owners_search_mau:
+    sql: own_usage.select_file_owners_search.mau
+    parent_field: own_usage
+
+  own_usage_select_file_owners_search_wau:
+    sql: own_usage.select_file_owners_search.wau
+    parent_field: own_usage
+
+  repository_size_histogram_count:
+    sql: count
+    nested_on_field: repository_size_histogram
+    parent_field: repository_size_histogram
+
+  repository_size_histogram_gte:
+    sql: gte
+    nested_on_field: repository_size_histogram
+    parent_field: repository_size_histogram
+
+  repository_size_histogram_lt:
+    sql: lt
+    nested_on_field: repository_size_histogram
+    parent_field: repository_size_histogram
+
+  cody_usage:
+    parent_field: cody_usage
+
+  cody_usage_daily:
+    sql: cody_usage.Daily
+    parent_field: cody_usage
+
+  cody_usage_daily_codegenerationrequests:
+    sql: cody_usage.Daily.CodeGenerationRequests
+    parent_field: cody_usage
+
+  cody_usage_daily_codegenerationrequests_eventscount:
+    sql: cody_usage.Daily.CodeGenerationRequests.EventsCount
+    parent_field: cody_usage
+
+  cody_usage_daily_codegenerationrequests_usercount:
+    sql: cody_usage.Daily.CodeGenerationRequests.UserCount
+    parent_field: cody_usage
+
+  cody_usage_daily_explanationrequests:
+    sql: cody_usage.Daily.ExplanationRequests
+    parent_field: cody_usage
+
+  cody_usage_daily_explanationrequests_eventscount:
+    sql: cody_usage.Daily.ExplanationRequests.EventsCount
+    parent_field: cody_usage
+
+  cody_usage_daily_explanationrequests_usercount:
+    sql: cody_usage.Daily.ExplanationRequests.UserCount
+    parent_field: cody_usage
+
+  cody_usage_daily_invalidrequests:
+    sql: cody_usage.Daily.InvalidRequests
+    parent_field: cody_usage
+
+  cody_usage_daily_invalidrequests_eventscount:
+    sql: cody_usage.Daily.InvalidRequests.EventsCount
+    parent_field: cody_usage
+
+  cody_usage_daily_invalidrequests_usercount:
+    sql: cody_usage.Daily.InvalidRequests.UserCount
+    parent_field: cody_usage
+
+  cody_usage_daily_starttime:
+    sql: cody_usage.Daily.StartTime
+    parent_field: cody_usage
+
+  cody_usage_daily_totalrequests:
+    sql: cody_usage.Daily.TotalRequests
+    parent_field: cody_usage
+
+  cody_usage_daily_totalrequests_eventscount:
+    sql: cody_usage.Daily.TotalRequests.EventsCount
+    parent_field: cody_usage
+
+  cody_usage_daily_totalrequests_usercount:
+    sql: cody_usage.Daily.TotalRequests.UserCount
+    parent_field: cody_usage
+
+  cody_usage_daily_totalusers:
+    sql: cody_usage.Daily.TotalUsers
+    parent_field: cody_usage
+
+  cody_usage_daily_totalusers_eventscount:
+    sql: cody_usage.Daily.TotalUsers.EventsCount
+    parent_field: cody_usage
+
+  cody_usage_daily_totalusers_usercount:
+    sql: cody_usage.Daily.TotalUsers.UserCount
+    parent_field: cody_usage
+
+  cody_usage_monthly:
+    sql: cody_usage.Monthly
+    parent_field: cody_usage
+
+  cody_usage_monthly_codegenerationrequests:
+    sql: cody_usage.Monthly.CodeGenerationRequests
+    parent_field: cody_usage
+
+  cody_usage_monthly_codegenerationrequests_eventscount:
+    sql: cody_usage.Monthly.CodeGenerationRequests.EventsCount
+    parent_field: cody_usage
+
+  cody_usage_monthly_codegenerationrequests_usercount:
+    sql: cody_usage.Monthly.CodeGenerationRequests.UserCount
+    parent_field: cody_usage
+
+  cody_usage_monthly_explanationrequests:
+    sql: cody_usage.Monthly.ExplanationRequests
+    parent_field: cody_usage
+
+  cody_usage_monthly_explanationrequests_eventscount:
+    sql: cody_usage.Monthly.ExplanationRequests.EventsCount
+    parent_field: cody_usage
+
+  cody_usage_monthly_explanationrequests_usercount:
+    sql: cody_usage.Monthly.ExplanationRequests.UserCount
+    parent_field: cody_usage
+
+  cody_usage_monthly_invalidrequests:
+    sql: cody_usage.Monthly.InvalidRequests
+    parent_field: cody_usage
+
+  cody_usage_monthly_invalidrequests_eventscount:
+    sql: cody_usage.Monthly.InvalidRequests.EventsCount
+    parent_field: cody_usage
+
+  cody_usage_monthly_invalidrequests_usercount:
+    sql: cody_usage.Monthly.InvalidRequests.UserCount
+    parent_field: cody_usage
+
+  cody_usage_monthly_starttime:
+    sql: cody_usage.Monthly.StartTime
+    parent_field: cody_usage
+
+  cody_usage_monthly_totalrequests:
+    sql: cody_usage.Monthly.TotalRequests
+    parent_field: cody_usage
+
+  cody_usage_monthly_totalrequests_eventscount:
+    sql: cody_usage.Monthly.TotalRequests.EventsCount
+    parent_field: cody_usage
+
+  cody_usage_monthly_totalrequests_usercount:
+    sql: cody_usage.Monthly.TotalRequests.UserCount
+    parent_field: cody_usage
+
+  cody_usage_monthly_totalusers:
+    sql: cody_usage.Monthly.TotalUsers
+    parent_field: cody_usage
+
+  cody_usage_monthly_totalusers_eventscount:
+    sql: cody_usage.Monthly.TotalUsers.EventsCount
+    parent_field: cody_usage
+
+  cody_usage_monthly_totalusers_usercount:
+    sql: cody_usage.Monthly.TotalUsers.UserCount
+    parent_field: cody_usage
+
+  cody_usage_weekly:
+    sql: cody_usage.Weekly
+    parent_field: cody_usage
+
+  cody_usage_weekly_codegenerationrequests:
+    sql: cody_usage.Weekly.CodeGenerationRequests
+    parent_field: cody_usage
+
+  cody_usage_weekly_codegenerationrequests_eventscount:
+    sql: cody_usage.Weekly.CodeGenerationRequests.EventsCount
+    parent_field: cody_usage
+
+  cody_usage_weekly_codegenerationrequests_usercount:
+    sql: cody_usage.Weekly.CodeGenerationRequests.UserCount
+    parent_field: cody_usage
+
+  cody_usage_weekly_explanationrequests:
+    sql: cody_usage.Weekly.ExplanationRequests
+    parent_field: cody_usage
+
+  cody_usage_weekly_explanationrequests_eventscount:
+    sql: cody_usage.Weekly.ExplanationRequests.EventsCount
+    parent_field: cody_usage
+
+  cody_usage_weekly_explanationrequests_usercount:
+    sql: cody_usage.Weekly.ExplanationRequests.UserCount
+    parent_field: cody_usage
+
+  cody_usage_weekly_invalidrequests:
+    sql: cody_usage.Weekly.InvalidRequests
+    parent_field: cody_usage
+
+  cody_usage_weekly_invalidrequests_eventscount:
+    sql: cody_usage.Weekly.InvalidRequests.EventsCount
+    parent_field: cody_usage
+
+  cody_usage_weekly_invalidrequests_usercount:
+    sql: cody_usage.Weekly.InvalidRequests.UserCount
+    parent_field: cody_usage
+
+  cody_usage_weekly_starttime:
+    sql: cody_usage.Weekly.StartTime
+    parent_field: cody_usage
+
+  cody_usage_weekly_totalrequests:
+    sql: cody_usage.Weekly.TotalRequests
+    parent_field: cody_usage
+
+  cody_usage_weekly_totalrequests_eventscount:
+    sql: cody_usage.Weekly.TotalRequests.EventsCount
+    parent_field: cody_usage
+
+  cody_usage_weekly_totalrequests_usercount:
+    sql: cody_usage.Weekly.TotalRequests.UserCount
+    parent_field: cody_usage
+
+  cody_usage_weekly_totalusers:
+    sql: cody_usage.Weekly.TotalUsers
+    parent_field: cody_usage
+
+  cody_usage_weekly_totalusers_eventscount:
+    sql: cody_usage.Weekly.TotalUsers.EventsCount
+    parent_field: cody_usage
+
+  cody_usage_weekly_totalusers_usercount:
+    sql: cody_usage.Weekly.TotalUsers.UserCount
+    parent_field: cody_usage
+
+  repo_metadata_usage:
+    parent_field: repo_metadata_usage
+
+  repo_metadata_usage_summary:
+    sql: repo_metadata_usage.Summary
+    parent_field: repo_metadata_usage
+
+  repo_metadata_usage_summary_isenabled:
+    sql: repo_metadata_usage.Summary.IsEnabled
+    parent_field: repo_metadata_usage
+
+  repo_metadata_usage_summary_repometadatacount:
+    sql: repo_metadata_usage.Summary.RepoMetadataCount
+    parent_field: repo_metadata_usage
+
+  repo_metadata_usage_summary_reposwithmetadatacount:
+    sql: repo_metadata_usage.Summary.ReposWithMetadataCount
+    parent_field: repo_metadata_usage
+
+  repo_metadata_usage_daily:
+    sql: repo_metadata_usage.daily
+    parent_field: repo_metadata_usage
+
+  repo_metadata_usage_daily_starttime:
+    sql: repo_metadata_usage.daily.StartTime
+    parent_field: repo_metadata_usage
+
+  repo_metadata_usage_daily_createrepometadata:
+    sql: repo_metadata_usage.daily.createrepometadata
+    parent_field: repo_metadata_usage
+
+  repo_metadata_usage_daily_createrepometadata_eventscount:
+    sql: repo_metadata_usage.daily.createrepometadata.EventsCount
+    parent_field: repo_metadata_usage
+
+  repo_metadata_usage_daily_createrepometadata_userscount:
+    sql: repo_metadata_usage.daily.createrepometadata.UsersCount
+    parent_field: repo_metadata_usage
+
+  repo_metadata_usage_daily_deleterepometadata:
+    sql: repo_metadata_usage.daily.deleterepometadata
+    parent_field: repo_metadata_usage
+
+  repo_metadata_usage_daily_deleterepometadata_eventscount:
+    sql: repo_metadata_usage.daily.deleterepometadata.EventsCount
+    parent_field: repo_metadata_usage
+
+  repo_metadata_usage_daily_deleterepometadata_userscount:
+    sql: repo_metadata_usage.daily.deleterepometadata.UsersCount
+    parent_field: repo_metadata_usage
+
+  repo_metadata_usage_daily_searchfilterusage:
+    sql: repo_metadata_usage.daily.searchfilterusage
+    parent_field: repo_metadata_usage
+
+  repo_metadata_usage_daily_searchfilterusage_eventscount:
+    sql: repo_metadata_usage.daily.searchfilterusage.EventsCount
+    parent_field: repo_metadata_usage
+
+  repo_metadata_usage_daily_searchfilterusage_userscount:
+    sql: repo_metadata_usage.daily.searchfilterusage.UsersCount
+    parent_field: repo_metadata_usage
+
+  repo_metadata_usage_daily_updaterepometadata:
+    sql: repo_metadata_usage.daily.updaterepometadata
+    parent_field: repo_metadata_usage
+
+  repo_metadata_usage_daily_updaterepometadata_eventscount:
+    sql: repo_metadata_usage.daily.updaterepometadata.EventsCount
+    parent_field: repo_metadata_usage
+
+  repo_metadata_usage_daily_updaterepometadata_userscount:
+    sql: repo_metadata_usage.daily.updaterepometadata.UsersCount
+    parent_field: repo_metadata_usage
+
+  repo_metadata_usage_monthly:
+    sql: repo_metadata_usage.monthly
+    parent_field: repo_metadata_usage
+
+  repo_metadata_usage_monthly_starttime:
+    sql: repo_metadata_usage.monthly.StartTime
+    parent_field: repo_metadata_usage
+
+  repo_metadata_usage_monthly_createrepometadata:
+    sql: repo_metadata_usage.monthly.createrepometadata
+    parent_field: repo_metadata_usage
+
+  repo_metadata_usage_monthly_createrepometadata_eventscount:
+    sql: repo_metadata_usage.monthly.createrepometadata.EventsCount
+    parent_field: repo_metadata_usage
+
+  repo_metadata_usage_monthly_createrepometadata_userscount:
+    sql: repo_metadata_usage.monthly.createrepometadata.UsersCount
+    parent_field: repo_metadata_usage
+
+  repo_metadata_usage_monthly_deleterepometadata:
+    sql: repo_metadata_usage.monthly.deleterepometadata
+    parent_field: repo_metadata_usage
+
+  repo_metadata_usage_monthly_deleterepometadata_eventscount:
+    sql: repo_metadata_usage.monthly.deleterepometadata.EventsCount
+    parent_field: repo_metadata_usage
+
+  repo_metadata_usage_monthly_deleterepometadata_userscount:
+    sql: repo_metadata_usage.monthly.deleterepometadata.UsersCount
+    parent_field: repo_metadata_usage
+
+  repo_metadata_usage_monthly_searchfilterusage:
+    sql: repo_metadata_usage.monthly.searchfilterusage
+    parent_field: repo_metadata_usage
+
+  repo_metadata_usage_monthly_searchfilterusage_eventscount:
+    sql: repo_metadata_usage.monthly.searchfilterusage.EventsCount
+    parent_field: repo_metadata_usage
+
+  repo_metadata_usage_monthly_searchfilterusage_userscount:
+    sql: repo_metadata_usage.monthly.searchfilterusage.UsersCount
+    parent_field: repo_metadata_usage
+
+  repo_metadata_usage_monthly_updaterepometadata:
+    sql: repo_metadata_usage.monthly.updaterepometadata
+    parent_field: repo_metadata_usage
+
+  repo_metadata_usage_monthly_updaterepometadata_eventscount:
+    sql: repo_metadata_usage.monthly.updaterepometadata.EventsCount
+    parent_field: repo_metadata_usage
+
+  repo_metadata_usage_monthly_updaterepometadata_userscount:
+    sql: repo_metadata_usage.monthly.updaterepometadata.UsersCount
+    parent_field: repo_metadata_usage
+
+  repo_metadata_usage_weekly:
+    sql: repo_metadata_usage.weekly
+    parent_field: repo_metadata_usage
+
+  repo_metadata_usage_weekly_starttime:
+    sql: repo_metadata_usage.weekly.StartTime
+    parent_field: repo_metadata_usage
+
+  repo_metadata_usage_weekly_createrepometadata:
+    sql: repo_metadata_usage.weekly.createrepometadata
+    parent_field: repo_metadata_usage
+
+  repo_metadata_usage_weekly_createrepometadata_eventscount:
+    sql: repo_metadata_usage.weekly.createrepometadata.EventsCount
+    parent_field: repo_metadata_usage
+
+  repo_metadata_usage_weekly_createrepometadata_userscount:
+    sql: repo_metadata_usage.weekly.createrepometadata.UsersCount
+    parent_field: repo_metadata_usage
+
+  repo_metadata_usage_weekly_deleterepometadata:
+    sql: repo_metadata_usage.weekly.deleterepometadata
+    parent_field: repo_metadata_usage
+
+  repo_metadata_usage_weekly_deleterepometadata_eventscount:
+    sql: repo_metadata_usage.weekly.deleterepometadata.EventsCount
+    parent_field: repo_metadata_usage
+
+  repo_metadata_usage_weekly_deleterepometadata_userscount:
+    sql: repo_metadata_usage.weekly.deleterepometadata.UsersCount
+    parent_field: repo_metadata_usage
+
+  repo_metadata_usage_weekly_searchfilterusage:
+    sql: repo_metadata_usage.weekly.searchfilterusage
+    parent_field: repo_metadata_usage
+
+  repo_metadata_usage_weekly_searchfilterusage_eventscount:
+    sql: repo_metadata_usage.weekly.searchfilterusage.EventsCount
+    parent_field: repo_metadata_usage
+
+  repo_metadata_usage_weekly_searchfilterusage_userscount:
+    sql: repo_metadata_usage.weekly.searchfilterusage.UsersCount
+    parent_field: repo_metadata_usage
+
+  repo_metadata_usage_weekly_updaterepometadata:
+    sql: repo_metadata_usage.weekly.updaterepometadata
+    parent_field: repo_metadata_usage
+
+  repo_metadata_usage_weekly_updaterepometadata_eventscount:
+    sql: repo_metadata_usage.weekly.updaterepometadata.EventsCount
+    parent_field: repo_metadata_usage
+
+  repo_metadata_usage_weekly_updaterepometadata_userscount:
+    sql: repo_metadata_usage.weekly.updaterepometadata.UsersCount
+    parent_field: repo_metadata_usage
+
+measures:
+  count:
+    aggregate_type: count

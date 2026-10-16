@@ -1,0 +1,29 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__server_weekly_usage
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: server_weekly_usage
+
+dimensions:
+  start_time: {}
+  user_count: {}
+  registered_user_count: {}
+  anonymous_user_count: {}
+  integration_user_count: {}
+  stage_manage_user_count: {}
+  stage_plan_user_count: {}
+  stage_code_user_count: {}
+  stage_review_user_count: {}
+  stage_verify_user_count: {}
+  stage_package_user_count: {}
+  stage_deploy_user_count: {}
+  stage_configure_user_count: {}
+  stage_monitor_user_count: {}
+  stage_secure_user_count: {}
+  stage_automate_user_count: {}
+
+  unique_server_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

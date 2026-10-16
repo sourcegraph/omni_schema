@@ -1,0 +1,15 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__legacy_server_instances_app_ids_2018_12_05
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: legacy_server_instances_app_ids_2018_12_05
+
+dimensions:
+  unique_server_id:
+    format: ID
+
+  app_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

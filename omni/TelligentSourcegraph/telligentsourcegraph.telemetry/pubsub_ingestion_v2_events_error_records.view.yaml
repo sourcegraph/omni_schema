@@ -1,0 +1,32 @@
+# Reference this view as telligentsourcegraph_telemetry__pubsub_ingestion_v2_events_error_records
+catalog: telligentsourcegraph
+schema: telemetry
+table_name: pubsub_ingestion_v2_events_error_records
+
+dimensions:
+  timestamp: {}
+  attributes: {}
+  stacktrace: {}
+
+  payload_string:
+    sql: payloadString
+
+  payload_bytes:
+    sql: payloadBytes
+
+  attributes_key:
+    sql: key
+    nested_on_field: attributes
+    parent_field: attributes
+
+  attributes_value:
+    sql: value
+    nested_on_field: attributes
+    parent_field: attributes
+
+  error_message:
+    sql: errorMessage
+
+measures:
+  count:
+    aggregate_type: count

@@ -1,0 +1,44 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__user_external_accounts
+description: Dotcom PG table replication
+
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: user_external_accounts
+
+dimensions:
+  service_type: {}
+  auth_data: {}
+  account_data: {}
+  created_at: {}
+  updated_at: {}
+  deleted_at: {}
+  expired_at: {}
+  last_valid_at: {}
+  kind: {}
+  refresh_failure_at: {}
+
+  id:
+    format: ID
+    primary_key: true
+
+  user_id:
+    format: ID
+
+  service_id:
+    format: ID
+
+  account_id:
+    format: ID
+
+  client_id:
+    format: ID
+
+  encryption_key_id:
+    format: ID
+
+  tenant_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

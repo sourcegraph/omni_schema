@@ -1,0 +1,25 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__sq_workspace_tokens_gateway
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: sq_workspace_tokens_gateway
+
+dimensions:
+  date: {}
+  llm_model: {}
+  feature: {}
+  workspace_name: {}
+  prompt_tokens: {}
+  completion_tokens: {}
+  total_tokens: {}
+  prompt_cost_per_million_tokens: {}
+  completion_cost_per_million_tokens: {}
+
+  workspace_id:
+    format: ID
+
+  workspace_sams_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

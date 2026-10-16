@@ -1,0 +1,40 @@
+# Reference this view as telligentsourcegraph_credits_analytics__credits_bucket_monthly_summary
+catalog: telligentsourcegraph
+schema: credits_analytics
+table_name: credits_bucket_monthly_summary
+
+dimensions:
+  account_name: {}
+  instance_type: {}
+  bucket_expiry_date: {}
+  bucket_start_date: {}
+  priority: {}
+  notes: {}
+  created_at: {}
+  last_consumed_at: {}
+  instance_domain: {}
+  customer_name: {}
+  credit_type: {}
+  bucket_display_name: {}
+  month: {}
+  monthly_credits_consumed: {}
+  monthly_total_cost: {}
+  cumulative_bucket_credits_consumed: {}
+  cumulative_bucket_cost: {}
+  credit_allocated: {}
+
+  salesforce_subscription_id:
+    format: ID
+
+  dealhub_subscription_id:
+    format: ID
+
+  subscription_id:
+    format: ID
+
+  bucket_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

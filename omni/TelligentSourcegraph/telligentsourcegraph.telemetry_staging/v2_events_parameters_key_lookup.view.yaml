@@ -1,0 +1,18 @@
+# Reference this view as telligentsourcegraph_telemetry_staging__v2_events_parameters_key_lookup
+catalog: telligentsourcegraph
+schema: telemetry_staging
+table_name: v2_events_parameters_key_lookup
+
+dimensions:
+  feature: {}
+  action: {}
+
+  metadata_keys:
+    sql: metadataKeys
+
+  private_metadata_keys:
+    sql: privateMetadataKeys
+
+measures:
+  count:
+    aggregate_type: count

@@ -1,0 +1,98 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__csm_main_tracker
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: csm_main_tracker
+
+dimensions:
+  # ── Account ────────────────────────────────────────────────────
+  account_name: {}
+  account_manager: {}
+  account_owner: {}
+  active_products: {}
+  external_url: {}
+  # ── Contract ───────────────────────────────────────────────────
+  contract_start_date: {}
+  contract_end_date: {}
+  terms: {}
+  consumed: {}
+  last_max_total_user_accounts: {}
+  cip_overage_month: {}
+
+  account_id:
+    format: ID
+
+  sfdc_unique_id:
+    label: SFDC Unique ID
+    format: ID
+
+  sourcegraph_subscription_id:
+    format: ID
+
+  ai_terms:
+    label: AI Terms
+
+  ela_account:
+    label: ELA Account
+
+  iacv:
+    label: IACV
+    format: usdcurrency_0
+
+  # ── Scores ─────────────────────────────────────────────────────
+  # Source columns are 0-100; divided by 100 so percent formatting renders correctly.
+  health_score:
+    sql: health_score / 100
+    format: percent_1
+
+  momentum_score:
+    sql: momentum_score / 100
+    format: percent_1
+
+  # ── Credits / quota ────────────────────────────────────────────
+  base_quota:
+    hidden: true
+
+  total_quota:
+    hidden: true
+
+  is_unlimited:
+    hidden: true
+
+  pct_consumed:
+    sql: pct_consumed / 100
+    label: Pct Consumed (this month)
+    format: percent_0
+    hidden: true
+
+  # ── PPU ────────────────────────────────────────────────────────
+  ppu:
+    label: PPU (Monthly)
+
+  ppu_over_360:
+    label: PPU Over 360
+
+  # ── Deep Search (60 days) ──────────────────────────────────────
+  ds_queries:
+    label: DS Queries (60 days)
+
+  ds_users:
+    label: DS Users (60 days)
+
+  # ── MCP (60 days) ──────────────────────────────────────────────
+  mcp_tool_calls:
+    label: MCP Tool Calls (60 days)
+
+  mcp_users:
+    label: MCP Users (60 days)
+
+  # ── Usage / seats ──────────────────────────────────────────────
+  last_mau:
+    label: Last MAU
+
+  seat_consumption_last_month:
+    format: percent_1
+
+measures:
+  count:
+    drill_fields: [ account_name ]
+    aggregate_type: count

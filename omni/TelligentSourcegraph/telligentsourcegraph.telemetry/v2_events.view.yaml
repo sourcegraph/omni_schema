@@ -1,0 +1,4098 @@
+# Reference this view as telligentsourcegraph_telemetry__v2_events
+catalog: telligentsourcegraph
+schema: telemetry
+table_name: v2_events
+
+dimensions:
+  publish_time:
+    description: Timestamp of when the event landed in our data-warehouse.
+
+  timestamp:
+    description: Timestamp of when the original event was recorded.
+
+  metadata:
+    description: Metadata associated with the request to publish this event.
+    parent_field: metadata
+
+  metadata_identifier:
+    sql: metadata.identifier
+    description: |-
+      Telemetry publisher self-identification - for example, a Sourcegraph
+       instance of some other kind of service.
+    parent_field: metadata
+
+  metadata_identifier_licensedinstance:
+    sql: metadata.identifier.licensedInstance
+    description: A licensed Sourcegraph instance.
+    parent_field: metadata
+
+  metadata_identifier_licensedinstance_externalurl:
+    sql: metadata.identifier.licensedInstance.externalUrl
+    description: Instance external URL defined in the instance site configuration.
+    parent_field: metadata
+
+  metadata_identifier_licensedinstance_instanceid:
+    sql: metadata.identifier.licensedInstance.instanceId
+    description: Self-reported Sourcegraph instance identifier.
+    parent_field: metadata
+
+  metadata_identifier_licensedinstance_licensekey:
+    sql: metadata.identifier.licensedInstance.licenseKey
+    description: License key configured in the Sourcegraph instance emitting the event.
+    parent_field: metadata
+
+  metadata_identifier_managedservice:
+    sql: metadata.identifier.managedService
+    description: |-
+      A service operated and managed by the Sourcegraph team, for example
+       a service deployed by MSP: https://handbook.sourcegraph.com/departments/engineering/teams/core-services/managed-services/platform/
+
+       Valid SAMS client credentials are required to publish events under a
+       managed service identifier. The required scope is
+       'telemetry_gateway::events::publish'. See go/sams-client-credentials and
+       go/sams-token-scopes for more information.
+    parent_field: metadata
+
+  metadata_identifier_managedservice_serviceenvironment:
+    sql: metadata.identifier.managedService.serviceEnvironment
+    description: Self-reported service environment, for example 'prod' or 'dev'.
+    parent_field: metadata
+
+  metadata_identifier_managedservice_serviceid:
+    sql: metadata.identifier.managedService.serviceId
+    description: Self-reported service identifier, for example 'my-service'.
+    parent_field: metadata
+
+  metadata_identifier_unlicensedinstance:
+    sql: metadata.identifier.unlicensedInstance
+    description: An unlicensed Sourcegraph instance.
+    parent_field: metadata
+
+  metadata_identifier_unlicensedinstance_externalurl:
+    sql: metadata.identifier.unlicensedInstance.externalUrl
+    description: Instance external URL defined in the instance site configuration.
+    parent_field: metadata
+
+  metadata_identifier_unlicensedinstance_instanceid:
+    sql: metadata.identifier.unlicensedInstance.instanceId
+    description: Self-reported Sourcegraph instance identifier.
+    parent_field: metadata
+
+  metadata_identifier_workspace:
+    sql: metadata.identifier.workspace
+    description: A Sourcegraph workspace.
+    parent_field: metadata
+
+  metadata_identifier_workspace_externalurl:
+    sql: metadata.identifier.workspace.externalUrl
+    description: Workspace external URL.
+    parent_field: metadata
+
+  metadata_identifier_workspace_workspaceid:
+    sql: metadata.identifier.workspace.workspaceId
+    description: Workspace identifier.
+    parent_field: metadata
+
+  metadata_requestid:
+    sql: metadata.requestId
+    description: ID associated with the request to publish this event.
+    parent_field: metadata
+
+  external_url:
+    sql: externalUrl
+    description: Instance external URL defined in the instance site configuration.
+      Populated from either the licensed or unlicensed instance metadata.
+    group_label: Instance Info
+
+  instance_id:
+    sql: instanceId
+    format: ID
+    description: Self-reported Sourcegraph instance identifier. Populated from
+      either the licensed or unlicensed instance metadata.
+    group_label: Instance Info
+
+  id:
+    sql: id
+    format: ID
+    description: Generated ID of the event, currently expected to be UUID v4.
+    primary_key: true
+
+  user_id:
+    sql: userId
+    label: Instance user ID
+    format: number_0
+    description: Unique within the instance
+    group_label: Instance Info
+
+  anonymous_user_id:
+    sql: anonymousUserId
+    format: ID
+    description: |-
+      Randomized unique identifier representing the user (typically stored in
+       localstorage in web clients, or similar mechanisms elsewhere). This is
+       often used for unauthenticated users, but can persist to authenticated
+       users as well.
+
+  sams_external_id:
+    sql: samsExternalId
+    format: ID
+    description: |-
+      Sourcegraph Accounts Management System (SAMS) account associated with the
+       user, represented by a SAMS external user ID in a UUID format. This is only
+       valid for services leveraging SAMS as an identity provider - in other words,
+       traditional Sourcegraph instances will not provide this.
+
+       Learn more about SAMS: https://handbook.sourcegraph.com/departments/engineering/teams/core-services/sams
+
+  user_metadata:
+    sql: userMetadata
+    description: Metadata associated with the user. Populated by data & analytics pipelines
+    parent_field: user_metadata
+
+  usermetadata_email:
+    sql: userMetadata.email
+    description: Primary email address associated with the user
+    parent_field: user_metadata
+
+  usermetadata_issourcegraphteammate:
+    sql: userMetadata.isSourcegraphTeammate
+    description: Indicates whether the user is a Sourcegraph teammate.
+    parent_field: user_metadata
+
+  usermetadata_serviceaccount:
+    sql: userMetadata.serviceAccount
+    description: Indicates whether the user is a service account
+    parent_field: user_metadata
+
+  usermetadata_username:
+    sql: userMetadata.username
+    description: Username associated with the user
+    parent_field: user_metadata
+
+  unique_user_id:
+    sql: uniqueUserId
+    format: ID
+    description: Unique across instances
+
+  feature:
+    sql: feature
+    description: Feature associated with the event in camelCase, e.g. 'myFeature'.
+    hidden: true
+
+  action:
+    sql: action
+    description: Action associated with the event in camelCase, e.g. 'pageView'.
+    hidden: true
+
+  event_name:
+    sql: eventName
+    label: Event Name (feature:action)
+    description: Concatenated feature:action, e.g. myFeature:pageView
+
+  server:
+    description: |-
+      Information about the server that is publishing the event, based on
+       RecordEventsRequestMetadata.Identifier.
+    parent_field: server
+
+  server_apirequestclient:
+    sql: server.apiRequestClient
+    description: Information about the client that made an API request.
+    parent_field: server
+
+  server_apirequestclient_apiclientfeature:
+    sql: server.apiRequestClient.apiClientFeature
+    description: Feature of the client that made an API request.
+    parent_field: server
+
+  server_apirequestclient_apiclientname:
+    sql: server.apiRequestClient.apiClientName
+    description: Name of the client that made an API request.
+    parent_field: server
+
+  server_apirequestclient_apiclientversion:
+    sql: server.apiRequestClient.apiClientVersion
+    description: Version of the client that made an API request.
+    parent_field: server
+
+  server_apirequestclient_requestedwith:
+    sql: server.apiRequestClient.requestedWith
+    description: HTTP header identifying the type of client making the API request.
+    parent_field: server
+
+  server_apirequestclient_useragent:
+    sql: server.apiRequestClient.userAgent
+    description: User agent of the client that made an API request.
+    parent_field: server
+
+  server_version:
+    sql: server.version
+    description: |-
+      Version of the server emitting the event, corresponding to
+       RecordEventsRequestMetadata.Identifier. For example, if the Identifier
+       indicates the publisher is a Sourcegraph instance, the version represents
+       the version of the Sourcegraph server.
+    parent_field: server
+
+  client:
+    description: Information about the client that generated the event.
+    parent_field: client
+
+  client_name:
+    sql: client.name
+    description: Source client of the event.
+    parent_field: client
+
+  client_version:
+    sql: client.version
+    description: Version of the client.
+    parent_field: client
+
+  client_versionmajor:
+    sql: client.versionMajor
+    description: Major version of the client.
+    parent_field: client
+
+  client_versionminor:
+    sql: client.versionMinor
+    description: Minor version of the client.
+    parent_field: client
+
+  client_versionnormalized:
+    sql: client.versionNormalized
+    description: Normalized version of the client, in the format left-padded
+      'major.minor.patch'.
+    parent_field: client
+
+  client_versionpatch:
+    sql: client.versionPatch
+    description: Patch version of the client.
+    parent_field: client
+
+  client_and_service_id:
+    sql: clientAndServiceId
+    format: ID
+    description: Concatenated serviceId + client, e.g. cody-analytics:web
+
+  parameters:
+    description: Parameters of the event.
+    parent_field: parameters
+
+  parameters_billingmetadata:
+    sql: parameters.billingMetadata
+    description: Optional billing-related metadata.
+    parent_field: parameters
+
+  parameters_billingmetadata_category:
+    sql: parameters.billingMetadata.category
+    description: Billing category ID the event falls into.
+    parent_field: parameters
+
+  parameters_billingmetadata_product:
+    sql: parameters.billingMetadata.product
+    description: Billing product ID associated with the event.
+    parent_field: parameters
+
+  parameters_legacymetadata:
+    sql: parameters.legacyMetadata
+    description: |-
+      DEPRECATED, legacy metadata format that only accepted int64 - use the new
+       'metadata' field instead, which accepts float values. Values sent through
+       this proto field will be merged into the new metadata attributes.
+
+       We don't use a [deprecated = true] tag because we use this field to handle
+       accepting exporters sending metadata in this format.
+    parent_field: parameters
+
+  parameters_metadata:
+    sql: to_json_string(parameters.metadata)
+    description: |-
+      Strictly typed metadata, restricted to integer values to avoid accidentally
+       exporting sensitive or private data.
+    parent_field: parameters
+
+  parameters_privatemetadata:
+    sql: parameters.privateMetadata
+    description: |-
+      Additional potentially sensitive metadata - i.e. not restricted to integer
+       values.
+
+       🚨 SECURITY: This metadata is NOT exported from instances by default, as it
+       can contain arbitrarily-shaped data that may accidentally contain sensitive
+       or private contents.
+
+       This metadata is only exported on an allowlist basis based on terms of
+       use agreements and combinations of event feature and action, alongside
+       careful audit of callsites.
+    parent_field: parameters
+
+  parameters_version:
+    sql: parameters.version
+    description: |-
+      Version of the event parameters, used for indicating the "shape" of this
+       event's metadata, beginning at 0. Useful for denoting if the shape of
+       metadata has changed in any way.
+    parent_field: parameters
+
+  feature_flags:
+    sql: json_extract_scalar(featureFlags, '$.flags')
+    description: Optional feature flags configured in the context of the event.
+    parent_field: feature_flags
+
+  featureflags_flags:
+    sql: featureFlags.flags
+    description: |-
+      Evaluated feature flags. In Soucegraph we currently only support boolean
+       feature flags, but in the API we allow arbitrary string values for future
+       extensibility.
+
+       This field should be hydrated by the Sourcegraph server, and not provided
+       by clients.
+    parent_field: feature_flags
+
+  marketing_tracking:
+    sql: marketingTracking
+    description: |-
+      Optional marketing campaign tracking parameters.
+
+       🚨 SECURITY: This metadata is NEVER exported from single-tenant Sourcegraph
+       instances, and is only exported for events tracked in the public
+       Sourcegraph.com instance and managed services.
+    parent_field: marketing_tracking
+
+  marketingtracking_cohortid:
+    sql: marketingTracking.cohortId
+    description: Cohort ID to identify the user as part of a specific A/B test.
+    parent_field: marketing_tracking
+
+  marketingtracking_devicesessionid:
+    sql: marketingTracking.deviceSessionId
+    description: Device session ID to identify the user's session.
+    parent_field: marketing_tracking
+
+  marketingtracking_firstpageseenurl:
+    sql: marketingTracking.firstPageSeenUrl
+    description: First URL the user visited in their current session.
+    parent_field: marketing_tracking
+
+  marketingtracking_firstsourceurl:
+    sql: marketingTracking.firstSourceUrl
+    description: Initial URL the user landed on.
+    parent_field: marketing_tracking
+
+  marketingtracking_lastpageseenurl:
+    sql: marketingTracking.lastPageSeenUrl
+    description: Last page seen URL by the user.
+    parent_field: marketing_tracking
+
+  marketingtracking_lastsourceurl:
+    sql: marketingTracking.lastSourceUrl
+    description: Last source URL visited by the user.
+    parent_field: marketing_tracking
+
+  marketingtracking_mostrecentreferrer:
+    sql: marketingTracking.mostRecentReferrer
+    description: Most recent refferer URL.
+    parent_field: marketing_tracking
+
+  marketingtracking_referrer:
+    sql: marketingTracking.referrer
+    description: Referrer URL that refers the user to Sourcegraph.
+    parent_field: marketing_tracking
+
+  marketingtracking_sessionfirsturl:
+    sql: marketingTracking.sessionFirstUrl
+    description: First URL the user visited in their current session.
+    parent_field: marketing_tracking
+
+  marketingtracking_sessionreferrer:
+    sql: marketingTracking.sessionReferrer
+    description: Session referrer URL for the user.
+    parent_field: marketing_tracking
+
+  marketingtracking_url:
+    sql: marketingTracking.url
+    description: URL the event occurred on.
+    parent_field: marketing_tracking
+
+  marketingtracking_utmcampaign:
+    sql: marketingTracking.utmCampaign
+    description: UTM campaign parameter.
+    parent_field: marketing_tracking
+
+  marketingtracking_utmcontent:
+    sql: marketingTracking.utmContent
+    description: UTM content parameter.
+    parent_field: marketing_tracking
+
+  marketingtracking_utmmedium:
+    sql: marketingTracking.utmMedium
+    description: UTM medium parameter.
+    parent_field: marketing_tracking
+
+  marketingtracking_utmsource:
+    sql: marketingTracking.utmSource
+    description: UTM source parameter.
+    parent_field: marketing_tracking
+
+  marketingtracking_utmterm:
+    sql: marketingTracking.utmTerm
+    description: UTM term parameter.
+    parent_field: marketing_tracking
+
+  interaction:
+    description: Optional metadata identifying the interaction that generated the event.
+    parent_field: interaction
+
+  interaction_geolocation:
+    sql: interaction.geolocation
+    description: |-
+      Geolocation associated with the interaction, typically inferred from the
+       originating client's IP address (which we do not collect).
+    parent_field: interaction
+
+  interaction_geolocation_countrycode:
+    sql: interaction.geolocation.countryCode
+    description: Inferred ISO 3166-1 alpha-2 or alpha-3 country code
+    parent_field: interaction
+
+  interaction_interactionid:
+    sql: interaction.interactionId
+    description: Custom interaction ID representing the interaction associated with
+      the event.
+    parent_field: interaction
+
+  interaction_sessionid:
+    sql: interaction.sessionId
+    description: Session identifier for correlating related search telemetry events
+      within a single session.
+    parent_field: interaction
+
+  interaction_traceid:
+    sql: interaction.traceId
+    description: OpenTelemetry trace ID representing the interaction associated with
+      the event.
+    parent_field: interaction
+
+  dau_lookup:
+    sql: dauLookup
+    description: DAU classification of each event per product. Populated by data &
+      analytics pipelines
+    parent_field: dau_lookup
+
+  daulookup_billingdau:
+    sql: dauLookup.billingDau
+    description: A billing DAU represents a user who interacts with the product,
+      regardless of intention and result.
+    parent_field: dau_lookup
+
+  daulookup_billingevent:
+    sql: dauLookup.billingEvent
+    description: A billable Cody user is defined as someone who is signed into their
+      Enterprise Sourcegraph account and actively engages with Cody through
+      various interactions, such as receiving autocompletions, running commands,
+      chatting, or adjusting settings. Similarly, a billable active Code Search
+      or Code Intelligence Platform user is one who signs into and accesses
+      Sourcegraph.
+    parent_field: dau_lookup
+
+  daulookup_eventcategory:
+    sql: dauLookup.eventCategory
+    description: Product category of the event, e.g. 'Cody', 'Search', 'Code Insights'.
+    parent_field: dau_lookup
+
+  daulookup_product:
+    sql: dauLookup.product
+    description: The product or SKU that the event can be primarily attributed to.
+      e.g. 'Cody', 'Search', 'Code Insights'.
+    parent_field: dau_lookup
+
+  license_key:
+    sql: metadata.identifier.licensedInstance.licenseKey
+    group_label: Instance Info
+
+  parameters_private_metadata:
+    sql: to_json_string(parameters.privateMetadata)
+
+  source_client_name:
+    sql: client.name
+    label: Client Name
+    group_label: Client Info
+
+  source_client_version:
+    sql: client.version
+    label: Client Version
+    group_label: Client Info
+
+  source_client_version_normalized:
+    sql: CAST(client.versionNormalized as NUMERIC)
+    label: Client Version Normalized
+    group_label: Client Info
+
+  source_server_version:
+    sql: server.version
+    label: Server Version
+
+  biweekly_period:
+    sql: |-
+      CASE
+            WHEN timestamp IS NOT NULL THEN
+              DATE_TRUNC(DATE_ADD(timestamp, INTERVAL -MOD(EXTRACT(DAYOFYEAR FROM timestamp) - 1, 14) DAY), DAY)
+            ELSE NULL
+          END
+    group_label: Timestamp Period
+
+  sams_external_user_id:
+    sql: samsExternalId
+    description: SAMS user ID
+
+  marketing_tracking_url:
+    sql: marketingTracking.url
+    group_label: Marketing tracking
+
+  marketing_tracking_url_without_params:
+    sql: REGEXP_EXTRACT(marketingTracking.url, r'^[^?@]+')
+    group_label: Marketing tracking
+
+  marketing_tracking_first_source_url:
+    sql: marketingTracking.firstSourceUrl
+    group_label: Marketing tracking
+
+  marketing_tracking_cohort_id:
+    sql: marketingTracking.cohortId
+    group_label: Marketing tracking
+
+  marketing_tracking_first_source_url_without_params:
+    sql: REGEXP_EXTRACT(marketingTracking.firstSourceUrl, r'^[^?@]+')
+    group_label: Marketing tracking
+
+  marketing_tracking_referrer:
+    sql: marketingTracking.referrer
+    group_label: Marketing tracking
+
+  marketing_tracking_referrer_without_params:
+    sql: REGEXP_EXTRACT(marketingTracking.referrer, r'^[^?@]+')
+    group_label: Marketing tracking
+
+  marketing_tracking_lastsourceurl:
+    sql: marketingTracking.lastSourceUrl
+    group_label: Marketing tracking
+
+  marketing_tracking_last_source_url_without_params:
+    sql: REGEXP_EXTRACT(marketingTracking.lastSourceUrl, r'^[^?@]+')
+    group_label: Marketing tracking
+
+  marketing_tracking_device_session_id:
+    sql: marketingTracking.deviceSessionId
+    group_label: Marketing tracking
+
+  marketing_tracking_session_referrer:
+    sql: marketingTracking.sessionReferrer
+    group_label: Marketing tracking
+
+  marketing_tracking_session_referrer_without_params:
+    sql: REGEXP_EXTRACT(marketingTracking.sessionReferrer, r'^[^?@]+')
+    group_label: Marketing tracking
+
+  marketing_tracking_session_referrer_utm_campaign:
+    sql: regexp_extract(marketingTracking.sessionReferrer, r"utm_campaign=([^&]*)")
+    group_label: Marketing tracking
+
+  marketing_tracking_session_referrer_utm_medium:
+    sql: regexp_extract(marketingTracking.sessionReferrer, r"utm_medium=([^&]*)")
+    group_label: Marketing tracking
+
+  marketing_tracking_session_referrer_utm_source:
+    sql: regexp_extract(marketingTracking.sessionReferrer, r"utm_source=([^&]*)")
+    group_label: Marketing tracking
+
+  marketing_tracking_session_referrer_utm_content:
+    sql: regexp_extract(marketingTracking.sessionReferrer, r"utm_content=([^&]*)")
+    group_label: Marketing tracking
+
+  marketing_tracking_session_referrer_utm_term:
+    sql: regexp_extract(marketingTracking.sessionReferrer, r"utm_term=([^&]*)")
+    group_label: Marketing tracking
+
+  marketing_tracking_session_first_url:
+    sql: marketingTracking.sessionFirstUrl
+    group_label: Marketing tracking
+
+  marketing_tracking_session_first_url_without_params:
+    sql: REGEXP_EXTRACT(marketingTracking.sessionFirstUrl, r'^[^?@]+')
+    group_label: Marketing tracking
+
+  marketing_tracking_session_first_url_utm_campaign:
+    sql: regexp_extract(marketingTracking.sessionFirstUrl, r"utm_campaign=([^&]*)")
+    group_label: Marketing tracking
+
+  marketing_tracking_session_first_url_utm_medium:
+    sql: regexp_extract(marketingTracking.sessionFirstUrl, r"utm_medium=([^&]*)")
+    group_label: Marketing tracking
+
+  marketing_tracking_session_first_url_utm_source:
+    sql: regexp_extract(marketingTracking.sessionFirstUrl, r"utm_source=([^&]*)")
+    group_label: Marketing tracking
+
+  marketing_tracking_session_first_url_utm_content:
+    sql: regexp_extract(marketingTracking.sessionFirstUrl, r"utm_content=([^&]*)")
+    group_label: Marketing tracking
+
+  marketing_tracking_session_first_url_utm_term:
+    sql: regexp_extract(marketingTracking.sessionFirstUrl, r"utm_term=([^&]*)")
+    group_label: Marketing tracking
+
+  interaction_trace_id:
+    sql: interaction.traceId
+
+  interaction_geolocation_country_code:
+    sql: interaction.geolocation.countryCode
+    label: Country Code
+    group_label: Geo Location
+
+  email:
+    sql: userMetadata.email
+    label: Dotcom email
+    group_label: Dotcom Info
+
+  username:
+    sql: userMetadata.username
+    label: Dotcom username
+    group_label: Dotcom Info
+
+  is_sourcegraph_teammate:
+    sql: userMetadata.isSourcegraphTeammate
+
+  day_of_week:
+    sql: EXTRACT(DAYOFWEEK FROM timestamp)
+
+  day_of_week_name:
+    sql: CASE WHEN ${day_of_week} = 1 THEN 'Sunday' WHEN ${day_of_week} = 2 THEN
+      'Monday' WHEN ${day_of_week} = 3 THEN 'Tuesday' WHEN ${day_of_week} = 4
+      THEN 'Wednesday' WHEN ${day_of_week} = 5 THEN 'Thursday' WHEN
+      ${day_of_week} = 6 THEN 'Friday' WHEN ${day_of_week} = 7 THEN 'Saturday'
+      ELSE 'Other' END
+    label: Day of Week
+    group_label: Timestamp Period
+
+  language:
+    sql: JSON_EXTRACT_SCALAR(parameters.privateMetadata, '$.languageId')
+    label: Language Id
+
+  model:
+    sql: JSON_EXTRACT_SCALAR(parameters.privateMetadata, '$.model')
+    label: Model (command, fixup,autoedit)
+    group_label: LLM Model
+
+  diagnostics:
+    sql: "CONCAT('code: ',JSON_EXTRACT_SCALAR(parameters.privateMetadata,
+      '$.diagnostics.0.code'), ', source: ',
+      JSON_EXTRACT_SCALAR(parameters.privateMetadata,
+      '$.diagnostics.0.source'))"
+    group_label: Mode/Intent/Diagnostics
+
+  new_user_saved:
+    sql: json_extract_scalar(parameters.metadata, '$.newUserSaved')
+
+  source_private_metadata:
+    sql: JSON_EXTRACT_SCALAR(parameters.privateMetadata, '$.source')
+    label: Source - from Private Metadata
+    description: The source field in the parameter event privateMetadata. This field
+      means different things for completion events than it does for command
+      events, so be careful!
+    group_label: Source
+
+  search_latency_top3_dimension:
+    sql: |-
+      CASE WHEN (${event_name} = "search.latencies:structural" OR
+                    ${event_name} = "search.latencies:regexp" OR
+                    ${event_name} = "search.latencies:regex" OR ${event_name} = "search.latencies:literal" OR ${event_name} = "search.latencies:keyword"
+                      ) THEN CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.durationMs') AS INT64) ELSE
+                    null END
+    label: Search Latency Structural, Literal, Regexp
+    description: Search Latency Structural, Literal, Regexp (derived from parameters
+      metadata).
+    hidden: true
+
+  provideridentifier:
+    sql: JSON_EXTRACT_SCALAR(parameters.privateMetadata, '$.providerIdentifier')
+    group_label: LLM Model
+
+  resolvedmodel:
+    sql: JSON_EXTRACT_SCALAR(parameters.privateMetadata, '$.resolvedModel')
+    group_label: Completion Info
+
+  ide_product_breakdown:
+    sql: CASE WHEN JSON_EXTRACT_SCALAR(parameters.metadata, '$.ideProductCode') =
+      "1" THEN 'IntelliJ IDEA Ultimate' WHEN
+      JSON_EXTRACT_SCALAR(parameters.metadata, '$.ideProductCode') = "2" THEN
+      'IntelliJ IDEA Community' WHEN JSON_EXTRACT_SCALAR(parameters.metadata,
+      '$.ideProductCode') = "3" THEN 'IntelliJ IDEA Educational' WHEN
+      JSON_EXTRACT_SCALAR(parameters.metadata, '$.ideProductCode') = "4" THEN
+      'PhpStorm' WHEN JSON_EXTRACT_SCALAR(parameters.metadata,
+      '$.ideProductCode') = "5" THEN 'WebStorm' WHEN
+      JSON_EXTRACT_SCALAR(parameters.metadata, '$.ideProductCode') = "6" THEN
+      'PyCharm Professional' WHEN JSON_EXTRACT_SCALAR(parameters.metadata,
+      '$.ideProductCode') = "7" THEN 'PyCharm Community' WHEN
+      JSON_EXTRACT_SCALAR(parameters.metadata, '$.ideProductCode') = "8" THEN
+      'PyCharm Educational' WHEN JSON_EXTRACT_SCALAR(parameters.metadata,
+      '$.ideProductCode') = "9" THEN 'RubyMine' WHEN
+      JSON_EXTRACT_SCALAR(parameters.metadata, '$.ideProductCode') = "10" THEN
+      'AppCode' WHEN JSON_EXTRACT_SCALAR(parameters.metadata,
+      '$.ideProductCode') = "11" THEN 'CLion' WHEN
+      JSON_EXTRACT_SCALAR(parameters.metadata, '$.ideProductCode') = "12" THEN
+      'GoLand' WHEN JSON_EXTRACT_SCALAR(parameters.metadata, '$.ideProductCode')
+      = "13" THEN 'DataGrip' WHEN JSON_EXTRACT_SCALAR(parameters.metadata,
+      '$.ideProductCode') = "14" THEN 'Rider' WHEN
+      JSON_EXTRACT_SCALAR(parameters.metadata, '$.ideProductCode') = "15" THEN
+      'Android Studio' ELSE 'null' END
+    description: JetBrains IDE products e.g. GoLand, Pycharm, etc
+    group_label: IDE Info
+
+  ide_baseline_version:
+    sql: JSON_EXTRACT_SCALAR(parameters.metadata, '$.ideBaselineVersion')
+    group_label: IDE Info
+
+  hour_of_day:
+    sql: EXTRACT(HOUR FROM timestamp)
+
+  client_side_model:
+    sql: |-
+      CASE
+                  WHEN CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.multiline') AS INT64) = 1 then 'starcoder-16b'
+                  WHEN CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.multiline') AS INT64) = 0 then 'starcoder-7b'
+                END
+    group_label: Client Info
+
+  region:
+    sql: |-
+      CASE
+                  WHEN ${interaction_geolocation_country_code} IN ('IN', 'PK', 'ID', 'VN', 'IL', 'BD', 'IR', 'PH', 'TR', 'CN', 'JP', 'KR', 'SG', 'TH', 'GR', 'NP', 'LK', 'AU', 'NZ') THEN 'Asia'
+                  WHEN ${interaction_geolocation_country_code} IN ('US', 'CA','MX') THEN 'North America'
+                  WHEN ${interaction_geolocation_country_code} IN ('GB', 'DE', 'FR', 'IT', 'ES', 'PT', 'NL', 'PL', 'UA', 'SE', 'BE', 'RO', 'CZ', 'BY', 'AT', 'FI', 'RS', 'CH', 'RU', 'DK','IE','BG') THEN 'Europe'
+                  WHEN ${interaction_geolocation_country_code} IN ('BR', 'AR', 'CO', 'CL','UY') THEN 'South America'
+                  WHEN ${interaction_geolocation_country_code} IN ('NG', 'EG', 'ZA', 'MA', 'TN', 'KE', 'GH', 'DZ') THEN 'Africa'
+                  ELSE 'Unknown'
+                END
+    group_label: Geo Location
+
+  code_intel_actions:
+    sql: |-
+      CASE
+                  -- Combine event-based action types
+                  WHEN ${event_name} IN ('blob.codeintel:searchHover',
+                  'blob.codeintel:searchDefinitions',
+                  'blob.codeintel:searchDocumentHighlight')
+                  OR (${event_name} like "codeintel%" AND  JSON_EXTRACT_SCALAR(parameters.metadata, '$.provenance') = '1')
+                  THEN 'Search-based'
+                  WHEN ${event_name} IN ('blob.codeintel:lsifHover',
+                  'blob.codeintel:lsifDefinitions',
+                  'blob.codeintel:lsifDocumentHighlight')
+                  OR (${event_name} like "codeintel%" AND  JSON_EXTRACT_SCALAR(parameters.metadata, '$.provenance') = '2')
+                  THEN 'Precise'
+
+              WHEN (${event_name} like "codeintel%" AND  JSON_EXTRACT_SCALAR(parameters.metadata, '$.provenance') = '3')
+              THEN 'Syntactic'
+              END
+    label: Code Intel Provenance Combined (precise/search/syntactic)
+    group_label: Search Code Nav
+
+  source_metadata:
+    sql: CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.source') AS INT64)
+    label: Source - from metadata
+    description: The numeric source value from the metadata for
+      cody.fixup.persistence:present events.
+    group_label: Source
+
+  sourcegrapgh_v2_product:
+    sql: dauLookup.product
+    label: Sourcegraph product
+    group_label: D&A ONLY
+
+  is_core_event:
+    sql: dauLookup.coreEvent
+    label: Is core event
+    group_label: D&A ONLY
+
+  is_billing_event:
+    sql: dauLookup.billingEvent
+    label: Is billing event
+    group_label: D&A ONLY
+
+  metadata_currentop:
+    sql: JSON_EXTRACT_SCALAR(parameters.metadata, '$.currentOp')
+    group_label: Batch Changes
+
+  search_filter_kind:
+    sql: |-
+      CASE
+               WHEN ${event_name} = "search.filters:select" AND JSON_EXTRACT_SCALAR(parameters.metadata, '$.filterKind') = '1' THEN 'By File'
+               WHEN ${event_name} = "search.filters:select" AND JSON_EXTRACT_SCALAR(parameters.metadata, '$.filterKind') = '2' THEN 'By Repo'
+               WHEN ${event_name} = "search.filters:select" AND JSON_EXTRACT_SCALAR(parameters.metadata, '$.filterKind') = '3' THEN 'By Language'
+               WHEN ${event_name} = "search.filters:select" AND JSON_EXTRACT_SCALAR(parameters.metadata, '$.filterKind') = '4' THEN 'By Utility'
+               WHEN ${event_name} = "search.filters:select" AND JSON_EXTRACT_SCALAR(parameters.metadata, '$.filterKind') = '5' THEN 'By Author'
+               WHEN ${event_name} = "search.filters:select" AND JSON_EXTRACT_SCALAR(parameters.metadata, '$.filterKind') = '6' THEN 'By Commit Date'
+               WHEN ${event_name} = "search.filters:select" AND JSON_EXTRACT_SCALAR(parameters.metadata, '$.filterKind') = '7' THEN 'By Symbol Type'
+               WHEN ${event_name} = "search.filters:select" AND JSON_EXTRACT_SCALAR(parameters.metadata, '$.filterKind') = '8' THEN 'By Type'
+               WHEN ${event_name} = "search.filters:select" AND JSON_EXTRACT_SCALAR(parameters.metadata, '$.filterKind') = '9' THEN 'By Snippet'
+               WHEN ${event_name} = "search.filters:select" AND JSON_EXTRACT_SCALAR(parameters.metadata, '$.filterKind') = '10' THEN 'By Count'
+             END
+    label: Search Filter Select Type
+    group_label: Search Execute Metadata
+
+  billing_metadata_category:
+    sql: parameters.billingMetadata.category
+    group_label: Billing metadata
+    hidden: true
+
+  billing_metadata_product:
+    sql: parameters.billingMetadata.product
+    group_label: Billing metadata
+    hidden: true
+
+  prompt_chip_kind:
+    sql: JSON_EXTRACT_SCALAR(parameters.privateMetadata, '$.kind')
+    group_label: Prompts Info
+
+  email_domain:
+    sql: REGEXP_EXTRACT(userMetadata.email, '@(.+)$')
+    group_label: Dotcom Info
+
+  cody_api_traceparent_captured:
+    sql: CAST(json_extract_scalar(parameters.metadata, '$.hasTraceparent') AS INT64)
+    label: Server API Traceparent Captured
+    group_label: Cody API
+
+  cody_api_status_code:
+    sql: CAST(json_extract_scalar(parameters.metadata, '$.statusCode') AS INT64)
+    label: Server API Status Code
+    group_label: Cody API
+
+  cody_api_user_agent:
+    sql: server.apiRequestClient.userAgent
+    label: Server API User Agent
+    group_label: Server API Client
+
+  cody_api_client_name:
+    sql: REGEXP_EXTRACT(server.apiRequestClient.requestedWith, r'^\w+')
+    group_label: Server API Client
+
+  cody_api_client_version:
+    sql: REGEXP_EXTRACT(server.apiRequestClient.requestedWith, r'^\S+\s+(.*)')
+    label: Server API Full Client Version
+    group_label: Server API Client
+
+  cody_api_client_version_trunc:
+    sql: REGEXP_EXTRACT(server.apiRequestClient.requestedWith, r'(\d+\.\d+)')
+    label: Server API Trunc Client Version
+    group_label: Server API Client
+
+  cody_api_requested_with:
+    sql: server.apiRequestClient.requestedWith
+    label: Server API Requested With
+    group_label: Server API Client
+
+  is_cli_header:
+    sql: REGEXP_CONTAINS(server.apiRequestClient.requestedWith, r'\bcli\b')
+    group_label: Server API Client
+
+  search_has_error:
+    sql: CASE WHEN ${event_name} = "search:execute" THEN
+      JSON_EXTRACT_SCALAR(parameters.metadata, '$.hasError') ELSE NULL END
+    group_label: Search Execute Metadata
+
+  search_operator_or_used_count:
+    sql: SAFE_CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.operator:or') AS
+      INT64)
+    label: Search - Count 'OR' Operator Used
+    group_label: Search Execute Metadata
+
+  search_language:
+    sql: JSON_EXTRACT_SCALAR(parameters.privateMetadata, '$.lang')
+    label: Language - Search Executed
+    group_label: Search Execute Metadata
+
+  search_type:
+    sql: |-
+      CASE
+               WHEN ${event_name} = "search:execute" AND SAFE_CAST(json_extract_scalar(parameters.metadata, '$.type') AS INT64) = 1 THEN 'Repo'
+               WHEN ${event_name} = "search:execute" AND SAFE_CAST(json_extract_scalar(parameters.metadata, '$.type') AS INT64) = 2 THEN 'File'
+               WHEN ${event_name} = "search:execute" AND SAFE_CAST(json_extract_scalar(parameters.metadata, '$.type') AS INT64) = 3 THEN 'Path'
+               WHEN ${event_name} = "search:execute" AND SAFE_CAST(json_extract_scalar(parameters.metadata, '$.type') AS INT64) = 4 THEN 'Commit'
+               WHEN ${event_name} = "search:execute" AND SAFE_CAST(json_extract_scalar(parameters.metadata, '$.type') AS INT64) = 5 THEN 'Diff'
+              WHEN ${event_name} = "search:execute" AND SAFE_CAST(json_extract_scalar(parameters.metadata, '$.type') AS INT64) = 6 THEN 'Symbol'
+              WHEN ${event_name} = "search:execute" AND SAFE_CAST(json_extract_scalar(parameters.metadata, '$.type') AS INT64) = 0 THEN 'Other'
+             END
+    description: Search Type
+    group_label: Search Execute Metadata
+
+  search_pattern_type:
+    sql: |-
+      CASE
+               WHEN ${event_name} = "search:execute" AND SAFE_CAST(json_extract_scalar(parameters.metadata, '$.patterntype') AS INT64) = 1 THEN 'Standard'
+               WHEN ${event_name} = "search:execute" AND SAFE_CAST(json_extract_scalar(parameters.metadata, '$.patterntype') AS INT64) = 2 THEN 'Regex'
+               WHEN ${event_name} = "search:execute" AND SAFE_CAST(json_extract_scalar(parameters.metadata, '$.patterntype') AS INT64) = 3 THEN 'Literal'
+               WHEN ${event_name} = "search:execute" AND SAFE_CAST(json_extract_scalar(parameters.metadata, '$.patterntype') AS INT64) = 4 THEN 'Structural'
+               WHEN ${event_name} = "search:execute" AND SAFE_CAST(json_extract_scalar(parameters.metadata, '$.patterntype') AS INT64) = 5 THEN 'CodyContext'
+               WHEN ${event_name} = "search:execute" AND SAFE_CAST(json_extract_scalar(parameters.metadata, '$.patterntype') AS INT64) = 6 THEN 'Keyword'
+               WHEN ${event_name} = "search:execute" AND SAFE_CAST(json_extract_scalar(parameters.metadata, '$.patterntype') AS INT64) = 7 THEN 'Natural Language Search (NLS)'
+             END
+    description: Search Pattern Type
+    group_label: Search Execute Metadata
+
+  code_intel_provenance:
+    sql: |-
+      CASE
+               WHEN JSON_EXTRACT_SCALAR(parameters.metadata, '$.provenance') = '1' THEN 'Search-based'
+               WHEN JSON_EXTRACT_SCALAR(parameters.metadata, '$.provenance') = '2' THEN 'Precise'
+               WHEN JSON_EXTRACT_SCALAR(parameters.metadata, '$.provenance') = '3' THEN 'Syntactic'
+             END
+    label: Code Intel Provenance (search/precise/syntactic)
+    group_label: Search Code Nav
+
+  code_intel_explore_tab:
+    sql: |-
+      CASE
+               WHEN JSON_EXTRACT_SCALAR(parameters.metadata, '$.codeintel_tabType') = '1' THEN 'Search-based'
+               WHEN JSON_EXTRACT_SCALAR(parameters.metadata, '$.codeintel_tabType') = '2' THEN 'Precise'
+             END
+    label: Code Intel Explore Tab Click (precise/search)
+    group_label: Search Code Nav
+
+  client_version_truncated:
+    sql: SAFE_CAST(LEFT(${source_client_version}, 4) as FLOAT64)
+    description: First 4 characters of the client version
+
+  marketing_tracking_utmsource:
+    sql: marketingTracking.utmSource
+    label: UTM Source
+    group_label: Marketing Tracking New
+
+  marketing_tracking_utmmedium:
+    sql: marketingTracking.utmMedium
+    label: UTM Medium
+    group_label: Marketing Tracking New
+
+  marketing_tracking_utmcampaign:
+    sql: marketingTracking.utmCampaign
+    label: UTM Campaign
+    group_label: Marketing Tracking New
+
+  marketing_tracking_utmcontent:
+    sql: marketingTracking.utmContent
+    label: UTM Content
+    group_label: Marketing Tracking New
+
+  marketing_tracking_utmterm:
+    sql: marketingTracking.utmTerm
+    label: UTM Term
+    group_label: Marketing Tracking New
+
+  marketing_tracking_most_recent_referrer:
+    sql: REGEXP_EXTRACT(marketingTracking.mostRecentReferrer, r'^[^?]+')
+    label: Most Recent Referrer
+    group_label: Marketing Tracking New
+
+  marketing_tracking_last_page_seen:
+    sql: REGEXP_EXTRACT(marketingTracking.lastPageSeenUrl, r'^[^?]+')
+    label: Session Last Page Seen URL
+    group_label: Marketing Tracking New
+
+  marketing_tracking_first_page_seen:
+    sql: REGEXP_EXTRACT(marketingTracking.firstPageSeenUrl, r'^[^?]+')
+    label: Session First Page Seen URL
+    group_label: Marketing Tracking New
+
+  website_page_path:
+    sql: json_extract_scalar(parameters.privateMetadata, '$.path')
+    group_label: Marketing Tracking New
+
+  code_intel_language_combined:
+    sql: |-
+      CASE
+                WHEN ${event_name} LIKE 'blob.codeintel%'
+                  THEN LOWER(json_extract_scalar(parameters.privateMetadata, '$.languageId'))
+                WHEN ${event_name} LIKE "codeintel%"
+                  THEN LOWER(JSON_EXTRACT_SCALAR(parameters.privateMetadata, '$.lang'))
+                ELSE NULL
+                END
+    group_label: Search Code Nav
+
+  search_result_context_total:
+    sql: cast(json_extract_scalar(parameters.metadata,"$['context.byOpenctxProvider.internal-code-search-provider.size.total']")
+      as INT64)
+
+  agent_has_error:
+    sql: CASE WHEN ${event_name} = "%agent%" THEN
+      JSON_EXTRACT_SCALAR(parameters.metadata, '$.hasError') ELSE NULL END
+    group_label: Review Agent
+
+  model_filter:
+    sql: |-
+      CONCAT(
+                  IFNULL(JSON_EXTRACT_SCALAR(parameters.privateMetadata, '$.chatModel'), ''),
+                  ' ',
+                  IFNULL(JSON_EXTRACT_SCALAR(parameters.privateMetadata, '$.providerModel'), ''),
+                  ' ',
+                  IFNULL(JSON_EXTRACT_SCALAR(parameters.privateMetadata, '$.model'), '')
+                )
+    label: Model Filter (All Types)
+    description: Use for filtering across all model types
+    group_label: LLM Model
+
+  api_client_name:
+    sql: server.apiRequestClient.apiClientName
+    group_label: Server API Client
+    hidden: true
+
+  api_client_version:
+    sql: server.apiRequestClient.apiClientVersion
+    group_label: Server API Client
+
+  api_client_feature:
+    sql: server.apiRequestClient.apiClientFeature
+    group_label: Server API Client
+
+  search_execute_source:
+    sql: |-
+      CASE
+                         WHEN ${event_name} = "search:execute" AND SAFE_CAST(json_extract_scalar(parameters.metadata, '$.searchSource') AS INT64) = 1 THEN 'API Stream'
+                         WHEN ${event_name} = "search:execute" AND SAFE_CAST(json_extract_scalar(parameters.metadata, '$.searchSource') AS INT64) = 2 THEN 'Search GraphQL Query'
+                         WHEN ${event_name} = "search:execute" AND SAFE_CAST(json_extract_scalar(parameters.metadata, '$.searchSource') AS INT64) = 3 THEN 'API Compute'
+                         WHEN ${event_name} = "search:execute" AND SAFE_CAST(json_extract_scalar(parameters.metadata, '$.searchSource') AS INT64) = 4 THEN 'Cody Context API'
+                         WHEN ${event_name} = "search:execute" AND SAFE_CAST(json_extract_scalar(parameters.metadata, '$.searchSource') AS INT64) = 5 THEN 'Guardrails API'
+                         WHEN ${event_name} = "search:execute" AND SAFE_CAST(json_extract_scalar(parameters.metadata, '$.searchSource') AS INT64) = 6 THEN 'Search Jobs'
+                         WHEN ${event_name} = "search:execute" AND SAFE_CAST(json_extract_scalar(parameters.metadata, '$.searchSource') AS INT64) = 7 THEN 'Code Intel'
+                        WHEN ${event_name} = "search:execute" AND SAFE_CAST(json_extract_scalar(parameters.metadata, '$.searchSource') AS INT64) = 8 THEN 'Code Monitors'
+                        WHEN ${event_name} = "search:execute" AND SAFE_CAST(json_extract_scalar(parameters.metadata, '$.searchSource') AS INT64) = 9 THEN 'Code Insights'
+                        WHEN ${event_name} = "search:execute" AND SAFE_CAST(json_extract_scalar(parameters.metadata, '$.searchSource') AS INT64) = 0 THEN 'Unknown'
+                       END
+    description: Search Source
+    group_label: Search Execute Metadata
+
+  client_version_numeric:
+    sql: SAFE_CAST(REPLACE(client.version, '.', '') AS INT64)
+    description: Converts IDE client version numbers in to an integer that can be
+      filtered on
+
+  dim_deepsearch_turn_count:
+    sql: CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.turnCount') as INT64)
+    group_label: Deep Search
+
+  toolcall_category:
+    sql: |-
+      CASE
+                WHEN ${event_name} = 'deepsearch:search.toolcall' THEN
+                  CASE
+                    WHEN JSON_EXTRACT_SCALAR(parameters.metadata, '$.toolCallId') = "0" THEN 'Anonymous'
+                    WHEN JSON_EXTRACT_SCALAR(parameters.metadata, '$.toolCallId') = "1" THEN 'Read File'
+                    WHEN JSON_EXTRACT_SCALAR(parameters.metadata, '$.toolCallId') = "2" THEN 'Find References'
+                    WHEN JSON_EXTRACT_SCALAR(parameters.metadata, '$.toolCallId') = "3" THEN 'List Files'
+                    WHEN JSON_EXTRACT_SCALAR(parameters.metadata, '$.toolCallId') = "4" THEN 'List Repos'
+                    WHEN JSON_EXTRACT_SCALAR(parameters.metadata, '$.toolCallId') = "5" THEN 'Keyword Search'
+                    WHEN JSON_EXTRACT_SCALAR(parameters.metadata, '$.toolCallId') = "6" THEN 'NLS Search'
+                    WHEN JSON_EXTRACT_SCALAR(parameters.metadata, '$.toolCallId') = "7" THEN 'Mermaid'
+                    WHEN JSON_EXTRACT_SCALAR(parameters.metadata, '$.toolCallId') = "8" THEN 'Go To Definition'
+                    WHEN JSON_EXTRACT_SCALAR(parameters.metadata, '$.toolCallId') = "9" THEN 'Commit Search'
+                    WHEN JSON_EXTRACT_SCALAR(parameters.metadata, '$.toolCallId') = "10" THEN 'Diff Search'
+                    WHEN JSON_EXTRACT_SCALAR(parameters.metadata, '$.toolCallId') = "11" THEN 'Get Contributor Repos'
+                    ELSE 'Other'
+                  END
+                ELSE NULL
+              END
+    group_label: Deep Search
+
+  deepsearch_thread_id:
+    sql: |-
+      CASE
+                WHEN ${event_name} = 'deepsearch:search.completed' THEN JSON_EXTRACT_SCALAR(parameters.metadata, '$.id') END
+    label: Thread Id
+    group_label: Deep Search
+
+  cody_api_internal_external_call:
+    sql: |-
+      CASE
+                    WHEN lower(${cody_api_user_agent}) LIKE '%vscode%'
+                      OR lower(${cody_api_user_agent}) LIKE '%jetbrains%'
+                      OR lower(${cody_api_user_agent}) LIKE '%neovim%'
+                      OR lower(${cody_api_user_agent}) LIKE '%emacs%'
+                      OR lower(${cody_api_user_agent}) LIKE '%cody-cli%'
+                      OR lower(${cody_api_user_agent}) LIKE '%eclipse%'
+                      OR lower(${cody_api_client_name}) IN ('vscode', 'jetbrains', 'sourcegraph', 'cody', 'eclipse')
+                    THEN 'Internal'
+                    WHEN lower(${cody_api_user_agent}) LIKE '%curl%'
+                      OR lower(${cody_api_user_agent}) LIKE '%postman%'
+                      OR lower(${cody_api_user_agent}) LIKE '%python%'
+                      OR lower(${cody_api_user_agent}) LIKE '%http%'
+                      OR lower(${cody_api_client_name}) LIKE '%api%'
+                      OR lower(${cody_api_client_name}) LIKE '%script%'
+                      OR ${cody_api_client_name} IS NULL
+                    THEN 'External'
+                    ELSE 'External'
+                    END
+    label: Internal External Call
+    group_label: Server API Client
+
+  external_service_type:
+    sql: |-
+      CASE
+          WHEN json_extract_scalar(parameters.metadata, '$.externalServiceType') = '1' THEN 'Github'
+          WHEN json_extract_scalar(parameters.metadata, '$.externalServiceType') = '2' THEN 'GitLab'
+          ELSE "other" END
+
+  deep_search_failed_open:
+    sql: COALESCE(CAST(JSON_VALUE(parameters.metadata.failedOpen) AS STRING), '0')
+    group_label: Deep Search
+
+  metering_sku:
+    sql: CAST(JSON_VALUE(parameters.metadata, '$.sku') AS INT64)
+    group_label: Deep Search
+
+  deepsearch_consumed_filter:
+    sql: |
+      (${event_name} IN ('licensing:consumeDeepSearchQuotaClientTiming', 'licensing:consumeDeepSearchQuota')
+        AND ${deep_search_failed_open} = '0')
+      OR
+      (${event_name} = 'metering:consume'
+        AND ${metering_sku} = 1)
+    hidden: true
+    # ── Shared helper (used by several measures below) ─────────────
+
+  service_account:
+    sql: COALESCE(userMetadata.serviceAccount, FALSE)
+    description: Service account flag, defaults FALSE when null
+
+  # ── Deep Search ───────────────────────────────────────────────
+  deepsearch_api_source:
+    sql: server.apiRequestClient.requestedWith
+    label: Source (Requested With Header)
+    group_label: Deep Search
+
+  deepsearch_api_source_type:
+    sql: |-
+      CASE
+        WHEN server.apiRequestClient.requestedWith LIKE '%mcp%' THEN 'MCP'
+        WHEN REGEXP_CONTAINS(server.apiRequestClient.requestedWith, r'^sourcegraph\ \d+\.') THEN 'UI'
+        WHEN LOWER(server.apiRequestClient.requestedWith) = 'sourcegraph' THEN 'UI'
+        WHEN server.apiRequestClient.requestedWith IS NULL THEN NULL
+        ELSE 'External'
+      END
+    label: Source Type (Requested With Header)
+    group_label: Deep Search
+
+  api_endpoint:
+    sql: |-
+      CASE
+        WHEN ${event_name} = 'deepsearch:search.externalclient' THEN
+          CASE JSON_EXTRACT_SCALAR(parameters.metadata, '$.endpoint')
+            WHEN '1' THEN 'Get Conversation'
+            WHEN '2' THEN 'List Conversations'
+            WHEN '3' THEN 'Create Conversation'
+            WHEN '4' THEN 'Delete Conversation'
+            WHEN '5' THEN 'Delete All Conversations'
+            WHEN '6' THEN 'Rotate Read Token'
+            WHEN '7' THEN 'Create Question'
+            WHEN '8' THEN 'Cancel Question'
+            ELSE 'Other'
+          END
+        ELSE NULL
+      END
+    group_label: Deep Search
+
+  entry_point_deep_search:
+    sql: |-
+      CASE
+        WHEN JSON_EXTRACT_SCALAR(parameters.metadata, '$.entryPoint') = '1' THEN 'Main'
+        WHEN JSON_EXTRACT_SCALAR(parameters.metadata, '$.entryPoint') = '2' THEN 'Sidebar'
+        ELSE 'N/A'
+      END
+    group_label: Deep Search
+
+  has_source_reference:
+    sql: |-
+      CASE
+        WHEN JSON_EXTRACT_SCALAR(parameters.metadata, '$.hasSourceReference') = '1' THEN TRUE
+        WHEN JSON_EXTRACT_SCALAR(parameters.metadata, '$.hasSourceReference') = '0' THEN FALSE
+        ELSE NULL
+      END
+    group_label: Deep Search
+
+  ds_duration:
+    sql: |-
+      CASE
+        WHEN ${event_name} = 'deepsearch:search.completed'
+        THEN JSON_EXTRACT_SCALAR(parameters.metadata, '$.durationMs')
+      END
+    label: Latency in seconds
+    group_label: Deep Search
+
+  # Reusable toolCallId → label mapping (shared by DS + MCP)
+  toolcall_category_mapping:
+    sql: |-
+      CASE JSON_EXTRACT_SCALAR(parameters.metadata, '$.toolCallId')
+        WHEN '0' THEN 'Anonymous'
+        WHEN '1' THEN 'Read File'
+        WHEN '2' THEN 'Find References'
+        WHEN '3' THEN 'List Files'
+        WHEN '4' THEN 'List Repos'
+        WHEN '5' THEN 'Keyword Search'
+        WHEN '6' THEN 'NLS Search'
+        WHEN '7' THEN 'Mermaid'
+        WHEN '8' THEN 'Go To Definition'
+        WHEN '9' THEN 'Commit Search'
+        WHEN '10' THEN 'Diff Search'
+        WHEN '11' THEN 'Get Contributor Repos'
+        WHEN '12' THEN 'Compare Revisions'
+        WHEN '13' THEN 'Raw LLM Summary'
+        WHEN '14' THEN 'Raw LLM FollowUp'
+        WHEN '15' THEN 'Raw LLM Title'
+        WHEN '16' THEN 'Deep Search'
+        WHEN '17' THEN 'Deep Search Read'
+        WHEN '18' THEN 'Finder'
+        WHEN '19' THEN 'Tools List'
+        WHEN '20' THEN 'List Refs'
+        WHEN '21' THEN 'Check Ancestry'
+        WHEN '22' THEN 'Evaluator'
+        WHEN '23' THEN 'Load Skill'
+        WHEN '100' THEN 'Open Source Research'
+        WHEN '101' THEN 'Open Source Research Keyword Search/Read File (Shared ID)'
+        WHEN '200' THEN 'Edit Evergreen Document'
+        ELSE JSON_EXTRACT_SCALAR(parameters.metadata, '$.toolCallId')
+      END
+    hidden: true
+
+  tool_call_category:
+    sql: |-
+      CASE
+        WHEN ${event_name} IN ('search:mcp.toolcall', 'deepsearch:search.toolcall')
+        THEN ${toolcall_category_mapping}
+        ELSE NULL
+      END
+    label: Tool Call Category (DS&MCP)
+
+  # ── DS Categorization ─────────────────────────────────────────
+  category_primary_intent:
+    sql: |-
+      CASE
+        WHEN ${event_name} != 'deepsearch:search.categorized' THEN NULL
+        WHEN JSON_VALUE(parameters.metadata, '$.primaryIntent') = '1' THEN 'Understanding'
+        WHEN JSON_VALUE(parameters.metadata, '$.primaryIntent') = '2' THEN 'Finding'
+        WHEN JSON_VALUE(parameters.metadata, '$.primaryIntent') = '3' THEN 'Debugging'
+        WHEN JSON_VALUE(parameters.metadata, '$.primaryIntent') = '4' THEN 'Comparing'
+        WHEN JSON_VALUE(parameters.metadata, '$.primaryIntent') = '5' THEN 'History'
+        WHEN JSON_VALUE(parameters.metadata, '$.primaryIntent') = '6' THEN 'Security'
+        WHEN JSON_VALUE(parameters.metadata, '$.primaryIntent') = '7' THEN 'Onboarding'
+        WHEN JSON_VALUE(parameters.metadata, '$.primaryIntent') = '8' THEN 'Migration'
+        WHEN JSON_VALUE(parameters.metadata, '$.primaryIntent') = '9' THEN 'Performance'
+        WHEN JSON_VALUE(parameters.metadata, '$.primaryIntent') = '10' THEN 'Dependency'
+        WHEN JSON_VALUE(parameters.metadata, '$.primaryIntent') = '11' THEN 'Architecture'
+        WHEN JSON_VALUE(parameters.metadata, '$.primaryIntent') = '12' THEN 'Configuration'
+        ELSE JSON_VALUE(parameters.metadata, '$.primaryIntent')
+      END
+    group_label: DS Categorization
+
+  category_secondary_intent:
+    sql: |-
+      CASE
+        WHEN ${event_name} != 'deepsearch:search.categorized' THEN NULL
+        WHEN JSON_VALUE(parameters.metadata, '$.secondaryIntent') = '1' THEN 'Understanding'
+        WHEN JSON_VALUE(parameters.metadata, '$.secondaryIntent') = '2' THEN 'Finding'
+        WHEN JSON_VALUE(parameters.metadata, '$.secondaryIntent') = '3' THEN 'Debugging'
+        WHEN JSON_VALUE(parameters.metadata, '$.secondaryIntent') = '4' THEN 'Comparing'
+        WHEN JSON_VALUE(parameters.metadata, '$.secondaryIntent') = '5' THEN 'History'
+        WHEN JSON_VALUE(parameters.metadata, '$.secondaryIntent') = '6' THEN 'Security'
+        WHEN JSON_VALUE(parameters.metadata, '$.secondaryIntent') = '7' THEN 'Onboarding'
+        WHEN JSON_VALUE(parameters.metadata, '$.secondaryIntent') = '8' THEN 'Migration'
+        WHEN JSON_VALUE(parameters.metadata, '$.secondaryIntent') = '9' THEN 'Performance'
+        WHEN JSON_VALUE(parameters.metadata, '$.secondaryIntent') = '10' THEN 'Dependency'
+        WHEN JSON_VALUE(parameters.metadata, '$.secondaryIntent') = '11' THEN 'Architecture'
+        WHEN JSON_VALUE(parameters.metadata, '$.secondaryIntent') = '12' THEN 'Configuration'
+        ELSE JSON_VALUE(parameters.metadata, '$.secondaryIntent')
+      END
+    group_label: DS Categorization
+
+  ds_category_combined_intent:
+    sql: CONCAT(${category_primary_intent}, '-', ${category_secondary_intent})
+    group_label: DS Categorization
+
+  ds_category_combined_intent_unique:
+    sql: |-
+      CASE
+        WHEN ${category_primary_intent} <= ${category_secondary_intent}
+          THEN CONCAT(${category_primary_intent}, ' - ', ${category_secondary_intent})
+        ELSE CONCAT(${category_secondary_intent}, ' - ', ${category_primary_intent})
+      END
+    group_label: DS Categorization
+
+  ds_topics:
+    sql: |-
+      CASE
+        WHEN ${event_name} = 'deepsearch:search.categorized'
+        THEN ARRAY_TO_STRING(JSON_VALUE_ARRAY(parameters.privateMetadata, '$.topics'), ', ')
+      END
+    label: Topics
+    description: Topics array from privateMetadata on deepsearch:search.categorized
+      events, comma-separated
+    group_label: DS Categorization
+
+  ds_topic_count:
+    sql: |-
+      CASE
+        WHEN ${event_name} = 'deepsearch:search.categorized'
+        THEN ARRAY_LENGTH(JSON_VALUE_ARRAY(parameters.privateMetadata, '$.topics'))
+      END
+    label: Topic Count
+    group_label: DS Categorization
+
+  # ── ABC Categorization ─────────────────────────────────────────
+  abc_category_primary_intent:
+    sql: |-
+      CASE
+        WHEN ${event_name} != 'batchChangeAgent:categorization' THEN NULL
+        ELSE
+          CASE JSON_VALUE(parameters.metadata, '$.primaryIntent')
+            WHEN '0' THEN 'None'
+            WHEN '1' THEN 'Dependency Change'
+            WHEN '2' THEN 'API Migration'
+            WHEN '3' THEN 'Bug Fix'
+            WHEN '4' THEN 'Feature'
+            WHEN '5' THEN 'Refactor'
+            WHEN '6' THEN 'Security'
+            WHEN '7' THEN 'Testing'
+            WHEN '8' THEN 'CI/CD'
+            WHEN '9' THEN 'Configuration'
+            WHEN '10' THEN 'Documentation'
+            WHEN '11' THEN 'Code Quality'
+            WHEN '12' THEN 'Performance'
+            WHEN '13' THEN 'Observability'
+            WHEN '14' THEN 'Compliance'
+            WHEN '15' THEN 'Other'
+            ELSE JSON_VALUE(parameters.metadata, '$.primaryIntent')
+          END
+      END
+    label: ABC Primary Intent
+    group_label: ABC Categorization
+
+  abc_category_secondary_intent:
+    sql: |-
+      CASE
+        WHEN ${event_name} != 'batchChangeAgent:categorization' THEN NULL
+        ELSE
+          CASE JSON_VALUE(parameters.metadata, '$.secondaryIntent')
+            WHEN '0' THEN 'None'
+            WHEN '1' THEN 'Dependency Change'
+            WHEN '2' THEN 'API Migration'
+            WHEN '3' THEN 'Bug Fix'
+            WHEN '4' THEN 'Feature'
+            WHEN '5' THEN 'Refactor'
+            WHEN '6' THEN 'Security'
+            WHEN '7' THEN 'Testing'
+            WHEN '8' THEN 'CI/CD'
+            WHEN '9' THEN 'Configuration'
+            WHEN '10' THEN 'Documentation'
+            WHEN '11' THEN 'Code Quality'
+            WHEN '12' THEN 'Performance'
+            WHEN '13' THEN 'Observability'
+            WHEN '14' THEN 'Compliance'
+            WHEN '15' THEN 'Other'
+            ELSE JSON_VALUE(parameters.metadata, '$.secondaryIntent')
+          END
+      END
+    label: ABC Secondary Intent
+    group_label: ABC Categorization
+
+  # ── DS Evergreen ──────────────────────────────────────────────
+  evergreen_article_doc_count:
+    sql: |-
+      CASE
+        WHEN ${event_name} = 'deepsearch:evergreen.list'
+        THEN CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.docCount') AS INT64)
+        ELSE NULL
+      END
+    group_label: DS Evergreen
+
+  article_id:
+    sql: |-
+      CASE
+        WHEN ${event_name} LIKE '%deepsearch:evergreen%'
+        THEN CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.id') AS INT64)
+        ELSE NULL
+      END
+    group_label: DS Evergreen
+
+  # ── Deep Search Slack ─────────────────────────────────────────
+  slack_ds_in_thread:
+    sql: CASE WHEN JSON_VALUE(parameters.metadata, '$.inThread') = '1' THEN TRUE
+      ELSE FALSE END
+    group_label: Deep Search Slack
+
+  # ── MCP ───────────────────────────────────────────────────────
+  mcp_tool_call_category:
+    sql: CASE WHEN ${event_name} = 'search:mcp.toolcall' THEN
+      ${toolcall_category_mapping} END
+    label: MCP Tool Call Category
+    group_label: MCP
+
+  mcp_tool_call_category_split:
+    sql: |-
+      CASE
+        WHEN ${event_name} = 'search:mcp.toolcall'
+             AND JSON_EXTRACT_SCALAR(parameters.metadata, '$.toolCallId') <> '19' THEN
+          CASE
+            WHEN JSON_EXTRACT_SCALAR(parameters.metadata, '$.toolCallId') NOT IN ('16','17')
+              THEN 'MCP Tool excl. Deep Search'
+            WHEN JSON_EXTRACT_SCALAR(parameters.metadata, '$.toolCallId') IN ('16','17')
+              THEN 'Deep Search MCP Tools'
+          END
+      END
+    label: MCP Tool Split (DS vs. non-DS)
+    group_label: MCP
+
+  mcp_endpoint:
+    sql: |-
+      CASE WHEN ${event_name} = 'search:mcp.toolcall' THEN
+        CASE JSON_EXTRACT_SCALAR(parameters.metadata, '$.endpoint')
+          WHEN '1' THEN 'MCP'
+          WHEN '2' THEN 'MCPV1'
+          WHEN '3' THEN 'DeepSearch'
+          WHEN '4' THEN 'DeepSearchPlumbing'
+        END
+      END
+    group_label: MCP
+
+  mcp_terminal_state:
+    sql: |-
+      CASE WHEN ${event_name} = 'search:mcp.toolcall' THEN
+        CASE JSON_EXTRACT_SCALAR(parameters.metadata, '$.terminalState')
+          WHEN '1' THEN 'Success'
+          WHEN '2' THEN 'Failure'
+          WHEN '3' THEN 'Timeout'
+          ELSE JSON_EXTRACT_SCALAR(parameters.metadata, '$.terminalState')
+        END
+      END
+    group_label: MCP
+
+  mcp_duration:
+    sql: |-
+      CASE
+        WHEN ${event_name} = 'search:mcp.toolcall'
+        THEN CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.durationMs') AS INT64)
+        ELSE NULL
+      END
+    label: MCP Duration (in Ms)
+    group_label: MCP
+
+  mcp_output_length:
+    sql: |-
+      CASE
+        WHEN ${event_name} = 'search:mcp.toolcall'
+        THEN CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.outputLength') AS INT64)
+        ELSE NULL
+      END
+    group_label: MCP
+
+  mcp_output_length_bucket:
+    sql: |-
+      CASE
+        WHEN ${mcp_output_length} IS NULL THEN NULL
+        WHEN ${mcp_output_length} < 500 THEN '0-500'
+        WHEN ${mcp_output_length} < 1000 THEN '500-1k'
+        WHEN ${mcp_output_length} < 5000 THEN '1-5k'
+        WHEN ${mcp_output_length} < 20000 THEN '5-20k'
+        WHEN ${mcp_output_length} < 50000 THEN '20-50k'
+        WHEN ${mcp_output_length} < 100000 THEN '50-100k'
+        ELSE '100k+'
+      END
+    group_label: MCP
+
+  mcp_output_length_bucket_sort:
+    sql: |-
+      CASE
+        WHEN ${mcp_output_length} IS NULL THEN NULL
+        WHEN ${mcp_output_length} < 500 THEN 1
+        WHEN ${mcp_output_length} < 1000 THEN 2
+        WHEN ${mcp_output_length} < 5000 THEN 3
+        WHEN ${mcp_output_length} < 20000 THEN 4
+        WHEN ${mcp_output_length} < 50000 THEN 5
+        WHEN ${mcp_output_length} < 100000 THEN 6
+        ELSE 7
+      END
+    group_label: MCP
+
+  # ── AI Query Assist ───────────────────────────────────────────
+  suggestion_applied:
+    sql: |-
+      CASE
+        WHEN ${event_name} = 'search.nls:exit'
+             AND JSON_EXTRACT_SCALAR(parameters.metadata, '$.suggestionApplied') = '1' THEN TRUE
+        ELSE FALSE
+      END
+    group_label: AI Query Assist
+
+  exit_reason:
+    sql: |-
+      CASE
+        WHEN ${event_name} != 'search.nls:exit' THEN NULL
+        WHEN JSON_EXTRACT_SCALAR(parameters.metadata, '$.exitReason') = '0' THEN 'Execute'
+        WHEN JSON_EXTRACT_SCALAR(parameters.metadata, '$.exitReason') = '1' THEN 'Escape'
+        WHEN JSON_EXTRACT_SCALAR(parameters.metadata, '$.exitReason') = '2' THEN 'Backspace'
+        WHEN JSON_EXTRACT_SCALAR(parameters.metadata, '$.exitReason') = '3' THEN 'Programmatic'
+        ELSE JSON_EXTRACT_SCALAR(parameters.metadata, '$.exitReason')
+      END
+    group_label: AI Query Assist
+
+  accidental_entry:
+    sql: |-
+      CASE
+        WHEN ${event_name} = 'search.nls:exit'
+             AND JSON_EXTRACT_SCALAR(parameters.metadata, '$.isAccidental') = '1' THEN TRUE
+        ELSE FALSE
+      END
+    group_label: AI Query Assist
+
+  api_status:
+    sql: |-
+      CASE
+        WHEN ${event_name} != 'search.nls:apiResult' THEN NULL
+        WHEN JSON_EXTRACT_SCALAR(parameters.metadata, '$.status') = '0' THEN 'Success'
+        WHEN JSON_EXTRACT_SCALAR(parameters.metadata, '$.status') = '1' THEN 'Empty'
+        WHEN JSON_EXTRACT_SCALAR(parameters.metadata, '$.status') = '2' THEN 'Error'
+        WHEN JSON_EXTRACT_SCALAR(parameters.metadata, '$.status') = '3' THEN 'Pending'
+        WHEN JSON_EXTRACT_SCALAR(parameters.metadata, '$.status') = '4' THEN 'Not Requested'
+        WHEN JSON_EXTRACT_SCALAR(parameters.metadata, '$.status') = '5' THEN 'Aborted'
+        ELSE JSON_EXTRACT_SCALAR(parameters.metadata, '$.status')
+      END
+    group_label: AI Query Assist
+
+  api_error_code:
+    sql: |-
+      CASE
+        WHEN ${event_name} = 'search.nls:apiResult' AND ${api_status} = 'Error'
+        THEN JSON_EXTRACT_SCALAR(parameters.metadata, '$.errorCode')
+      END
+    group_label: AI Query Assist
+
+  ai_query_abort:
+    sql: |-
+      CASE
+        WHEN ${event_name} = 'search.nls:exit'
+             AND JSON_EXTRACT_SCALAR(parameters.metadata, '$.aborted') = '1' THEN TRUE
+        ELSE FALSE
+      END
+    group_label: AI Query Assist
+
+  # ── ABC (Agentic Batch Changes) ───────────────────────────────
+  abc_batch_change_id:
+    sql: JSON_VALUE(${parameters_metadata}, '$.batchChangeID')
+    group_label: ABC
+    hidden: true
+
+  abc_changeset_id:
+    sql: JSON_VALUE(${parameters_metadata}, '$.changesetID')
+    group_label: ABC
+    hidden: true
+
+  abc_current_op:
+    sql: SAFE_CAST(JSON_VALUE(${parameters_metadata}, '$.currentOp') AS INT64)
+    group_label: ABC
+    hidden: true
+
+  abc_has_error:
+    sql: SAFE_CAST(JSON_VALUE(${parameters_metadata}, '$.hasError') AS INT64)
+    group_label: ABC
+    hidden: true
+
+  abc_tool_call_id:
+    sql: SAFE_CAST(JSON_VALUE(${parameters_metadata}, '$.toolCallId') AS INT64)
+    group_label: ABC
+    hidden: true
+
+  # ── Batch Changes ─────────────────────────────────────────────
+  metadata_haserror:
+    sql: JSON_EXTRACT_SCALAR(parameters.metadata, '$.hasError')
+    group_label: Batch Changes
+
+  changeset_id:
+    sql: JSON_VALUE(parameters.metadata, '$.changesetID')
+    group_label: Batch Changes
+
+  code_finder_filter:
+    sql: |
+      (${event_name} = 'metering:consume'
+        AND ${metering_sku} = 3)
+    hidden: true
+
+  smart_hover_filter:
+    sql: |
+      (${event_name} = 'metering:consume'
+        AND ${metering_sku} = 2)
+    hidden: true
+
+  diff_tour_filter:
+    sql: |
+      (${event_name} = 'metering:consume'
+        AND ${metering_sku} = 6)
+    hidden: true
+    # ── Shared helper (used by several measures below) ─────────────
+
+measures:
+  count:
+    label: Events Count
+    aggregate_type: count
+
+  distinct_users:
+    sql: ${unique_user_id}
+    group_label: Count Distinct Users
+    aggregate_type: count_distinct
+
+  chat_events:
+    sql: CASE WHEN (${event_name} = 'cody.chat:submit' OR ${event_name} =
+      'cody.chat-question:executed' OR ${event_name} =
+      'cody.recipe.inline-chat:executed') THEN 1 END
+    group_label: Chat Data
+    aggregate_type: count
+
+  chat_users:
+    sql: |-
+      CASE
+                  WHEN (${event_name} = "cody.chat:submit" OR ${event_name} = "cody.chat-question:executed" OR ${event_name} = "cody.recipe.inline-chat:executed")
+                  THEN ${unique_user_id} ELSE NULL END
+    group_label: Chat Data
+    aggregate_type: count_distinct
+
+  command_events:
+    sql: CASE WHEN (${event_name} LIKE '%command%' OR ${event_name} LIKE '%recipe%')
+      AND ${event_name} NOT LIKE '%chat%' AND ${sourcegrapgh_v2_product} =
+      'cody' THEN 1 END
+    group_label: Commands Data
+    aggregate_type: count
+
+  command_users:
+    sql: |-
+      CASE WHEN ${sourcegrapgh_v2_product} = 'cody' THEN CASE
+                  WHEN (
+                  (${event_name} LIKE "%command%" or ${event_name} LIKE "%recipe%")
+                  AND ${event_name} NOT LIKE "%chat%")
+                  THEN ${unique_user_id} ELSE NULL END END
+    group_label: Commands Data
+    aggregate_type: count_distinct
+
+  lines_of_code:
+    sql: CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.lineCount') as INT64)
+    label: Lines of Code (lineCount metadata)
+    description: lineCount metadata (unfiltered)
+    aggregate_type: sum
+
+  count_distinct_cody_billign_active_users:
+    sql: CASE WHEN ${is_billing_event} = TRUE AND ${sourcegrapgh_v2_product} =
+      "cody" AND ${service_account} = FALSE THEN ${unique_user_id} END
+    label: Cody Users
+    group_label: Count Distinct Users
+    aggregate_type: count_distinct
+
+  count_distinct_search_submitted_users:
+    sql: |-
+      CASE WHEN ${event_name} = "search:submit" AND ${service_account} = FALSE THEN ${unique_user_id} ELSE
+            null END
+    label: UI Search Users
+    group_label: Count Distinct Users
+    aggregate_type: count_distinct
+
+  count_distinct_search_users:
+    sql: |-
+      CASE WHEN (${sourcegrapgh_v2_product} = "search" AND ${is_billing_event} = TRUE AND ${service_account} = FALSE) 
+            THEN ${unique_user_id} ELSE
+            null END
+    label: Search Users
+    group_label: Count Distinct Users
+    aggregate_type: count_distinct
+
+  search_submitted:
+    sql: CASE WHEN ${event_name} = 'search:submit' THEN 1 END
+    label: Search Submitted Count
+    group_label: Search Events
+    aggregate_type: count
+
+  code_intel_hover:
+    sql: CASE WHEN (${event_name} = 'blob.codeintel:lsifHover' OR ${event_name} =
+      'blob.codeintel:searchHover' OR ${event_name} =
+      'codeintel.hovercard:view') THEN 1 END
+    group_label: Search Events
+    aggregate_type: count
+
+  code_intel_gotodef:
+    sql: CASE WHEN (${event_name} = 'blob.codeintel:searchDefinitions' OR
+      ${event_name} = 'blob.codeintel:lsifDefinitions' OR ${event_name} =
+      'codeintel:goToDefinition' OR ${event_name} =
+      'codeintel.explorePanel:definitions.click') THEN 1 END
+    group_label: Search Events
+    aggregate_type: count
+
+  code_intel_highlight:
+    sql: CASE WHEN (${event_name} = 'blob.codeintel:searchDocumentHighlight' OR
+      ${event_name} = 'blob.codeintel:lsifDocumentHighlight') THEN 1 END
+    group_label: Search Events
+    aggregate_type: count
+
+  search_find_references:
+    sql: CASE WHEN (${event_name} = 'blob.findReferences:executed' OR ${event_name}
+      = 'codeintel:findReferences' OR ${event_name} =
+      'codeintel.explorePanel:references.click') THEN 1 END
+    label: Code Intel Find References
+    group_label: Search Events
+    aggregate_type: count
+
+  code_copied:
+    sql: CASE WHEN (${event_name} = 'code:copy' OR ${event_name} = 'blob.code:copy'
+      OR ${event_name} = 'repo.blob.code:copy') THEN 1 END
+    group_label: Search Events
+    aggregate_type: count
+
+  code_insights_events:
+    sql: CASE WHEN ${sourcegrapgh_v2_product} = 'insight' THEN 1 END
+    group_label: Search Events
+    aggregate_type: count
+
+  batch_changes_events:
+    sql: CASE WHEN ${sourcegrapgh_v2_product} = 'batch' THEN 1 END
+    group_label: Search Events
+    aggregate_type: count
+
+  search_events:
+    sql: CASE WHEN ${sourcegrapgh_v2_product} = 'search' THEN 1 END
+    group_label: Search Events
+    description: All search events
+    aggregate_type: count
+
+  search_latencies_events:
+    sql: CASE WHEN ${event_name} LIKE 'search.latencies%' THEN 1 END
+    group_label: Search Events
+    description: All search latencies events
+    aggregate_type: count
+
+  search_billing_events:
+    sql: CASE WHEN (${sourcegrapgh_v2_product} = 'search' OR
+      ${sourcegrapgh_v2_product} = 'insight' OR ${sourcegrapgh_v2_product} =
+      'batch') AND ${is_billing_event} = 'Yes' THEN 1 END
+    label: Search Billing Events
+    group_label: Search Events
+    aggregate_type: count
+
+  total_active_users:
+    sql: case when ${is_billing_event} = true AND ${service_account} = FALSE then
+      ${unique_user_id} else null end
+    group_label: Count Distinct Users
+    description: Count distinct billing users
+    aggregate_type: count_distinct
+
+  count_completion_events:
+    sql: CASE WHEN ${event_name} LIKE '%completion%' THEN 1 END
+    label: Completion Events
+    group_label: Completion Data
+    aggregate_type: count
+
+  code_search_suite_users:
+    sql: CASE WHEN (${billing_metadata_product} = 'search' OR
+      ${billing_metadata_product} = 'batch' OR ${billing_metadata_product} =
+      'insights') AND (${billing_metadata_category} = 'core' OR
+      ${billing_metadata_category} = 'billable') THEN ${unique_user_id} END
+    label: All billable code search suite users
+    description: All users who fired any search, batch, or insights event
+    hidden: true
+    aggregate_type: count_distinct
+
+  code_search_suite_ui_users:
+    sql: CASE WHEN ${billing_metadata_product} != 'cody' AND ${event_name} NOT LIKE
+      'search.latencies%' AND (${billing_metadata_category} = 'core' OR
+      ${billing_metadata_category} = 'billable') THEN ${unique_user_id} END
+    label: All code search UI users
+    description: All users who fired a non-cody event, in the search UI. Excludes
+      API search events
+    hidden: true
+    aggregate_type: count_distinct
+
+  code_intel_actions_count:
+    sql: CASE WHEN ${event_name} LIKE '%codeintel%' AND ${is_billing_event} = TRUE
+      THEN 1 END
+    label: Code Intel Events
+    group_label: Search Events
+    aggregate_type: count
+
+  code_intel_actions_users:
+    sql: CASE WHEN ${event_name} LIKE '%codeintel%' AND ${is_billing_event} = TRUE
+      AND ${service_account} = FALSE THEN ${unique_user_id} END
+    label: Code Intel Users
+    group_label: Search Events
+    aggregate_type: count_distinct
+
+  search_latency_literal:
+    sql: CASE WHEN ${event_name} = 'search.latencies:literal' THEN 1 END
+    label: Search Latency Literal
+    group_label: Search Latency
+    description: Search Latency Literal
+    aggregate_type: count
+
+  search_latency_structural:
+    sql: CASE WHEN ${event_name} = 'search.latencies:structural' THEN 1 END
+    label: Search Latency Structural
+    group_label: Search Latency
+    description: Search Latency Structural
+    aggregate_type: count
+
+  search_latency_regexp:
+    sql: CASE WHEN (${event_name} = 'search.latencies:regexp' OR ${event_name} =
+      'search.latencies:regex') THEN 1 END
+    label: Search Latency Regex/Regexp
+    group_label: Search Latency
+    description: Search Latency Regexp
+    aggregate_type: count
+
+  search_latency_keyword:
+    sql: CASE WHEN ${event_name} = 'search.latencies:keyword' THEN 1 END
+    label: Search Latency Keyword
+    group_label: Search Latency
+    description: Search Latency Keyword
+    aggregate_type: count
+
+  search_latency_literal_duration:
+    sql: CASE WHEN ${event_name} = 'search.latencies:literal' THEN
+      SAFE_CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.durationMs') AS
+      INT64) END
+    label: Search Latency Literal Duration
+    group_label: Search Latency
+    format: number_1
+    description: Avg duration for literal search latency events
+    aggregate_type: average
+
+  search_latency_regex_p_duration:
+    sql: CASE WHEN (${event_name} = 'search.latencies:regexp' OR ${event_name} =
+      'search.latencies:regex') THEN
+      SAFE_CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.durationMs') AS
+      INT64) END
+    label: Search Latency Regex/Regexp Duration
+    group_label: Search Latency
+    format: number_1
+    description: Avg duration for Regex/Regexp search latency events
+    aggregate_type: average
+
+  search_latency_structural_duration:
+    sql: CASE WHEN ${event_name} = 'search.latencies:structural' THEN
+      SAFE_CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.durationMs') AS
+      INT64) END
+    label: Search Latency Structural Duration
+    group_label: Search Latency
+    format: number_1
+    description: Avg duration for structural search latency events
+    aggregate_type: average
+
+  search_latency_keyword_duration:
+    sql: CASE WHEN ${event_name} = 'search.latencies:keyword' THEN
+      SAFE_CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.durationMs') AS
+      INT64) END
+    label: Search Latency Keyword Duration
+    group_label: Search Latency
+    format: number_1
+    description: Avg duration for keyword search latency events
+    aggregate_type: average
+
+  billing_active_users:
+    sql: CASE WHEN ${is_billing_event} = TRUE THEN ${unique_user_id} END
+    group_label: D&A ONLY
+    aggregate_type: count_distinct
+
+  core_active_users:
+    sql: CASE WHEN ${is_core_event} = 'Yes' THEN ${unique_user_id} END
+    group_label: D&A ONLY
+    aggregate_type: count_distinct
+
+  search_only_users:
+    sql: CASE WHEN ${is_billing_event} = TRUE THEN CASE WHEN
+      ${sourcegrapgh_v2_product} NOT IN ("cody","other") THEN ${unique_user_id}
+      ELSE NULL END END
+    group_label: D&A ONLY
+    aggregate_type: count_distinct
+
+  cody_only_users:
+    sql: CASE WHEN ${is_billing_event} = TRUE THEN CASE WHEN
+      ${sourcegrapgh_v2_product} = "cody" THEN ${unique_user_id} ELSE NULL END
+      END
+    group_label: D&A ONLY
+    aggregate_type: count_distinct
+
+  code_insight_view:
+    sql: CASE WHEN (${event_name} = 'insight:view' OR ${event_name} =
+      'insights.dashboard:view') THEN 1 END
+    group_label: Search Events
+    aggregate_type: count
+
+  code_insight_view_users:
+    sql: CASE WHEN (${event_name} = 'insight:view' OR ${event_name} =
+      'insights.dashboard:view') THEN ${unique_user_id} END
+    group_label: Search Events
+    aggregate_type: count_distinct
+
+  batch_change_published:
+    sql: CASE WHEN ${event_name} = 'batches:executorRunOperation' AND
+      ${metadata_currentop} = '4' THEN 1 END
+    label: Batch Changesets Published
+    group_label: Batch Changes
+    aggregate_type: count
+
+  batch_change_merged:
+    sql: CASE WHEN ${event_name} = 'batchChange.details.bulkAction:merge' THEN 1 END
+    label: Batch Changes Merged (UI)
+    group_label: Batch Changes
+    aggregate_type: count
+
+  batch_changesets_merged:
+    sql: CASE WHEN ${event_name} = 'batches:changesetMerged' THEN 1 END
+    label: Batch Changesets Merged (Server)
+    group_label: Batch Changes
+    aggregate_type: count
+
+  batch_change_opened:
+    sql: CASE WHEN ${event_name} = 'batchChange.details:view' THEN 1 END
+    group_label: Batch Changes
+    aggregate_type: count
+
+  batch_change_run:
+    sql: CASE WHEN ${event_name} = 'batches:executeBatchSpec' THEN 1 END
+    label: Batch Specs Executed/Run
+    group_label: Batch Changes
+    aggregate_type: count
+
+  batch_change_created:
+    sql: CASE WHEN ${event_name} = 'batches:createBatchSpecComplete' THEN 1 END
+    label: Batch Specs Created
+    group_label: Batch Changes
+    aggregate_type: count
+
+  cody_api_duration:
+    sql: CASE WHEN ${event_name} LIKE '%cody.api%' THEN
+      SAFE_CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.durationMs') AS
+      INT64) END
+    label: Avg duration for Cody API Retrieval
+    group_label: Cody API
+    format: number_1
+    description: Avg duration for Cody API Retrieval
+    aggregate_type: average
+
+  cody_api_duration_p75:
+    sql: CASE WHEN ${event_name} LIKE '%cody.api%' THEN
+      SAFE_CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.durationMs') AS
+      INT64) END
+    label: p75 duration for Cody API Retrieval
+    group_label: Cody API
+    format: number_1
+    description: p75 duration for Cody API Retrieval
+    aggregate_type: percentile
+    percentile: 75
+
+  cody_api_duration_p75_completions:
+    sql: CASE WHEN ${event_name} = 'cody.api.completionsCode:succeeded' THEN
+      SAFE_CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.durationMs') AS
+      INT64) END
+    label: p75 duration for Cody Completions API Retrieval
+    group_label: Cody API
+    format: number_1
+    description: p75 duration for Completions Cody API Retrieval
+    aggregate_type: percentile
+    percentile: 75
+
+  cody_api_duration_p75_chat_prompts:
+    sql: CASE WHEN (${event_name} = 'cody.api.completionsStream:succeeded' OR
+      ${event_name} = 'cody.api.chatStream:succeeded') THEN
+      SAFE_CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.durationMs') AS
+      INT64) END
+    label: p75 duration for Cody Chat/Prompts API Retrieval
+    group_label: Cody API
+    format: number_1
+    description: p75 duration for Cody Chat/Prompts API Retrieval
+    aggregate_type: percentile
+    percentile: 75
+
+  cody_api_duration_p75_other_endpoints:
+    sql: CASE WHEN (${event_name} = 'cody.api.context:succeeded' OR ${event_name} =
+      'cody.api.llmModels:succeeded' OR ${event_name} =
+      'cody.api.llmModelsModelId:succeeded' OR ${event_name} =
+      'cody.api.modelconfigSupportedModels:succeeded') THEN
+      SAFE_CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.durationMs') AS
+      INT64) END
+    label: p75 duration for Cody LLM Setup and Context APIs Retrieval
+    group_label: Cody API
+    format: number_1
+    description: p75 duration for Cody LLM Setup and Context APIs Retrieval
+    aggregate_type: percentile
+    percentile: 75
+
+  min_cody_api_duration:
+    sql: CASE WHEN ${event_name} LIKE '%cody.api%' THEN
+      SAFE_CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.durationMs') AS
+      INT64) END
+    label: Min duration for Cody API Retrieval
+    group_label: Cody API
+    format: number_1
+    description: Minimum duration for Cody API Retrieval
+    aggregate_type: min
+
+  count_cody_api_events:
+    sql: CASE WHEN ${event_name} LIKE 'cody.api%' THEN 1 END
+    label: Cody API Events
+    group_label: Cody API
+    aggregate_type: count
+
+  count_cody_api_users:
+    sql: CASE WHEN ${event_name} LIKE 'cody.api%' THEN ${unique_user_id} END
+    label: Cody API Users
+    group_label: Cody API
+    aggregate_type: count_distinct
+
+  count_cody_api_completion_events:
+    sql: CASE WHEN ${event_name} = 'cody.api.completionsCode:succeeded' THEN 1 END
+    label: Cody API Completion Events
+    group_label: Cody API
+    aggregate_type: count
+
+  count_cody_api_chat_events:
+    sql: CASE WHEN (${event_name} = 'cody.api.completionsStream:succeeded' OR
+      ${event_name} = 'cody.api.chatStream:succeeded' OR ${event_name} =
+      'cody.api.llmChatCompletions:succeeded') THEN 1 END
+    label: Cody API Chat/Prompt Events
+    group_label: Cody API
+    aggregate_type: count
+
+  count_cody_api_other_endpoint_events:
+    sql: CASE WHEN (${event_name} = 'cody.api.context:succeeded' OR ${event_name} =
+      'cody.api.llmModels:succeeded' OR ${event_name} =
+      'cody.api.llmModelsModelId:succeeded' OR ${event_name} =
+      'cody.api.modelconfigSupportedModels:succeeded') THEN 1 END
+    label: Cody API LLM Setup and Context Events
+    group_label: Cody API
+    aggregate_type: count
+
+  count_cody_api_completion_users:
+    sql: CASE WHEN ${event_name} = 'cody.api.completionsCode:succeeded' THEN
+      ${unique_user_id} END
+    label: Cody API Completion Users
+    group_label: Cody API
+    aggregate_type: count_distinct
+
+  count_cody_api_chat_users:
+    sql: CASE WHEN (${event_name} = 'cody.api.completionsStream:succeeded' OR
+      ${event_name} = 'cody.api.chatStream:succeeded' OR ${event_name} =
+      'cody.api.llmChatCompletions:succeeded') THEN ${unique_user_id} END
+    label: Cody API Chat/Prompt Users
+    group_label: Cody API
+    aggregate_type: count_distinct
+
+  count_cody_api_other_endpoint_users:
+    sql: CASE WHEN (${event_name} = 'cody.api.context:succeeded' OR ${event_name} =
+      'cody.api.llmModels:succeeded' OR ${event_name} =
+      'cody.api.llmModelsModelId:succeeded' OR ${event_name} =
+      'cody.api.modelconfigSupportedModels:succeeded') THEN ${unique_user_id}
+      END
+    label: Cody API LLM Setup and Context Users
+    group_label: Cody API
+    aggregate_type: count_distinct
+
+  count_cody_api_call_users:
+    sql: CASE WHEN (${event_name} = 'cody.api.completionsCode:succeeded' OR
+      ${event_name} = 'cody.api.completionsStream:succeeded' OR ${event_name} =
+      'cody.api.chatStream:succeeded' OR ${event_name} =
+      'cody.api.context:succeeded' OR ${event_name} =
+      'cody.api.llmModels:succeeded' OR ${event_name} =
+      'cody.api.llmModelsModelId:succeeded' OR ${event_name} =
+      'cody.api.modelconfigSupportedModels:succeeded' OR ${event_name} =
+      'cody.api.llmChatCompletions:succeeded') THEN ${unique_user_id} END
+    group_label: Cody API
+    aggregate_type: count_distinct
+
+  count_cody_api_call_events:
+    sql: CASE WHEN (${event_name} = 'cody.api.completionsCode:succeeded' OR
+      ${event_name} = 'cody.api.completionsStream:succeeded' OR ${event_name} =
+      'cody.api.chatStream:succeeded' OR ${event_name} =
+      'cody.api.context:succeeded' OR ${event_name} =
+      'cody.api.llmModels:succeeded' OR ${event_name} =
+      'cody.api.llmModelsModelId:succeeded' OR ${event_name} =
+      'cody.api.modelconfigSupportedModels:succeeded' OR ${event_name} =
+      'cody.api.llmChatCompletions:succeeded') THEN 1 END
+    group_label: Cody API
+    aggregate_type: count
+
+  total_llm_token_usage_completions:
+    sql: CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.llmTokenUsageCompletion')
+      AS FLOAT64)
+    label: Total LLM (Output) Token Usage Completions
+    group_label: Cody API
+    aggregate_type: sum
+
+  total_llm_token_usage_prompt:
+    sql: CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.llmTokenUsagePrompt') AS
+      FLOAT64)
+    label: Total LLM (Input) Token Usage Prompt
+    group_label: Cody API
+    aggregate_type: sum
+
+  total_llm_token_usage:
+    sql: CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.llmTokenUsageTotal') AS
+      FLOAT64)
+    label: Total LLM Token Usage
+    group_label: Cody API
+    aggregate_type: sum
+
+  total_llm_token_usage_cost_estimate:
+    sql: CAST(JSON_EXTRACT_SCALAR(parameters.metadata,
+      '$.llmTokenUsageCostEstimate') AS FLOAT64)/100000000
+    group_label: Cody API
+    format: currency_1
+    description: Total estimated cost of LLM token usage in dollars
+    aggregate_type: sum
+
+  count_distinct_search_executed_users:
+    sql: |-
+      CASE WHEN ${event_name} = "search:execute" AND ${service_account} = FALSE THEN ${unique_user_id} ELSE
+            null END
+    label: Count Distinct Search Executed Users
+    group_label: Count Distinct Users
+    aggregate_type: count_distinct
+
+  count_search_executed:
+    sql: CASE WHEN ${event_name} = 'search:execute' THEN 1 END
+    label: Search Executed Count
+    group_label: Search Events
+    aggregate_type: count
+
+  avg_duration_ms_search_executed:
+    sql: SAFE_CAST(json_extract_scalar(${parameters_metadata}, '$.durationMs') AS
+      INT64)
+    label: Avg Duration Ms - Search Executed
+    group_label: Search Execute Metadata
+    format: number_1
+    aggregate_type: average
+
+  search_operator_or_used_sum:
+    sql: ${search_operator_or_used_count}
+    label: Search - Sum 'OR' Operator Used
+    group_label: Search Execute Metadata
+    aggregate_type: sum
+
+  search_gotodefinitions_click:
+    sql: CASE WHEN (${event_name} = 'codeintel:goToDefinition' OR ${event_name} =
+      'codeintel.explorePanel:definitions.click') THEN 1 END
+    label: Code Intel GoToDefs
+    group_label: Search Code Nav
+    aggregate_type: count
+
+  search_findreferences_click:
+    sql: CASE WHEN (${event_name} = 'codeintel:findReferences' OR ${event_name} =
+      'codeintel.explorePanel:references.click') THEN 1 END
+    label: Code Intel FindRefs
+    group_label: Search Code Nav
+    aggregate_type: count
+
+  search_findimplementations_click:
+    sql: CASE WHEN (${event_name} = 'codeintel:findImplementations' OR ${event_name}
+      = 'codeintel.explorePanel:implementations.click') THEN 1 END
+    label: Code Intel Find Implementations
+    group_label: Search Code Nav
+    aggregate_type: count
+
+  search_supers_click:
+    sql: CASE WHEN ${event_name} = 'codeintel.explorePanel:supers.click' THEN 1 END
+    label: Code Intel Supers
+    group_label: Search Code Nav
+    aggregate_type: count
+
+  search_gotodefinitions_users:
+    sql: CASE WHEN (${event_name} = 'codeintel:goToDefinition' OR ${event_name} =
+      'codeintel.explorePanel:definitions.click') THEN ${unique_user_id} END
+    label: Code Intel GoToDef Users
+    group_label: Search Code Nav
+    aggregate_type: count_distinct
+
+  search_findreferences_users:
+    sql: CASE WHEN (${event_name} = 'codeintel:findReferences' OR ${event_name} =
+      'codeintel.explorePanel:references.click') THEN ${unique_user_id} END
+    label: Code Intel FindRef Users
+    group_label: Search Code Nav
+    aggregate_type: count_distinct
+
+  search_findimplementations_users:
+    sql: CASE WHEN (${event_name} = 'codeintel:findImplementations' OR ${event_name}
+      = 'codeintel.explorePanel:implementations.click') THEN ${unique_user_id}
+      END
+    label: Code Intel Find Implementation Users
+    group_label: Search Code Nav
+    aggregate_type: count_distinct
+
+  search_supers_users:
+    sql: CASE WHEN ${event_name} = 'codeintel.explorePanel:supers.click' THEN
+      ${unique_user_id} END
+    label: Code Intel Super Users
+    group_label: Search Code Nav
+    aggregate_type: count_distinct
+
+  search_regex_toggle:
+    sql: CASE WHEN ${event_name} = 'search.input.regexpToggle:click' THEN 1 END
+    group_label: Search Code Nav
+    aggregate_type: count
+
+  search_structural_toggle:
+    sql: CASE WHEN ${event_name} = 'search.input.structuralToggle:click' THEN 1 END
+    group_label: Search Code Nav
+    aggregate_type: count
+
+  search_case_sensitive_toggle:
+    sql: CASE WHEN ${event_name} = 'search.input.caseSensitiveToggle:click' THEN 1
+      END
+    group_label: Search Code Nav
+    aggregate_type: count
+
+  search_result_click:
+    sql: CASE WHEN ${event_name} = 'search.result.area:click' THEN 1 END
+    group_label: Search Events
+    aggregate_type: count
+
+  search_file_view:
+    sql: CASE WHEN (${event_name} = 'blob:view' OR ${event_name} = 'repo.blob:view')
+      THEN 1 END
+    group_label: Search Events
+    aggregate_type: count
+
+  agent_created:
+    sql: CASE WHEN ${event_name} = 'agent.create:succeeded' THEN 1 END
+    group_label: Review Agent
+    aggregate_type: count
+
+  agent_review_webhook_github_run:
+    sql: CASE WHEN ${event_name} = 'agent.review.webhook.github.run:succeeded' THEN
+      1 END
+    group_label: Review Agent
+    aggregate_type: count
+
+  agent_program_created:
+    sql: CASE WHEN ${event_name} = 'agent.program.create:succeeded' THEN 1 END
+    group_label: Review Agent
+    aggregate_type: count
+
+  agent_review_webhook_github_succeed:
+    sql: CASE WHEN ${event_name} = 'agent.review.webhook.github:succeeded' THEN 1
+      END
+    group_label: Review Agent
+    aggregate_type: count
+
+  agent_review_webhook_github_failed:
+    sql: CASE WHEN ${event_name} = 'agent.review.webhook.github:failed' THEN 1 END
+    group_label: Review Agent
+    aggregate_type: count
+
+  agent_review_run:
+    sql: CASE WHEN ${event_name} = 'agent.review.run:succeeded' THEN 1 END
+    group_label: Review Agent
+    aggregate_type: count
+
+  direct_search_count:
+    sql: |-
+      CASE
+                    WHEN ${event_name} = "search:execute" AND (
+                      (SAFE_CAST(json_extract_scalar(parameters.metadata, '$.searchSource') AS INT64) IN (6,8))
+                      OR
+                      (SAFE_CAST(json_extract_scalar(parameters.metadata, '$.searchSource') AS INT64) = 2 AND
+                       ${api_client_name} IS NULL)
+                      OR
+                      (SAFE_CAST(json_extract_scalar(parameters.metadata, '$.searchSource') AS INT64) = 1 AND
+                      ${api_client_feature} IS NOT NULL)
+                      )
+                    THEN 1
+                    ELSE 0
+                  END
+    group_label: Search Execute Metadata
+    description: Count of direct searches (API Stream, Search Jobs, Code Monitors,
+      or GraphQL Query with null API client)
+    aggregate_type: sum
+
+  indirect_search_count:
+    sql: |-
+      CASE
+                    WHEN ${event_name} = "search:execute" AND (
+                      (SAFE_CAST(json_extract_scalar(parameters.metadata, '$.searchSource') AS INT64) IN (3,4,5,7,9))
+                      OR
+                      (SAFE_CAST(json_extract_scalar(parameters.metadata, '$.searchSource') AS INT64) = 2 AND
+                       ${api_client_name} = "web")
+                      OR
+                      (SAFE_CAST(json_extract_scalar(parameters.metadata, '$.searchSource') AS INT64) = 1 AND
+                       ${api_client_feature} IS NULL)
+                      )
+                    THEN 1
+                    ELSE 0
+                  END
+    group_label: Search Execute Metadata
+    description: Count of indirect searches (API Compute, Cody Context API,
+      Guardrails API, Code Intel, Code Insights, or GraphQL Query with 'web' API
+      client)
+    aggregate_type: sum
+
+  batch_change_search_clear:
+    sql: CASE WHEN ${event_name} = 'batchChanges.search:clear' THEN 1 END
+    group_label: Batch Changes
+    aggregate_type: count
+
+  batch_change_search_no_results:
+    sql: CASE WHEN ${event_name} = 'batchChanges.search:noResults' THEN 1 END
+    group_label: Batch Changes
+    aggregate_type: count
+
+  batch_change_search:
+    sql: CASE WHEN ${event_name} = 'batches:search' THEN 1 END
+    group_label: Batch Changes
+    aggregate_type: count
+
+  had_billing_event:
+    sql: ${is_billing_event}
+    aggregate_type: max
+
+  deepsearch_events:
+    sql: CASE WHEN ${event_name} LIKE '%deepsearch%' THEN 1 END
+    group_label: Deep Search
+    aggregate_type: count
+
+  deepsearch_queries:
+    sql: |-
+      CASE
+                WHEN ${event_name} = 'deepsearch:search'
+                     OR (${event_name} = 'deepsearch:search.followup'
+                         AND json_extract_scalar(parameters.metadata, '$.toolCallId') IS NULL)
+                THEN id
+              END
+    label: Deep Search Queries (incl. follow-up)
+    group_label: Deep Search
+    aggregate_type: count_distinct
+
+  deepsearch_turn_count_sum:
+    sql: ${dim_deepsearch_turn_count}
+    group_label: Deep Search
+    aggregate_type: sum
+
+  deepsearch_turn_count_max:
+    sql: ${dim_deepsearch_turn_count}
+    group_label: Deep Search
+    aggregate_type: max
+
+  deepsearch_turn_count_min:
+    sql: ${dim_deepsearch_turn_count}
+    group_label: Deep Search
+    aggregate_type: min
+
+  deepsearch_turn_count_avg:
+    sql: ${dim_deepsearch_turn_count}
+    group_label: Deep Search
+    aggregate_type: average
+
+  deepsearch_queries_new_thread:
+    sql: CASE WHEN ${event_name} = 'deepsearch:search' THEN 1 END
+    label: Deep Search Queries (new threads only)
+    group_label: Deep Search
+    aggregate_type: count
+
+  deepsearch_completed_queries:
+    sql: CASE WHEN ${event_name} = 'deepsearch:search.completed' THEN 1 END
+    group_label: Deep Search
+    aggregate_type: count
+
+  deepsearch_cancelled_queries:
+    sql: CASE WHEN ${event_name} = 'deepsearch:search.cancelled' THEN 1 END
+    group_label: Deep Search
+    aggregate_type: count
+
+  deepsearch_error_queries:
+    sql: CASE WHEN ${event_name} = 'deepsearch:search.error' THEN 1 END
+    group_label: Deep Search
+    aggregate_type: count
+
+  deepsearch_tool_calls:
+    sql: CASE WHEN ${event_name} = 'deepsearch:search.toolcall' THEN 1 END
+    group_label: Deep Search
+    aggregate_type: count
+
+  deepsearch_linked_resource_clicked:
+    sql: CASE WHEN ${event_name} = 'deepsearch:search.source.clicked' THEN 1 END
+    group_label: Deep Search
+    aggregate_type: count
+
+  deepsearch_cached_tokens:
+    sql: CASE WHEN ${event_name} LIKE '%deepsearch%' THEN
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.cachedTokens') AS INT64)
+      END
+    label: Deepsearch Cached Read Tokens
+    group_label: Deep Search
+    format: number_0
+    aggregate_type: sum
+
+  deepsearch_cached_read_tokens_cost:
+    sql: CASE WHEN ${event_name} LIKE '%deepsearch%' THEN
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.cachedTokens') AS
+      INT64)*0.00000030 END
+    label: Cost Cached Read Tokens
+    group_label: Deep Search
+    format: currency_2
+    aggregate_type: sum
+
+  deepsearch_cached_write_tokens:
+    sql: CASE WHEN ${event_name} LIKE '%deepsearch%' THEN
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata,
+      '$.cacheCreationInputTokens') AS INT64) END
+    label: Deepsearch Cached Write Tokens
+    group_label: Deep Search
+    format: number_0
+    aggregate_type: sum
+
+  deepsearch_cached_write_tokens_cost:
+    sql: CASE WHEN ${event_name} LIKE '%deepsearch%' THEN
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata,
+      '$.cacheCreationInputTokens') AS INT64)*0.00000375 END
+    label: Cost Cached Write Tokens
+    group_label: Deep Search
+    format: currency_2
+    aggregate_type: sum
+
+  deepsearch_completion_tokens:
+    sql: CASE WHEN ${event_name} LIKE '%deepsearch%' THEN
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.completionTokens') AS
+      INT64) END
+    group_label: Deep Search
+    format: number_0
+    aggregate_type: sum
+
+  deepsearch_completion_tokens_cost:
+    sql: |-
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.completionTokens') AS INT64) *
+                    CASE
+                    WHEN ${event_name} IN ('deepsearch:search.followup', 'deepsearch:search.rawllm') THEN 0.0000001
+                    WHEN ${event_name} LIKE '%deepsearch%' THEN 0.00001500 ELSE 0
+                    END
+    label: Cost Completion (Output) Tokens
+    group_label: Deep Search
+    format: currency_2
+    aggregate_type: sum
+
+  deepsearch_credits:
+    sql: CASE WHEN ${event_name} LIKE '%deepsearch%' THEN
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.credits') AS INT64) END
+    group_label: Deep Search
+    format: number_0
+    aggregate_type: sum
+
+  deepsearch_prompt_tokens:
+    sql: CASE WHEN ${event_name} LIKE '%deepsearch%' THEN
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.promptTokens') AS INT64)
+      END
+    group_label: Deep Search
+    format: number_0
+    aggregate_type: sum
+
+  deepsearch_prompt_tokens_cost:
+    sql: |-
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.promptTokens') AS INT64)*
+                    CASE
+                    WHEN ${event_name} IN ('deepsearch:search.followup', 'deepsearch:search.rawllm') THEN 0.0000004
+                    WHEN ${event_name} LIKE '%deepsearch%' THEN 0.00000300 ELSE 0
+                    END
+    label: Cost Prompt (Input) Tokens
+    group_label: Deep Search
+    format: currency_2
+    aggregate_type: sum
+
+  deepsearch_time_millis:
+    sql: CASE WHEN ${event_name} LIKE '%deepsearch%' THEN
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.timeMillis') AS INT64)
+      END
+    group_label: Deep Search
+    format: number_0
+    aggregate_type: sum
+
+  total_token_cost:
+    sql: ${deepsearch_cached_read_tokens_cost} +
+      ${deepsearch_cached_write_tokens_cost}
+      +${deepsearch_completion_tokens_cost} + ${deepsearch_prompt_tokens_cost}
+    group_label: Deep Search
+    format: currency_2
+
+  total_tokens:
+    sql: ${deepsearch_cached_tokens} + ${deepsearch_cached_write_tokens}
+      +${deepsearch_completion_tokens} + ${deepsearch_prompt_tokens}
+    group_label: Deep Search
+    format: number_0
+
+  deepsearch_total_input_tokens:
+    sql: CASE WHEN ${event_name} LIKE '%deepsearch%' THEN
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.totalInputTokens') AS
+      INT64) END
+    group_label: Deep Search
+    format: number_0
+    aggregate_type: sum
+
+  deepsearch_tool_calls_metadata:
+    sql: CASE WHEN ${event_name} LIKE '%deepsearch%' THEN
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.toolCalls') AS INT64) END
+    group_label: Deep Search
+    format: number_0
+    aggregate_type: sum
+
+  deep_search_users:
+    sql: CASE WHEN (${event_name} = 'deepsearch:search' OR ${event_name} =
+      'deepsearch:search.followup') THEN ${unique_user_id} END
+    group_label: Deep Search
+    aggregate_type: count_distinct
+
+  avg_prompt_tokens:
+    sql: CASE WHEN ${event_name} LIKE '%deepsearch%' THEN
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.promptTokens') AS INT64)
+      END
+    group_label: Deep Search Percentiles
+    format: number_2
+    aggregate_type: average
+
+  p50_prompt_tokens:
+    sql: CASE WHEN ${event_name} LIKE '%deepsearch%' THEN
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.promptTokens') AS INT64)
+      END
+    group_label: Deep Search Percentiles
+    format: number_0
+    aggregate_type: percentile
+    percentile: 50
+
+  p75_prompt_tokens:
+    sql: CASE WHEN ${event_name} LIKE '%deepsearch%' THEN
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.promptTokens') AS INT64)
+      END
+    group_label: Deep Search Percentiles
+    format: number_0
+    aggregate_type: percentile
+    percentile: 75
+
+  p90_prompt_tokens:
+    sql: CASE WHEN ${event_name} LIKE '%deepsearch%' THEN
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.promptTokens') AS INT64)
+      END
+    group_label: Deep Search Percentiles
+    format: number_0
+    aggregate_type: percentile
+    percentile: 90
+
+  p95_prompt_tokens:
+    sql: CASE WHEN ${event_name} LIKE '%deepsearch%' THEN
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.promptTokens') AS INT64)
+      END
+    group_label: Deep Search Percentiles
+    format: number_0
+    aggregate_type: percentile
+    percentile: 95
+
+  min_prompt_tokens:
+    sql: CASE WHEN ${event_name} LIKE '%deepsearch%' THEN
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.promptTokens') AS INT64)
+      END
+    group_label: Deep Search Percentiles
+    format: number_0
+    aggregate_type: min
+
+  max_prompt_tokens:
+    sql: CASE WHEN ${event_name} LIKE '%deepsearch%' THEN
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.promptTokens') AS INT64)
+      END
+    group_label: Deep Search Percentiles
+    format: number_0
+    aggregate_type: max
+
+  p50_prompt_tokens_cost:
+    sql: |-
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.promptTokens') AS INT64)*
+                    CASE
+                    WHEN ${event_name} IN ('deepsearch:search.followup', 'deepsearch:search.rawllm') THEN 0.0000004
+                    WHEN ${event_name} LIKE '%deepsearch%' THEN 0.00000300 ELSE 0
+                    END
+    group_label: Deep Search Cost Percentiles
+    format: currency_2
+    aggregate_type: percentile
+    percentile: 50
+
+  p90_prompt_tokens_cost:
+    sql: |-
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.promptTokens') AS INT64)*
+                    CASE
+                    WHEN ${event_name} IN ('deepsearch:search.followup', 'deepsearch:search.rawllm') THEN 0.0000004
+                    WHEN ${event_name} LIKE '%deepsearch%' THEN 0.00000300 ELSE 0
+                    END
+    group_label: Deep Search Cost Percentiles
+    format: currency_2
+    aggregate_type: percentile
+    percentile: 90
+
+  avg_prompt_tokens_cost:
+    sql: |-
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.promptTokens') AS INT64)*
+                    CASE
+                    WHEN ${event_name} IN ('deepsearch:search.followup', 'deepsearch:search.rawllm') THEN 0.0000004
+                    WHEN ${event_name} LIKE '%deepsearch%' THEN 0.00000300 ELSE 0
+                    END
+    group_label: Deep Search Cost Percentiles
+    format: currency_2
+    aggregate_type: average
+
+  avg_completion_tokens:
+    sql: CASE WHEN ${event_name} LIKE '%deepsearch%' THEN
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.completionTokens') AS
+      INT64) END
+    group_label: Deep Search Percentiles
+    format: number_2
+    aggregate_type: average
+
+  p50_completion_tokens:
+    sql: CASE WHEN ${event_name} LIKE '%deepsearch%' THEN
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.completionTokens') AS
+      INT64) END
+    group_label: Deep Search Percentiles
+    format: number_0
+    aggregate_type: percentile
+    percentile: 50
+
+  p75_completion_tokens:
+    sql: CASE WHEN ${event_name} LIKE '%deepsearch%' THEN
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.completionTokens') AS
+      INT64) END
+    group_label: Deep Search Percentiles
+    format: number_0
+    aggregate_type: percentile
+    percentile: 75
+
+  p90_completion_tokens:
+    sql: CASE WHEN ${event_name} LIKE '%deepsearch%' THEN
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.completionTokens') AS
+      INT64) END
+    group_label: Deep Search Percentiles
+    format: number_0
+    aggregate_type: percentile
+    percentile: 90
+
+  p95_completion_tokens:
+    sql: CASE WHEN ${event_name} LIKE '%deepsearch%' THEN
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.completionTokens') AS
+      INT64) END
+    group_label: Deep Search Percentiles
+    format: number_0
+    aggregate_type: percentile
+    percentile: 95
+
+  min_completion_tokens:
+    sql: CASE WHEN ${event_name} LIKE '%deepsearch%' THEN
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.completionTokens') AS
+      INT64) END
+    group_label: Deep Search Percentiles
+    format: number_0
+    aggregate_type: min
+
+  max_completion_tokens:
+    sql: CASE WHEN ${event_name} LIKE '%deepsearch%' THEN
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.completionTokens') AS
+      INT64) END
+    group_label: Deep Search Percentiles
+    format: number_0
+    aggregate_type: max
+
+  p50_completion_tokens_cost:
+    sql: |-
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.completionTokens') AS INT64)*
+                    CASE
+                    WHEN ${event_name} IN ('deepsearch:search.followup', 'deepsearch:search.rawllm') THEN 0.0000001
+                    WHEN ${event_name} LIKE '%deepsearch%' THEN 0.00001500 ELSE 0
+                    END
+    group_label: Deep Search Cost Percentiles
+    format: currency_2
+    aggregate_type: percentile
+    percentile: 50
+
+  p90_completion_tokens_cost:
+    sql: |-
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.completionTokens') AS INT64)*
+                      CASE
+                    WHEN ${event_name} IN ('deepsearch:search.followup', 'deepsearch:search.rawllm') THEN 0.0000001
+                    WHEN ${event_name} LIKE '%deepsearch%' THEN 0.00001500 ELSE 0
+                    END
+    group_label: Deep Search Cost Percentiles
+    format: currency_2
+    aggregate_type: percentile
+    percentile: 90
+
+  avg_completion_tokens_cost:
+    sql: |-
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.completionTokens') AS INT64)*
+                      CASE
+                    WHEN ${event_name} IN ('deepsearch:search.followup', 'deepsearch:search.rawllm') THEN 0.0000001
+                    WHEN ${event_name} LIKE '%deepsearch%' THEN 0.00001500 ELSE 0
+                    END
+    group_label: Deep Search Cost Percentiles
+    format: currency_2
+    aggregate_type: average
+
+  avg_cached_tokens:
+    sql: CASE WHEN ${event_name} LIKE '%deepsearch%' THEN
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.cachedTokens') AS INT64)
+      END
+    label: Avg Cached Read Tokens
+    group_label: Deep Search Percentiles
+    format: number_2
+    aggregate_type: average
+
+  p50_cached_tokens:
+    sql: CASE WHEN ${event_name} LIKE '%deepsearch%' THEN
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.cachedTokens') AS INT64)
+      END
+    label: p50 Cached Read Tokens
+    group_label: Deep Search Percentiles
+    format: number_0
+    aggregate_type: percentile
+    percentile: 50
+
+  p75_cached_tokens:
+    sql: CASE WHEN ${event_name} LIKE '%deepsearch%' THEN
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.cachedTokens') AS INT64)
+      END
+    label: p75 Cached Read Tokens
+    group_label: Deep Search Percentiles
+    format: number_0
+    aggregate_type: percentile
+    percentile: 75
+
+  p90_cached_tokens:
+    sql: CASE WHEN ${event_name} LIKE '%deepsearch%' THEN
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.cachedTokens') AS INT64)
+      END
+    label: p90 Cached Read Tokens
+    group_label: Deep Search Percentiles
+    format: number_0
+    aggregate_type: percentile
+    percentile: 90
+
+  p95_cached_tokens:
+    sql: CASE WHEN ${event_name} LIKE '%deepsearch%' THEN
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.cachedTokens') AS INT64)
+      END
+    label: p95 Cached Read Tokens
+    group_label: Deep Search Percentiles
+    format: number_0
+    aggregate_type: percentile
+    percentile: 95
+
+  min_cached_tokens:
+    sql: CASE WHEN ${event_name} LIKE '%deepsearch%' THEN
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.cachedTokens') AS INT64)
+      END
+    label: Min Cached Read Tokens
+    group_label: Deep Search Percentiles
+    format: number_0
+    aggregate_type: min
+
+  max_cached_tokens:
+    sql: CASE WHEN ${event_name} LIKE '%deepsearch%' THEN
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.cachedTokens') AS INT64)
+      END
+    label: Max Cached Read Tokens
+    group_label: Deep Search Percentiles
+    format: number_0
+    aggregate_type: max
+
+  p50_read_cached_tokens_cost:
+    sql: CASE WHEN ${event_name} LIKE '%deepsearch%' THEN
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.cachedTokens') AS
+      INT64)*0.00000030 END
+    group_label: Deep Search Cost Percentiles
+    format: currency_2
+    aggregate_type: percentile
+    percentile: 50
+
+  p90_read_cached_tokens_cost:
+    sql: CASE WHEN ${event_name} LIKE '%deepsearch%' THEN
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.cachedTokens') AS
+      INT64)*0.00000030 END
+    group_label: Deep Search Cost Percentiles
+    format: currency_2
+    aggregate_type: percentile
+    percentile: 90
+
+  avg_read_cached_tokens_cost:
+    sql: CASE WHEN ${event_name} LIKE '%deepsearch%' THEN
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.cachedTokens') AS
+      INT64)*0.00000030 END
+    group_label: Deep Search Cost Percentiles
+    format: currency_2
+    aggregate_type: average
+
+  avg_write_cached_tokens:
+    sql: CASE WHEN ${event_name} LIKE '%deepsearch%' THEN
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata,
+      '$.cacheCreationInputTokens') AS INT64) END
+    group_label: Deep Search Percentiles
+    format: number_2
+    aggregate_type: average
+
+  p50_write_cached_tokens:
+    sql: CASE WHEN ${event_name} LIKE '%deepsearch%' THEN
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata,
+      '$.cacheCreationInputTokens') AS INT64) END
+    group_label: Deep Search Percentiles
+    format: number_0
+    aggregate_type: percentile
+    percentile: 50
+
+  p75_write_cached_tokens:
+    sql: CASE WHEN ${event_name} LIKE '%deepsearch%' THEN
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata,
+      '$.cacheCreationInputTokens') AS INT64) END
+    group_label: Deep Search Percentiles
+    format: number_0
+    aggregate_type: percentile
+    percentile: 75
+
+  p90_write_cached_tokens:
+    sql: CASE WHEN ${event_name} LIKE '%deepsearch%' THEN
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata,
+      '$.cacheCreationInputTokens') AS INT64) END
+    group_label: Deep Search Percentiles
+    format: number_0
+    aggregate_type: percentile
+    percentile: 90
+
+  p95_write_cached_tokens:
+    sql: CASE WHEN ${event_name} LIKE '%deepsearch%' THEN
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata,
+      '$.cacheCreationInputTokens') AS INT64) END
+    group_label: Deep Search Percentiles
+    format: number_0
+    aggregate_type: percentile
+    percentile: 95
+
+  min_write_cached_tokens:
+    sql: CASE WHEN ${event_name} LIKE '%deepsearch%' THEN
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata,
+      '$.cacheCreationInputTokens') AS INT64) END
+    group_label: Deep Search Percentiles
+    format: number_0
+    aggregate_type: min
+
+  max_write_cached_tokens:
+    sql: CASE WHEN ${event_name} LIKE '%deepsearch%' THEN
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata,
+      '$.cacheCreationInputTokens') AS INT64) END
+    group_label: Deep Search Percentiles
+    format: number_0
+    aggregate_type: max
+
+  p50_write_cached_tokens_cost:
+    sql: CASE WHEN ${event_name} LIKE '%deepsearch%' THEN
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata,
+      '$.cacheCreationInputTokens') AS INT64)*0.00000375 END
+    group_label: Deep Search Cost Percentiles
+    format: currency_2
+    aggregate_type: percentile
+    percentile: 50
+
+  p90_write_cached_tokens_cost:
+    sql: CASE WHEN ${event_name} LIKE '%deepsearch%' THEN
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata,
+      '$.cacheCreationInputTokens') AS INT64)*0.00000375 END
+    group_label: Deep Search Cost Percentiles
+    format: currency_2
+    aggregate_type: percentile
+    percentile: 90
+
+  avg_write_cached_tokens_cost:
+    sql: CASE WHEN ${event_name} LIKE '%deepsearch%' THEN
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata,
+      '$.cacheCreationInputTokens') AS INT64)*0.00000375 END
+    group_label: Deep Search Cost Percentiles
+    format: currency_2
+    aggregate_type: average
+
+  p50_total_tokens_cost_per_question:
+    sql: |-
+      (CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.promptTokens') AS INT64)*
+                                    CASE
+                                    WHEN ${event_name} IN ('deepsearch:search.followup', 'deepsearch:search.rawllm') THEN 0.0000004
+                                    WHEN ${event_name} LIKE '%deepsearch%' THEN 0.00000300 ELSE 0
+                                    END)
+                                + (CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.completionTokens') AS INT64)*
+                                    CASE
+                                    WHEN ${event_name} IN ('deepsearch:search.followup', 'deepsearch:search.rawllm') THEN 0.0000001
+                                    WHEN ${event_name} LIKE '%deepsearch%' THEN 0.00001500 ELSE 0
+                                    END)
+                                + (CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.cachedTokens') AS INT64)*
+                                      CASE WHEN ${event_name} LIKE '%deepsearch%' THEN 0.00000030 ELSE 0 END)
+                                + (CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.cacheCreationInputTokens') AS INT64)*
+                                      CASE WHEN ${event_name} LIKE '%deepsearch%' THEN 0.00000375 ELSE 0 END)
+    group_label: Deep Search Cost Percentiles
+    format: currency_2
+    aggregate_type: percentile
+    percentile: 50
+
+  p90_total_tokens_cost_per_question:
+    sql: |-
+      CASE WHEN ${event_name} LIKE '%deepsearch%' THEN (CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.promptTokens') AS INT64)*
+                                    CASE
+                                    WHEN ${event_name} IN ('deepsearch:search.followup', 'deepsearch:search.rawllm') THEN 0.0000004
+                                    WHEN ${event_name} LIKE '%deepsearch%' THEN 0.00000300 ELSE 0
+                                    END)
+                                + (CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.completionTokens') AS INT64)*
+                                    CASE
+                                    WHEN ${event_name} IN ('deepsearch:search.followup', 'deepsearch:search.rawllm') THEN 0.0000001
+                                    WHEN ${event_name} LIKE '%deepsearch%' THEN 0.00001500 ELSE 0
+                                    END)
+                                + (CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.cachedTokens') AS INT64)*
+                                      CASE WHEN ${event_name} LIKE '%deepsearch%' THEN 0.00000030 ELSE 0 END)
+                                + (CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.cacheCreationInputTokens') AS INT64)*
+                                      CASE WHEN ${event_name} LIKE '%deepsearch%' THEN 0.00000375 ELSE 0 END) END
+    group_label: Deep Search Cost Percentiles
+    format: currency_2
+    aggregate_type: percentile
+    percentile: 90
+
+  avg_total_tokens_cost_per_question:
+    sql: |-
+      CASE WHEN ${event_name} LIKE '%deepsearch%' THEN (CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.promptTokens') AS INT64)*
+                                    CASE
+                                    WHEN ${event_name} IN ('deepsearch:search.followup', 'deepsearch:search.rawllm') THEN 0.0000004
+                                    WHEN ${event_name} LIKE '%deepsearch%' THEN 0.00000300 ELSE 0
+                                    END)
+                                + (CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.completionTokens') AS INT64)*
+                                    CASE
+                                    WHEN ${event_name} IN ('deepsearch:search.followup', 'deepsearch:search.rawllm') THEN 0.0000001
+                                    WHEN ${event_name} LIKE '%deepsearch%' THEN 0.00001500 ELSE 0
+                                    END)
+                                + (CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.cachedTokens') AS INT64)*
+                                      CASE WHEN ${event_name} LIKE '%deepsearch%' THEN 0.00000030 ELSE 0 END)
+                                + (CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.cacheCreationInputTokens') AS INT64)*
+                                      CASE WHEN ${event_name} LIKE '%deepsearch%' THEN 0.00000375 ELSE 0 END) END
+    group_label: Deep Search Cost Percentiles
+    format: currency_2
+    aggregate_type: average
+
+  avg_total_input_tokens:
+    sql: CASE WHEN ${event_name} LIKE '%deepsearch%' THEN
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.totalInputTokens') AS
+      INT64) END
+    group_label: Deep Search Percentiles
+    format: number_2
+    aggregate_type: average
+
+  p50_total_input_tokens:
+    sql: CASE WHEN ${event_name} LIKE '%deepsearch%' THEN
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.totalInputTokens') AS
+      INT64) END
+    group_label: Deep Search Percentiles
+    format: number_0
+    aggregate_type: percentile
+    percentile: 50
+
+  p75_total_input_tokens:
+    sql: CASE WHEN ${event_name} LIKE '%deepsearch%' THEN
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.totalInputTokens') AS
+      INT64) END
+    group_label: Deep Search Percentiles
+    format: number_0
+    aggregate_type: percentile
+    percentile: 75
+
+  p90_total_input_tokens:
+    sql: CASE WHEN ${event_name} LIKE '%deepsearch%' THEN
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.totalInputTokens') AS
+      INT64) END
+    group_label: Deep Search Percentiles
+    format: number_0
+    aggregate_type: percentile
+    percentile: 90
+
+  p95_total_input_tokens:
+    sql: CASE WHEN ${event_name} LIKE '%deepsearch%' THEN
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.totalInputTokens') AS
+      INT64) END
+    group_label: Deep Search Percentiles
+    format: number_0
+    aggregate_type: percentile
+    percentile: 95
+
+  min_total_input_tokens:
+    sql: CASE WHEN ${event_name} LIKE '%deepsearch%' THEN
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.totalInputTokens') AS
+      INT64) END
+    group_label: Deep Search Percentiles
+    format: number_0
+    aggregate_type: min
+
+  max_total_input_tokens:
+    sql: CASE WHEN ${event_name} LIKE '%deepsearch%' THEN
+      CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.totalInputTokens') AS
+      INT64) END
+    group_label: Deep Search Percentiles
+    format: number_0
+    aggregate_type: max
+
+  anonymous_count:
+    sql: CASE WHEN ${toolcall_category} = 'Anonymous' THEN 1 END
+    group_label: Deep Search Tool Calls
+    aggregate_type: count
+
+  read_file_count:
+    sql: CASE WHEN ${toolcall_category} = 'Read File' THEN 1 END
+    group_label: Deep Search Tool Calls
+    aggregate_type: count
+
+  find_references_count:
+    sql: CASE WHEN ${toolcall_category} = 'Find References' THEN 1 END
+    group_label: Deep Search Tool Calls
+    aggregate_type: count
+
+  list_files_count:
+    sql: CASE WHEN ${toolcall_category} = 'List Files' THEN 1 END
+    group_label: Deep Search Tool Calls
+    aggregate_type: count
+
+  list_repos_count:
+    sql: CASE WHEN ${toolcall_category} = 'List Repos' THEN 1 END
+    group_label: Deep Search Tool Calls
+    aggregate_type: count
+
+  keyword_search_count:
+    sql: CASE WHEN ${toolcall_category} = 'Keyword Search' THEN 1 END
+    group_label: Deep Search Tool Calls
+    aggregate_type: count
+
+  nls_search_count:
+    sql: CASE WHEN ${toolcall_category} = 'NLS Search' THEN 1 END
+    group_label: Deep Search Tool Calls
+    aggregate_type: count
+
+  mermaid_count:
+    sql: CASE WHEN ${toolcall_category} = 'Mermaid' THEN 1 END
+    group_label: Deep Search Tool Calls
+    aggregate_type: count
+
+  go_to_definition_count:
+    sql: CASE WHEN ${toolcall_category} = 'Go To Definition' THEN 1 END
+    group_label: Deep Search Tool Calls
+    aggregate_type: count
+
+  commit_search_count:
+    sql: CASE WHEN ${toolcall_category} = 'Commit Search' THEN 1 END
+    group_label: Deep Search Tool Calls
+    aggregate_type: count
+
+  diff_search_count:
+    sql: CASE WHEN ${toolcall_category} = 'Diff Search' THEN 1 END
+    group_label: Deep Search Tool Calls
+    aggregate_type: count
+
+  total_toolcall_count:
+    sql: CASE WHEN ${toolcall_category} != 'NULL' THEN 1 END
+    group_label: Deep Search Tool Calls
+    aggregate_type: count
+
+  batch_change_start:
+    sql: CASE WHEN ${event_name} = 'batchChanges:create' THEN 1 END
+    label: Batch Change Start
+    group_label: Batch Changes (Audrey)
+    aggregate_type: count
+
+  batch_change_publish_update_apply:
+    sql: CASE WHEN ${event_name} = 'batchChange.execution.updateAndApply:click' THEN
+      1 END
+    group_label: Batch Changes (Audrey)
+    aggregate_type: count
+
+  batch_change_pushonly_bulkops_dropdown:
+    sql: CASE WHEN ${event_name} = 'batchChange.details.bulkAction:clickPushOnly'
+      THEN 1 END
+    group_label: Batch Changes (Audrey)
+    aggregate_type: count
+
+  batch_change_pushonly_bulkops_dropdown_backend:
+    sql: CASE WHEN ${event_name} = 'batches.bulkOperation:backendPushOnly' THEN 1
+      END
+    group_label: Batch Changes (Audrey)
+    aggregate_type: count
+
+  create_changeset_job:
+    sql: CASE WHEN ${event_name} = 'batches:createChangesetJob' THEN 1 END
+    group_label: Batch Changes (Audrey)
+    aggregate_type: count
+
+  process_changeset_job:
+    sql: CASE WHEN ${event_name} = 'batches:processChangesetJob' THEN 1 END
+    group_label: Batch Changes (Audrey)
+    aggregate_type: count
+
+  preview_changeset:
+    sql: CASE WHEN ${event_name} = 'batchChange.execution:preview' THEN 1 END
+    group_label: Batch Changes (Audrey)
+    aggregate_type: count
+
+  validate_changeset:
+    sql: CASE WHEN ${event_name} = 'batches:validateChangesetSpecs' THEN 1 END
+    group_label: Batch Changes (Audrey)
+    aggregate_type: count
+
+  change_changeset_to_push_only:
+    sql: CASE WHEN ${event_name} = 'batches:pushedOnlyAttempt' THEN 1 END
+    group_label: Batch Changes (Audrey)
+    aggregate_type: count
+
+  pushed_only_enrichment_github:
+    sql: CASE WHEN ${event_name} = 'batches:pushedOnlyEnrichment' AND
+      ${external_service_type} = 'Github' THEN 1 END
+    group_label: Batch Changes (Audrey)
+    aggregate_type: count
+
+  pushed_only_enrichment_gitlab:
+    sql: CASE WHEN ${event_name} = 'batches:pushedOnlyEnrichment' AND
+      ${external_service_type} = 'GitLab' THEN 1 END
+    group_label: Batch Changes (Audrey)
+    aggregate_type: count
+
+  view_changeset_post_spec_run:
+    sql: CASE WHEN ${event_name} = 'batchChange.details:view' THEN 1 END
+    group_label: Batch Changes (Audrey)
+    aggregate_type: count
+
+  deepsearch_followup_queries:
+    sql: CASE WHEN ${event_name} = 'deepsearch:search.followup' THEN 1 END
+    group_label: Deep Search
+    aggregate_type: count
+
+  deepsearch_queries_new_and_followups:
+    sql: CASE WHEN ${event_name} IN ('deepsearch:search',
+      'deepsearch:search.followup') THEN 1 END
+    group_label: Deep Search
+    aggregate_type: count
+
+  deepsearch_consumed_queries:
+    sql: CASE WHEN ${deepsearch_consumed_filter} THEN 1 END
+    label: DS Queries
+    group_label: Deep Search
+    aggregate_type: count
+
+  deepsearch_consumed_queries_users:
+    sql: CASE WHEN ${deepsearch_consumed_filter} AND ${service_account} = FALSE THEN
+      ${unique_user_id} END
+    label: DS Users
+    group_label: Deep Search
+    aggregate_type: count_distinct
+
+  deepsearch_consumed_credits_proxy:
+    sql: ${deepsearch_consumed_queries} * 70
+    label: DS Credits Proxy
+    group_label: Deep Search
+
+  deepsearch_external_client:
+    sql: CASE WHEN ${event_name} = 'deepsearch:search.externalclient' THEN
+      ${unique_user_id} END
+    group_label: Deep Search
+    aggregate_type: count_distinct
+
+  deepsearch_external_queries:
+    sql: |-
+      CASE
+        WHEN ${event_name} = 'deepsearch:search.externalclient'
+             AND JSON_EXTRACT_SCALAR(parameters.metadata, '$.endpoint') IN ('3','5')
+        THEN 1
+      END
+    group_label: Deep Search
+    aggregate_type: count
+
+  tool_call_distinct_questions:
+    sql: CASE WHEN ${event_name} = 'deepsearch:search.toolcall' THEN
+      JSON_VALUE(parameters.metadata, '$.id') END
+    group_label: Deep Search
+    aggregate_type: count_distinct
+
+  deep_search_completed_users:
+    sql: CASE WHEN ${event_name} = 'deepsearch:search.completed' THEN
+      ${unique_user_id} END
+    group_label: Deep Search
+    aggregate_type: count_distinct
+
+  deep_search_shared:
+    sql: CASE WHEN ${event_name} = 'deepsearch:search.shared' THEN 1 END
+    group_label: Deep Search
+    aggregate_type: count
+
+  deep_search_viewed:
+    sql: CASE WHEN ${event_name} = 'deepsearch:search.viewed' THEN 1 END
+    group_label: Deep Search
+    aggregate_type: count
+
+  deep_search_created:
+    sql: CASE WHEN ${event_name} = 'deepsearch:search.created' THEN 1 END
+    group_label: Deep Search
+    aggregate_type: count
+
+  count_deep_search_quota:
+    sql: CASE WHEN ${event_name} = 'deepsearch.quota.state:state' THEN 1 END
+    group_label: Deep Search
+    aggregate_type: count
+
+  ds_average_duration:
+    sql: |-
+      CASE WHEN ${event_name} = 'deepsearch:search.completed'
+        THEN SAFE_CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.durationMs') AS INT64) / 1000 END
+    group_label: Deep Search
+    format: number_1
+    aggregate_type: average
+
+  ds_p75_duration:
+    sql: |-
+      CASE WHEN ${event_name} = 'deepsearch:search.completed'
+        THEN SAFE_CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.durationMs') AS INT64) / 1000 END
+    group_label: Deep Search
+    format: number_1
+    aggregate_type: percentile
+    percentile: 75
+
+  ds_p90_duration:
+    sql: |-
+      CASE WHEN ${event_name} = 'deepsearch:search.completed'
+        THEN SAFE_CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.durationMs') AS INT64) / 1000 END
+    group_label: Deep Search
+    format: number_1
+    aggregate_type: percentile
+    percentile: 90
+
+  ds_tool_call_average_duration:
+    sql: |-
+      CASE WHEN ${event_name} = 'deepsearch:search.toolcall'
+        THEN SAFE_CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.durationMs') AS INT64) / 1000 END
+    group_label: Deep Search
+    format: number_1
+    aggregate_type: average
+
+  ds_tool_call_p50_duration:
+    sql: |-
+      CASE WHEN ${event_name} = 'deepsearch:search.toolcall'
+        THEN SAFE_CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.durationMs') AS INT64) / 1000 END
+    group_label: Deep Search
+    format: number_1
+    aggregate_type: percentile
+    percentile: 50
+
+  ds_tool_call_p75_duration:
+    sql: |-
+      CASE WHEN ${event_name} = 'deepsearch:search.toolcall'
+        THEN SAFE_CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.durationMs') AS INT64) / 1000 END
+    group_label: Deep Search
+    format: number_1
+    aggregate_type: percentile
+    percentile: 75
+
+  ds_tool_call_p90_duration:
+    sql: |-
+      CASE WHEN ${event_name} = 'deepsearch:search.toolcall'
+        THEN SAFE_CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.durationMs') AS INT64) / 1000 END
+    group_label: Deep Search
+    format: number_1
+    aggregate_type: percentile
+    percentile: 90
+
+  # ── Deep Search API Endpoint ──────────────────────────────────
+  api_get_conversation_count:
+    sql: CASE WHEN ${api_endpoint} = 'Get Conversation' THEN 1 END
+    group_label: Deep Search API Endpoint
+    aggregate_type: count
+
+  api_list_conversations_count:
+    sql: CASE WHEN ${api_endpoint} = 'List Conversations' THEN 1 END
+    group_label: Deep Search API Endpoint
+    aggregate_type: count
+
+  api_create_conversation_count:
+    sql: CASE WHEN ${api_endpoint} = 'Create Conversation' THEN 1 END
+    group_label: Deep Search API Endpoint
+    aggregate_type: count
+
+  api_delete_conversation_count:
+    sql: CASE WHEN ${api_endpoint} = 'Delete Conversation' THEN 1 END
+    group_label: Deep Search API Endpoint
+    aggregate_type: count
+
+  api_delete_all_conversations_count:
+    sql: CASE WHEN ${api_endpoint} = 'Delete All Conversations' THEN 1 END
+    group_label: Deep Search API Endpoint
+    aggregate_type: count
+
+  api_rotate_read_token_count:
+    sql: CASE WHEN ${api_endpoint} = 'Rotate Read Token' THEN 1 END
+    group_label: Deep Search API Endpoint
+    aggregate_type: count
+
+  api_create_question_count:
+    sql: CASE WHEN ${api_endpoint} = 'Create Question' THEN 1 END
+    group_label: Deep Search API Endpoint
+    aggregate_type: count
+
+  api_cancel_question_count:
+    sql: CASE WHEN ${api_endpoint} = 'Cancel Question' THEN 1 END
+    group_label: Deep Search API Endpoint
+    aggregate_type: count
+
+  # ── DS Categorization ─────────────────────────────────────────
+  count_categorized:
+    sql: CASE WHEN ${event_name} = 'deepsearch:search.categorized' THEN 1 END
+    group_label: DS Categorization
+    aggregate_type: count
+
+  users_categorized:
+    sql: CASE WHEN ${event_name} = 'deepsearch:search.categorized' THEN
+      ${unique_user_id} END
+    group_label: DS Categorization
+    aggregate_type: count_distinct
+
+  # ── DS Categorization ─────────────────────────────────────────
+  abc_count_categorized:
+    sql: CASE WHEN ${event_name} = 'batchChangeAgent:categorization' THEN 1 END
+    group_label: ABC Categorization
+    aggregate_type: count
+
+  abc_users_categorized:
+    sql: CASE WHEN ${event_name} = 'batchChangeAgent:categorization' THEN
+      ${unique_user_id} END
+    group_label: ABC Categorization
+    aggregate_type: count_distinct
+
+  # ── DS Evergreen ──────────────────────────────────────────────
+  evergreen_created:
+    sql: CASE WHEN ${event_name} = 'deepsearch:evergreen.create' THEN 1 END
+    group_label: DS Evergreen
+    aggregate_type: count
+
+  evergreen_creators:
+    sql: CASE WHEN ${event_name} = 'deepsearch:evergreen.create' THEN
+      ${unique_user_id} END
+    group_label: DS Evergreen
+    aggregate_type: count_distinct
+
+  evergreen_article_view:
+    sql: CASE WHEN ${event_name} = 'deepsearch:evergreen.get' THEN 1 END
+    group_label: DS Evergreen
+    aggregate_type: count
+
+  evergreen_article_viewers:
+    sql: CASE WHEN ${event_name} = 'deepsearch:evergreen.get' THEN ${unique_user_id}
+      END
+    group_label: DS Evergreen
+    aggregate_type: count_distinct
+
+  evergreen_articles_max:
+    sql: ${evergreen_article_doc_count}
+    group_label: DS Evergreen
+    aggregate_type: max
+
+  evergreen_refresh:
+    sql: CASE WHEN ${event_name} = 'deepsearch:evergreen.refresh' THEN 1 END
+    group_label: DS Evergreen
+    aggregate_type: count
+
+  evergreen_refresh_completed:
+    sql: CASE WHEN ${event_name} = 'deepsearch:evergreen.refresh.completed' THEN 1
+      END
+    group_label: DS Evergreen
+    aggregate_type: count
+
+  evergreen_refresh_failed:
+    sql: CASE WHEN ${event_name} = 'deepsearch:evergreen.refresh.failed' THEN 1 END
+    group_label: DS Evergreen
+    aggregate_type: count
+
+  evergreen_refresh_success_rate:
+    sql: SAFE_DIVIDE(${evergreen_refresh_completed}, ${evergreen_refresh_completed}
+      + ${evergreen_refresh_failed})
+    group_label: DS Evergreen
+    format: percent_1
+
+  evergreen_avg_latency:
+    sql: |-
+      CASE WHEN ${event_name} = 'deepsearch:evergreen.refresh.completed'
+        THEN CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.durationMs') AS FLOAT64) / 1000 END
+    group_label: DS Evergreen
+    format: number_1
+    aggregate_type: average
+
+  evergreen_50_percentile_latency:
+    sql: |-
+      CASE WHEN ${event_name} = 'deepsearch:evergreen.refresh.completed'
+        THEN CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.durationMs') AS FLOAT64) / 1000 END
+    group_label: DS Evergreen
+    format: number_1
+    aggregate_type: percentile
+    percentile: 50
+
+  evergreen_75_percentile_latency:
+    sql: |-
+      CASE WHEN ${event_name} = 'deepsearch:evergreen.refresh.completed'
+        THEN CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.durationMs') AS FLOAT64) / 1000 END
+    group_label: DS Evergreen
+    format: number_1
+    aggregate_type: percentile
+    percentile: 75
+
+  evergreen_90_percentile_latency:
+    sql: |-
+      CASE WHEN ${event_name} = 'deepsearch:evergreen.refresh.completed'
+        THEN CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.durationMs') AS FLOAT64) / 1000 END
+    group_label: DS Evergreen
+    format: number_1
+    aggregate_type: percentile
+    percentile: 90
+
+  article_version_count:
+    sql: |-
+      CASE WHEN ${event_name} = 'deepsearch:evergreen.version.list'
+        THEN CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.versionCount') AS FLOAT64)
+        ELSE NULL END
+    group_label: DS Evergreen
+    aggregate_type: max
+
+  # ── Deep Search Slack ─────────────────────────────────────────
+  slack_ds_users:
+    sql: CASE WHEN ${event_name} LIKE 'slack.deepsearch%' THEN ${unique_user_id} END
+    group_label: Deep Search Slack
+    aggregate_type: count_distinct
+
+  slack_ds_new_search:
+    sql: CASE WHEN ${event_name} = 'slack.deepsearch:newSearch' THEN 1 END
+    group_label: Deep Search Slack
+    description: A new Deep Search conversation is created from Slack
+    aggregate_type: count
+
+  slack_ds_new_followup:
+    sql: CASE WHEN ${event_name} = 'slack.deepsearch:newFollowUp' THEN 1 END
+    group_label: Deep Search Slack
+    description: User asks a follow-up question in an existing Deep Search conversation
+    aggregate_type: count
+
+  slack_ds_link_unfurled:
+    sql: CASE WHEN ${event_name} = 'slack.deepsearch:linkUnfurled' THEN 1 END
+    group_label: Deep Search Slack
+    aggregate_type: count
+
+  slack_ds_flexpane_viewed:
+    sql: CASE WHEN ${event_name} = 'slack.deepsearch:flexpaneViewed' THEN 1 END
+    group_label: Deep Search Slack
+    description: When a user clicks to expand a Deep Search link preview
+    aggregate_type: count
+
+  slack_ds_char_limit_hit:
+    sql: CASE WHEN ${event_name} = 'slack.deepsearch:verboseResponseEncountered'
+      THEN 1 END
+    group_label: Deep Search Slack
+    description: Deep Search answer exceeds 3,000 characters
+    aggregate_type: count
+
+  avg_questions_inthread:
+    sql: |-
+      CASE WHEN ${event_name} IN ('slack.deepsearch:newSearch', 'slack.deepsearch:newFollowUp')
+        THEN SAFE_CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.questionsInThread') AS INT64) END
+    group_label: Deep Search Slack
+    format: number_1
+    aggregate_type: average
+
+  avg_human_replies_inthread:
+    sql: |-
+      CASE WHEN ${event_name} IN ('slack.deepsearch:newSearch', 'slack.deepsearch:newFollowUp')
+        THEN SAFE_CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.humanRepliesInThread') AS INT64) END
+    group_label: Deep Search Slack
+    format: number_1
+    aggregate_type: average
+
+  avg_followup_questions_inthread:
+    sql: |-
+      CASE WHEN ${event_name} IN ('slack.deepsearch:newSearch', 'slack.deepsearch:newFollowUp')
+        THEN SAFE_CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.followUpQuestionsInThread') AS INT64) END
+    group_label: Deep Search Slack
+    format: number_1
+    aggregate_type: average
+
+  sum_questions_inthread:
+    sql: |-
+      CASE WHEN ${event_name} IN ('slack.deepsearch:newSearch', 'slack.deepsearch:newFollowUp')
+        THEN SAFE_CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.questionsInThread') AS INT64) END
+    group_label: Deep Search Slack
+    format: number_1
+    aggregate_type: sum
+
+  sum_human_replies_inthread:
+    sql: |-
+      CASE WHEN ${event_name} IN ('slack.deepsearch:newSearch', 'slack.deepsearch:newFollowUp')
+        THEN SAFE_CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.humanRepliesInThread') AS INT64) END
+    group_label: Deep Search Slack
+    format: number_1
+    aggregate_type: sum
+
+  sum_followup_questions_inthread:
+    sql: |-
+      CASE WHEN ${event_name} IN ('slack.deepsearch:newSearch', 'slack.deepsearch:newFollowUp')
+        THEN SAFE_CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.followUpQuestionsInThread') AS INT64) END
+    group_label: Deep Search Slack
+    format: number_1
+    aggregate_type: sum
+
+  # ── MCP ───────────────────────────────────────────────────────
+  count_mcp_tool_calls:
+    sql: |-
+      CASE
+        WHEN ${event_name} = 'search:mcp.toolcall'
+             AND (${tool_call_category} IS NULL OR ${tool_call_category} != 'Tools List')
+        THEN 1
+      END
+    label: MCP Tool Calls
+    group_label: MCP
+    aggregate_type: count
+
+  users_mcp_tool_calls:
+    sql: |-
+      CASE
+        WHEN ${event_name} = 'search:mcp.toolcall'
+             AND (${tool_call_category} IS NULL OR ${tool_call_category} != 'Tools List')
+             AND ${service_account} = FALSE
+        THEN ${unique_user_id}
+      END
+    label: MCP Users
+    group_label: MCP
+    aggregate_type: count_distinct
+
+  mcp_success_state_count:
+    sql: CASE WHEN ${mcp_terminal_state} = 'Success' THEN 1 END
+    group_label: MCP
+    aggregate_type: count
+
+  mcp_failure_state_count:
+    sql: CASE WHEN ${mcp_terminal_state} = 'Failure' THEN 1 END
+    group_label: MCP
+    aggregate_type: count
+
+  mcp_timeout_state_count:
+    sql: CASE WHEN ${mcp_terminal_state} = 'Timeout' THEN 1 END
+    group_label: MCP
+    aggregate_type: count
+
+  failure_timeout_rate:
+    sql: |-
+      SAFE_DIVIDE(
+        (${mcp_failure_state_count} + ${mcp_timeout_state_count}),
+        (${mcp_failure_state_count} + ${mcp_timeout_state_count} + ${mcp_success_state_count})
+      )
+    label: Error Rate
+    group_label: MCP
+    format: percent_1
+    description: Error = Failure or Timeout
+
+  avg_mcp_duration:
+    sql: ${mcp_duration}
+    label: Avg MCP Duration (in Ms)
+    group_label: MCP
+    format: number_0
+    aggregate_type: average
+
+  p75_mcp_duration:
+    sql: ${mcp_duration}
+    label: p75 MCP Duration (in Ms)
+    group_label: MCP
+    format: number_0
+    aggregate_type: percentile
+    percentile: 75
+
+  avg_mcp_output_length:
+    sql: ${mcp_output_length}
+    group_label: MCP
+    format: number_0
+    aggregate_type: average
+
+  sum_mcp_output_length:
+    sql: ${mcp_output_length}
+    group_label: MCP
+    format: number_0
+    aggregate_type: sum
+
+  # ── AI Query Assist ───────────────────────────────────────────
+  volume_trend:
+    sql: |-
+      CASE WHEN ${event_name} IN ('search.nls:exit', 'search.nls:enter', 'search.nls:apiResult')
+        THEN 1 END
+    group_label: AI Query Assist
+    aggregate_type: count
+
+  ai_search_initiated:
+    sql: CASE WHEN ${event_name} = 'search.nls:enter' THEN 1 END
+    group_label: AI Query Assist
+    aggregate_type: count
+
+  ai_search_query_entered:
+    sql: CASE WHEN ${event_name} = 'search.nls:apiResult' THEN
+      ${interaction_interactionid} END
+    label: AI Search Query Typed (apiResult)
+    group_label: AI Query Assist
+    aggregate_type: count_distinct
+
+  ai_search_api_result_events:
+    sql: CASE WHEN ${event_name} = 'search.nls:apiResult' THEN 1 END
+    group_label: AI Query Assist
+    aggregate_type: count
+
+  ai_search_completed:
+    sql: CASE WHEN ${event_name} = 'search.nls:exit' THEN 1 END
+    group_label: AI Query Assist
+    aggregate_type: count
+
+  distinct_ai_query_users:
+    sql: CASE WHEN ${event_name} = 'search.nls:enter' THEN ${unique_user_id} END
+    label: AI Query Users (Enter state)
+    group_label: AI Query Assist
+    aggregate_type: count_distinct
+
+  distinct_ai_query_completed_users:
+    sql: CASE WHEN ${event_name} = 'search.nls:exit' THEN ${unique_user_id} END
+    label: AI Query Users (Exit state)
+    group_label: AI Query Assist
+    aggregate_type: count_distinct
+
+  adoption_search_users:
+    sql: SAFE_DIVIDE(${distinct_ai_query_users},
+      ${count_distinct_search_submitted_users})
+    group_label: AI Query Assist
+    format: percent_3
+
+  adoption_search_events:
+    sql: SAFE_DIVIDE(${ai_search_initiated}, ${search_submitted})
+    group_label: AI Query Assist
+    format: percent_3
+
+  queries_per_users:
+    sql: SAFE_DIVIDE(${ai_search_initiated}, ${distinct_ai_query_users})
+    group_label: AI Query Assist
+    format: number_1
+
+  count_suggestion_applied:
+    sql: CASE WHEN ${suggestion_applied} THEN 1 END
+    group_label: AI Query Assist
+    aggregate_type: count
+
+  suggestion_apply_rate:
+    sql: SAFE_DIVIDE(${count_suggestion_applied}, ${ai_search_completed})
+    group_label: AI Query Assist
+    format: percent_1
+
+  p50_latency_ai_query:
+    sql: |-
+      CASE WHEN ${event_name} = 'search.nls:apiResult'
+        THEN CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.latencyMs') AS FLOAT64) END
+    label: p50 Latency (in Ms)
+    group_label: AI Query Assist
+    format: number_1
+    aggregate_type: percentile
+    percentile: 50
+
+  p75_latency_ai_query:
+    sql: |-
+      CASE WHEN ${event_name} = 'search.nls:apiResult'
+        THEN CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.latencyMs') AS FLOAT64) END
+    label: p75 Latency (in Ms)
+    group_label: AI Query Assist
+    format: number_1
+    aggregate_type: percentile
+    percentile: 75
+
+  p90_latency_ai_query:
+    sql: |-
+      CASE WHEN ${event_name} = 'search.nls:apiResult'
+        THEN CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.latencyMs') AS FLOAT64) END
+    label: p90 Latency (in Ms)
+    group_label: AI Query Assist
+    format: number_1
+    aggregate_type: percentile
+    percentile: 90
+
+  p95_latency_ai_query:
+    sql: |-
+      CASE WHEN ${event_name} = 'search.nls:apiResult'
+        THEN CAST(JSON_EXTRACT_SCALAR(parameters.metadata, '$.latencyMs') AS FLOAT64) END
+    label: p95 Latency (in Ms)
+    group_label: AI Query Assist
+    format: number_1
+    aggregate_type: percentile
+    percentile: 95
+
+  # ── ABC (Agentic Batch Changes) ───────────────────────────────
+  count_abc_messages:
+    sql: CASE WHEN ${event_name} = 'batchChangeAgent.processMessage:succeeded' THEN
+      1 END
+    label: ABC Agent Messages Count
+    group_label: ABC
+    aggregate_type: count
+
+  abc_users:
+    sql: CASE WHEN ${event_name} = 'batchChangeAgent.processMessage:succeeded' THEN
+      ${unique_user_id} END
+    label: ABC Agent Message Users
+    group_label: ABC
+    aggregate_type: count_distinct
+
+  abc_unique_agents:
+    sql: |
+      CASE
+        WHEN ${feature} = 'batchChangeAgent.processMessage'
+        THEN JSON_VALUE(${parameters_metadata}, '$.agentID')
+      END
+    label: ABC Unique Agents
+    group_label: ABC
+    aggregate_type: count_distinct
+
+  abc_home_view_users:
+    sql: CASE WHEN ${event_name} = 'batchChangeAgents.home:view' THEN
+      ${unique_user_id} END
+    label: ABC Home View Users
+    group_label: ABC
+    aggregate_type: count_distinct
+
+  abc_home_views:
+    sql: CASE WHEN ${event_name} = 'batchChangeAgents.home:view' THEN 1 END
+    group_label: ABC
+    aggregate_type: count
+
+  abc_apply_users:
+    sql: CASE WHEN ${event_name} = 'batchChangeAgent.applyBatchSpec:succeeded' THEN
+      ${unique_user_id} END
+    label: ABC Apply Users
+    group_label: ABC
+    aggregate_type: count_distinct
+
+  abc_publish_users:
+    sql: CASE WHEN ${event_name} = 'batchChangeAgent.publishWorkspaces:succeeded'
+      THEN ${unique_user_id} END
+    label: ABC Publish Users
+    group_label: ABC
+    aggregate_type: count_distinct
+
+  abc_publish_events:
+    sql: CASE WHEN ${event_name} = 'batchChangeAgent.publishWorkspaces:succeeded'
+      THEN 1 END
+    group_label: ABC
+    aggregate_type: count
+
+  abc_applies:
+    sql: CASE WHEN ${event_name} = 'batchChangeAgent.applyBatchSpec:succeeded' THEN
+      1 END
+    label: ABC Applies
+    group_label: ABC
+    aggregate_type: count
+
+  abc_deep_searches:
+    sql: |-
+      CASE
+        WHEN ${event_name} = 'batchChangeAgent.deepSearchInvoked:succeeded' THEN 1
+        WHEN ${event_name} = 'batchChangeAgent.toolCall:succeeded'
+             AND ${abc_tool_call_id} = 24 THEN 1
+        ELSE 0
+      END
+    label: ABC Deep Searches
+    group_label: ABC
+    aggregate_type: sum
+
+  abc_distinct_batch_changes:
+    sql: |-
+      CASE
+        WHEN LOWER(${feature}) LIKE 'batchchangeagent%'
+             AND ${abc_batch_change_id} IS NOT NULL
+             AND ${abc_batch_change_id} NOT IN ('', '0')
+        THEN ${abc_batch_change_id}
+      END
+    label: Distinct ABC Batch Changes
+    group_label: ABC
+    aggregate_type: count_distinct
+
+  abc_changesets_created:
+    sql: |-
+      CASE
+        WHEN ${feature} = 'batches'
+             AND ${action} = 'executorRunOperation'
+             AND ${abc_current_op} IN (4, 5)
+             AND ${abc_has_error} = 0
+        THEN ${abc_changeset_id}
+      END
+    label: ABC Changesets Created
+    group_label: ABC
+    aggregate_type: count_distinct
+
+  abc_changesets_published:
+    sql: |-
+      CASE
+        WHEN ${feature} = 'batches'
+             AND ${action} = 'executorRunOperation'
+             AND ${abc_current_op} = 4
+             AND ${abc_has_error} = 0
+        THEN ${abc_changeset_id}
+      END
+    label: ABC Changesets Published
+    group_label: ABC
+    aggregate_type: count_distinct
+
+  abc_changesets_drafted:
+    sql: |-
+      CASE
+        WHEN ${feature} = 'batches'
+             AND ${action} = 'executorRunOperation'
+             AND ${abc_current_op} = 5
+             AND ${abc_has_error} = 0
+        THEN ${abc_changeset_id}
+      END
+    label: ABC Changesets Drafted
+    group_label: ABC
+    aggregate_type: count_distinct
+
+  abc_changesets_closed:
+    sql: |-
+      CASE
+        WHEN ${feature} = 'batches'
+             AND ${action} = 'executorRunOperation'
+             AND ${abc_current_op} = 9
+             AND ${abc_has_error} = 0
+        THEN ${abc_changeset_id}
+      END
+    label: ABC Changesets Closed
+    group_label: ABC
+    aggregate_type: count_distinct
+
+  abc_changesets_merged:
+    sql: |-
+      CASE
+        WHEN ${feature} = 'batches' AND ${action} = 'changesetMerged'
+        THEN ${abc_changeset_id}
+      END
+    label: ABC Changesets Merged
+    group_label: ABC
+    aggregate_type: count_distinct
+
+  abc_changesets_still_open:
+    sql: ${abc_changesets_created} - ${abc_changesets_merged} -
+      ${abc_changesets_closed}
+    label: ABC Changesets Still Open
+    group_label: ABC
+    format: number_0
+
+  abc_changeset_merged_pct:
+    sql: SAFE_DIVIDE(${abc_changesets_merged}, NULLIF(${abc_changesets_created}, 0))
+    label: ABC Changeset Merge %
+    group_label: ABC
+    format: percent_1
+
+  abc_first_seen:
+    sql: |-
+      CASE
+        WHEN LOWER(${feature}) LIKE 'batchchangeagents%'
+             OR LOWER(${feature}) LIKE 'batchchangeagent.%'
+        THEN DATE(timestamp)
+      END
+    label: ABC First Seen
+    group_label: ABC
+    aggregate_type: min
+
+  abc_last_seen:
+    sql: |-
+      CASE
+        WHEN LOWER(${feature}) LIKE 'batchchangeagents%'
+             OR LOWER(${feature}) LIKE 'batchchangeagent.%'
+        THEN DATE(timestamp)
+      END
+    label: ABC Last Seen
+    group_label: ABC
+    aggregate_type: max
+
+  agent_view_users:
+    sql: |
+      CASE
+        WHEN ${event_name} = 'batchChangeAgents.agent:view' THEN ${unique_user_id}
+      END
+    group_label: ABC
+    aggregate_type: count_distinct
+
+  agent_views:
+    sql: |
+      CASE
+        WHEN ${event_name} = 'batchChangeAgents.agent:view' THEN 1
+      END
+    group_label: ABC
+    aggregate_type: count
+
+  click_new_users:
+    sql: |
+      CASE
+        WHEN ${event_name} = 'batchChangeAgents.home.create:click' THEN ${unique_user_id}
+      END
+    group_label: ABC
+    aggregate_type: count_distinct
+
+  click_new_events:
+    sql: |
+      CASE
+        WHEN ${event_name} = 'batchChangeAgents.home.create:click' THEN 1
+      END
+    group_label: ABC
+    aggregate_type: count
+
+  user_input_users:
+    sql: |
+      CASE
+        WHEN ${event_name} = 'batchChangeAgent.askUser:submit' THEN ${unique_user_id}
+      END
+    group_label: ABC
+    aggregate_type: count_distinct
+
+  user_input_events:
+    group_label: ABC
+    aggregate_type: count
+    filters:
+      event_name:
+        is: batchChangeAgent.askUser:submit
+
+  create_bc_users:
+    sql: |
+      CASE
+        WHEN ${event_name} = 'batchChangeAgent.processMessage:succeeded' 
+        AND COALESCE(
+          JSON_VALUE(${parameters_metadata}, '$.batchChangeID'),
+          '0'
+        ) != '0'
+        THEN ${unique_user_id}
+      END
+    group_label: ABC
+    aggregate_type: count_distinct
+
+  create_bc_events:
+    sql: |
+      CASE
+        WHEN ${event_name} = 'batchChangeAgent.processMessage:succeeded' 
+        AND COALESCE(
+          JSON_VALUE(${parameters_metadata}, '$.batchChangeID'),
+          '0'
+        ) != '0'
+        THEN 1 ELSE 0
+      END
+    group_label: ABC
+    aggregate_type: sum
+
+  # ── Batch Changes ─────────────────────────────────────────────
+  batch_change_home_view:
+    sql: CASE WHEN ${event_name} = 'batchChanges.list:view' THEN 1 END
+    label: Batch Homepage List Views
+    group_label: Batch Changes
+    aggregate_type: count
+
+  batch_change_run_users:
+    sql: CASE WHEN ${event_name} = 'batches:executeBatchSpec' THEN ${unique_user_id}
+      END
+    label: Batch Specs Executed/Run Users
+    group_label: Batch Changes
+    aggregate_type: count_distinct
+
+  batch_changes_users:
+    sql: |-
+      CASE
+        WHEN ${sourcegrapgh_v2_product} = 'batch'
+             AND ${is_billing_event} = TRUE
+             AND ${service_account} = FALSE
+        THEN ${unique_user_id}
+      END
+    group_label: Search Events
+    aggregate_type: count_distinct
+
+  workspace_execution_completed:
+    sql: CASE WHEN ${event_name} = 'batches.workspaceExecution:completed' THEN 1 END
+    group_label: Batch Changes
+    aggregate_type: count
+
+  workspace_execution_errored:
+    sql: CASE WHEN ${event_name} = 'batches.workspaceExecution:errored' THEN 1 END
+    group_label: Batch Changes
+    aggregate_type: count
+
+  workspace_execution_failed:
+    sql: CASE WHEN ${event_name} = 'batches.workspaceExecution:failed' THEN 1 END
+    group_label: Batch Changes
+    aggregate_type: count
+
+  code_insights_users:
+    sql: |
+      CASE WHEN ${daulookup_product} = 'insight' AND ${is_billing_event} = TRUE AND ${service_account} = FALSE THEN ${unique_user_id} END
+    label: Code Insights Users
+    group_label: Count Distinct Users
+    aggregate_type: count_distinct
+
+  batch_users:
+    sql: |
+      CASE WHEN ${daulookup_product} = 'batch' AND ${is_billing_event} = TRUE AND ${service_account} = FALSE THEN ${unique_user_id} END
+    label: Batch Users
+    group_label: Count Distinct Users
+    aggregate_type: count_distinct
+
+  omni__of_users_with_ui_searches:
+    sql: CASE WHEN ${telligentsourcegraph_telemetry__v2_events.total_active_users} =
+      0 THEN NULL ELSE
+      COALESCE(${telligentsourcegraph_telemetry__v2_events.count_distinct_search_submitted_users},
+      0) / ${telligentsourcegraph_telemetry__v2_events.total_active_users} END
+    label: "% of users with UI Searches"
+    format: PERCENT_0
+
+  intent_per_user:
+    sql: CASE WHEN
+      ${telligentsourcegraph_telemetry__v2_events.abc_users_categorized} = 0
+      THEN NULL ELSE
+      COALESCE(${telligentsourcegraph_telemetry__v2_events.abc_count_categorized},
+      0) / ${telligentsourcegraph_telemetry__v2_events.abc_users_categorized}
+      END
+    label: Intent per User
+    format: NUMBER_1
+
+  count_billing_events:
+    aggregate_type: count
+    filters:
+      is_billing_event:
+        is: true
+
+  code_finder_users:
+    sql: CASE WHEN ${code_finder_filter} AND ${service_account} = FALSE THEN
+      ${unique_user_id} END
+    label: Code Finder Users
+    group_label: Count Distinct Users
+    aggregate_type: count_distinct
+
+  code_finder_events:
+    sql: CASE WHEN ${code_finder_filter} THEN 1 END
+    label: Code Finder Events
+    aggregate_type: count
+
+  smart_hover_users:
+    sql: CASE WHEN ${smart_hover_filter} AND ${service_account} = FALSE THEN
+      ${unique_user_id} END
+    label: Smart Hover Users
+    group_label: Count Distinct Users
+    aggregate_type: count_distinct
+
+  diff_tour_users:
+    sql: CASE WHEN ${diff_tour_filter} AND ${service_account} = FALSE THEN
+      ${unique_user_id} END
+    label: Diff Tours Users
+    group_label: Count Distinct Users
+    aggregate_type: count_distinct
+
+  ds_active_days:
+    sql: ${timestamp[date]}
+    label: DS Active Days
+    group_label: Deep Search
+    aggregate_type: count_distinct
+    filters:
+      event_name:
+        is: deepsearch:search.completed

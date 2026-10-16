@@ -1,0 +1,24 @@
+# Reference this view as telligentsourcegraph_gsheets__acv_tracker_company_kpis
+catalog: telligentsourcegraph
+schema: gsheets
+table_name: acv_tracker_company_kpis
+
+dimensions:
+  total_customers:
+    sql: Total_customers
+
+  total_acv:
+    sql: Total_ACV
+
+  legacy_acv:
+    sql: Legacy_ACV
+
+  quarterly_acv:
+    sql: Quarterly_ACV
+
+  quarterly_iacv:
+    sql: Quarterly_IACV
+
+measures:
+  count:
+    aggregate_type: count

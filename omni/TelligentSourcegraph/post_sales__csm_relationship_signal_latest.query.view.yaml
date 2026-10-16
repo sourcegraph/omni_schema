@@ -1,0 +1,79 @@
+# Reference this view as post_sales__csm_relationship_signal_latest
+label: CSM Relationship Signal (Latest)
+description: Most recent csm_relationship_signal_snapshot row per account,
+  picked by latest run_date.
+
+sql: |-
+  SELECT *
+  FROM `telligentsourcegraph.post_sales.csm_relationship_signal_snapshot`
+  QUALIFY ROW_NUMBER() OVER (
+    PARTITION BY account_name
+    ORDER BY run_date DESC
+  ) = 1
+
+dimensions:
+  account_name:
+    primary_key: true
+
+  run_date:
+    timeframes: [ raw, date, week, month, quarter, year ]
+    convert_tz: false
+
+  csm_relationship_signal_color:
+    sql: |-
+      CASE
+        WHEN csm_relationship_signal_color = 'Green'  THEN '🟩 Green'
+        WHEN csm_relationship_signal_color = 'Yellow' THEN '🟨 Yellow'
+        WHEN csm_relationship_signal_color = 'Red'    THEN '🟥 Red'
+        WHEN csm_relationship_signal_color IS NULL     THEN '❌ CSM Input Missing'
+        ELSE csm_relationship_signal_color
+      END
+    label: CSM Sentiment Color
+
+  csm_relationship_signal_color_sort:
+    sql: |-
+      CASE
+        WHEN csm_relationship_signal_color = 'Green'  THEN 1
+        WHEN csm_relationship_signal_color = 'Yellow' THEN 2
+        WHEN csm_relationship_signal_color = 'Red'    THEN 3
+        WHEN csm_relationship_signal_color IS NULL     THEN 4
+        ELSE 5
+      END
+    label: CSM Sentiment Color (sort)
+    hidden: true
+
+  csm_relationship_signal_overview:
+    label: CSM Sentiment Overview
+
+measures:
+  count:
+    drill_fields: [ account_name ]
+    aggregate_type: count
+
+  distinct_account:
+    sql: ${account_name}
+    label: Distinct Accounts
+    drill_fields: [ account_name ]
+    aggregate_type: count_distinct
+
+  # ── Signal counts (not in LookML, cheap to add) ────────────────
+  accounts_green:
+    sql: CASE WHEN csm_relationship_signal_color = 'Green' THEN 1 END
+    label: Accounts Green
+    aggregate_type: count
+
+  accounts_yellow:
+    sql: CASE WHEN csm_relationship_signal_color = 'Yellow' THEN 1 END
+    label: Accounts Yellow
+    aggregate_type: count
+
+  accounts_red:
+    sql: CASE WHEN csm_relationship_signal_color = 'Red' THEN 1 END
+    label: Accounts Red
+    aggregate_type: count
+
+  accounts_missing_input:
+    sql: CASE WHEN csm_relationship_signal_color IS NULL THEN 1 END
+    label: Accounts Missing CSM Input
+    description: Accounts with no relationship signal recorded
+    aggregate_type: count

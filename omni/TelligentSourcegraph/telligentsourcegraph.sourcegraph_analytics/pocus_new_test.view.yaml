@@ -1,0 +1,54 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__pocus_new_test
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: pocus_new_test
+
+dimensions:
+  email: {}
+  signup_date: {}
+  cody_pro_subscription_status: {}
+  user_account_type: {}
+  num_pricing_page_visits: {}
+  last_pricing_page_visit: {}
+  num_contact_page_visit: {}
+  last_contact_page_visit: {}
+  checkout_started_timestamp: {}
+  checkout_success_timestamp: {}
+  last_chat_model: {}
+  last_autocomplete_model: {}
+  num_search_events_lifetime: {}
+  num_search_events_120day: {}
+  num_search_events_7day: {}
+  cody_clients: {}
+  last_usage_date: {}
+  days_used_last_30: {}
+  days_used_last_7: {}
+  autocomplete_first_use: {}
+  accepted_completions_lifetime: {}
+  accepted_completions_7day: {}
+  accepted_completions_120day: {}
+  completion_acceptance_rate: {}
+  command_first_use: {}
+  commands_run_lifetime: {}
+  commands_run_7day: {}
+  commands_run_120day: {}
+  chat_first_use: {}
+  chat_submitted_lifetime: {}
+  chats_submitted_7day: {}
+  chats_submitted_120day: {}
+  has_used_embeddings: {}
+  country: {}
+
+  new_user_id:
+    format: ID
+
+  external_url:
+    sql: externalUrl
+
+  workspace_id:
+    sql: workspaceId
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

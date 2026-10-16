@@ -1,0 +1,14 @@
+# Reference this view as telligentsourcegraph_post_sales__csm_relationship_signal_snapshot
+catalog: telligentsourcegraph
+schema: post_sales
+table_name: csm_relationship_signal_snapshot
+
+dimensions:
+  run_date: {}
+  account_name: {}
+  csm_relationship_signal_color: {}
+  csm_relationship_signal_overview: {}
+
+measures:
+  count:
+    aggregate_type: count

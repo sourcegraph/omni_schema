@@ -1,0 +1,21 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__total_customer_repos
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: total_customer_repos
+
+dimensions:
+  date: {}
+  installer_email: {}
+  num_repositories_with_upload_records: {}
+  num_repositories_without_upload_records: {}
+  total_repos: {}
+
+  unique_server_id:
+    format: ID
+
+  remote_site_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

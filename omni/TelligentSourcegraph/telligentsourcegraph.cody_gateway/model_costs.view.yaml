@@ -1,0 +1,31 @@
+# Reference this view as telligentsourcegraph_cody_gateway__model_costs
+catalog: telligentsourcegraph
+schema: cody_gateway
+table_name: model_costs
+
+dimensions:
+  long_context_min_input_tokens: {}
+  long_context_prompt_cost_per_million_tokens: {}
+  long_context_completion_cost_per_million_tokens: {}
+  long_context_prompt_cache_hit_cost_per_million_tokens: {}
+  long_context_prompt_cache_write_cost_per_million_tokens: {}
+
+  model:
+    description: The name of the model being used (e.g., "gpt-4", "claude-2",
+      "gpt-3.5-turbo")
+
+  prompt_cost_per_million_tokens:
+    description: The cost to process 1 million input/prompt tokens for this model
+
+  completion_cost_per_million_tokens:
+    description: The cost to generate 1 million output/completion tokens from this model
+
+  prompt_cache_hit_cost_per_million_tokens:
+    description: The cost per million tokens when retrieving cached prompt results
+
+  prompt_cache_write_cost_per_million_tokens:
+    description: The cost per million tokens for writing prompts to the cache storage
+
+measures:
+  count:
+    aggregate_type: count

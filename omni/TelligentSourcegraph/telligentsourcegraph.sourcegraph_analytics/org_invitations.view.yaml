@@ -1,0 +1,33 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__org_invitations
+description: Dotcom PG table replication
+
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: org_invitations
+
+dimensions:
+  created_at: {}
+  notified_at: {}
+  responded_at: {}
+  response_type: {}
+  revoked_at: {}
+  deleted_at: {}
+  recipient_email: {}
+  expires_at: {}
+
+  id:
+    format: ID
+    primary_key: true
+
+  org_id:
+    format: ID
+
+  sender_user_id:
+    format: ID
+
+  recipient_user_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

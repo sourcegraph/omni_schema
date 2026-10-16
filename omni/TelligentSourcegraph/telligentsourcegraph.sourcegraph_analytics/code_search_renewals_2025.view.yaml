@@ -1,0 +1,42 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__code_search_renewals_2025
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: code_search_renewals_2025
+
+dimensions:
+  customer_name: {}
+  account_manager: {}
+  renewal_date: {}
+  products_purchased: {}
+  mau: {}
+  seats: {}
+  mau_to_seats_ratio: {}
+  dau: {}
+  wau: {}
+  dau_to_wau_ratio: {}
+  versions_behind: {}
+  version: {}
+  is_byok: {}
+  deep_search_free_allocation: {}
+  deep_search_consumption: {}
+  deep_search_pct_consumed: {}
+  deep_search_projected_runout_date: {}
+  deep_search_active_users: {}
+  deployment_method: {}
+  has_mcp_usage: {}
+  avg_daily_mcp_users: {}
+  sales_play_cloud_migration: {}
+  sales_play_version_upgrade: {}
+  sales_play_search_health: {}
+  sales_play_introduce_deep_search: {}
+  sales_play_get_deep_search_eligible: {}
+
+  customer_id:
+    format: ID
+
+  account_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

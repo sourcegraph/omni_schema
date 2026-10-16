@@ -1,0 +1,16 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__marketing_ad_campaign_mapping_sq
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: marketing_ad_campaign_mapping_sq
+
+dimensions:
+  campaign_name: {}
+  campaign_type: {}
+  campaign_source: {}
+
+  campaign_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

@@ -1,0 +1,12 @@
+# Reference this view as telligentsourcegraph_telemetry_staging__last_run
+catalog: telligentsourcegraph
+schema: telemetry_staging
+table_name: last_run
+
+dimensions:
+  runtime: {}
+  table_name: {}
+
+measures:
+  count:
+    aggregate_type: count

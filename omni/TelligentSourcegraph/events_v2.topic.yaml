@@ -1,0 +1,18 @@
+base_view: telligentsourcegraph_telemetry__v2_events
+label: Events (v2)
+description: All V2 user events
+
+default_filters:
+  telligentsourcegraph_telemetry__v2_events.timestamp:
+    time_for_duration: [ 30 day ago, 30 day ]
+
+joins:
+  telligentsourcegraph_sourcegraph_analytics__server_instances:
+    telligentsourcegraph_sfdc_current__dim_account_details: {}
+    telligentsourcegraph_sfdc_current__looker_dim_account_details: {}
+  telligentsourcegraph_telemetry_staging__cloud_users: {}
+  telligentsourcegraph_credits__consumption_events: {}
+
+ai_context: |-
+  IMPORTANT:
+    * All queries using a v2_events field requires the timestamp field filter. Otherwise you get an error message: Cannot query over table 'telemetry.v2_events' without a filter over column(s) 'timestamp' that can be used for partition elimination

@@ -1,0 +1,28 @@
+# Reference this view as telligentsourcegraph_telemtry_analytics__v2_weekly_retention_weekly_cohorts
+catalog: telligentsourcegraph
+schema: telemtry_analytics
+table_name: v2_weekly_retention_weekly_cohorts
+
+dimensions:
+  cohort_week: {}
+  cohort_size: {}
+  week_1_active: {}
+  week_1_retention: {}
+  week_2_active: {}
+  week_2_retention: {}
+  week_3_active: {}
+  week_3_retention: {}
+  week_4_active: {}
+  week_4_retention: {}
+  week_6_active: {}
+  week_6_retention: {}
+  week_8_active: {}
+  week_8_retention: {}
+  week_12_active: {}
+  week_12_retention: {}
+  week_16_active: {}
+  week_16_retention: {}
+
+measures:
+  count:
+    aggregate_type: count

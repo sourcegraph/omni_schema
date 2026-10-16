@@ -1,0 +1,154 @@
+# Reference this view as telligentsourcegraph_pings_data_model_transformed__search_users_weekly
+catalog: telligentsourcegraph
+schema: pings_data_model_transformed
+table_name: Search_users_weekly
+
+dimensions:
+  timestamp: {}
+  installer_email: {}
+  f0_: {}
+
+  remote_site_id:
+    format: ID
+
+  literal_usercount:
+    sql: Literal_UserCount
+
+  committer_usercount:
+    sql: Committer_UserCount
+
+  repogroup_usercount:
+    sql: Repogroup_UserCount
+
+  operatoror_usercount:
+    sql: OperatorOr_UserCount
+
+  before_usercount:
+    sql: Before_UserCount
+
+  timeout_usercount:
+    sql: Timeout_UserCount
+
+  operatornot_usercount:
+    sql: OperatorNot_UserCount
+
+  nonglobalcontext_usercount:
+    sql: NonGlobalContext_UserCount
+
+  selectcommitdiffremoved_usercount:
+    sql: SelectCommitDiffRemoved_UserCount
+
+  author_usercount:
+    sql: Author_UserCount
+
+  structural_usercount:
+    sql: Structural_UserCount
+
+  lang_usercount:
+    sql: Lang_UserCount
+
+  symbol_usercount:
+    sql: Symbol_UserCount
+
+  patterntype_usercount:
+    sql: PatternType_UserCount
+
+  index_usercount:
+    sql: Index_UserCount
+
+  onlypatterns_usercount:
+    sql: OnlyPatterns_UserCount
+
+  case_usercount:
+    sql: Case_UserCount
+
+  selectcontent_usercount:
+    sql: SelectContent_UserCount
+
+  diff_usercount:
+    sql: Diff_UserCount
+
+  fork_usercount:
+    sql: Fork_UserCount
+
+  repo_usercount:
+    sql: Repo_UserCount
+
+  repohascommitafter_usercount:
+    sql: Repohascommitafter_UserCount
+
+  repocontainscontent_usercount:
+    sql: RepoContainsContent_UserCount
+
+  repocontainscommitafter_usercount:
+    sql: RepoContainsCommitAfter_UserCount
+
+  after_usercount:
+    sql: After_UserCount
+
+  repocontains_usercount:
+    sql: RepoContains_UserCount
+
+  archived_usercount:
+    sql: Archived_UserCount
+
+  repodependencies_usercount:
+    sql: RepoDependencies_UserCount
+
+  message_usercount:
+    sql: Message_UserCount
+
+  operatorand_usercount:
+    sql: OperatorAnd_UserCount
+
+  repohasfile_usercount:
+    sql: Repohasfile_UserCount
+
+  selectsymbol_usercount:
+    sql: SelectSymbol_UserCount
+
+  onlypatternsthreeormore_usercount:
+    sql: OnlyPatternsThreeOrMore_UserCount
+
+  selectrepo_usercount:
+    sql: SelectRepo_UserCount
+
+  regexp_usercount:
+    sql: Regexp_UserCount
+
+  countall_usercount:
+    sql: CountAll_UserCount
+
+  searchmodes_interactive_usercount:
+    sql: SearchModes_Interactive_UserCount
+
+  count_usercount:
+    sql: Count_UserCount
+
+  file_usercount:
+    sql: File_UserCount
+
+  type_usercount:
+    sql: Type_UserCount
+
+  content_usercount:
+    sql: Content_UserCount
+
+  repocontainsfile_usercount:
+    sql: RepoContainsFile_UserCount
+
+  commit_usercount:
+    sql: Commit_UserCount
+
+  selectfile_usercount:
+    sql: SelectFile_UserCount
+
+  searchmodes_plaintext_usercount:
+    sql: SearchModes_PlainText_UserCount
+
+  select_commit_diff_added_user_countt:
+    sql: SelectCommitDiffAddedUserCountt
+
+measures:
+  count:
+    aggregate_type: count

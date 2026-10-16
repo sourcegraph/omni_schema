@@ -1,0 +1,15 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__hubspot_sync_product_usage_data
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: hubspot_sync_product_usage_data
+
+dimensions:
+  last_product_usage: {}
+  days_active_last_30: {}
+
+  unique_server_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

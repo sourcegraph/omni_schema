@@ -1,0 +1,16 @@
+# Reference this view as telligentsourcegraph_gsheets__bamboo_sales_team_looker
+catalog: telligentsourcegraph
+schema: gsheets
+table_name: bamboo_sales_team_looker
+
+dimensions:
+  name: {}
+  division_current: {}
+  title_current: {}
+  effective_date_current: {}
+  title_previous: {}
+  effective_date_previous: {}
+
+measures:
+  count:
+    aggregate_type: count

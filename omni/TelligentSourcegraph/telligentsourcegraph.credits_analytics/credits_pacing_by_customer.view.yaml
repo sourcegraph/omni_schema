@@ -1,0 +1,224 @@
+# Reference this view as telligentsourcegraph_credits_analytics__credits_pacing_by_customer
+hidden: true
+
+catalog: telligentsourcegraph
+schema: credits_analytics
+table_name: credits_pacing_by_customer
+
+dimensions:
+  account_name: {}
+  subscription_name: {}
+  # ── Counts ─────────────────────────────────────────────────────
+  active_buckets: {}
+  active_subscriptions: {}
+
+  instance_domains:
+    label: Instance Domain
+
+  subscription_id:
+    format: ID
+    primary_key: true
+
+  account_id:
+    format: ID
+
+  # ── Credits ────────────────────────────────────────────────────
+  credits_allocated:
+    format: number_0
+
+  credits_consumed:
+    format: number_0
+
+  credit_shortfall:
+    format: number_0
+
+  # ── Rates ──────────────────────────────────────────────────────
+  daily_burn_rate:
+    format: number_1
+
+  allocation_daily_rate:
+    format: number_1
+
+  monthly_burn_rate:
+    format: number_0
+
+  allocation_monthly_rate:
+    format: number_0
+
+  # ── Percentages ────────────────────────────────────────────────
+  consumption_pct:
+    format: percent_1
+
+  pace_ratio_pct:
+    format: percent_1
+
+  projected_end_consumption_pct:
+    format: percent_1
+
+  time_left_pct:
+    format: percent_1
+
+  # ── Dates ──────────────────────────────────────────────────────
+  earliest_bucket_start:
+    label: Buckets Start
+    timeframes: [ raw, date, week, month, quarter, year ]
+    convert_tz: false
+
+  latest_bucket_expiry:
+    label: Buckets End
+    timeframes: [ raw, date, week, month, quarter, year ]
+    convert_tz: false
+
+  projected_exhaustion_date:
+    timeframes: [ raw, date, week, month, quarter, year ]
+    convert_tz: false
+
+  # ── Pace band ──────────────────────────────────────────────────
+  pace_band:
+    sql: |-
+      CASE pace_band
+        WHEN 'a_on_or_ahead'          THEN '🟢 On or Ahead (>=90%)'
+        WHEN 'b_slightly_behind'      THEN '🟡 Slightly Behind (70-90%)'
+        WHEN 'c_significantly_behind' THEN '🟠 Significantly Behind (50-70%)'
+        WHEN 'd_severely_behind'      THEN '🔴 Severely Behind (<50%)'
+        WHEN 'e_onboarding'      THEN '🆕 Onboarding'
+      END
+    label: Pace Band
+
+  pace_band_sort:
+    sql: |-
+      CASE pace_band
+        WHEN 'a_on_or_ahead'          THEN 1
+        WHEN 'b_slightly_behind'      THEN 2
+        WHEN 'c_significantly_behind' THEN 3
+        WHEN 'd_severely_behind'      THEN 4
+        WHEN 'e_onboarding'      THEN 4
+      END
+    label: Pace Band (sort)
+    description: Numeric sort key so pace bands order best-to-worst in charts
+    hidden: true
+
+  # ── Derived: runway vs. expiry ─────────────────────────────────
+  # Was a `measure` in LookML, but it's row-level (no aggregation),
+  # so it belongs here — see notes.
+  credit_expiry_delta_days:
+    sql: |-
+      CASE
+        WHEN latest_bucket_expiry < CURRENT_DATE() THEN NULL
+        ELSE DATE_DIFF(latest_bucket_expiry, projected_exhaustion_date, DAY)
+      END
+    label: Credit Expiry Delta (Days)
+    description: Days between projected exhaustion and bucket expiry. Positive =
+      credits expire after they run out (customer exhausts first). Negative =
+      credits expire before they're consumed (customer leaves credits on the
+      table).
+
+measures:
+  count:
+    label: Count
+    drill_fields: [ account_name ]
+    aggregate_type: count
+
+  # ── Population totals ──────────────────────────────────────────
+  total_credits_allocated:
+    sql: ${credits_allocated}
+    format: number_0
+    aggregate_type: sum
+
+  total_credits_consumed:
+    sql: ${credits_consumed}
+    format: number_0
+    aggregate_type: sum
+
+  total_credit_shortfall:
+    sql: ${credit_shortfall}
+    format: number_0
+    aggregate_type: sum
+
+  total_daily_burn_rate:
+    sql: ${daily_burn_rate}
+    format: number_1
+    aggregate_type: sum
+
+  total_monthly_burn_rate:
+    sql: ${monthly_burn_rate}
+    format: number_0
+    aggregate_type: sum
+
+  # ── Allocation-weighted rate (NOT a simple average) ────────────
+  # Weighting by credits avoids a 1k-credit account swinging the
+  # headline the same as a 1M-credit account.
+  overall_consumption_pct:
+    sql: SAFE_DIVIDE(${total_credits_consumed}, ${total_credits_allocated})
+    label: Overall Consumption %
+    format: percent_1
+
+  # ── Plain averages — "typical account" framing ─────────────────
+  avg_pace_ratio_pct:
+    sql: ${pace_ratio_pct}
+    format: percent_1
+    aggregate_type: average
+
+  avg_time_left_pct:
+    sql: ${time_left_pct}
+    format: percent_1
+    aggregate_type: average
+
+  avg_projected_end_consumption_pct:
+    sql: ${projected_end_consumption_pct}
+    format: percent_1
+    aggregate_type: average
+
+  # ── Band / laggard counts ──────────────────────────────────────
+  accounts_behind:
+    sql: |-
+      CASE
+        WHEN ${pace_band} IN (
+          '🟠 Significantly Behind (50-70%)',
+          '🔴 Severely Behind (<50%)'
+        ) THEN 1
+      END
+    label: Accounts Behind
+    description: Accounts in the Significantly or Severely Behind bands
+    drill_fields: [ account_name, pace_ratio_pct, credit_shortfall ]
+    aggregate_type: count
+
+  accounts_on_or_ahead:
+    sql: CASE WHEN ${pace_band} = '🟢 On or Ahead (>=90%)' THEN 1 END
+    label: Accounts On or Ahead
+    aggregate_type: count
+
+  pct_accounts_behind:
+    sql: SAFE_DIVIDE(${accounts_behind}, ${count})
+    label: "% Accounts Behind"
+    format: percent_1
+
+  # ── Enrichment: not in LookML, cheap to add ────────────────────
+  accounts_slightly_behind:
+    sql: CASE WHEN ${pace_band} = '🟡 Slightly Behind (70-90%)' THEN 1 END
+    label: Accounts Slightly Behind
+    aggregate_type: count
+
+  accounts_severely_behind:
+    sql: CASE WHEN ${pace_band} = '🔴 Severely Behind (<50%)' THEN 1 END
+    label: Accounts Severely Behind
+    aggregate_type: count
+
+  accounts_with_shortfall:
+    sql: CASE WHEN ${credit_shortfall} > 0 THEN 1 END
+    label: Accounts With Shortfall
+    description: Accounts projected to consume more credits than allocated
+    aggregate_type: count
+
+  median_pace_ratio_pct:
+    sql: ${pace_ratio_pct}
+    label: Median Pace Ratio %
+    format: percent_1
+    description: Less sensitive than the average to a few extreme outliers
+    aggregate_type: median
+
+  distinct_accounts:
+    sql: ${account_id}
+    label: Distinct Accounts
+    description: Use instead of Count when rows are per-subscription
+    aggregate_type: count_distinct

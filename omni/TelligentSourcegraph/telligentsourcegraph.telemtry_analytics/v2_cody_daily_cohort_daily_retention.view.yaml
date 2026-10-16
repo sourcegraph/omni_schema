@@ -1,0 +1,38 @@
+# Reference this view as telligentsourcegraph_telemtry_analytics__v2_cody_daily_cohort_daily_retention
+catalog: telligentsourcegraph
+schema: telemtry_analytics
+table_name: v2_cody_daily_cohort_daily_retention
+
+dimensions:
+  cohort_date: {}
+  cohort_size: {}
+  day_0_active: {}
+  day_0_retention: {}
+  day_1_active: {}
+  day_1_retention: {}
+  day_2_active: {}
+  day_2_retention: {}
+  day_3_active: {}
+  day_3_retention: {}
+  day_4_active: {}
+  day_4_retention: {}
+  day_5_active: {}
+  day_5_retention: {}
+  day_6_active: {}
+  day_6_retention: {}
+  day_7_active: {}
+  day_7_retention: {}
+  day_8_active: {}
+  day_8_retention: {}
+  day_9_active: {}
+  day_9_retention: {}
+  day_10_active: {}
+  day_10_retention: {}
+  day_14_active: {}
+  day_14_retention: {}
+  day_28_active: {}
+  day_28_retention: {}
+
+measures:
+  count:
+    aggregate_type: count

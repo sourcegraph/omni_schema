@@ -1,0 +1,26 @@
+# Reference this view as telligentsourcegraph_pings_data_model_transformed__search_jobs_views_weekly
+catalog: telligentsourcegraph
+schema: pings_data_model_transformed
+table_name: search_jobs_views_weekly
+
+dimensions:
+  timestamp: {}
+  installer_email: {}
+  ping_type: {}
+  week: {}
+  weekly_search_jobs_page_views: {}
+  weekly_search_jobs_create_click: {}
+  weekly_search_jobs_download_clicks: {}
+  weekly_search_jobs_view_logs_clicks: {}
+  weekly_search_jobs_unique_page_views: {}
+  weekly_search_jobs_unique_download_clicks: {}
+  weekly_search_jobs_unique_view_logs_clicks: {}
+  total_jobs_validation_errors: {}
+  total_jobs_search_form_shown_valid_state: {}
+
+  remote_site_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

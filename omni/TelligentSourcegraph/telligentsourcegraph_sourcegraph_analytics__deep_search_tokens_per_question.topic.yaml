@@ -1,0 +1,6 @@
+base_view: telligentsourcegraph_sourcegraph_analytics__deep_search_tokens_per_question
+label: DS Tokens Per Question
+
+joins:
+  telligentsourcegraph_sourcegraph_analytics__server_instances:
+    telligentsourcegraph_sfdc_current__dim_account_details: {}

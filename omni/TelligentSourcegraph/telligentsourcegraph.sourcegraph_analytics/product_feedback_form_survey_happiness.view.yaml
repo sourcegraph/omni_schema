@@ -1,0 +1,26 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__product_feedback_form_survey_happiness
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: product_feedback_form_survey_happiness
+
+dimensions:
+  dte: {}
+  feedback_text: {}
+
+  id:
+    format: ID
+    primary_key: true
+
+  user_id:
+    sql: userId
+    format: ID
+
+  external_url:
+    sql: externalUrl
+
+  primary_email:
+    sql: primaryEmail
+
+measures:
+  count:
+    aggregate_type: count

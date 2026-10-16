@@ -1,0 +1,16 @@
+# Reference this view as telligentsourcegraph_gsheets__marketing_ad_campaign_mapping_
+catalog: telligentsourcegraph
+schema: gsheets
+table_name: "marketing_ad_campaign_mapping "
+
+dimensions:
+  campaign_name: {}
+  campaign_type: {}
+  campaign_source: {}
+
+  campaign_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

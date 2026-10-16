@@ -1,0 +1,19 @@
+# Reference this view as telligentsourcegraph_pings_data_model_transformed__dependency_code_host_version
+catalog: telligentsourcegraph
+schema: pings_data_model_transformed
+table_name: dependency_code_host_version
+
+dimensions:
+  installer_email: {}
+  redis_store_version: {}
+  redis_cache_version: {}
+  postgres_version: {}
+  external_service_kind: {}
+  version: {}
+
+  remote_site_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

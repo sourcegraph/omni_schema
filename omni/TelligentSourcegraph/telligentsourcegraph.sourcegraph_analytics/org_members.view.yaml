@@ -1,0 +1,27 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__org_members
+description: Dotcom PG table replication
+
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: org_members
+
+dimensions:
+  created_at: {}
+  updated_at: {}
+
+  id:
+    format: ID
+    primary_key: true
+
+  org_id:
+    format: ID
+
+  user_id:
+    format: ID
+
+  tenant_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

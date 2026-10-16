@@ -1,0 +1,41 @@
+# Reference this view as telligentsourcegraph_enterprise_portal__tuple
+description: Enterprise Portal Tuple data with extracted subscription identifiers
+
+catalog: telligentsourcegraph
+schema: enterprise_portal
+table_name: tuple
+
+dimensions:
+  store: {}
+  object_type: {}
+  relation: {}
+  user_type: {}
+  ulid: {}
+  inserted_at: {}
+  condition_name: {}
+  condition_context: {}
+
+  enterprise_subscription_id:
+    format: ID
+
+  sams_external_id:
+    sql: samsExternalId
+    format: ID
+
+  _user:
+    hidden: true
+
+  datastream_metadata:
+    parent_field: datastream_metadata
+
+  datastream_metadata_source_timestamp:
+    sql: datastream_metadata.source_timestamp
+    parent_field: datastream_metadata
+
+  datastream_metadata_uuid:
+    sql: datastream_metadata.`uuid`
+    parent_field: datastream_metadata
+
+measures:
+  count:
+    aggregate_type: count

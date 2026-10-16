@@ -1,0 +1,24 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__workspaces_retention_weekly
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: workspaces_retention_weekly
+
+dimensions:
+  cohort_week: {}
+  total_workspaces: {}
+  week_1_retention: {}
+  week_1_workspaces: {}
+  week_2_retention: {}
+  week_2_workspaces: {}
+  week_3_retention: {}
+  week_3_workspaces: {}
+  week_4_retention: {}
+  week_4_workspaces: {}
+  week_5_retention: {}
+  week_5_workspaces: {}
+  week_6_retention: {}
+  week_6_workspaces: {}
+
+measures:
+  count:
+    aggregate_type: count

@@ -1,0 +1,30 @@
+# Reference this view as telligentsourcegraph_telemetry_staging__deep_search_activity
+description: Lifetime hourly Deep Search consumption activity used for customer
+  milestone detection.
+
+catalog: telligentsourcegraph
+schema: telemetry_staging
+table_name: deep_search_activity
+
+dimensions:
+  activity_hour:
+    description: UTC hour in which the Deep Search query was consumed.
+
+  external_url:
+    sql: externalUrl
+    description: Sourcegraph instance that emitted the consumption event.
+
+  unique_user_id:
+    sql: uniqueUserId
+    format: ID
+    description: Telemetry unique user identifier; null when the event cannot be attributed.
+
+  user_key:
+    description: Non-null user key used by the incremental merge.
+
+  query_count:
+    description: Distinct Deep Search consumption events for this instance, user, and hour.
+
+measures:
+  count:
+    aggregate_type: count

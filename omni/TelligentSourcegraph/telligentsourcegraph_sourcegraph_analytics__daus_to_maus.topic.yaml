@@ -1,0 +1,11 @@
+base_view: telligentsourcegraph_sourcegraph_analytics__daus_to_maus
+label: DAUs to MAUs
+
+joins:
+  telligentsourcegraph_sourcegraph_analytics__server_instances:
+    telligentsourcegraph_sfdc_current__dim_account_details: {}
+    telligentsourcegraph_sfdc_current__looker_dim_account_details:
+      post_sales__customer_health_score_latest:
+        post_sales__customer_momentum_score_latest: {}
+        post_sales__csm_relationship_signal_latest: {}
+      telligentsourcegraph_post_sales__digital_program_user_funnel: {}
