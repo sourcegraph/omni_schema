@@ -14,6 +14,11 @@ dimensions:
   prompt_cache_write_cost_per_million_tokens: {}
   prompt_cache_hit_cost_per_million_tokens: {}
 
+  inference_limit:
+    sql: "44880"
+    format: $#,##0
+    hidden: true
+
   primary_key:
     sql: CONCAT(${identifier}, '_', CAST(${created_at[date]} AS STRING))
     description: Unique identifier combining user ID and created timestamp
@@ -207,3 +212,14 @@ measures:
     label: Calculated Total Costs
     format: $#,##0
     hidden: true
+
+  inference_limit_measure:
+    sql: ${inference_limit}
+    label: Inference Limit
+    format: $#,##0
+    aggregate_type: max
+
+  inference_attainment:
+    sql: SAFE_DIVIDE(${total_costs}, ${inference_limit_measure})
+    label: Inference Attainment
+    format: percent_1
