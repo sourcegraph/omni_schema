@@ -78,7 +78,8 @@ dimensions:
         WHEN 'b_slightly_behind'      THEN '🟡 Slightly Behind (70-90%)'
         WHEN 'c_significantly_behind' THEN '🟠 Significantly Behind (50-70%)'
         WHEN 'd_severely_behind'      THEN '🔴 Severely Behind (<50%)'
-        WHEN 'e_onboarding'      THEN '🆕 Onboarding'
+        WHEN 'e_onboarding_new_customer'      THEN '🆕 Onboarding New Customer'
+      WHEN 'f_new_bucket_ramping'      THEN 'New Bucket Ramping'
       END
     label: Pace Band
 
@@ -89,7 +90,8 @@ dimensions:
         WHEN 'b_slightly_behind'      THEN 2
         WHEN 'c_significantly_behind' THEN 3
         WHEN 'd_severely_behind'      THEN 4
-        WHEN 'e_onboarding'      THEN 4
+        WHEN 'f_new_bucket_ramping' THEN 5
+        WHEN 'e_onboarding'      THEN 6
       END
     label: Pace Band (sort)
     description: Numeric sort key so pace bands order best-to-worst in charts
