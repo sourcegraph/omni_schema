@@ -79,7 +79,7 @@ dimensions:
         WHEN 'c_significantly_behind' THEN '🟠 Significantly Behind (50-70%)'
         WHEN 'd_severely_behind'      THEN '🔴 Severely Behind (<50%)'
         WHEN 'e_onboarding_new_customer'      THEN '🆕 Onboarding New Customer'
-      WHEN 'f_new_bucket_ramping'      THEN 'New Bucket Ramping'
+      WHEN 'f_new_bucket_ramping'      THEN '⏳ New Bucket Ramping'
       END
     label: Pace Band
 
