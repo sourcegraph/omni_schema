@@ -3745,8 +3745,7 @@ measures:
     sql: |
       CASE
         WHEN ${feature} = 'batchChangeAgent.processMessage'
-        THEN JSON_VALUE(${parameters_metadata}, '$.agentID')
-      END
+        THEN CONCAT(${external_url}, ':', JSON_VALUE(${parameters_metadata}, '$.agentID')) END
     label: ABC Unique Agents
     group_label: ABC
     aggregate_type: count_distinct
