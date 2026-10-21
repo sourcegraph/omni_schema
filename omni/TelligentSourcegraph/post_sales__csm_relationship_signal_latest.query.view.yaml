@@ -12,8 +12,7 @@ sql: |-
   ) = 1
 
 dimensions:
-  account_name:
-    primary_key: true
+  account_name: {}
 
   run_date:
     convert_tz: false
