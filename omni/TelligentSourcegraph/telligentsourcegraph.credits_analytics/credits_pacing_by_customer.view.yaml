@@ -91,7 +91,7 @@ dimensions:
         WHEN 'c_significantly_behind' THEN 3
         WHEN 'd_severely_behind'      THEN 4
         WHEN 'f_new_bucket_ramping' THEN 5
-        WHEN 'e_onboarding'      THEN 6
+        WHEN 'e_onboarding_new_customer'      THEN 6
       END
     label: Pace Band (sort)
     description: Numeric sort key so pace bands order best-to-worst in charts
