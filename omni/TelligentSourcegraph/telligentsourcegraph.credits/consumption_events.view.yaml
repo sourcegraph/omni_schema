@@ -37,6 +37,7 @@ dimensions:
         WHEN 6 THEN 'Diff Tour'
         WHEN 7 THEN 'Agentic Batch Changes - Tier 1 (1-100)' 
         WHEN 8 THEN 'Agentic Batch Changes - Tier 2 (101-300)'
+        WHEN 9 THEN 'Agentic Batch Changes - Tier 3 (300+)'
         ELSE CAST(${sku} AS STRING)
       END
     label: SKU Name
