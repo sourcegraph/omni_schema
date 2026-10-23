@@ -182,47 +182,71 @@ measures:
     aggregate_type: count_distinct
 
   users_delivered:
-    sql: CASE WHEN was_delivered = 1 THEN ${unique_user_id} END
+    sql: ${unique_user_id}
     label: Users Delivered
     drill_fields: [ email, account_name ]
     aggregate_type: count_distinct
+    filters:
+      was_delivered:
+        is: 1
 
   users_opened:
-    sql: CASE WHEN was_opened = 1 THEN ${unique_user_id} END
+    sql: ${unique_user_id}
     label: Users Opened
     drill_fields: [ email, account_name ]
     aggregate_type: count_distinct
+    filters:
+      was_opened:
+        is: 1
 
   users_clicked:
-    sql: CASE WHEN was_clicked = 1 THEN ${unique_user_id} END
+    sql: ${unique_user_id}
     label: Users Clicked
     drill_fields: [ email, account_name ]
     aggregate_type: count_distinct
+    filters:
+      was_clicked:
+        is: 1
 
   open_rate:
     sql: SAFE_DIVIDE(${users_opened}, ${users_delivered})
     label: "% Opened"
     format: percent_1
+    drill_fields: [ email, account_name, first_delivered_date, was_opened, first_opened_date ]
 
   click_rate:
     sql: SAFE_DIVIDE(${users_clicked}, ${users_delivered})
     label: "% Clicked"
     format: percent_1
+    drill_fields:
+      [
+        email,
+        account_name,
+        first_delivered_date,
+        was_clicked,
+        first_clicked_date
+      ]
 
   # ── Product activation ─────────────────────────────────────────
   users_activated:
-    sql: CASE WHEN ${activated} THEN ${unique_user_id} END
+    sql: ${unique_user_id}
     label: Users Activated
     description: Users who completed the program-specific success action
     drill_fields: [ email, account_name, first_delivered_date ]
     aggregate_type: count_distinct
+    filters:
+      activated:
+        is: true
 
   accounts_activated:
-    sql: CASE WHEN ${activated} THEN ${account_name} END
+    sql: ${account_name}
     label: Accounts Activated
     description: Accounts with at least one user who completed the success action
     drill_fields: [ account_name ]
     aggregate_type: count_distinct
+    filters:
+      activated:
+        is: true
 
   pct_accounts_activated:
     sql: SAFE_DIVIDE(${accounts_activated}, ${total_account})
@@ -234,6 +258,14 @@ measures:
     label: "% Activated"
     format: percent_1
     description: Program-specific activation rate (success action after delivery)
+    drill_fields:
+      [
+        email,
+        account_name,
+        first_delivered_date,
+        activated,
+        program_success_date
+      ]
 
   total_success_actions:
     sql: ${program_success_count}
@@ -293,10 +325,16 @@ measures:
     aggregate_type: count_distinct
 
   users_not_opened:
-    sql: CASE WHEN was_opened = 0 AND was_delivered = 1 THEN ${unique_user_id} END
+    sql: ${unique_user_id}
     label: Users Not Opened
     description: Users who were delivered but did not open
+    drill_fields: [ email, account_name ]
     aggregate_type: count_distinct
+    filters:
+      was_opened:
+        is: 0
+      was_delivered:
+        is: 1
 
   activation_rate_post_opened:
     sql: SAFE_DIVIDE(${users_activated_post_open}, ${users_opened})
