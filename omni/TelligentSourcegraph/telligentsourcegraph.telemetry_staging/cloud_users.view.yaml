@@ -29,7 +29,7 @@ dimensions:
     sql: primaryEmail
 
   service_account:
-    sql: serviceAccount
+    sql: COALESCE(CAST(serviceAccount AS BOOL), FALSE)
 
   assigned_rbac_roles:
     sql: assignedRbacRoles

@@ -274,6 +274,16 @@
     ${telligentsourcegraph_telemetry_staging__cloud_users.user_id}
   relationship_type: many_to_one
 
+# Consumption Events <> Cloud users 
+- join_from_view: telligentsourcegraph_credits__consumption_events
+  join_to_view: telligentsourcegraph_telemetry_staging__cloud_users
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_credits__consumption_events.instance_domain} =
+    ${telligentsourcegraph_telemetry_staging__cloud_users.external_url} AND
+    CAST(${telligentsourcegraph_credits__consumption_events.user_id} AS STRING)
+    = ${telligentsourcegraph_telemetry_staging__cloud_users.user_id}
+  relationship_type: many_to_one
+
 # Dim Account <> Telemetry Status
 - join_from_view: telligentsourcegraph_sfdc_current__dim_account_details
   join_to_view: telligentsourcegraph_gsheets__customer_telemetry_status_updated

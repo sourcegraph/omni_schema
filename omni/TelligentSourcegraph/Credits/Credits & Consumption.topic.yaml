@@ -12,6 +12,7 @@ joins:
   telligentsourcegraph_enterprise_portal__subscriptions:
     telligentsourcegraph_sfdc_current__looker_dim_account_details:
       telligentsourcegraph_credits_analytics__credits_pacing_by_customer: {}
+  telligentsourcegraph_telemetry_staging__cloud_users: {}
 
 views:
   telligentsourcegraph_credits__consumption_events:
