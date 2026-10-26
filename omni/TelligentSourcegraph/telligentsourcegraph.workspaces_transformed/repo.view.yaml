@@ -1,0 +1,39 @@
+# Reference this view as telligentsourcegraph_workspaces_transformed__repo
+catalog: telligentsourcegraph
+schema: workspaces_transformed
+table_name: repo
+
+dimensions:
+  publish_time: {}
+  timestamp: {}
+  feature: {}
+  action: {}
+  server_version: {}
+  metadata: {}
+  client_version: {}
+  client_name: {}
+
+  event_name:
+    sql: eventName
+
+  workspace_id:
+    sql: workspaceId
+    format: ID
+
+  external_url:
+    sql: externalUrl
+
+  id:
+    format: ID
+    primary_key: true
+
+  request_id:
+    sql: requestId
+    format: ID
+
+  private_metadata:
+    sql: privateMetadata
+
+measures:
+  count:
+    aggregate_type: count

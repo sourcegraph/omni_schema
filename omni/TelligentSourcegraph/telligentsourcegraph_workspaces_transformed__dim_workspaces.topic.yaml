@@ -1,0 +1,4 @@
+base_view: telligentsourcegraph_workspaces_transformed__dim_workspaces
+label: Dim Workspaces
+
+joins: {}

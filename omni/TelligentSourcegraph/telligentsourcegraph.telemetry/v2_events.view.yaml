@@ -4,6 +4,8 @@ schema: telemetry
 table_name: v2_events
 
 dimensions:
+  workspaceId: {}
+
   publish_time:
     description: Timestamp of when the event landed in our data-warehouse.
 
@@ -1709,7 +1711,7 @@ measures:
 
   search_submitted:
     sql: CASE WHEN ${event_name} = 'search:submit' THEN 1 END
-    label: Search Submitted Count
+    label: UI Searches
     group_label: Search Events
     aggregate_type: count
 

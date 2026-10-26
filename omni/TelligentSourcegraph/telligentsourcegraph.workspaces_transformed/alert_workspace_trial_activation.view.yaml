@@ -1,0 +1,51 @@
+# Reference this view as telligentsourcegraph_workspaces_transformed__alert_workspace_trial_activation
+catalog: telligentsourcegraph
+schema: workspaces_transformed
+table_name: alert_workspace_trial_activation
+
+dimensions:
+  pk: {}
+  trial_start_date: {}
+  workspace_name: {}
+  workspace_display_name: {}
+  created_at: {}
+  original_state: {}
+  workspace_state: {}
+  open_invite_enabled: {}
+  purchased_seats: {}
+  purchased_seats_last_updated: {}
+  consumed_seats_last_updated: {}
+  consumed_seats: {}
+  repo_data_last_updated: {}
+  num_users: {}
+  workspace_admin_emails: {}
+  feature_used_formatted: {}
+  n_users: {}
+  ds_users: {}
+  mcp_users: {}
+  ui_search_users: {}
+  ai_query_assist_users: {}
+  bc_executed_users: {}
+  insights_hover_users: {}
+  code_nav_users: {}
+  billing_users: {}
+
+  workspace_id:
+    sql: workspaceId
+    format: ID
+
+  num_repositories:
+    sql: numRepositories
+
+  total_disk_size_bytes:
+    sql: totalDiskSizeBytes
+
+  workspace_admin_userids:
+    sql: workspace_admin_userIds
+
+  external_url:
+    sql: externalUrl
+
+measures:
+  count:
+    aggregate_type: count

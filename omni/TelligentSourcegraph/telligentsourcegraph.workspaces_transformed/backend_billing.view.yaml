@@ -1,0 +1,67 @@
+# Reference this view as telligentsourcegraph_workspaces_transformed__backend_billing
+catalog: telligentsourcegraph
+schema: workspaces_transformed
+table_name: backend_billing
+
+dimensions:
+  publish_time: {}
+  timestamp: {}
+  feature: {}
+  action: {}
+
+  event_name:
+    sql: eventName
+
+  metadata:
+    parent_field: metadata
+
+  metadata_identifier:
+    sql: metadata.identifier
+    parent_field: metadata
+
+  metadata_identifier_managedservice:
+    sql: metadata.identifier.managedService
+    parent_field: metadata
+
+  metadata_identifier_managedservice_serviceenvironment:
+    sql: metadata.identifier.managedService.serviceEnvironment
+    parent_field: metadata
+
+  metadata_identifier_managedservice_serviceid:
+    sql: metadata.identifier.managedService.serviceId
+    parent_field: metadata
+
+  metadata_requestid:
+    sql: metadata.requestId
+    parent_field: metadata
+
+  metadata_workspaceid:
+    sql: metadata.workspaceId
+    parent_field: metadata
+
+  id:
+    format: ID
+    primary_key: true
+
+  sams_external_id:
+    sql: samsExternalId
+    format: ID
+
+  parameters:
+    parent_field: parameters
+
+  parameters_metadata:
+    sql: parameters.metadata
+    parent_field: parameters
+
+  parameters_privatemetadata:
+    sql: parameters.privateMetadata
+    parent_field: parameters
+
+  parameters_version:
+    sql: parameters.version
+    parent_field: parameters
+
+measures:
+  count:
+    aggregate_type: count

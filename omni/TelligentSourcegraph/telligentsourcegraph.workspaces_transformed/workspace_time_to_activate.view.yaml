@@ -1,0 +1,23 @@
+# Reference this view as telligentsourcegraph_workspaces_transformed__workspace_time_to_activate
+catalog: telligentsourcegraph
+schema: workspaces_transformed
+table_name: workspace_time_to_activate
+
+dimensions:
+  create_date: {}
+  first_repo: {}
+  first_ide_auth: {}
+  first_core_event: {}
+  activated_timestamp: {}
+  hours_to_activate: {}
+  last_step: {}
+  first_step: {}
+  activated: {}
+
+  workspace_id:
+    sql: workspaceId
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

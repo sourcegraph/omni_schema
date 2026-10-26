@@ -1,0 +1,87 @@
+# Reference this view as telligentsourcegraph_workspaces_transformed__dim_workspaces
+catalog: telligentsourcegraph
+schema: workspaces_transformed
+table_name: dim_workspaces
+
+dimensions:
+  workspace_name: {}
+  workspace_display_name: {}
+  created_at: {}
+  trial_start_date: {}
+  open_invite_enabled: {}
+  purchased_seats: {}
+  purchased_seats_last_updated: {}
+  consumed_seats_last_updated: {}
+  consumed_seats: {}
+  repo_data_last_updated: {}
+  num_users: {}
+  workspace_admin_emails: {}
+
+  state:
+    sql: |
+      CASE WHEN state = "DESTROY_SUCCESS" THEN "Churned"
+           WHEN state = "DESTROY_PENDING" THEN "Churn Pending"
+           WHEN state = "DORMANT_RECONCILE_SUCCESS" THEN "Dormant"
+           WHEN state = "ACTIVE_RECONCILE_SUCCESS" THEN "Active"
+           ELSE state END
+
+  # Constants
+  chat_limit_per_user:
+    sql: "150"
+
+  completion_limit_per_user:
+    sql: "3000"
+    # Repository data
+
+  num_repositories:
+    sql: numRepositories
+
+  total_disk_size_bytes:
+    sql: totalDiskSizeBytes / 1000000000
+    label: Total Disk Size (in GB)
+    format: number_1
+
+  id:
+    format: ID
+    primary_key: true
+
+  external_url:
+    sql: externalUrl
+
+  workspace_admin_userids:
+    sql: workspace_admin_userIds
+
+measures:
+  count:
+    label: Count
+    drill_fields: [ id, workspace_display_name, workspace_name, purchased_seats ]
+    aggregate_type: count
+
+  count_distinct:
+    sql: ${id}
+    label: Distinct Workspaces
+    drill_fields: [ id, workspace_display_name, workspace_name, purchased_seats ]
+    aggregate_type: count_distinct
+
+  purchased_seats_sum:
+    sql: SAFE_CAST(${purchased_seats} AS INT64)
+    aggregate_type: sum
+
+  consumed_seats_sum:
+    sql: SAFE_CAST(${consumed_seats} AS INT64)
+    aggregate_type: sum
+
+  num_users_sum:
+    sql: ${num_users}
+    aggregate_type: sum
+
+  num_repositories_sum:
+    sql: ${num_repositories}
+    format: number_0
+    aggregate_type: sum
+
+  total_disk_size_bytes_sum:
+    sql: ${total_disk_size_bytes}
+    label: Sum of Total Disk Size (in GB)
+    format: number_1
+    aggregate_type: sum

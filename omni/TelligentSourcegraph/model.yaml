@@ -4,6 +4,7 @@ default_timeframes: [ raw, date, week, month, quarter, year, fiscal_quarter, fis
 
 included_schemas:
   [
+    telligentsourcegraph.workspaces_transformed,
     telligentsourcegraph.cody_gateway,
     telligentsourcegraph.credits,
     telligentsourcegraph.credits_analytics,

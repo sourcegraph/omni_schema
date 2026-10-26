@@ -14,6 +14,7 @@ joins:
     telligentsourcegraph_sfdc_current__dim_account_details: {}
     telligentsourcegraph_sfdc_current__looker_dim_account_details: {}
   telligentsourcegraph_telemetry_staging__cloud_users: {}
+  telligentsourcegraph_workspaces_transformed__dim_workspaces: {}
 
 ai_context: |-
   IMPORTANT:

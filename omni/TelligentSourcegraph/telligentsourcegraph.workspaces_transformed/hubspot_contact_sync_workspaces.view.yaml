@@ -1,0 +1,35 @@
+# Reference this view as telligentsourcegraph_workspaces_transformed__hubspot_contact_sync_workspaces
+catalog: telligentsourcegraph
+schema: workspaces_transformed
+table_name: hubspot_contact_sync_workspaces
+
+dimensions:
+  email: {}
+  purchased_seats: {}
+  repo_count_limit: {}
+  storage_limit_gb: {}
+  limit_percentage_reached: {}
+
+  sams_external_id:
+    sql: samsExternalId
+    format: ID
+
+  workspace_id:
+    sql: workspaceId
+    format: ID
+
+  external_url:
+    sql: externalUrl
+
+  total_repository_count:
+    sql: totalRepositoryCount
+
+  total_disk_size_gb:
+    sql: totalDiskSizeGb
+
+  workspace_role:
+    sql: workspaceRole
+
+measures:
+  count:
+    aggregate_type: count

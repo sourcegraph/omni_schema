@@ -155,6 +155,15 @@
     ${telligentsourcegraph_sourcegraph_analytics__server_instances.server_endpoint}
   relationship_type: many_to_one
 
+# V2 Events -> Dim Workspaces
+- join_from_view: telligentsourcegraph_telemetry__v2_events
+  join_to_view: telligentsourcegraph_workspaces_transformed__dim_workspaces
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_telemetry__v2_events.workspaceId} =
+    ${telligentsourcegraph_workspaces_transformed__dim_workspaces.id}
+  relationship_type: many_to_one
+  join_to_view_as_label: Dim Workspaces
+
 #Server Instance -> Dim account details
 - join_from_view: telligentsourcegraph_sourcegraph_analytics__server_instances
   join_to_view: telligentsourcegraph_sfdc_current__dim_account_details

@@ -1,0 +1,25 @@
+# Reference this view as telligentsourcegraph_workspaces_transformed__backend_billing_raw
+catalog: telligentsourcegraph
+schema: workspaces_transformed
+table_name: backend_billing_raw
+
+dimensions:
+  subscription_name:
+    description: pubsub topic subscription
+
+  message_id:
+    format: ID
+    description: unique id of the message
+
+  publish_time:
+    description: time message was published in our system
+
+  data:
+    description: payload
+
+  attributes:
+    description: payload metadata
+
+measures:
+  count:
+    aggregate_type: count
