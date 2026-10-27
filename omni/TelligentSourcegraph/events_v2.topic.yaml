@@ -12,9 +12,12 @@ default_filters:
 joins:
   telligentsourcegraph_sourcegraph_analytics__server_instances:
     telligentsourcegraph_sfdc_current__dim_account_details: {}
-    telligentsourcegraph_sfdc_current__looker_dim_account_details: {}
+    telligentsourcegraph_sfdc_current__looker_dim_account_details:
+      telligentsourcegraph_sourcegraph_analytics__customer_telemetry_status: {}
+      telligentsourcegraph_gsheets__customer_telemetry_status: {}
   telligentsourcegraph_telemetry_staging__cloud_users: {}
   telligentsourcegraph_workspaces_transformed__dim_workspaces: {}
+  telligentsourcegraph_credits__consumption_events: {}
 
 ai_context: |-
   IMPORTANT:
