@@ -252,6 +252,15 @@ measures:
     sql: SAFE_DIVIDE(${accounts_activated}, ${total_account})
     label: "% Accounts Activated"
     format: percent_1
+    drill_fields:
+      [
+        account_name,
+        program_name,
+        total_users,
+        users_delivered,
+        users_activated,
+        activation_rate
+      ]
 
   activation_rate:
     sql: SAFE_DIVIDE(${users_activated}, ${users_delivered})
