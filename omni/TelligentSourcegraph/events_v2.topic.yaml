@@ -22,7 +22,6 @@ joins:
       telligentsourcegraph_gsheets__customer_telemetry_status: {}
   telligentsourcegraph_telemetry_staging__cloud_users: {}
   telligentsourcegraph_workspaces_transformed__dim_workspaces: {}
-  telligentsourcegraph_credits__consumption_events: {}
 
 ai_context: |-
   IMPORTANT:
