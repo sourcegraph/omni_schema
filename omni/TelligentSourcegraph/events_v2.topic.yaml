@@ -2,6 +2,11 @@ base_view: telligentsourcegraph_telemetry__v2_events
 label: Events (v2)
 description: All V2 user events
 
+fields:
+  [
+    all_views.*,
+    -telligentsourcegraph_credits__consumption_events.percent_consumed
+  ]
 always_where_filters:
   telligentsourcegraph_telemetry__v2_events.timestamp:
     time_for_duration: [ 360 day ago, 360 day ]
