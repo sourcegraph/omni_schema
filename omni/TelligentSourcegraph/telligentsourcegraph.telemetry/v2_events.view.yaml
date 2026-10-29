@@ -1619,7 +1619,8 @@ dimensions:
     group_label: Batch Changes
 
   credits_metering_events:
-    sql: ${event_name} = 'metering:consume'
+    sql: ${event_name} IN ('licensing:consumeDeepSearchQuotaClientTiming',
+      'licensing:consumeDeepSearchQuota', 'metering:consume')
 
   code_finder_filter:
     sql: |
