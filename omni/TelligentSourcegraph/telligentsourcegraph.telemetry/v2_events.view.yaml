@@ -1618,6 +1618,9 @@ dimensions:
     sql: JSON_VALUE(parameters.metadata, '$.changesetID')
     group_label: Batch Changes
 
+  credits_metering_events:
+    sql: ${event_name} = 'metering:consume'
+
   code_finder_filter:
     sql: |
       (${event_name} = 'metering:consume'
@@ -4086,6 +4089,13 @@ measures:
     sql: CASE WHEN ${diff_tour_filter} AND ${service_account} = FALSE THEN
       ${unique_user_id} END
     label: Diff Tours Users
+    group_label: Count Distinct Users
+    aggregate_type: count_distinct
+
+  credits_metering_users:
+    sql: CASE WHEN ${credits_metering_events} AND ${service_account} = FALSE THEN
+      ${unique_user_id} END
+    label: Credits Metering Users
     group_label: Count Distinct Users
     aggregate_type: count_distinct
 
