@@ -1,0 +1,63 @@
+# Reference this view as telligentsourcegraph_telemetry_staging__batch_changes_telemetry
+description: Batch changes and Agentic Batch Changes telemetry events, one row
+  per event, with the metadata fields used to attribute changesets. Source of
+  sga_precomputed.batch_changes_events.
+
+catalog: telligentsourcegraph
+schema: telemetry_staging
+table_name: batch_changes_telemetry
+
+dimensions:
+  id:
+    format: ID
+    description: Telemetry event ID.
+    primary_key: true
+
+  timestamp:
+    description: When the event happened.
+
+  external_url:
+    sql: externalUrl
+    description: Sourcegraph instance that emitted the event.
+
+  feature:
+    description: "Event feature: batches, batchChangeAgent or batchChangeAgent.*.
+      The frontend batchChangeAgents.* view events are excluded."
+
+  action:
+    description: Event action.
+
+  user_id:
+    format: ID
+    description: Agent owner (ownerUserID) when set, otherwise the user who sent the event.
+
+  agent_id:
+    format: ID
+    description: Agentic Batch Changes agent.
+
+  batch_change_id:
+    format: ID
+    description: Batch change the event is about.
+
+  changeset_id:
+    format: ID
+    description: Instance-local changeset ID.
+
+  changeset_spec_id:
+    format: ID
+    description: Changeset spec, on createChangesetSpec and executorRunOperation events.
+
+  current_op:
+    description: "executorRunOperation operation: 4 = publish, 5 = publish as draft."
+
+  tool_call_id:
+    format: ID
+    description: "batchChangeAgent.toolCall tool: 24 = deep_search."
+
+  has_error:
+    description: 1 if the operation failed. changesetMerged reports hasErr instead
+      of hasError.
+
+measures:
+  count:
+    aggregate_type: count

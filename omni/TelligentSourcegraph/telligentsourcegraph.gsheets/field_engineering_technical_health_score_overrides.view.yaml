@@ -1,0 +1,23 @@
+# Reference this view as telligentsourcegraph_gsheets__field_engineering_technical_health_score_overrides
+catalog: telligentsourcegraph
+schema: gsheets
+table_name: field_engineering_technical_health_score_overrides
+
+dimensions:
+  account: {}
+  host: {}
+  version: {}
+  deploy_type: {}
+  has_external_db: {}
+  executor_deploy_types: {}
+  precise_observed: {}
+
+  fe:
+    sql: FE
+
+  notes:
+    sql: Notes
+
+measures:
+  count:
+    aggregate_type: count

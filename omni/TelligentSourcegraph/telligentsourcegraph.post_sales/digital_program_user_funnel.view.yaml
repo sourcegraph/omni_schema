@@ -15,6 +15,7 @@ dimensions:
   was_opened: {}
   was_clicked: {}
   first_abc_message_date: {}
+  program_sub_name: {}
 
   # ── Primary key ────────────────────────────────────────────────
   pk:

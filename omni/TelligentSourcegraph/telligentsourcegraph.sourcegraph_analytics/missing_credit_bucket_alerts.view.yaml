@@ -124,7 +124,9 @@ dimensions:
       lowest existing same-year included-credit priority for seat true-ups.
 
   form_start_date:
-    description: Copy-ready value for the Start date field.
+    description: "Copy-ready value for the Start date field: credit_start_date, or
+      the alert date if that has already passed, because Enterprise Portal
+      cannot debit a bucket before it exists."
 
   form_expiry_date:
     description: Copy-ready value for the Expiry date field.

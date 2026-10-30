@@ -1,0 +1,119 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__test_table_all
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: test_table_*
+
+dimensions:
+  timestamp: {}
+  remote_site_version: {}
+  installer_email: {}
+  remote_ip: {}
+  auth_providers: {}
+  deploy_type: {}
+  unique_users_today: {}
+  has_code_intelligence: {}
+  has_update: {}
+  total_user_accounts: {}
+
+  remote_site_id:
+    format: ID
+
+  retention_statistics:
+    parent_field: retention_statistics
+
+  retention_statistics_weekly:
+    sql: retention_statistics.Weekly
+    parent_field: retention_statistics
+
+  retention_statistics_weekly_cohortsize:
+    sql: CohortSize
+    nested_on_field: retention_statistics_weekly
+    parent_field: retention_statistics
+
+  retention_statistics_weekly_week0:
+    sql: Week0
+    nested_on_field: retention_statistics_weekly
+    parent_field: retention_statistics
+
+  retention_statistics_weekly_week1:
+    sql: Week1
+    nested_on_field: retention_statistics_weekly
+    parent_field: retention_statistics
+
+  retention_statistics_weekly_week10:
+    sql: Week10
+    nested_on_field: retention_statistics_weekly
+    parent_field: retention_statistics
+
+  retention_statistics_weekly_week11:
+    sql: Week11
+    nested_on_field: retention_statistics_weekly
+    parent_field: retention_statistics
+
+  retention_statistics_weekly_week2:
+    sql: Week2
+    nested_on_field: retention_statistics_weekly
+    parent_field: retention_statistics
+
+  retention_statistics_weekly_week3:
+    sql: Week3
+    nested_on_field: retention_statistics_weekly
+    parent_field: retention_statistics
+
+  retention_statistics_weekly_week4:
+    sql: Week4
+    nested_on_field: retention_statistics_weekly
+    parent_field: retention_statistics
+
+  retention_statistics_weekly_week5:
+    sql: Week5
+    nested_on_field: retention_statistics_weekly
+    parent_field: retention_statistics
+
+  retention_statistics_weekly_week6:
+    sql: Week6
+    nested_on_field: retention_statistics_weekly
+    parent_field: retention_statistics
+
+  retention_statistics_weekly_week7:
+    sql: Week7
+    nested_on_field: retention_statistics_weekly
+    parent_field: retention_statistics
+
+  retention_statistics_weekly_week8:
+    sql: Week8
+    nested_on_field: retention_statistics_weekly
+    parent_field: retention_statistics
+
+  retention_statistics_weekly_week9:
+    sql: Week9
+    nested_on_field: retention_statistics_weekly
+    parent_field: retention_statistics
+
+  retention_statistics_weekly_weekstart:
+    sql: WeekStart
+    nested_on_field: retention_statistics_weekly
+    parent_field: retention_statistics
+
+  _table_suffix:
+    sql: "`_TABLE_SUFFIX`"
+    hidden: true
+
+  table_suffix_date:
+    sql: CASE WHEN
+      REGEXP_CONTAINS(${telligentsourcegraph_sourcegraph_analytics__test_table_all._table_suffix},
+      r'^(intraday_)?\d{4}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])$') THEN
+      PARSE_DATE('%Y%m%d',
+      RIGHT(${telligentsourcegraph_sourcegraph_analytics__test_table_all._table_suffix},
+      8)) END
+    label: Table Date
+    ai_context: Date of the table each row comes from (daily and intraday). Filter
+      on this to limit the tables BigQuery reads; filters on other date fields
+      scan every day's table.
+
+measures:
+  count:
+    aggregate_type: count
+
+ai_context: "Filter dates with table_suffix_date: other date fields scan every
+  day's table."

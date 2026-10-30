@@ -48,6 +48,7 @@ dimensions:
   hosting_type: {}
   ai_terms: {}
   account_industry: {}
+  batch_specs_published_all_time: {}
   mcp_tool_calls_past_30d: {}
 
   salesforce_account_id:
@@ -86,6 +87,15 @@ dimensions:
 
   last_bc_home_view:
     sql: last_BC_home_view
+
+  first_abc_message:
+    sql: first_ABC_message
+
+  last_abc_message:
+    sql: last_ABC_message
+
+  count_abc_messages:
+    sql: count_ABC_messages
 
 measures:
   count:

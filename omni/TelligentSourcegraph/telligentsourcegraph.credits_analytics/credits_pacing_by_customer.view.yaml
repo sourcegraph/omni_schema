@@ -11,6 +11,10 @@ dimensions:
   # ── Counts ─────────────────────────────────────────────────────
   active_buckets: {}
   active_subscriptions: {}
+  forecast_daily_burn_rate: {}
+  forecast_method: {}
+  credits_last_14: {}
+  credits_last_60: {}
 
   instance_domains:
     label: Instance Domain

@@ -1,0 +1,33 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__entitlement_alerts
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: entitlement_alerts
+
+dimensions:
+  created_at: {}
+  notify: {}
+  alert_trigger: {}
+  step: {}
+  external_url: {}
+  account_name: {}
+  entitlement_type: {}
+  limit_value: {}
+  window_seconds: {}
+  active_users: {}
+  capped_users: {}
+  new_capped_users: {}
+  previous_capped_users: {}
+  slack_message: {}
+
+  alert_id:
+    format: ID
+
+  csm_slack_id:
+    format: ID
+
+  entitlement_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

@@ -1,0 +1,26 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__sourcegraph_release_registry
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: sourcegraph_release_registry
+
+dimensions:
+  name: {}
+  version: {}
+  canonical_name: {}
+  git_sha: {}
+  public: {}
+  is_development: {}
+  tags: {}
+  created_at: {}
+  promoted_at: {}
+
+  id:
+    format: ID
+    primary_key: true
+
+  _synced_at:
+    hidden: true
+
+measures:
+  count:
+    aggregate_type: count

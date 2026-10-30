@@ -1,0 +1,35 @@
+# Reference this view as telligentsourcegraph_telemetry_staging__v2_event_ids_seen_old_all
+catalog: telligentsourcegraph
+schema: telemetry_staging
+table_name: v2_event_ids_seen_old_*
+
+dimensions:
+  first_publish_time: {}
+  payload_hash: {}
+
+  id:
+    format: ID
+    primary_key: true
+
+  _table_suffix:
+    sql: "`_TABLE_SUFFIX`"
+    hidden: true
+
+  table_suffix_date:
+    sql: CASE WHEN
+      REGEXP_CONTAINS(${telligentsourcegraph_telemetry_staging__v2_event_ids_seen_old_all._table_suffix},
+      r'^(intraday_)?\d{4}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])$') THEN
+      PARSE_DATE('%Y%m%d',
+      RIGHT(${telligentsourcegraph_telemetry_staging__v2_event_ids_seen_old_all._table_suffix},
+      8)) END
+    label: Table Date
+    ai_context: Date of the table each row comes from (daily and intraday). Filter
+      on this to limit the tables BigQuery reads; filters on other date fields
+      scan every day's table.
+
+measures:
+  count:
+    aggregate_type: count
+
+ai_context: "Filter dates with table_suffix_date: other date fields scan every
+  day's table."
