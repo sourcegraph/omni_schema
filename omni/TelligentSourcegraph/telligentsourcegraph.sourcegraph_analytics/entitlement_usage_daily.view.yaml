@@ -12,6 +12,8 @@ dimensions:
   window_seconds: {}
   window_days: {}
   window_hours: {}
+  limit_label: {}
+  entitlement_label: {}
   peak_share: {}
   hits: {}
   capped: {}
