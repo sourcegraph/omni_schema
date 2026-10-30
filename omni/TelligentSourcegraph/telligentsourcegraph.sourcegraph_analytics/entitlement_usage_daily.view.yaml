@@ -4,26 +4,72 @@ schema: sourcegraph_analytics
 table_name: entitlement_usage_daily
 
 dimensions:
-  external_url: {}
-  date: {}
-  entitlement_type: {}
-  entitlement_name: {}
-  limit_value: {}
+  user_id: {}
+  entitlement_id: {}
   window_seconds: {}
   window_days: {}
   window_hours: {}
+  capped: {}
   limit_label: {}
   entitlement_label: {}
-  peak_share: {}
-  hits: {}
-  capped: {}
 
-  user_id:
-    format: ID
+  row_key:
+    sql: CONCAT(${external_url}, ':', CAST(${user_id} AS STRING), ':',
+      CAST(${entitlement_id} AS STRING), ':', CAST(${date[date]} AS STRING))
+    hidden: true
+    primary_key: true
 
-  entitlement_id:
-    format: ID
+  instance_user_key:
+    sql: CONCAT(${external_url}, ':', CAST(${user_id} AS STRING))
+    hidden: true
+
+  external_url:
+    label: Instance URL
+
+  date:
+    description: The UTC day the user used the feature.
+
+  entitlement_type:
+    hidden: true
+
+  entitlement_name:
+    label: Entitlement
+
+  limit_value:
+    label: Limit
+
+  peak_share:
+    label: Peak share of limit
+    format: PERCENT_1
+    description: The highest share of the limit (0-1) used in a window by the end of
+      the day.
+
+  hits:
+    description: Windows in which the whole limit was used that day.
 
 measures:
-  count:
-    aggregate_type: count
+  active_users:
+    sql: ${instance_user_key}
+    description: Users who used the entitlement on a day in the period. Leave out
+      Entitlement to count each user once across all entitlements.
+    aggregate_type: count_distinct
+
+  capped_users:
+    sql: ${instance_user_key}
+    aggregate_type: count_distinct
+    filters:
+      capped:
+        is: true
+
+  capped_pct:
+    sql: 1.0 * ${capped_users} / NULLIF(${active_users}, 0)
+    label: Capped %
+    format: PERCENT_1
+
+  capped_windows:
+    sql: ${hits}
+    aggregate_type: sum
+  # latest_limit:
+  #   sql: ARRAY_AGG(${limit_value} ORDER BY ${date[date]} DESC LIMIT 1)[OFFSET(0)]
+  #   label: Limit
+  #   description: The limit on the latest day. Group by entitlement.
