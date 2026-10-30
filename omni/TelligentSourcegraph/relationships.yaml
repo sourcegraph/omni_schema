@@ -1,4 +1,12 @@
 - join_from_view: telligentsourcegraph_sourcegraph_analytics__entitlement_usage_daily
+  join_to_view: telligentsourcegraph_sourcegraph_analytics__server_instances
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__entitlement_usage_daily.external_url}
+    =
+    ${telligentsourcegraph_sourcegraph_analytics__server_instances.serverendpoint}
+  relationship_type: many_to_many
+
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__entitlement_usage_daily
   join_to_view: telligentsourcegraph_sourcegraph_analytics__users
   join_type: always_left
   on_sql: ${telligentsourcegraph_sourcegraph_analytics__entitlement_usage_daily.user_id}

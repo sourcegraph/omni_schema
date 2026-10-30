@@ -1,0 +1,6 @@
+base_view: telligentsourcegraph_sourcegraph_analytics__entitlement_usage_daily
+label: Entitlement Usage Daily
+
+joins:
+  telligentsourcegraph_sourcegraph_analytics__server_instances:
+    telligentsourcegraph_sfdc_current__looker_dim_account_details: {}
