@@ -1,0 +1,27 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__entitlement_usage_daily
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: entitlement_usage_daily
+
+dimensions:
+  external_url: {}
+  date: {}
+  entitlement_type: {}
+  entitlement_name: {}
+  limit_value: {}
+  window_seconds: {}
+  window_days: {}
+  window_hours: {}
+  peak_share: {}
+  hits: {}
+  capped: {}
+
+  user_id:
+    format: ID
+
+  entitlement_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count
