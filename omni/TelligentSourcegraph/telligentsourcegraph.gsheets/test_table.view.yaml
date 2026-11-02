@@ -1,0 +1,23 @@
+# Reference this view as telligentsourcegraph_gsheets__test_table
+catalog: telligentsourcegraph
+schema: gsheets
+table_name: test_table
+
+dimensions:
+  account: {}
+  host: {}
+  version: {}
+  deploy_type: {}
+  has_external_db: {}
+  executor_deploy_types: {}
+  precise_observed: {}
+
+  fe:
+    sql: FE
+
+  notes:
+    sql: Notes
+
+measures:
+  count:
+    aggregate_type: count

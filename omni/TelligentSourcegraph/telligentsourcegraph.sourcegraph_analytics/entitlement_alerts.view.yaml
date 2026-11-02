@@ -18,6 +18,7 @@ dimensions:
   new_capped_users: {}
   previous_capped_users: {}
   slack_message: {}
+  blocked_users: {}
 
   alert_id:
     format: ID

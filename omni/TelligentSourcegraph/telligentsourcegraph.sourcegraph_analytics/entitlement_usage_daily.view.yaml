@@ -12,6 +12,9 @@ dimensions:
   capped: {}
   limit_label: {}
   entitlement_label: {}
+  capped_until: {}
+  capped_at: {}
+  blocked_minutes: {}
 
   row_key:
     sql: CONCAT(${external_url}, ':', CAST(${user_id} AS STRING), ':',
