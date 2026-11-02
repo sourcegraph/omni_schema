@@ -309,6 +309,16 @@
     ${telligentsourcegraph_telemetry__v2_events.user_id}
   relationship_type: many_to_many
 
+# Entitlements <> Cloud users 
+- join_from_view: telligentsourcegraph_sourcegraph_analytics__entitlement_usage_daily
+  join_to_view: telligentsourcegraph_telemetry_staging__cloud_users
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__entitlement_usage_daily.external_url}
+    = ${telligentsourcegraph_telemetry_staging__cloud_users.external_url} AND
+    CAST(${telligentsourcegraph_sourcegraph_analytics__entitlement_usage_daily.user_id}
+    AS STRING) = ${telligentsourcegraph_telemetry_staging__cloud_users.user_id}
+  relationship_type: many_to_one
+
 # V2 Events <> Cloud users 
 - join_from_view: telligentsourcegraph_telemetry__v2_events
   join_to_view: telligentsourcegraph_telemetry_staging__cloud_users

@@ -16,6 +16,16 @@ dimensions:
   capped_at: {}
   blocked_minutes: {}
 
+  blocked_days:
+    sql: ROUND(${blocked_minutes} / 1440, 2)
+    format: NUMBER_0
+
+  blocked_days_to_date_dim:
+    sql: |
+      ROUND(TIMESTAMP_DIFF(LEAST(${capped_until}, CURRENT_TIMESTAMP()), ${capped_at}, MINUTE) / 1440, 2)
+    label: Blocked Days to Date
+    format: NUMBER_0
+
   row_key:
     sql: CONCAT(${external_url}, ':', CAST(${user_id} AS STRING), ':',
       CAST(${entitlement_id} AS STRING), ':', CAST(${date[date]} AS STRING))
@@ -71,6 +81,17 @@ measures:
 
   capped_windows:
     sql: ${hits}
+    aggregate_type: sum
+
+  total_blocked_days:
+    sql: ${blocked_minutes} / 1440
+    label: Total Blocked Days
+    description: Total days blocked across the rows in the query.
+    aggregate_type: sum
+
+  blocked_days_to_date:
+    sql: ${blocked_days_to_date_dim}
+    label: Blocked Days to Date
     aggregate_type: sum
   # latest_limit:
   #   sql: ARRAY_AGG(${limit_value} ORDER BY ${date[date]} DESC LIMIT 1)[OFFSET(0)]

@@ -4,3 +4,4 @@ label: Entitlement Usage Daily
 joins:
   telligentsourcegraph_sourcegraph_analytics__server_instances:
     telligentsourcegraph_sfdc_current__looker_dim_account_details: {}
+  telligentsourcegraph_telemetry_staging__cloud_users: {}
