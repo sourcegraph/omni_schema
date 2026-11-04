@@ -19,6 +19,7 @@ dimensions:
   close_date: {}
   poc_start_date: {}
   poc_end_date: {}
+  technical_champion: {}
 
   csm_relationship_signal_color:
     sql: |-

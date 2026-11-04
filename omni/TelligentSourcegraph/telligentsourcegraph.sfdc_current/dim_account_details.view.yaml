@@ -18,6 +18,7 @@ dimensions:
   close_date: {}
   poc_start_date: {}
   poc_end_date: {}
+  technical_champion: {}
 
   ai_terms:
     label: AI Terms (SFDC)

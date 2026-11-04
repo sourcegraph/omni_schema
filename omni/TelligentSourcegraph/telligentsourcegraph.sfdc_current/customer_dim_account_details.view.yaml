@@ -47,6 +47,7 @@ dimensions:
   poc_end_date: {}
   deal_desk_approved: {}
   year_one_solution_engineer: {}
+  technical_champion: {}
 
   account_id:
     format: ID
