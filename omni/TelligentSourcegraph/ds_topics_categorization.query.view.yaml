@@ -1,0 +1,38 @@
+# Reference this view as ds_topics_categorization
+sql: |
+  SELECT
+    e.id,          -- replace with your events table's unique id column
+    e.timestamp,
+    e.externalUrl as external_url,
+    TRIM(topic) AS topic,
+    topic_offset
+  FROM `telemetry.v2_events` AS e,
+    UNNEST(JSON_VALUE_ARRAY(e.parameters.privateMetadata, '$.topics'))
+      AS topic WITH OFFSET AS topic_offset
+  WHERE e.eventName = 'deepsearch:search.categorized'
+
+dimensions:
+  external_url: {}
+
+  event_topic_key:
+    sql: CONCAT(CAST(${id} AS STRING), '-', CAST(${topic_offset} AS STRING))
+    hidden: true
+    primary_key: true
+
+  id:
+    hidden: true
+
+  topic_offset:
+    hidden: true
+
+  topic:
+    label: Topic
+    group_label: DS Categorization
+
+  timestamp:
+    label: Timestamp
+
+measures:
+  topic_count:
+    label: Count Topic Occurences
+    aggregate_type: count
