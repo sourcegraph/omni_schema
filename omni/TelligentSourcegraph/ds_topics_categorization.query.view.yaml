@@ -1,8 +1,9 @@
 # Reference this view as ds_topics_categorization
 sql: |
   SELECT
-    e.id,          -- replace with your events table's unique id column
+    e.id,          
     e.timestamp,
+    e.uniqueUserId as unique_user_id,
     e.externalUrl as external_url,
     TRIM(topic) AS topic,
     topic_offset
@@ -10,9 +11,11 @@ sql: |
     UNNEST(JSON_VALUE_ARRAY(e.parameters.privateMetadata, '$.topics'))
       AS topic WITH OFFSET AS topic_offset
   WHERE e.eventName = 'deepsearch:search.categorized'
+  AND date(e.timestamp) >= date_sub(current_date(), interval 12 month)
 
 dimensions:
   external_url: {}
+  unique_user_id: {}
 
   event_topic_key:
     sql: CONCAT(CAST(${id} AS STRING), '-', CAST(${topic_offset} AS STRING))
@@ -36,3 +39,7 @@ measures:
   topic_count:
     label: Count Topic Occurences
     aggregate_type: count
+
+  user_count:
+    sql: ${unique_user_id}
+    aggregate_type: count_distinct
