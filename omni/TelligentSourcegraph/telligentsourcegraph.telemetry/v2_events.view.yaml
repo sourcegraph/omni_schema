@@ -4108,3 +4108,6 @@ measures:
     filters:
       event_name:
         is: deepsearch:search.completed
+
+ai_context: when referring to Deep Search always use deepsearch_consumed_queries
+  for product usage volume and deepsearch_consumed_queries_users for users
