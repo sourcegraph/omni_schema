@@ -1,4 +1,4 @@
-fiscal_month_offset: -1
+fiscal_month_offset: 11
 
 default_timeframes: [ raw, date, week, month, quarter, year, fiscal_quarter, fiscal_year ]
 
