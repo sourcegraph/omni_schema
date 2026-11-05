@@ -872,11 +872,20 @@ dimensions:
 
   cody_api_user_agent:
     sql: server.apiRequestClient.userAgent
-    label: Server API User Agent
-    group_label: Server API Client
+    label: User Agent
+    group_label: Server API
+
+  user_agent_client:
+    sql: CASE WHEN server.apiRequestClient.userAgent IS NULL THEN '(none)' WHEN
+      STARTS_WITH(server.apiRequestClient.userAgent, 'host=') THEN
+      REGEXP_EXTRACT(server.apiRequestClient.userAgent, r'service=([^,]+)') ELSE
+      REGEXP_EXTRACT(server.apiRequestClient.userAgent, r'^[^/ ]+') END
+    label: User Agent Client
+    group_label: Server API
 
   cody_api_client_name:
     sql: REGEXP_EXTRACT(server.apiRequestClient.requestedWith, r'^\w+')
+    label: Requested With Client
     group_label: Server API Client
 
   cody_api_client_version:
@@ -1640,6 +1649,26 @@ dimensions:
         AND ${metering_sku} = 6)
     hidden: true
     # ── Shared helper (used by several measures below) ─────────────
+
+  procedure:
+    sql: CASE WHEN ${event_name} = 'externalApi:request' THEN
+      JSON_VALUE(parameters.privateMetadata, '$.procedure') END
+    label: Procedure
+    group_label: External API Request
+
+  procedure_api_service:
+    sql: CASE WHEN ${event_name} = 'externalApi:request' THEN
+      REGEXP_EXTRACT(JSON_VALUE(parameters.privateMetadata, '$.procedure'),
+      r'^/([^/]+)/') END
+    label: Procedure API Service
+    group_label: External API Request
+
+  procedure_api_rpc:
+    sql: CASE WHEN ${event_name} = 'externalApi:request' THEN
+      REGEXP_EXTRACT(JSON_VALUE(parameters.privateMetadata, '$.procedure'),
+      r'/([^/]+)$') END
+    label: Procedure API RPC
+    group_label: External API Request
 
 measures:
   count:
@@ -4108,6 +4137,32 @@ measures:
     filters:
       event_name:
         is: deepsearch:search.completed
+
+  external_api_count:
+    label: External API Count
+    group_label: External API
+    aggregate_type: count
+    filters:
+      event_name:
+        is: externalApi:request
+
+  external_api_users:
+    sql: ${unique_user_id}
+    label: External API Users
+    group_label: External API
+    aggregate_type: count_distinct
+    filters:
+      event_name:
+        is: externalApi:request
+
+  service_account_users:
+    sql: ${unique_user_id}
+    label: Service Account Users
+    group_label: External API
+    aggregate_type: count_distinct
+    filters:
+      service_account:
+        is: true
 
 ai_context: when referring to Deep Search always use deepsearch_consumed_queries
   for product usage volume and deepsearch_consumed_queries_users for users
