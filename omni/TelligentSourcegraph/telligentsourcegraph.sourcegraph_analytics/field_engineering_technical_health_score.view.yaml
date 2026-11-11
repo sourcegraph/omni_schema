@@ -35,6 +35,26 @@ dimensions:
   executor_points: {}
   technical_champion_points: {}
   technical_health_score_out_of_100: {}
+  account: {}
+  score_100: {}
+  implementation_engineer: {}
+  notes: {}
+  arr_rank: {}
+  host: {}
+  version: {}
+  deploy_type: {}
+  agentic_batch_changes: {}
+  batch_changes: {}
+  deep_search: {}
+  mcp: {}
+  precise: {}
+  host_points_25: {}
+  feature_activation_points_18: {}
+  deployment_type_points_15: {}
+  version_points_15: {}
+  database_points_10: {}
+  executor_points_10: {}
+  champion_points_7: {}
 
   salesforce_account_id:
     format: ID

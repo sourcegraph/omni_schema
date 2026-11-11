@@ -11,6 +11,12 @@ dimensions:
   has_external_db: {}
   executor_deploy_types: {}
   precise_observed: {}
+  postgres_major: {}
+  agentic_batch_changes: {}
+  batch_changes: {}
+  deep_search: {}
+  mcp: {}
+  precise: {}
 
   fe:
     sql: FE

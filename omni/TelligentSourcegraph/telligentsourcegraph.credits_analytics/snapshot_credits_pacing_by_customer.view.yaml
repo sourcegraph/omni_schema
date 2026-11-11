@@ -25,6 +25,10 @@ dimensions:
   instance_domains: {}
   earliest_bucket_start: {}
   latest_bucket_expiry: {}
+  forecast_daily_burn_rate: {}
+  forecast_method: {}
+  credits_last_14: {}
+  credits_last_60: {}
 
   subscription_id:
     format: ID
