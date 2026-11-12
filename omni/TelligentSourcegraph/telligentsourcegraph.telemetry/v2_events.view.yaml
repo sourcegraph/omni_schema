@@ -4157,7 +4157,7 @@ measures:
 
   service_account_users:
     sql: ${unique_user_id}
-    label: Service Account Users (External API)
+    label: Service Account Users (External API Only)
     group_label: External API
     aggregate_type: count_distinct
     filters:
@@ -4165,6 +4165,15 @@ measures:
         is: true
       event_name:
         is: externalApi:request
+
+  service_account_users_all:
+    sql: ${unique_user_id}
+    label: Service Account Users (All)
+    group_label: External API
+    aggregate_type: count_distinct
+    filters:
+      service_account:
+        is: true
 
 ai_context: when referring to Deep Search always use deepsearch_consumed_queries
   for product usage volume and deepsearch_consumed_queries_users for users
