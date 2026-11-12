@@ -1,0 +1,112 @@
+# Reference this view as abc_mcp_starts
+label: ABC MCP Start cohort
+description: One row per observed MCP-started agent, including agents with no funnel activity.
+sql: |
+  WITH starts AS (
+    SELECT
+      e.id,
+      e.timestamp AS observed_start_at,
+      LOWER(e.externalUrl) AS external_url,
+      SAFE_CAST(JSON_VALUE(e.parameters.metadata, '$.agentID') AS INT64) AS agent_id,
+      CASE JSON_VALUE(e.parameters.metadata, '$.toolCallId')
+        WHEN '26' THEN 'Attended' WHEN '34' THEN 'Unattended'
+      END AS start_mode,
+      COALESCE(NULLIF(e.server.apiRequestClient.userAgent, ''), 'Unknown') AS start_client
+    FROM `telligentsourcegraph.telemetry.v2_events` AS e
+    -- Match the existing ABC funnel's history and satisfy partition pruning.
+    WHERE e.timestamp >= TIMESTAMP('2026-06-23 00:00:00+00')
+      AND e.eventName = 'search:mcp.toolcall'
+      AND JSON_VALUE(e.parameters.metadata, '$.endpoint') = '8'
+      AND JSON_VALUE(e.parameters.metadata, '$.toolCallId') IN ('26', '34')
+      AND JSON_VALUE(e.parameters.metadata, '$.terminalState') = '1'
+      AND SAFE_CAST(JSON_VALUE(e.parameters.metadata, '$.agentID') AS INT64) > 0
+      AND NULLIF(e.externalUrl, '') IS NOT NULL
+    QUALIFY ROW_NUMBER() OVER (
+      PARTITION BY LOWER(e.externalUrl), SAFE_CAST(JSON_VALUE(e.parameters.metadata, '$.agentID') AS INT64)
+      ORDER BY e.timestamp, e.id
+    ) = 1
+  ), funnel AS (
+    SELECT
+      agent_key,
+      MIN(IF(step_order = 1, reached_at, NULL)) AS prompted_at,
+      MIN(IF(step_order = 2, reached_at, NULL)) AS workspaces_resolved_at,
+      MIN(IF(step_order = 3, reached_at, NULL)) AS workspaces_run_at,
+      MIN(IF(step_order = 4, reached_at, NULL)) AS published_at,
+      MIN(IF(step_order = 5, reached_at, NULL)) AS merged_at
+    FROM `telligentsourcegraph.sourcegraph_analytics.abc_funnel`
+    GROUP BY agent_key
+  ), customer_lookup AS (
+    -- Same account selection as abc_funnel; serverEndpoint is not unique.
+    SELECT LOWER(serverEndpoint) AS external_url, sfdc_unique_id, sfdc_name
+    FROM `telligentsourcegraph.sourcegraph_analytics.server_instances`
+    WHERE serverEndpoint IS NOT NULL
+    QUALIFY ROW_NUMBER() OVER (
+      PARTITION BY LOWER(serverEndpoint)
+      ORDER BY instance_type = 'Primary' DESC, sfdc_unique_id IS NOT NULL DESC,
+        sfdc_name IS NOT NULL DESC, sfdc_unique_id, sfdc_name
+    ) = 1
+  )
+  SELECT
+    CONCAT(s.external_url, '|', CAST(s.agent_id AS STRING)) AS agent_key,
+    s.external_url, s.agent_id, s.observed_start_at, s.start_mode, s.start_client,
+    f.prompted_at, f.workspaces_resolved_at, f.workspaces_run_at, f.published_at, f.merged_at,
+    COALESCE(c.sfdc_unique_id, CONCAT('external_url:', s.external_url)) AS customer_key,
+    COALESCE(c.sfdc_name, s.external_url) AS customer_name
+  FROM starts AS s
+  LEFT JOIN funnel AS f ON f.agent_key = CONCAT(s.external_url, '|', CAST(s.agent_id AS STRING))
+  LEFT JOIN customer_lookup AS c ON c.external_url = s.external_url
+
+dimensions:
+  agent_key:
+    primary_key: true
+    hidden: true
+  agent_id:
+    format: ID
+    hidden: true
+  external_url: {}
+  customer_key:
+    hidden: true
+  customer_name:
+    description: Current account lookup, including Starts with no funnel activity. Falls back to instance URL when unmapped.
+  observed_start_at:
+    label: First observed successful MCP Start
+    description: Earliest exported attributed Start, possibly a replay. Not necessarily the agent's creation time.
+  start_mode: {}
+  start_client:
+    description: Client of the first observed attributed Start. Later replays or handovers do not change it.
+  prompted_at: {}
+  workspaces_resolved_at: {}
+  workspaces_run_at: {}
+  published_at: {}
+  merged_at: {}
+
+measures:
+  runs:
+    sql: ${agent_key}
+    label: MCP-started runs
+    aggregate_type: count_distinct
+  runs_prompted:
+    sql: CASE WHEN ${prompted_at} IS NOT NULL THEN ${agent_key} END
+    label: Runs prompted
+    aggregate_type: count_distinct
+  runs_workspaces_resolved:
+    sql: CASE WHEN ${workspaces_resolved_at} IS NOT NULL THEN ${agent_key} END
+    label: Runs with resolved workspaces
+    aggregate_type: count_distinct
+  runs_workspaces_run:
+    sql: CASE WHEN ${workspaces_run_at} IS NOT NULL THEN ${agent_key} END
+    label: Runs with executed workspaces
+    aggregate_type: count_distinct
+  runs_published:
+    sql: CASE WHEN ${published_at} IS NOT NULL THEN ${agent_key} END
+    label: Runs with a published changeset
+    aggregate_type: count_distinct
+  runs_merged:
+    sql: CASE WHEN ${merged_at} IS NOT NULL THEN ${agent_key} END
+    label: Runs with a merged changeset
+    aggregate_type: count_distinct
+  start_to_merge_conversion:
+    sql: SAFE_DIVIDE(${runs_merged}, ${runs})
+    label: MCP Start-to-merge conversion
+    format: percent_1
+    description: Merged agents divided by all attributed MCP-started agents. Not merged PR count or billing.
