@@ -10,19 +10,13 @@ dimensions:
   deploy_type: {}
   has_external_db: {}
   executor_deploy_types: {}
-  precise_observed: {}
+  precise: {}
   postgres_major: {}
   agentic_batch_changes: {}
   batch_changes: {}
   deep_search: {}
   mcp: {}
-  precise: {}
-
-  fe:
-    sql: FE
-
-  notes:
-    sql: Notes
+  notes: {}
 
 measures:
   count:
