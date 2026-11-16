@@ -1741,6 +1741,10 @@ dimensions:
     label: Procedure API RPC
     group_label: External API Request
 
+  abc_agent_id:
+    sql: SAFE_CAST(JSON_VALUE(parameters.metadata, '$.agentID') AS INT64)
+    group_label: ABC
+
 measures:
   count:
     label: Events Count
@@ -3848,15 +3852,15 @@ measures:
 
   # ── ABC (Agentic Batch Changes) ───────────────────────────────
   count_abc_messages:
-    sql: CASE WHEN ${event_name} = 'batchChangeAgent.processMessage:succeeded' THEN
-      1 END
+    sql: CASE WHEN ${event_name} = 'batchChangeAgent.processMessage:succeeded' AND
+      ${abc_agent_id} > 0 THEN 1 END
     label: ABC Agent Messages Count
     group_label: ABC
     aggregate_type: count
 
   abc_users:
-    sql: CASE WHEN ${event_name} = 'batchChangeAgent.processMessage:succeeded' THEN
-      ${unique_user_id} END
+    sql: CASE WHEN ${event_name} = 'batchChangeAgent.processMessage:succeeded' AND
+      ${abc_agent_id} > 0 THEN ${unique_user_id} END
     label: ABC Agent Message Users
     group_label: ABC
     aggregate_type: count_distinct
