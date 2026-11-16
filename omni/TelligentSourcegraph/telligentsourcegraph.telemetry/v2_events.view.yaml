@@ -2044,6 +2044,13 @@ measures:
     group_label: Batch Changes
     aggregate_type: count
 
+  batch_changesets_published_users:
+    sql: CASE WHEN ${event_name} = 'batches:executorRunOperation' AND
+      ${metadata_currentop} = '4' THEN ${unique_user_id} END
+    label: Batch Changesets Published Users
+    group_label: Batch Changes
+    aggregate_type: count
+
   batch_change_merged:
     sql: CASE WHEN ${event_name} = 'batchChange.details.bulkAction:merge' THEN 1 END
     label: Batch Changes Merged (UI)
@@ -2055,6 +2062,13 @@ measures:
     label: Batch Changesets Merged (Server)
     group_label: Batch Changes
     aggregate_type: count
+
+  batch_changesets_merged_users:
+    sql: CASE WHEN ${event_name} = 'batches:changesetMerged' THEN ${unique_user_id}
+      END
+    label: Batch Changesets Merged Users (Server)
+    group_label: Batch Changes
+    aggregate_type: count_distinct
 
   batch_change_opened:
     sql: CASE WHEN ${event_name} = 'batchChange.details:view' THEN 1 END
