@@ -199,6 +199,14 @@
     ${telligentsourcegraph_sourcegraph_analytics__server_instances.server_endpoint}
   relationship_type: many_to_one
 
+# V2 Events -> Dim Account Details
+- join_from_view: telligentsourcegraph_telemetry__v2_events
+  join_to_view: telligentsourcegraph_sfdc_current__looker_dim_account_details
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_telemetry__v2_events.external_url} =
+    ${telligentsourcegraph_sfdc_current__looker_dim_account_details.external_url}
+  relationship_type: many_to_one
+
 # V2 Events -> Dim Workspaces
 - join_from_view: telligentsourcegraph_telemetry__v2_events
   join_to_view: telligentsourcegraph_workspaces_transformed__dim_workspaces
@@ -212,13 +220,8 @@
 - join_from_view: telligentsourcegraph_sourcegraph_analytics__server_instances
   join_to_view: telligentsourcegraph_sfdc_current__dim_account_details
   join_type: always_left
-  on_sql: ${telligentsourcegraph_sourcegraph_analytics__server_instances.sfdc_unique_id}
-    = ${telligentsourcegraph_sfdc_current__dim_account_details.sfdc_unique_id}
-    AND
-    ${telligentsourcegraph_sourcegraph_analytics__server_instances.instance_type}
-    = 'Primary' AND
-    ${telligentsourcegraph_sourcegraph_analytics__server_instances.sfdc_name}
-    NOT LIKE '%(Historical)%'
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__server_instances.serverendpoint}
+    = ${telligentsourcegraph_sfdc_current__dim_account_details.external_url}
   relationship_type: many_to_one
   reversible: true
 
@@ -226,14 +229,9 @@
 - join_from_view: telligentsourcegraph_sourcegraph_analytics__server_instances
   join_to_view: telligentsourcegraph_sfdc_current__looker_dim_account_details
   join_type: always_left
-  on_sql: ${telligentsourcegraph_sourcegraph_analytics__server_instances.sfdc_unique_id}
+  on_sql: ${telligentsourcegraph_sourcegraph_analytics__server_instances.serverendpoint}
     =
-    ${telligentsourcegraph_sfdc_current__looker_dim_account_details.sfdc_unique_id}
-    AND
-    ${telligentsourcegraph_sourcegraph_analytics__server_instances.instance_type}
-    = 'Primary' AND
-    ${telligentsourcegraph_sourcegraph_analytics__server_instances.sfdc_name}
-    NOT LIKE '%(Historical)%'
+    ${telligentsourcegraph_sfdc_current__looker_dim_account_details.external_url}
   relationship_type: many_to_one
   reversible: true
 
@@ -352,6 +350,14 @@
   join_to_view: telligentsourcegraph_gsheets__customer_telemetry_status_updated
   join_type: always_left
   on_sql: ${telligentsourcegraph_sfdc_current__dim_account_details.name} =
+    ${telligentsourcegraph_gsheets__customer_telemetry_status_updated.unique_server_id}
+  relationship_type: one_to_one
+
+# Dim Account <> Telemetry Status
+- join_from_view: telligentsourcegraph_sfdc_current__looker_dim_account_details
+  join_to_view: telligentsourcegraph_gsheets__customer_telemetry_status_updated
+  join_type: always_left
+  on_sql: ${telligentsourcegraph_sfdc_current__looker_dim_account_details.name} =
     ${telligentsourcegraph_gsheets__customer_telemetry_status_updated.unique_server_id}
   relationship_type: one_to_one
 
