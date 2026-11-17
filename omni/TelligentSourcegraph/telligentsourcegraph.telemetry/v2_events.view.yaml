@@ -1576,9 +1576,7 @@ dimensions:
     group_label: ABC MCP
 
   abc_mcp_agent_id:
-    sql: |-
-      CASE WHEN ${abc_mcp_start_mode} IS NOT NULL AND ${mcp_terminal_state} = 'Success'
-        THEN SAFE_CAST(JSON_VALUE(${parameters_metadata}, '$.agentID') AS INT64) END
+    sql: SAFE_CAST(JSON_VALUE(${parameters_metadata}, '$.agentID') AS INT64)
     format: ID
     hidden: true
 
@@ -3317,6 +3315,7 @@ measures:
   deepsearch_external_client:
     sql: CASE WHEN ${event_name} = 'deepsearch:search.externalclient' THEN
       ${unique_user_id} END
+    label: DS External Client Users
     group_label: Deep Search
     aggregate_type: count_distinct
 
@@ -3324,9 +3323,10 @@ measures:
     sql: |-
       CASE
         WHEN ${event_name} = 'deepsearch:search.externalclient'
-             AND JSON_EXTRACT_SCALAR(parameters.metadata, '$.endpoint') IN ('3','5')
+             AND JSON_EXTRACT_SCALAR(parameters.metadata, '$.endpoint') IN ('3','5','7')
         THEN 1
       END
+    label: DS External API Queries
     group_label: Deep Search
     aggregate_type: count
 
@@ -4335,6 +4335,16 @@ measures:
     label: Latest ABC ingestion in selection
     group_label: ABC MCP
     aggregate_type: max
+
+  count_deep_search_mcp_tool_calls:
+    sql: |-
+      CASE
+        WHEN ${mcp_tool_call_category_split} = 'Deep Search MCP Tools'
+        THEN 1
+      END
+    label: Deep Search MCP Tool Calls
+    group_label: MCP
+    aggregate_type: count
 
 ai_context: when referring to Deep Search always use deepsearch_consumed_queries
   for product usage volume and deepsearch_consumed_queries_users for users
