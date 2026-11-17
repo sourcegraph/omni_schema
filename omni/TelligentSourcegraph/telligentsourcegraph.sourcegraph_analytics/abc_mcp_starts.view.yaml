@@ -24,3 +24,40 @@ dimensions:
 measures:
   count:
     aggregate_type: count
+
+  runs:
+    sql: ${agent_key}
+    label: MCP-started runs
+    aggregate_type: count_distinct
+
+  runs_prompted:
+    sql: CASE WHEN ${prompted_at} IS NOT NULL THEN ${agent_key} END
+    label: Runs prompted
+    aggregate_type: count_distinct
+
+  runs_workspaces_resolved:
+    sql: CASE WHEN ${workspaces_resolved_at} IS NOT NULL THEN ${agent_key} END
+    label: Runs with resolved workspaces
+    aggregate_type: count_distinct
+
+  runs_workspaces_run:
+    sql: CASE WHEN ${workspaces_run_at} IS NOT NULL THEN ${agent_key} END
+    label: Runs with executed workspaces
+    aggregate_type: count_distinct
+
+  runs_published:
+    sql: CASE WHEN ${published_at} IS NOT NULL THEN ${agent_key} END
+    label: Runs with a published changeset
+    aggregate_type: count_distinct
+
+  runs_merged:
+    sql: CASE WHEN ${merged_at} IS NOT NULL THEN ${agent_key} END
+    label: Runs with a merged changeset
+    aggregate_type: count_distinct
+
+  start_to_merge_conversion:
+    sql: SAFE_DIVIDE(${runs_merged}, ${runs})
+    label: MCP Start-to-merge conversion
+    format: percent_1
+    description: Merged agents divided by all attributed MCP-started agents. Not
+      merged PR count or billing.
