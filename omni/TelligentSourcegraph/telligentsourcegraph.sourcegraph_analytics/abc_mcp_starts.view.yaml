@@ -1,0 +1,26 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__abc_mcp_starts
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: abc_mcp_starts
+
+dimensions:
+  agent_key: {}
+  is_internal_instance: {}
+  external_url: {}
+  observed_start_at: {}
+  start_mode: {}
+  start_client: {}
+  prompted_at: {}
+  workspaces_resolved_at: {}
+  workspaces_run_at: {}
+  published_at: {}
+  merged_at: {}
+  customer_key: {}
+  customer_name: {}
+
+  agent_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

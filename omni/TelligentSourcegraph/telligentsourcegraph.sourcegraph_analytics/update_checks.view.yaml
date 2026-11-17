@@ -39,6 +39,7 @@ dimensions:
   enabled_deep_search: {}
   site_config_settings: {}
   executor_deployment_stats: {}
+  total_service_accounts: {}
 
   remote_site_id:
     format: ID

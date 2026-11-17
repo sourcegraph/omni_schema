@@ -48,6 +48,7 @@ dimensions:
   deal_desk_approved: {}
   year_one_solution_engineer: {}
   technical_champion: {}
+  external_url: {}
 
   name:
     label: Account Name
