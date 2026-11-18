@@ -7,7 +7,9 @@ default_filters:
   observed_start_at:
     time_for_duration: [ 30 day ago, 30 day ]
 
-joins: {}
+joins:
+  telligentsourcegraph_sfdc_current__looker_dim_account_details: {}
+  telligentsourcegraph_sourcegraph_analytics__server_instances: {}
 
 ai_context: |-
   Filter observed_start_at for the Start cohort, not the stage timestamps.

@@ -102,6 +102,7 @@ dimensions:
 
   external_url:
     sql: externalUrl
+    label: External URL
     description: Instance external URL defined in the instance site configuration.
       Populated from either the licensed or unlicensed instance metadata.
     group_label: Instance Info
@@ -1505,6 +1506,7 @@ dimensions:
           ELSE COALESCE(JSON_EXTRACT_SCALAR(parameters.metadata, '$.terminalState'), 'Unknown')
         END
       END
+    label: MCP Terminal State
     group_label: MCP
 
   mcp_duration:
@@ -1572,6 +1574,7 @@ dimensions:
           WHEN '34' THEN 'Unattended'
         END
       END
+    label: ABC MCP Start Mode
     group_label: ABC MCP
 
   abc_mcp_agent_id:
@@ -1589,6 +1592,7 @@ dimensions:
     sql: |-
       CASE WHEN ${abc_mcp_start_mode} IS NOT NULL AND ${mcp_terminal_state} = 'Success'
         THEN CASE WHEN ${abc_mcp_run_key} IS NULL THEN 'Unknown' ELSE 'Attributed' END END
+    label: ABC MCP Start Attribution
     description: Successful Starts without an agent ID or instance URL remain
       unknown, including older events.
     group_label: ABC MCP
@@ -1596,6 +1600,7 @@ dimensions:
   abc_mcp_client:
     sql: CASE WHEN ${abc_mcp_event} THEN COALESCE(NULLIF(${cody_api_user_agent},
       ''), 'Unknown') END
+    label: ABC MCP Client
     group_label: ABC MCP
 
   # ── AI Query Assist ───────────────────────────────────────────
@@ -4265,7 +4270,7 @@ measures:
 
   abc_mcp_calls:
     sql: CASE WHEN ${abc_mcp_invocation} THEN ${id} END
-    label: ABC tool calls
+    label: ABC MCP Tool Calls
     group_label: ABC MCP
     description: Unique event UUIDs, excluding tools/list. Replayed requests are
       separate calls.
@@ -4273,19 +4278,19 @@ measures:
 
   abc_mcp_discovery_calls:
     sql: CASE WHEN ${abc_mcp_event} AND NOT ${abc_mcp_invocation} THEN ${id} END
-    label: ABC discovery calls
+    label: ABC MCP Discovery Calls
     group_label: ABC MCP
     aggregate_type: count_distinct
 
   abc_mcp_users:
     sql: CASE WHEN ${abc_mcp_invocation} THEN ${unique_user_id} END
-    label: ABC users, including service accounts
+    label: ABC MCP Users
     group_label: ABC MCP
     aggregate_type: count_distinct
 
   abc_mcp_instances:
     sql: CASE WHEN ${abc_mcp_invocation} THEN LOWER(NULLIF(${external_url}, '')) END
-    label: ABC instances
+    label: ABC Instances
     group_label: ABC MCP
     aggregate_type: count_distinct
 

@@ -1,0 +1,23 @@
+base_view: telligentsourcegraph_sourcegraph_analytics__abc_mcp_starts
+
+joins:
+  telligentsourcegraph_sourcegraph_analytics__server_instances:
+    telligentsourcegraph_sfdc_current__dim_account_details: {}
+    telligentsourcegraph_sourcegraph_analytics__licenses: {}
+    telligentsourcegraph_sourcegraph_analytics__entitlement_usage_daily:
+      telligentsourcegraph_telemetry_staging__cloud_users: {}
+      telligentsourcegraph_sourcegraph_analytics__users: {}
+    server_instances_usage_growth_statistics: {}
+    telligentsourcegraph_sourcegraph_analytics__abc_changeset_lifecycle: {}
+    telligentsourcegraph_sourcegraph_analytics__technical_health_score_v2: {}
+  telligentsourcegraph_sfdc_current__looker_dim_account_details:
+    telligentsourcegraph_gsheets__customer_telemetry_status_updated: {}
+    telligentsourcegraph_credits_analytics__credits_pacing_by_customer: {}
+    telligentsourcegraph_sfdc_current__purchased_seat_monthly: {}
+    telligentsourcegraph_sourcegraph_analytics__csm_main_tracker: {}
+    telligentsourcegraph_sourcegraph_analytics__daily_llm_token_usage_tier_country: {}
+    telligentsourcegraph_sourcegraph_analytics__gong_summary_by_customer: {}
+    post_sales__customer_health_score_latest:
+      post_sales__customer_momentum_score_latest: {}
+      post_sales__csm_relationship_signal_latest: {}
+    telligentsourcegraph_post_sales__digital_program_user_funnel: {}
