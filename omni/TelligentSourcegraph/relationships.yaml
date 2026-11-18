@@ -364,18 +364,18 @@
 
 # Dim Account <> Telemetry Status
 - join_from_view: telligentsourcegraph_sfdc_current__dim_account_details
-  join_to_view: telligentsourcegraph_gsheets__customer_telemetry_status_updated
+  join_to_view: telligentsourcegraph_sourcegraph_analytics__customer_telemetry_status_updated
   join_type: always_left
   on_sql: ${telligentsourcegraph_sfdc_current__dim_account_details.name} =
-    ${telligentsourcegraph_gsheets__customer_telemetry_status_updated.unique_server_id}
+    ${telligentsourcegraph_sourcegraph_analytics__customer_telemetry_status_updated.unique_server_id}
   relationship_type: one_to_one
 
 # Dim Account <> Telemetry Status
 - join_from_view: telligentsourcegraph_sfdc_current__looker_dim_account_details
-  join_to_view: telligentsourcegraph_gsheets__customer_telemetry_status_updated
+  join_to_view: telligentsourcegraph_sourcegraph_analytics__customer_telemetry_status_updated
   join_type: always_left
   on_sql: ${telligentsourcegraph_sfdc_current__looker_dim_account_details.name} =
-    ${telligentsourcegraph_gsheets__customer_telemetry_status_updated.unique_server_id}
+    ${telligentsourcegraph_sourcegraph_analytics__customer_telemetry_status_updated.unique_server_id}
   relationship_type: one_to_one
 
 # Dim Account <> Purchased Seats Monthly

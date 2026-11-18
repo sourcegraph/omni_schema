@@ -17,7 +17,7 @@ default_filters:
 joins:
   telligentsourcegraph_sourcegraph_analytics__server_instances: {}
   telligentsourcegraph_sfdc_current__looker_dim_account_details:
-    telligentsourcegraph_sourcegraph_analytics__customer_telemetry_status: {}
+    telligentsourcegraph_sourcegraph_analytics__customer_telemetry_status_updated: {}
   telligentsourcegraph_telemetry_staging__cloud_users: {}
   telligentsourcegraph_workspaces_transformed__dim_workspaces: {}
 
