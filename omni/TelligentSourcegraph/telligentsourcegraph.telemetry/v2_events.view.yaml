@@ -1747,6 +1747,19 @@ dimensions:
     sql: SAFE_CAST(JSON_VALUE(parameters.metadata, '$.agentID') AS INT64)
     group_label: ABC
 
+  counts_as_active_user:
+    sql: |-
+      CASE
+        WHEN timestamp >= TIMESTAMP('2026-11-19 09:00:00 UTC') THEN TRUE
+        ELSE ${service_account} = FALSE
+      END
+    label: Counts as Active User
+    description: False only for service-account events before 2026-11-19 09:00 UTC.
+      Service accounts count as active users from then on. Use in active-user
+      measures instead of service_account = FALSE. Keep in sync with
+      billingChange in the sourcegraph-analytics app.
+    group_label: User Metadata
+
 measures:
   count:
     label: Events Count
@@ -1767,7 +1780,7 @@ measures:
   chat_users:
     sql: |-
       CASE
-                  WHEN (${event_name} = "cody.chat:submit" OR ${event_name} = "cody.chat-question:executed" OR ${event_name} = "cody.recipe.inline-chat:executed")
+                  WHEN (${event_name} = "cody.chat:submit" OR ${event_name} = "cody.chat-question:executed" OR ${event_name} = "cody.recipe.inline-chat:executed") AND ${counts_as_active_user}
                   THEN ${unique_user_id} ELSE NULL END
     group_label: Chat Data
     aggregate_type: count_distinct
@@ -1784,7 +1797,7 @@ measures:
       CASE WHEN ${sourcegrapgh_v2_product} = 'cody' THEN CASE
                   WHEN (
                   (${event_name} LIKE "%command%" or ${event_name} LIKE "%recipe%")
-                  AND ${event_name} NOT LIKE "%chat%")
+                  AND ${event_name} NOT LIKE "%chat%") AND ${counts_as_active_user}
                   THEN ${unique_user_id} ELSE NULL END END
     group_label: Commands Data
     aggregate_type: count_distinct
@@ -1797,14 +1810,14 @@ measures:
 
   count_distinct_cody_billign_active_users:
     sql: CASE WHEN ${is_billing_event} = TRUE AND ${sourcegrapgh_v2_product} =
-      "cody" AND ${service_account} = FALSE THEN ${unique_user_id} END
+      "cody" AND ${counts_as_active_user} THEN ${unique_user_id} END
     label: Cody Users
     group_label: Count Distinct Users
     aggregate_type: count_distinct
 
   count_distinct_search_submitted_users:
     sql: |-
-      CASE WHEN ${event_name} = "search:submit" AND ${service_account} = FALSE THEN ${unique_user_id} ELSE
+      CASE WHEN ${event_name} = "search:submit" AND ${counts_as_active_user} THEN ${unique_user_id} ELSE
             null END
     label: UI Search Users
     group_label: Count Distinct Users
@@ -1812,7 +1825,7 @@ measures:
 
   count_distinct_search_users:
     sql: |-
-      CASE WHEN (${sourcegrapgh_v2_product} = "search" AND ${is_billing_event} = TRUE AND ${service_account} = FALSE) 
+      CASE WHEN (${sourcegrapgh_v2_product} = "search" AND ${is_billing_event} = TRUE AND ${counts_as_active_user}) 
             THEN ${unique_user_id} ELSE
             null END
     label: Search Users
@@ -1891,7 +1904,7 @@ measures:
     aggregate_type: count
 
   total_active_users:
-    sql: case when ${is_billing_event} = true AND ${service_account} = FALSE then
+    sql: case when ${is_billing_event} = true AND ${counts_as_active_user} then
       ${unique_user_id} else null end
     group_label: Count Distinct Users
     description: Count distinct billing users
@@ -1907,7 +1920,8 @@ measures:
     sql: CASE WHEN (${billing_metadata_product} = 'search' OR
       ${billing_metadata_product} = 'batch' OR ${billing_metadata_product} =
       'insights') AND (${billing_metadata_category} = 'core' OR
-      ${billing_metadata_category} = 'billable') THEN ${unique_user_id} END
+      ${billing_metadata_category} = 'billable') AND ${counts_as_active_user}
+      THEN ${unique_user_id} END
     label: All billable code search suite users
     description: All users who fired any search, batch, or insights event
     hidden: true
@@ -1916,7 +1930,8 @@ measures:
   code_search_suite_ui_users:
     sql: CASE WHEN ${billing_metadata_product} != 'cody' AND ${event_name} NOT LIKE
       'search.latencies%' AND (${billing_metadata_category} = 'core' OR
-      ${billing_metadata_category} = 'billable') THEN ${unique_user_id} END
+      ${billing_metadata_category} = 'billable') AND ${counts_as_active_user}
+      THEN ${unique_user_id} END
     label: All code search UI users
     description: All users who fired a non-cody event, in the search UI. Excludes
       API search events
@@ -1931,8 +1946,9 @@ measures:
     aggregate_type: count
 
   code_intel_actions_users:
-    sql: CASE WHEN ${event_name} LIKE '%codeintel%' AND ${is_billing_event} = TRUE
-      AND ${service_account} = FALSE THEN ${unique_user_id} END
+    sql: |-
+      CASE WHEN ${event_name} LIKE '%codeintel%' AND ${is_billing_event} = TRUE
+        AND ${counts_as_active_user} THEN ${unique_user_id} END
     label: Code Intel Users
     group_label: Search Events
     aggregate_type: count_distinct
@@ -2008,25 +2024,28 @@ measures:
     aggregate_type: average
 
   billing_active_users:
-    sql: CASE WHEN ${is_billing_event} = TRUE THEN ${unique_user_id} END
+    sql: CASE WHEN ${is_billing_event} = TRUE AND ${counts_as_active_user} THEN
+      ${unique_user_id} END
     group_label: D&A ONLY
     aggregate_type: count_distinct
 
   core_active_users:
-    sql: CASE WHEN ${is_core_event} = 'Yes' THEN ${unique_user_id} END
+    sql: CASE WHEN ${is_core_event} = 'Yes' AND ${counts_as_active_user} THEN
+      ${unique_user_id} END
     group_label: D&A ONLY
     aggregate_type: count_distinct
 
   search_only_users:
-    sql: CASE WHEN ${is_billing_event} = TRUE THEN CASE WHEN
-      ${sourcegrapgh_v2_product} NOT IN ("cody","other") THEN ${unique_user_id}
-      ELSE NULL END END
+    sql: CASE WHEN ${is_billing_event} = TRUE AND ${counts_as_active_user} THEN CASE
+      WHEN ${sourcegrapgh_v2_product} NOT IN ("cody","other") THEN
+      ${unique_user_id} ELSE NULL END END
     group_label: D&A ONLY
     aggregate_type: count_distinct
 
   cody_only_users:
-    sql: CASE WHEN ${is_billing_event} = TRUE THEN CASE WHEN
-      ${sourcegrapgh_v2_product} = "cody" THEN ${unique_user_id} ELSE NULL END
+    sql: CASE WHEN ${is_billing_event} = TRUE AND ${counts_as_active_user} THEN CASE
+      WHEN ${sourcegrapgh_v2_product} not in
+      ("search","insight","batch","other") THEN ${unique_user_id} ELSE NULL END
       END
     group_label: D&A ONLY
     aggregate_type: count_distinct
@@ -2039,7 +2058,9 @@ measures:
 
   code_insight_view_users:
     sql: CASE WHEN (${event_name} = 'insight:view' OR ${event_name} =
-      'insights.dashboard:view') THEN ${unique_user_id} END
+      'insights.dashboard:view') AND
+      ${telligentsourcegraph_telemetry__v2_events.counts_as_active_user} THEN
+      ${unique_user_id} END
     group_label: Search Events
     aggregate_type: count_distinct
 
@@ -2070,8 +2091,9 @@ measures:
     aggregate_type: count
 
   batch_changesets_merged_users:
-    sql: CASE WHEN ${event_name} = 'batches:changesetMerged' THEN ${unique_user_id}
-      END
+    sql: CASE WHEN ${event_name} = 'batches:changesetMerged' AND
+      ${telligentsourcegraph_telemetry__v2_events.counts_as_active_user} THEN
+      ${unique_user_id} END
     label: Batch Changesets Merged Users (Server)
     group_label: Batch Changes
     aggregate_type: count_distinct
@@ -2168,7 +2190,9 @@ measures:
     aggregate_type: count
 
   count_cody_api_users:
-    sql: CASE WHEN ${event_name} LIKE 'cody.api%' THEN ${unique_user_id} END
+    sql: CASE WHEN ${event_name} LIKE 'cody.api%' AND
+      ${telligentsourcegraph_telemetry__v2_events.counts_as_active_user} THEN
+      ${unique_user_id} END
     label: Cody API Users
     group_label: Cody API
     aggregate_type: count_distinct
@@ -2197,7 +2221,8 @@ measures:
     aggregate_type: count
 
   count_cody_api_completion_users:
-    sql: CASE WHEN ${event_name} = 'cody.api.completionsCode:succeeded' THEN
+    sql: CASE WHEN ${event_name} = 'cody.api.completionsCode:succeeded' AND
+      ${telligentsourcegraph_telemetry__v2_events.counts_as_active_user} THEN
       ${unique_user_id} END
     label: Cody API Completion Users
     group_label: Cody API
@@ -2206,7 +2231,9 @@ measures:
   count_cody_api_chat_users:
     sql: CASE WHEN (${event_name} = 'cody.api.completionsStream:succeeded' OR
       ${event_name} = 'cody.api.chatStream:succeeded' OR ${event_name} =
-      'cody.api.llmChatCompletions:succeeded') THEN ${unique_user_id} END
+      'cody.api.llmChatCompletions:succeeded') AND
+      ${telligentsourcegraph_telemetry__v2_events.counts_as_active_user} THEN
+      ${unique_user_id} END
     label: Cody API Chat/Prompt Users
     group_label: Cody API
     aggregate_type: count_distinct
@@ -2215,8 +2242,9 @@ measures:
     sql: CASE WHEN (${event_name} = 'cody.api.context:succeeded' OR ${event_name} =
       'cody.api.llmModels:succeeded' OR ${event_name} =
       'cody.api.llmModelsModelId:succeeded' OR ${event_name} =
-      'cody.api.modelconfigSupportedModels:succeeded') THEN ${unique_user_id}
-      END
+      'cody.api.modelconfigSupportedModels:succeeded') AND
+      ${telligentsourcegraph_telemetry__v2_events.counts_as_active_user} THEN
+      ${unique_user_id} END
     label: Cody API LLM Setup and Context Users
     group_label: Cody API
     aggregate_type: count_distinct
@@ -2229,7 +2257,9 @@ measures:
       'cody.api.llmModels:succeeded' OR ${event_name} =
       'cody.api.llmModelsModelId:succeeded' OR ${event_name} =
       'cody.api.modelconfigSupportedModels:succeeded' OR ${event_name} =
-      'cody.api.llmChatCompletions:succeeded') THEN ${unique_user_id} END
+      'cody.api.llmChatCompletions:succeeded') AND
+      ${telligentsourcegraph_telemetry__v2_events.counts_as_active_user} THEN
+      ${unique_user_id} END
     group_label: Cody API
     aggregate_type: count_distinct
 
@@ -2276,7 +2306,7 @@ measures:
 
   count_distinct_search_executed_users:
     sql: |-
-      CASE WHEN ${event_name} = "search:execute" AND ${service_account} = FALSE THEN ${unique_user_id} ELSE
+      CASE WHEN ${event_name} = "search:execute" AND ${counts_as_active_user} THEN ${unique_user_id} ELSE
             null END
     label: Count Distinct Search Executed Users
     group_label: Count Distinct Users
@@ -2331,28 +2361,34 @@ measures:
 
   search_gotodefinitions_users:
     sql: CASE WHEN (${event_name} = 'codeintel:goToDefinition' OR ${event_name} =
-      'codeintel.explorePanel:definitions.click') THEN ${unique_user_id} END
+      'codeintel.explorePanel:definitions.click') AND
+      ${telligentsourcegraph_telemetry__v2_events.counts_as_active_user} THEN
+      ${unique_user_id} END
     label: Code Intel GoToDef Users
     group_label: Search Code Nav
     aggregate_type: count_distinct
 
   search_findreferences_users:
     sql: CASE WHEN (${event_name} = 'codeintel:findReferences' OR ${event_name} =
-      'codeintel.explorePanel:references.click') THEN ${unique_user_id} END
+      'codeintel.explorePanel:references.click') AND
+      ${telligentsourcegraph_telemetry__v2_events.counts_as_active_user} THEN
+      ${unique_user_id} END
     label: Code Intel FindRef Users
     group_label: Search Code Nav
     aggregate_type: count_distinct
 
   search_findimplementations_users:
     sql: CASE WHEN (${event_name} = 'codeintel:findImplementations' OR ${event_name}
-      = 'codeintel.explorePanel:implementations.click') THEN ${unique_user_id}
-      END
+      = 'codeintel.explorePanel:implementations.click') AND
+      ${telligentsourcegraph_telemetry__v2_events.counts_as_active_user} THEN
+      ${unique_user_id} END
     label: Code Intel Find Implementation Users
     group_label: Search Code Nav
     aggregate_type: count_distinct
 
   search_supers_users:
-    sql: CASE WHEN ${event_name} = 'codeintel.explorePanel:supers.click' THEN
+    sql: CASE WHEN ${event_name} = 'codeintel.explorePanel:supers.click' AND
+      ${telligentsourcegraph_telemetry__v2_events.counts_as_active_user} THEN
       ${unique_user_id} END
     label: Code Intel Super Users
     group_label: Search Code Nav
@@ -2666,7 +2702,9 @@ measures:
 
   deep_search_users:
     sql: CASE WHEN (${event_name} = 'deepsearch:search' OR ${event_name} =
-      'deepsearch:search.followup') THEN ${unique_user_id} END
+      'deepsearch:search.followup') AND
+      ${telligentsourcegraph_telemetry__v2_events.counts_as_active_user} THEN
+      ${unique_user_id} END
     group_label: Deep Search
     aggregate_type: count_distinct
 
@@ -3305,7 +3343,7 @@ measures:
     aggregate_type: count
 
   deepsearch_consumed_queries_users:
-    sql: CASE WHEN ${deepsearch_consumed_filter} AND ${service_account} = FALSE THEN
+    sql: CASE WHEN ${deepsearch_consumed_filter} AND ${counts_as_active_user} THEN
       ${unique_user_id} END
     label: DS Users
     group_label: Deep Search
@@ -3317,7 +3355,8 @@ measures:
     group_label: Deep Search
 
   deepsearch_external_client:
-    sql: CASE WHEN ${event_name} = 'deepsearch:search.externalclient' THEN
+    sql: CASE WHEN ${event_name} = 'deepsearch:search.externalclient' AND
+      ${telligentsourcegraph_telemetry__v2_events.counts_as_active_user} THEN
       ${unique_user_id} END
     label: DS External Client Users
     group_label: Deep Search
@@ -3341,7 +3380,8 @@ measures:
     aggregate_type: count_distinct
 
   deep_search_completed_users:
-    sql: CASE WHEN ${event_name} = 'deepsearch:search.completed' THEN
+    sql: CASE WHEN ${event_name} = 'deepsearch:search.completed' AND
+      ${telligentsourcegraph_telemetry__v2_events.counts_as_active_user} THEN
       ${unique_user_id} END
     group_label: Deep Search
     aggregate_type: count_distinct
@@ -3475,7 +3515,8 @@ measures:
     aggregate_type: count
 
   users_categorized:
-    sql: CASE WHEN ${event_name} = 'deepsearch:search.categorized' THEN
+    sql: CASE WHEN ${event_name} = 'deepsearch:search.categorized' AND
+      ${telligentsourcegraph_telemetry__v2_events.counts_as_active_user} THEN
       ${unique_user_id} END
     group_label: DS Categorization
     aggregate_type: count_distinct
@@ -3487,7 +3528,8 @@ measures:
     aggregate_type: count
 
   abc_users_categorized:
-    sql: CASE WHEN ${event_name} = 'batchChangeAgent:categorization' THEN
+    sql: CASE WHEN ${event_name} = 'batchChangeAgent:categorization' AND
+      ${telligentsourcegraph_telemetry__v2_events.counts_as_active_user} THEN
       ${unique_user_id} END
     group_label: ABC Categorization
     aggregate_type: count_distinct
@@ -3499,7 +3541,8 @@ measures:
     aggregate_type: count
 
   evergreen_creators:
-    sql: CASE WHEN ${event_name} = 'deepsearch:evergreen.create' THEN
+    sql: CASE WHEN ${event_name} = 'deepsearch:evergreen.create' AND
+      ${telligentsourcegraph_telemetry__v2_events.counts_as_active_user} THEN
       ${unique_user_id} END
     group_label: DS Evergreen
     aggregate_type: count_distinct
@@ -3510,8 +3553,9 @@ measures:
     aggregate_type: count
 
   evergreen_article_viewers:
-    sql: CASE WHEN ${event_name} = 'deepsearch:evergreen.get' THEN ${unique_user_id}
-      END
+    sql: CASE WHEN ${event_name} = 'deepsearch:evergreen.get' AND
+      ${telligentsourcegraph_telemetry__v2_events.counts_as_active_user} THEN
+      ${unique_user_id} END
     group_label: DS Evergreen
     aggregate_type: count_distinct
 
@@ -3587,7 +3631,9 @@ measures:
 
   # ── Deep Search Slack ─────────────────────────────────────────
   slack_ds_users:
-    sql: CASE WHEN ${event_name} LIKE 'slack.deepsearch%' THEN ${unique_user_id} END
+    sql: CASE WHEN ${event_name} LIKE 'slack.deepsearch%' AND
+      ${telligentsourcegraph_telemetry__v2_events.counts_as_active_user} THEN
+      ${unique_user_id} END
     group_label: Deep Search Slack
     aggregate_type: count_distinct
 
@@ -3686,7 +3732,7 @@ measures:
       CASE
         WHEN ${event_name} = 'search:mcp.toolcall'
              AND (${tool_call_category} IS NULL OR ${tool_call_category} != 'Tools List')
-             AND ${service_account} = FALSE
+             AND ${counts_as_active_user}
         THEN ${unique_user_id}
       END
     label: MCP Users
@@ -3777,13 +3823,17 @@ measures:
     aggregate_type: count
 
   distinct_ai_query_users:
-    sql: CASE WHEN ${event_name} = 'search.nls:enter' THEN ${unique_user_id} END
+    sql: CASE WHEN ${event_name} = 'search.nls:enter' AND
+      ${telligentsourcegraph_telemetry__v2_events.counts_as_active_user} THEN
+      ${unique_user_id} END
     label: AI Query Users (Enter state)
     group_label: AI Query Assist
     aggregate_type: count_distinct
 
   distinct_ai_query_completed_users:
-    sql: CASE WHEN ${event_name} = 'search.nls:exit' THEN ${unique_user_id} END
+    sql: CASE WHEN ${event_name} = 'search.nls:exit' AND
+      ${telligentsourcegraph_telemetry__v2_events.counts_as_active_user} THEN
+      ${unique_user_id} END
     label: AI Query Users (Exit state)
     group_label: AI Query Assist
     aggregate_type: count_distinct
@@ -3864,7 +3914,9 @@ measures:
 
   abc_users:
     sql: CASE WHEN ${event_name} = 'batchChangeAgent.processMessage:succeeded' AND
-      ${abc_agent_id} > 0 THEN ${unique_user_id} END
+      ${abc_agent_id} > 0 AND
+      ${telligentsourcegraph_telemetry__v2_events.counts_as_active_user} THEN
+      ${unique_user_id} END
     label: ABC Agent Message Users
     group_label: ABC
     aggregate_type: count_distinct
@@ -3879,7 +3931,8 @@ measures:
     aggregate_type: count_distinct
 
   abc_home_view_users:
-    sql: CASE WHEN ${event_name} = 'batchChangeAgents.home:view' THEN
+    sql: CASE WHEN ${event_name} = 'batchChangeAgents.home:view' AND
+      ${telligentsourcegraph_telemetry__v2_events.counts_as_active_user} THEN
       ${unique_user_id} END
     label: ABC Home View Users
     group_label: ABC
@@ -3891,7 +3944,8 @@ measures:
     aggregate_type: count
 
   abc_apply_users:
-    sql: CASE WHEN ${event_name} = 'batchChangeAgent.applyBatchSpec:succeeded' THEN
+    sql: CASE WHEN ${event_name} = 'batchChangeAgent.applyBatchSpec:succeeded' AND
+      ${telligentsourcegraph_telemetry__v2_events.counts_as_active_user} THEN
       ${unique_user_id} END
     label: ABC Apply Users
     group_label: ABC
@@ -3899,6 +3953,7 @@ measures:
 
   abc_publish_users:
     sql: CASE WHEN ${event_name} = 'batchChangeAgent.publishWorkspaces:succeeded'
+      AND ${telligentsourcegraph_telemetry__v2_events.counts_as_active_user}
       THEN ${unique_user_id} END
     label: ABC Publish Users
     group_label: ABC
@@ -4041,7 +4096,7 @@ measures:
   agent_view_users:
     sql: |
       CASE
-        WHEN ${event_name} = 'batchChangeAgents.agent:view' THEN ${unique_user_id}
+        WHEN ${event_name} = 'batchChangeAgents.agent:view' AND ${telligentsourcegraph_telemetry__v2_events.counts_as_active_user} THEN ${unique_user_id}
       END
     group_label: ABC
     aggregate_type: count_distinct
@@ -4057,7 +4112,7 @@ measures:
   click_new_users:
     sql: |
       CASE
-        WHEN ${event_name} = 'batchChangeAgents.home.create:click' THEN ${unique_user_id}
+        WHEN ${event_name} = 'batchChangeAgents.home.create:click' AND ${telligentsourcegraph_telemetry__v2_events.counts_as_active_user} THEN ${unique_user_id}
       END
     group_label: ABC
     aggregate_type: count_distinct
@@ -4073,7 +4128,7 @@ measures:
   user_input_users:
     sql: |
       CASE
-        WHEN ${event_name} = 'batchChangeAgent.askUser:submit' THEN ${unique_user_id}
+        WHEN ${event_name} = 'batchChangeAgent.askUser:submit' AND ${telligentsourcegraph_telemetry__v2_events.counts_as_active_user} THEN ${unique_user_id}
       END
     group_label: ABC
     aggregate_type: count_distinct
@@ -4093,6 +4148,7 @@ measures:
           JSON_VALUE(${parameters_metadata}, '$.batchChangeID'),
           '0'
         ) != '0'
+        AND ${telligentsourcegraph_telemetry__v2_events.counts_as_active_user}
         THEN ${unique_user_id}
       END
     group_label: ABC
@@ -4119,8 +4175,9 @@ measures:
     aggregate_type: count
 
   batch_change_run_users:
-    sql: CASE WHEN ${event_name} = 'batches:executeBatchSpec' THEN ${unique_user_id}
-      END
+    sql: CASE WHEN ${event_name} = 'batches:executeBatchSpec' AND
+      ${telligentsourcegraph_telemetry__v2_events.counts_as_active_user} THEN
+      ${unique_user_id} END
     label: Batch Specs Executed/Run Users
     group_label: Batch Changes
     aggregate_type: count_distinct
@@ -4130,7 +4187,7 @@ measures:
       CASE
         WHEN ${sourcegrapgh_v2_product} = 'batch'
              AND ${is_billing_event} = TRUE
-             AND ${service_account} = FALSE
+             AND ${counts_as_active_user}
         THEN ${unique_user_id}
       END
     group_label: Search Events
@@ -4153,14 +4210,14 @@ measures:
 
   code_insights_users:
     sql: |
-      CASE WHEN ${daulookup_product} = 'insight' AND ${is_billing_event} = TRUE AND ${service_account} = FALSE THEN ${unique_user_id} END
+      CASE WHEN ${daulookup_product} = 'insight' AND ${is_billing_event} = TRUE AND ${counts_as_active_user} THEN ${unique_user_id} END
     label: Code Insights Users
     group_label: Count Distinct Users
     aggregate_type: count_distinct
 
   batch_users:
     sql: |
-      CASE WHEN ${daulookup_product} = 'batch' AND ${is_billing_event} = TRUE AND ${service_account} = FALSE THEN ${unique_user_id} END
+      CASE WHEN ${daulookup_product} = 'batch' AND ${is_billing_event} = TRUE AND ${counts_as_active_user} THEN ${unique_user_id} END
     label: Batch Users
     group_label: Count Distinct Users
     aggregate_type: count_distinct
@@ -4190,7 +4247,7 @@ measures:
         is: true
 
   code_finder_users:
-    sql: CASE WHEN ${code_finder_filter} AND ${service_account} = FALSE THEN
+    sql: CASE WHEN ${code_finder_filter} AND ${counts_as_active_user} THEN
       ${unique_user_id} END
     label: Code Finder Users
     group_label: Count Distinct Users
@@ -4202,21 +4259,21 @@ measures:
     aggregate_type: count
 
   smart_hover_users:
-    sql: CASE WHEN ${smart_hover_filter} AND ${service_account} = FALSE THEN
+    sql: CASE WHEN ${smart_hover_filter} AND ${counts_as_active_user} THEN
       ${unique_user_id} END
     label: Smart Hover Users
     group_label: Count Distinct Users
     aggregate_type: count_distinct
 
   diff_tour_users:
-    sql: CASE WHEN ${diff_tour_filter} AND ${service_account} = FALSE THEN
+    sql: CASE WHEN ${diff_tour_filter} AND ${counts_as_active_user} THEN
       ${unique_user_id} END
     label: Diff Tours Users
     group_label: Count Distinct Users
     aggregate_type: count_distinct
 
   credits_metering_users:
-    sql: CASE WHEN ${credits_metering_events} AND ${service_account} = FALSE THEN
+    sql: CASE WHEN ${credits_metering_events} AND ${counts_as_active_user} THEN
       ${unique_user_id} END
     label: Credits Metering Users
     group_label: Count Distinct Users
@@ -4240,7 +4297,9 @@ measures:
         is: externalApi:request
 
   external_api_users:
-    sql: ${unique_user_id}
+    sql: CASE WHEN
+      ${telligentsourcegraph_telemetry__v2_events.counts_as_active_user} THEN
+      ${unique_user_id} END
     label: External API Users
     group_label: External API
     aggregate_type: count_distinct
@@ -4283,7 +4342,9 @@ measures:
     aggregate_type: count_distinct
 
   abc_mcp_users:
-    sql: CASE WHEN ${abc_mcp_invocation} THEN ${unique_user_id} END
+    sql: CASE WHEN ${abc_mcp_invocation} AND
+      ${telligentsourcegraph_telemetry__v2_events.counts_as_active_user} THEN
+      ${unique_user_id} END
     label: ABC MCP Users
     group_label: ABC MCP
     aggregate_type: count_distinct
