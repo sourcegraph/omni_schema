@@ -1558,7 +1558,6 @@ dimensions:
   abc_mcp_event:
     sql: ${event_name} = 'search:mcp.toolcall' AND
       JSON_VALUE(${parameters_metadata}, '$.endpoint') = '8'
-    hidden: true
 
   abc_mcp_invocation:
     sql: ${abc_mcp_event} AND COALESCE(JSON_VALUE(${parameters_metadata},
