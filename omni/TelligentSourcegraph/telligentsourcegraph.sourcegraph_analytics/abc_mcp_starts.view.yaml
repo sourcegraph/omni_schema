@@ -17,6 +17,7 @@ dimensions:
   merged_at: {}
   customer_key: {}
   customer_name: {}
+  is_service_account: {}
 
   agent_id:
     format: ID
