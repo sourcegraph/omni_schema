@@ -1,6 +1,4 @@
 # Reference this view as telligentsourcegraph_credits_analytics__credits_pacing_by_customer
-hidden: true
-
 catalog: telligentsourcegraph
 schema: credits_analytics
 table_name: credits_pacing_by_customer
@@ -21,7 +19,9 @@ dimensions:
   rp_last_14: {}
   rp_last_60: {}
   rp_lifetime: {}
-  projected_exhaustion_label: {}
+
+  projected_exhaustion_label:
+    label: Projected run-out
 
   instance_domains:
     label: Instance Domain
@@ -64,6 +64,7 @@ dimensions:
     format: percent_1
 
   projected_end_consumption_pct:
+    label: Projected % used at renewal
     format: percent_1
 
   time_left_pct:
@@ -85,10 +86,13 @@ dimensions:
   pace_band:
     sql: |-
       CASE pace_band
+        WHEN 'a0_will_exhaust_early'  THEN '🟢 Ahead - Will Exhaust Early (>=100%)'
         WHEN 'a_on_or_ahead'          THEN '🟢 On or Ahead (>=90%)'
         WHEN 'b_slightly_behind'      THEN '🟡 Slightly Behind (70-90%)'
         WHEN 'c_significantly_behind' THEN '🟠 Significantly Behind (50-70%)'
-        WHEN 'd_severely_behind'      THEN '🔴 Severely Behind (<50%)'
+        WHEN 'd1_severely_behind'     THEN '🔴 Severely Behind (<50%)'
+        WHEN 'd3_not_started'         THEN '🔴 Not Activated'
+        WHEN 'd2_minimal_usage'       THEN '🔴 Minimal Usage'
         WHEN 'e_onboarding_new_customer'      THEN '🆕 Onboarding New Customer'
       WHEN 'f_new_bucket_ramping'      THEN '⏳ New Bucket Ramping'
       END
@@ -101,8 +105,10 @@ dimensions:
         WHEN 'b_slightly_behind'      THEN 2
         WHEN 'c_significantly_behind' THEN 3
         WHEN 'd_severely_behind'      THEN 4
-        WHEN 'f_new_bucket_ramping' THEN 5
-        WHEN 'e_onboarding_new_customer'      THEN 6
+        WHEN 'd2_minimal_usage'       THEN 5
+        WHEN 'd3_not_started'         THEN 6 
+        WHEN 'f_new_bucket_ramping' THEN 7
+        WHEN 'e_onboarding_new_customer'      THEN 8
       END
     label: Pace Band (sort)
     description: Numeric sort key so pace bands order best-to-worst in charts
@@ -185,7 +191,9 @@ measures:
       CASE
         WHEN ${pace_band} IN (
           '🟠 Significantly Behind (50-70%)',
-          '🔴 Severely Behind (<50%)'
+          '🔴 Severely Behind (<50%)',
+          '🔴 Not Activated',
+          '🔴 Minimal Usage'
         ) THEN 1
       END
     label: Accounts Behind
@@ -194,7 +202,8 @@ measures:
     aggregate_type: count
 
   accounts_on_or_ahead:
-    sql: CASE WHEN ${pace_band} = '🟢 On or Ahead (>=90%)' THEN 1 END
+    sql: CASE WHEN ${pace_band} IN ('🟢 On or Ahead (>=90%)', '🟢 Ahead - Will
+      Exhaust Early (>=100%)') THEN 1 END
     label: Accounts On or Ahead
     aggregate_type: count
 
@@ -210,7 +219,8 @@ measures:
     aggregate_type: count
 
   accounts_severely_behind:
-    sql: CASE WHEN ${pace_band} = '🔴 Severely Behind (<50%)' THEN 1 END
+    sql: CASE WHEN ${pace_band} IN ('🔴 Severely Behind (<50%)', '🔴 Not
+      Activated','🔴 Minimal Usage') THEN 1 END
     label: Accounts Severely Behind
     aggregate_type: count
 
