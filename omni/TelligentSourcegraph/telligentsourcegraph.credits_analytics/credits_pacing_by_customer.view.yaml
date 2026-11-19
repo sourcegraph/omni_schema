@@ -11,10 +11,17 @@ dimensions:
   # ── Counts ─────────────────────────────────────────────────────
   active_buckets: {}
   active_subscriptions: {}
+  pace_ratio_pct_repriced: {}
+  credits_actual_events: {}
   forecast_daily_burn_rate: {}
   forecast_method: {}
+  forecast_basis: {}
   credits_last_14: {}
   credits_last_60: {}
+  rp_last_14: {}
+  rp_last_60: {}
+  rp_lifetime: {}
+  projected_exhaustion_label: {}
 
   instance_domains:
     label: Instance Domain
