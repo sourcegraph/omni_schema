@@ -1,0 +1,14 @@
+extends: [ events_v2 ]
+label: ABC MCP usage
+description: ABC endpoint calls, including separate discovery and unknown historical Start attribution.
+always_where_filters:
+  telligentsourcegraph_telemetry__v2_events.timestamp:
+    time_for_duration: [ 360 day ago, 360 day ]
+  telligentsourcegraph_telemetry__v2_events.abc_mcp_event:
+    is: true
+ai_context: |-
+  Use abc_mcp_calls for invocations; abc_mcp_discovery_calls is separate.
+  Successful Start calls include retries. Use the ABC MCP Start cohort topic for unique runs and conversion.
+  Use ABC-specific latency measures, which deduplicate event UUIDs. Group by tool because reads can wait.
+  Users include service accounts. Filter service_account explicitly when comparing human adoption.
+  Unknown Start attribution is not UI origin. Failure includes refusals, not just server errors.

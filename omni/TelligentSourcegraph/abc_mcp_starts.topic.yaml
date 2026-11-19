@@ -1,0 +1,12 @@
+base_view: abc_mcp_starts
+label: ABC MCP Start cohort
+description: MCP origin joined to ABC lifecycle stages, retaining runs that never reach the funnel.
+default_filters:
+  abc_mcp_starts.observed_start_at:
+    time_for_duration: [ 30 day ago, 30 day ]
+ai_context: |-
+  Filter observed_start_at for the Start cohort, not the stage timestamps.
+  Stages include later outcomes available in the latest daily ABC funnel refresh.
+  Do not filter merged_at to count the denominator; that excludes unmerged runs.
+  runs_merged counts agents, not merged changesets or billable units.
+  Historical Starts without an agent ID are unknown in the ABC MCP usage topic, not attributable runs.
