@@ -4411,5 +4411,40 @@ measures:
     group_label: MCP
     aggregate_type: count
 
+  abc_apply_succeeded:
+    label: ABC Applies Succeeded
+    group_label: ABC
+    description: Successful applyBatchSpec events.
+    aggregate_type: count
+    filters:
+      event_name:
+        is: batchChangeAgent.applyBatchSpec:succeeded
+
+  abc_planning_only_messages:
+    label: ABC Planning-Only Messages
+    group_label: ABC
+    description: Successful agent messages with no batch change attached.
+    aggregate_type: count
+    filters:
+      event_name:
+        is: batchChangeAgent.processMessage:succeeded
+      abc_batch_change_id:
+        or:
+          - is_empty: true
+          - is: "0"
+
+  abc_messages_with_batch_change:
+    label: ABC Messages With Batch Change
+    group_label: ABC
+    description: Successful agent messages tied to a batch change.
+    aggregate_type: count
+    filters:
+      event_name:
+        is: batchChangeAgent.processMessage:succeeded
+      abc_batch_change_id:
+        and:
+          - not_is_empty: true
+          - not: "0"
+
 ai_context: when referring to Deep Search always use deepsearch_consumed_queries
   for product usage volume and deepsearch_consumed_queries_users for users
