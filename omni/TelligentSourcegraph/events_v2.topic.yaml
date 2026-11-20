@@ -20,6 +20,7 @@ joins:
     telligentsourcegraph_sourcegraph_analytics__customer_telemetry_status_updated: {}
   telligentsourcegraph_telemetry_staging__cloud_users: {}
   telligentsourcegraph_workspaces_transformed__dim_workspaces: {}
+  telligentsourcegraph_telemetry__abc_user_changeset_stats: {}
 
 ai_context: |-
   IMPORTANT:
