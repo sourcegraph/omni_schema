@@ -1,0 +1,21 @@
+# Reference this view as telligentsourcegraph_sourcegraph_analytics__abc_user_changeset_stats
+catalog: telligentsourcegraph
+schema: sourcegraph_analytics
+table_name: abc_user_changeset_stats
+
+dimensions:
+  activity_date: {}
+  external_url: {}
+  agent_messages_succeeded: {}
+  agent_messages_total: {}
+  is_agent_active: {}
+  changesets_created: {}
+  changesets_closed: {}
+  changesets_merged: {}
+
+  unique_user_id:
+    format: ID
+
+measures:
+  count:
+    aggregate_type: count

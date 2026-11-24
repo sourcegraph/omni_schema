@@ -50,6 +50,7 @@ dimensions:
   account_industry: {}
   batch_specs_published_all_time: {}
   mcp_tool_calls_past_30d: {}
+  cody_events_60d: {}
 
   salesforce_account_id:
     format: ID

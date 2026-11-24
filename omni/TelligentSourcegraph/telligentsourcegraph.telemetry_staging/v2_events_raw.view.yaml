@@ -262,6 +262,14 @@ dimensions:
        Learn more about SAMS: https://handbook.sourcegraph.com/departments/engineering/teams/core-services/sams
     parent_field: user
 
+  user_serviceaccount:
+    sql: "`user`.serviceAccount"
+    description: |-
+      TRUE when the user is a service account. Never FALSE: NULL means unknown, which covers human
+       users, Sourcegraph versions that do not report it, and events recorded
+       outside an authenticated request.
+    parent_field: user
+
   user_userid:
     sql: "`user`.userId"
     description: |-
