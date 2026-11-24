@@ -6,18 +6,33 @@ table_name: abc_user_changeset_stats
 dimensions:
   activity_date: {}
   external_url: {}
-  agent_messages_succeeded: {}
-  agent_messages_total: {}
   is_agent_active: {}
-  changesets_created: {}
-  changesets_closed: {}
-  changesets_merged: {}
   first_successful_message_at: {}
   last_successful_message_at: {}
   is_first_active_day: {}
 
+  agent_messages_succeeded:
+    hidden: true
+
+  agent_messages_total:
+    hidden: true
+
+  changesets_created:
+    hidden: true
+
+  changesets_closed:
+    hidden: true
+
+  changesets_merged:
+    hidden: true
+
   unique_user_id:
     format: ID
+
+  user_key:
+    sql: CONCAT(${unique_user_id}, '|', ${external_url})
+    hidden: true
+    primary_key: true
 
   instance_user_id:
     format: ID
@@ -25,3 +40,44 @@ dimensions:
 measures:
   count:
     aggregate_type: count
+
+  total_agent_messages_succeeded:
+    sql: ${agent_messages_succeeded}
+    label: Agent Messages (Succeeded)
+    aggregate_type: sum
+
+  total_agent_messages:
+    sql: ${agent_messages_total}
+    label: Agent Messages (All)
+    aggregate_type: sum
+
+  abc_user_changesets_created:
+    sql: ${changesets_created}
+    label: Changesets Created
+    group_label: ABC User Changesets
+    aggregate_type: sum
+
+  abc_user_changesets_closed:
+    sql: ${changesets_closed}
+    label: Changesets Closed
+    group_label: ABC User Changesets
+    aggregate_type: sum
+
+  abc_user_changesets_merged:
+    sql: ${changesets_merged}
+    label: Changesets Merged
+    group_label: ABC User Changesets
+    aggregate_type: sum
+
+  abc_user_changesets_still_open:
+    sql: ${abc_user_changesets_created} - ${abc_user_changesets_merged} -
+      ${abc_user_changesets_closed}
+    label: Changesets Still Open
+    group_label: ABC User Changesets
+
+  abc_user_changeset_merged_pct:
+    sql: SAFE_DIVIDE(${abc_user_changesets_merged},
+      NULLIF(${abc_user_changesets_created}, 0))
+    label: Changeset Merge %
+    group_label: ABC User Changesets
+    format: percent_1

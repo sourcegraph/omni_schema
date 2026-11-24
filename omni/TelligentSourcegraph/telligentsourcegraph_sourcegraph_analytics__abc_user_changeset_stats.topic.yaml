@@ -1,0 +1,7 @@
+base_view: telligentsourcegraph_sourcegraph_analytics__abc_user_changeset_stats
+label: ABC User Stats
+
+joins:
+  telligentsourcegraph_sfdc_current__looker_dim_account_details: {}
+  telligentsourcegraph_sourcegraph_analytics__server_instances: {}
+  telligentsourcegraph_telemetry_staging__cloud_users: {}
