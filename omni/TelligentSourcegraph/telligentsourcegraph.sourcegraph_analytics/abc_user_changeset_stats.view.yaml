@@ -12,6 +12,9 @@ dimensions:
   changesets_created: {}
   changesets_closed: {}
   changesets_merged: {}
+  first_successful_message_at: {}
+  last_successful_message_at: {}
+  is_first_active_day: {}
 
   unique_user_id:
     format: ID
