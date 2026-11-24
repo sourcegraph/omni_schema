@@ -19,6 +19,9 @@ dimensions:
   unique_user_id:
     format: ID
 
+  instance_user_id:
+    format: ID
+
 measures:
   count:
     aggregate_type: count
