@@ -3358,7 +3358,7 @@ measures:
     sql: CASE WHEN ${event_name} = 'deepsearch:search.externalclient' AND
       ${telligentsourcegraph_telemetry__v2_events.counts_as_active_user} THEN
       ${unique_user_id} END
-    label: DS External Client Users
+    label: DS External Client Users (all endpoints)
     group_label: Deep Search
     aggregate_type: count_distinct
 
@@ -3369,9 +3369,20 @@ measures:
              AND JSON_EXTRACT_SCALAR(parameters.metadata, '$.endpoint') IN ('3','5','7')
         THEN 1
       END
-    label: DS External API Queries
+    label: DS External API Queries (MCP)
     group_label: Deep Search
     aggregate_type: count
+
+  deepsearch_external_users:
+    sql: |-
+      CASE
+        WHEN ${event_name} = 'deepsearch:search.externalclient'
+             AND JSON_EXTRACT_SCALAR(parameters.metadata, '$.endpoint') IN ('3','5','7')
+        THEN ${unique_user_id}
+      END
+    label: DS External API Users (MCP)
+    group_label: Deep Search
+    aggregate_type: count_distinct
 
   tool_call_distinct_questions:
     sql: CASE WHEN ${event_name} = 'deepsearch:search.toolcall' THEN
@@ -4410,6 +4421,16 @@ measures:
     label: Deep Search MCP Tool Calls
     group_label: MCP
     aggregate_type: count
+
+  count_deep_search_mcp_tool_call_users:
+    sql: |-
+      CASE
+        WHEN ${mcp_tool_call_category_split} = 'Deep Search MCP Tools'
+        THEN ${unique_user_id}
+      END
+    label: Deep Search MCP Tool Call Users
+    group_label: MCP
+    aggregate_type: count_distinct
 
   abc_apply_succeeded:
     label: ABC Applies Succeeded
