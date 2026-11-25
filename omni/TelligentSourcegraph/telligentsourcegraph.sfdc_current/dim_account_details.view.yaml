@@ -20,6 +20,9 @@ dimensions:
   poc_end_date: {}
   technical_champion: {}
   external_url: {}
+  pricing_metric: {}
+  total_seats: {}
+  total_arr: {}
 
   ai_terms:
     label: AI Terms (SFDC)

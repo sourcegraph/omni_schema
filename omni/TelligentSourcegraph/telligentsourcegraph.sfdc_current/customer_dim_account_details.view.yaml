@@ -49,6 +49,9 @@ dimensions:
   year_one_solution_engineer: {}
   technical_champion: {}
   external_url: {}
+  pricing_metric: {}
+  total_seats: {}
+  total_arr: {}
 
   account_id:
     format: ID
