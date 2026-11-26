@@ -1603,6 +1603,51 @@ dimensions:
     label: ABC MCP Client
     group_label: ABC MCP
 
+  # ABC calls use event UUIDs; successful Start replays share a run key.
+  abc_mcp_event:
+    sql: ${event_name} = 'search:mcp.toolcall' AND
+      JSON_VALUE(${parameters_metadata}, '$.endpoint') = '8'
+    hidden: true
+
+  abc_mcp_invocation:
+    sql: ${abc_mcp_event} AND
+      COALESCE(JSON_VALUE(${parameters_metadata}, '$.toolCallId'), '') != '19'
+    hidden: true
+
+  abc_mcp_start_mode:
+    sql: |-
+      CASE WHEN ${abc_mcp_event} THEN
+        CASE JSON_VALUE(${parameters_metadata}, '$.toolCallId')
+          WHEN '26' THEN 'Attended'
+          WHEN '34' THEN 'Unattended'
+        END
+      END
+    group_label: ABC MCP
+
+  abc_mcp_agent_id:
+    sql: |-
+      CASE WHEN ${abc_mcp_start_mode} IS NOT NULL AND ${mcp_terminal_state} = 'Success'
+        THEN SAFE_CAST(JSON_VALUE(${parameters_metadata}, '$.agentID') AS INT64) END
+    format: ID
+    hidden: true
+
+  abc_mcp_run_key:
+    sql: |-
+      CASE WHEN ${abc_mcp_agent_id} > 0 AND NULLIF(${external_url}, '') IS NOT NULL
+        THEN CONCAT(LOWER(${external_url}), '|', CAST(${abc_mcp_agent_id} AS STRING)) END
+    hidden: true
+
+  abc_mcp_start_attribution:
+    sql: |-
+      CASE WHEN ${abc_mcp_start_mode} IS NOT NULL AND ${mcp_terminal_state} = 'Success'
+        THEN CASE WHEN ${abc_mcp_run_key} IS NULL THEN 'Unknown' ELSE 'Attributed' END END
+    group_label: ABC MCP
+    description: Successful Starts without an agent ID or instance URL remain unknown, including older events.
+
+  abc_mcp_client:
+    sql: CASE WHEN ${abc_mcp_event} THEN COALESCE(NULLIF(${cody_api_user_agent}, ''), 'Unknown') END
+    group_label: ABC MCP
+
   # ── AI Query Assist ───────────────────────────────────────────
   suggestion_applied:
     sql: |-
@@ -3802,6 +3847,77 @@ measures:
     group_label: MCP
     format: number_0
     aggregate_type: sum
+
+  abc_mcp_calls:
+    sql: CASE WHEN ${abc_mcp_invocation} THEN ${id} END
+    label: ABC tool calls
+    group_label: ABC MCP
+    aggregate_type: count_distinct
+    description: Unique event UUIDs, excluding tools/list. Replayed requests are separate calls.
+
+  abc_mcp_discovery_calls:
+    sql: CASE WHEN ${abc_mcp_event} AND NOT ${abc_mcp_invocation} THEN ${id} END
+    label: ABC discovery calls
+    group_label: ABC MCP
+    aggregate_type: count_distinct
+
+  abc_mcp_users:
+    sql: CASE WHEN ${abc_mcp_invocation} THEN ${unique_user_id} END
+    label: ABC users, including service accounts
+    group_label: ABC MCP
+    aggregate_type: count_distinct
+
+  abc_mcp_instances:
+    sql: CASE WHEN ${abc_mcp_invocation} THEN LOWER(NULLIF(${external_url}, '')) END
+    label: ABC instances
+    group_label: ABC MCP
+    aggregate_type: count_distinct
+
+  abc_mcp_start_calls:
+    sql: CASE WHEN ${abc_mcp_start_mode} IS NOT NULL THEN ${id} END
+    label: ABC Start calls
+    group_label: ABC MCP
+    aggregate_type: count_distinct
+
+  abc_mcp_attributed_start_calls:
+    sql: CASE WHEN ${abc_mcp_start_attribution} = 'Attributed' THEN ${id} END
+    label: Successful Start calls with run attribution
+    group_label: ABC MCP
+    aggregate_type: count_distinct
+
+  abc_mcp_unknown_start_calls:
+    sql: CASE WHEN ${abc_mcp_start_attribution} = 'Unknown' THEN ${id} END
+    label: Successful Start calls with unknown run attribution
+    group_label: ABC MCP
+    aggregate_type: count_distinct
+
+  abc_mcp_p50_duration:
+    sql: CASE WHEN ${abc_mcp_invocation} THEN ${mcp_duration} END
+    label: ABC call p50 duration (ms)
+    group_label: ABC MCP
+    aggregate_type: percentile_distinct_on
+    custom_primary_key_sql: ${id}
+    percentile: 50
+
+  abc_mcp_p95_duration:
+    sql: CASE WHEN ${abc_mcp_invocation} THEN ${mcp_duration} END
+    label: ABC call p95 duration (ms)
+    group_label: ABC MCP
+    aggregate_type: percentile_distinct_on
+    custom_primary_key_sql: ${id}
+    percentile: 95
+
+  abc_mcp_last_event:
+    sql: CASE WHEN ${abc_mcp_event} THEN ${timestamp} END
+    label: Latest ABC event in selection
+    group_label: ABC MCP
+    aggregate_type: max
+
+  abc_mcp_last_ingested:
+    sql: CASE WHEN ${abc_mcp_event} THEN ${publish_time} END
+    label: Latest ABC ingestion in selection
+    group_label: ABC MCP
+    aggregate_type: max
 
   # ── AI Query Assist ───────────────────────────────────────────
   volume_trend:
